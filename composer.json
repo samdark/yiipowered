@@ -1,0 +1,52 @@
+{
+    "name": "yiipowered/yiipowered",
+    "description": "Showcase of Yii-powered projects",
+    "keywords": ["yii2", "yii", "projects", "websites", "showcase"],
+    "homepage": "http://yiipowered.com/",
+    "type": "project",
+    "license": "BSD-3-Clause",
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.4.0",
+        "yiisoft/yii2": "~2.0.10",
+        "yiisoft/yii2-bootstrap": "~2.0.6",
+        "yiisoft/yii2-swiftmailer": "~2.0.6",
+        "yiisoft/yii2-authclient": "~2.1.1",
+        "cebe/yii2-gravatar": "~1.1",
+        "baibaratsky/yii2-rollbar": "1.2.*",
+        "bower-asset/codemirror": "~5.9.0",
+        "bower-asset/codemirror-buttons": "~1.0.4",
+        "creocoder/yii2-taggable": "~2.0.7",
+        "codemix/yii2-localeurls": "^1.2"
+    },
+    "require-dev": {
+        "yiisoft/yii2-debug": "~2.0.0",
+        "yiisoft/yii2-gii": "~2.0.0"
+    },
+    "config": {
+        "process-timeout": 1800
+    },
+    "scripts": {
+        "post-create-project-cmd": [
+            "yii\\composer\\Installer::postCreateProject"
+        ]
+    },
+    "extra": {
+        "yii\\composer\\Installer::postCreateProject": {
+            "setPermission": [
+                {
+                    "runtime": "0777",
+                    "web/assets": "0777",
+                    "yii": "0755"
+                }
+            ],
+            "generateCookieValidationKey": [
+                "config/web.php"
+            ]
+        },
+        "asset-installer-paths": {
+            "npm-asset-library": "vendor/npm",
+            "bower-asset-library": "vendor/bower"
+        }
+    }
+}
