@@ -49,9 +49,8 @@ $config = [
                 '*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'fileMap' => [
-                        'news' => 'news.php',
+                        'project' => 'project.php',
                         'user' => 'user.php',
-                        'comments' => 'comments.php',
                     ],
                 ],
             ],
@@ -61,9 +60,24 @@ $config = [
             'clients' => require __DIR__ . '/authclients.php',
         ],
         'urlManager' => [
+            'class' => 'codemix\localeurls\UrlManager',
+            'languages' => [
+                'en' => 'en-US',
+                'ru' => 'ru-RU',
+            ],
+            'ignoreLanguageUrlPatterns' => [
+                '~^site/auth~' => '~^auth~',
+            ],
+            'enableDefaultLanguageUrlCode' => true,
+
             'enablePrettyUrl' => true,
             'rules' => require __DIR__ . '/urls.php',
             'showScriptName' => false,
+
+        ],
+
+        'assetManager' => [
+            'appendTimestamp' => true,
         ],
     ],
     'params' => $params,

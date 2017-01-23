@@ -16,7 +16,7 @@
         "baibaratsky/yii2-rollbar": "1.2.*",
         "bower-asset/codemirror": "~5.9.0",
         "bower-asset/codemirror-buttons": "~1.0.4",
-        "creocoder/yii2-taggable": "~2.0.7",
+        "creocoder/yii2-taggable": "~2.0.0",
         "codemix/yii2-localeurls": "^1.2"
     },
     "require-dev": {

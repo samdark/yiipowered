@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d64d8e19b6c1832ef25a4fb86fad1cc",
+    "content-hash": "c50afd7dbb998561e20ed259fdf25a90",
     "packages": [
         {
             "name": "baibaratsky/yii2-rollbar",
@@ -412,6 +412,88 @@
                 "yii"
             ],
             "time": "2013-12-10T17:49:58+00:00"
+        },
+        {
+            "name": "codemix/yii2-localeurls",
+            "version": "1.4.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codemix/yii2-localeurls.git",
+                "reference": "f080c39eec2e989173f3c10f3fba36f3043bdd2f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codemix/yii2-localeurls/zipball/f080c39eec2e989173f3c10f3fba36f3043bdd2f",
+                "reference": "f080c39eec2e989173f3c10f3fba36f3043bdd2f",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "codemix\\localeurls\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Härtl",
+                    "email": "haertl.mike@gmail.com"
+                }
+            ],
+            "description": "Automatic locale/language management for URLs.",
+            "keywords": [
+                "i18n",
+                "locale",
+                "yii2"
+            ],
+            "time": "2017-01-09T12:26:05+00:00"
+        },
+        {
+            "name": "creocoder/yii2-taggable",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/creocoder/yii2-taggable.git",
+                "reference": "d2c73df372a490ccc45dd064c52f3f022d62dde5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/creocoder/yii2-taggable/zipball/d2c73df372a490ccc45dd064c52f3f022d62dde5",
+                "reference": "d2c73df372a490ccc45dd064c52f3f022d62dde5",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "creocoder\\taggable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Kochetov",
+                    "email": "creocoder@gmail.com"
+                }
+            ],
+            "description": "The taggable behavior for the Yii framework",
+            "keywords": [
+                "Taggable",
+                "tags",
+                "yii2"
+            ],
+            "time": "2015-02-24T21:45:58+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
