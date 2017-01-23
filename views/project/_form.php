@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
 <?php $form = ActiveForm::begin(['id' => 'news-form']) ?>
 
 <?= $form->field($model, 'title')->textInput(['maxlength' => 50]) ?>
-<?= $form->field($model, 'description')->textarea() ?>
+<?= $form->field($model, 'description')->textarea(['class' => 'markdown-editor']) ?>
 
 <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($model, 'status')->dropDownList(\app\models\Project::statuses()) ?>

@@ -102,7 +102,7 @@ class ProjectController extends Controller
             }
 
             $item->pubDate = $project->created_at;
-            $item->setAuthor('noreply@yiipowered.com', 'YiiFeed');
+            $item->setAuthor('noreply@yiipowered.com', 'YiiPowered');
             $feed->addItem($item);
         }
 

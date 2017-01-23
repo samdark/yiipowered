@@ -123,3 +123,9 @@ function initEditor(el) {
         ]
     });
 };
+
+$("document").ready(function(){
+    if ($('.markdown-editor').length) {
+        initEditor($('.markdown-editor'));
+    }
+});

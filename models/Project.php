@@ -242,7 +242,7 @@ class Project extends \yii\db\ActiveRecord
     {
         return $this
             ->hasMany(ProjectDescription::className(), ['project_id' => 'id'])
-            ->orderBy(new Expression("language = 'en-US'"))
+            ->orderBy(new Expression("language = 'en-US' DESC"))
             ->indexBy('language');
     }
 

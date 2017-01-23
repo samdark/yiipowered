@@ -16,7 +16,7 @@ $displayModeratorButtons = isset($displayModeratorButtons) ? $displayModeratorBu
 
 // OpenGraph metatags
 $this->registerMetaTag(['property' => 'og:title', 'content' => Html::encode($model->title)]);
-$this->registerMetaTag(['property' => 'og:site_name', 'content' => 'YiiFeed']);
+$this->registerMetaTag(['property' => 'og:site_name', 'content' => 'YiiPowered']);
 $this->registerMetaTag(['property' => 'og:url', 'content' => Url::canonical()]);
 
 ?>
