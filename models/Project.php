@@ -246,17 +246,25 @@ class Project extends \yii\db\ActiveRecord
             ->indexBy('language');
     }
 
-    public function beforeSave($insert)
+    public function afterSave($insert, $changedAttributes)
     {
-        if (!parent::beforeSave($insert)) {
-            return false;
-        }
+        parent::afterSave($insert, $changedAttributes);
 
         if ($this->_description !== null) {
             $this->saveDescription($this->_description);
         }
 
-        return true;
+        if ($insert) {
+            $this->addCurrentUser();
+        }
+    }
+
+    private function addCurrentUser()
+    {
+        $projectUser = new ProjectUser();
+        $projectUser->project_id = $this->id;
+        $projectUser->user_id = Yii::$app->getUser()->getId();
+        return $projectUser->save();
     }
 
     private function saveDescription($content)
