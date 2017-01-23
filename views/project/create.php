@@ -20,6 +20,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'title') ?>
     <?= $form->field($model, 'url') ?>
 
+    <?= $form->field($model, 'description')->textarea() ?>
+
     <?= $form->field($model, 'yii_version')->dropDownList(\app\models\Project::versions()) ?>
 
 

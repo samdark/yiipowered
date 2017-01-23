@@ -2,6 +2,11 @@
 
 $params = require(__DIR__ . '/params.php');
 
+$languages = [];
+foreach ($params['languages'] as $id => $data) {
+    $languages[$id] = $data[0];
+}
+
 $config = [
     'id' => 'yiipowered',
     'basePath' => dirname(__DIR__),
@@ -61,10 +66,7 @@ $config = [
         ],
         'urlManager' => [
             'class' => 'codemix\localeurls\UrlManager',
-            'languages' => [
-                'en' => 'en-US',
-                'ru' => 'ru-RU',
-            ],
+            'languages' => $languages,
             'ignoreLanguageUrlPatterns' => [
                 '~^site/auth~' => '~^auth~',
             ],

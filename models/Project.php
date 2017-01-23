@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "{{%project}}".
@@ -32,7 +33,8 @@ use yii\behaviors\TimestampBehavior;
  * @property ProjectUser[] $projectUsers
  * @property User[] $users
  * @property Vote[] $votes
- * @property User[] $users0
+ * @property User[] $voters
+ * @property ProjectDescription[] $descriptions
  */
 class Project extends \yii\db\ActiveRecord
 {
@@ -41,6 +43,8 @@ class Project extends \yii\db\ActiveRecord
 
     const YII_VERSION_11 = '1.1';
     const YII_VERSION_20 = '2.0';
+
+    private $_description;
 
     /**
      * @inheritdoc
@@ -79,6 +83,7 @@ class Project extends \yii\db\ActiveRecord
             [['is_opensource'], 'boolean'],
             [['title', 'url', 'source_url'], 'string', 'max' => 255],
             [['yii_version'], 'in', 'range' => array_keys(self::versions())],
+            [['description'], 'safe'],
         ];
     }
 
@@ -171,14 +176,38 @@ class Project extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUsers0()
+    public function getVoters()
     {
         return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('{{%vote}}', ['project_id' => 'id']);
     }
 
+    /**
+     * Returns description for a language specified or for current application language
+     *
+     * @param string $language
+     * @return string
+     */
     public function getDescription($language = null)
     {
-        // TODO: implement
+        if ($language === null) {
+            $language = Yii::$app->language;
+        }
+
+        $descriptions = $this->descriptions;
+        if ($descriptions === []) {
+            return '';
+        }
+
+        if (isset($descriptions[$language])) {
+            return $descriptions[$language]->content;
+        }
+
+        return reset($descriptions)->content;
+    }
+
+    public function setDescription($value)
+    {
+        $this->_description = $value;
     }
 
     public static function versions()
@@ -204,5 +233,51 @@ class Project extends \yii\db\ActiveRecord
             return $statuses[$this->status];
         }
         return Yii::t('project', 'Unknown');
+    }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getDescriptions()
+    {
+        return $this
+            ->hasMany(ProjectDescription::className(), ['project_id' => 'id'])
+            ->orderBy(new Expression("language = 'en-US'"))
+            ->indexBy('language');
+    }
+
+    public function beforeSave($insert)
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+
+        if ($this->_description !== null) {
+            $this->saveDescription($this->_description);
+        }
+
+        return true;
+    }
+
+    private function saveDescription($content)
+    {
+        $language = Yii::$app->language;
+        $description = ProjectDescription::find()->where([
+            'project_id' => $this->id,
+            'language' => $language,
+        ])->one();
+
+        if ($description && empty($content)) {
+            return $description->delete() !== false;
+        }
+
+        if (!$description) {
+            $description = new ProjectDescription();
+            $description->project_id = $this->id;
+            $description->language = $language;
+        }
+
+        $description->content = $content;
+        return $description->save();
     }
 }

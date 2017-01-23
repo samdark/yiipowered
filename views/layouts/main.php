@@ -61,6 +61,11 @@ AppAsset::register($this);
             }
             ?>
 
+            <span class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> <b class="caret"></b></a>
+                <?= \app\widgets\LanguageDropdown::widget() ?>
+            </span>
+
             <?= yii\helpers\Html::a(Yii::t('project', 'Add project'), ['project/create'], ['class' => 'btn btn-success navbar-btn']) ?>
 
             <?php

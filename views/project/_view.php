@@ -35,26 +35,26 @@ $this->registerMetaTag(['property' => 'og:url', 'content' => Url::canonical()]);
             <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
             <?= Yii::$app->formatter->asDate($model->created_at) ?>
         </p>
-        <?php /*if ($displayUser && $model->user_id): ?>
-        <p class="author">
-            <?= Html::a(Avatar::widget(['user' => $model->user]) . ' @' . Html::encode($model->user->username), ['user/view', 'id' => $model->user->id]) ?>
-        </p>
-        <?php endif */ ?>
+        <?php if ($displayUser): ?>
+            <?php foreach ($model->users as $user): ?>
+                <p class="author">
+                    <?= Html::a(Avatar::widget(['user' => $user]) . ' @' . Html::encode($user->username), ['user/view', 'id' => $user->id]) ?>
+                </p>
+            <?php endforeach ?>
+        <?php endif ?>
 
         <?php if ($displayStatus): ?>
         <p><?= Yii::t('project', 'Status') .": ". $model->getStatusLabel() ?></p>
         <?php endif ?>
 
-        <?php if ($displayModeratorButtons): ?>
-            <?= Html::a(Yii::t('project', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a(Yii::t('project', 'Delete'), ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger',
-                'data' => [
-                    'confirm' => Yii::t('project', 'Are you sure you want to delete this item?'),
-                    'method' => 'post',
-                ],
-            ]) ?>
-        <?php endif ?>
+        <?= Html::a(Yii::t('project', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('project', 'Delete'), ['delete', 'id' => $model->id], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => Yii::t('project', 'Are you sure you want to delete this item?'),
+                'method' => 'post',
+            ],
+        ]) ?>
     </div>
     <div class="col-sm-9 col-md-10 post">
         <h1>
@@ -62,10 +62,7 @@ $this->registerMetaTag(['property' => 'og:url', 'content' => Url::canonical()]);
         </h1>
 
         <div class="content">
-            <?= HtmlPurifier::process(Markdown::process($model->getDescription(), 'gfm'), [
-                'HTML.SafeIframe' => true,
-                'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
-            ]) ?>
+            <?= HtmlPurifier::process(Markdown::process($model->getDescription(), 'gfm')) ?>
 
             <?php if ($isFull): ?>
             <div class="meta">
