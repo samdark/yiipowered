@@ -11,7 +11,7 @@ $this->title = $model->title;
 <div class="row news-view">
 
     <div class="col-xs-12">
-        <?php if(\Yii::$app->user->can('manageProjects')): ?>
+        <?php if(\Yii::$app->user->can('manage_projects')): ?>
             <div class="controls">
                 <?= Html::a(Yii::t('project', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
                 <?= Html::a(Yii::t('project', 'Delete'), ['delete', 'id' => $model->id], [

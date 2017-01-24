@@ -30,7 +30,7 @@ use \yii\widgets\ListView;
                     <h3><?= Html::a(Html::encode($model->getGithubProfileUrl()), $model->getGithubProfileUrl())?></h3>
                 <?php endif ?>
 
-                <?php if (Yii::$app->user->can('manageUsers')): ?>
+                <?php if (Yii::$app->user->can('manage_users')): ?>
                     <p>
                         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
                         <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [

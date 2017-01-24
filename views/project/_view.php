@@ -66,8 +66,8 @@ $this->registerMetaTag(['property' => 'og:url', 'content' => Url::canonical()]);
 
             <?php if ($isFull): ?>
             <div class="meta">
-                <?php if (!empty($model->link)): ?>
-                    <p><?= Html::a(Html::encode($model->link), $model->link) ?></p>
+                <?php if (!empty($model->url)): ?>
+                    <p><?= Html::a(Html::encode($model->url), $model->url) ?></p>
                 <?php endif ?>
 
                 <a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-hashtags="yii" data-url="<?= Url::canonical() ?>" data-text="<?= Html::encode($model->title) ?>">Tweet</a>
