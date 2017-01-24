@@ -47,12 +47,12 @@ class Vote extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'user_id' => Yii::t('app', 'User ID'),
-            'project_id' => Yii::t('app', 'Project ID'),
-            'value' => Yii::t('app', 'Value'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
+            'id' => Yii::t('vote', 'ID'),
+            'user_id' => Yii::t('vote', 'User ID'),
+            'project_id' => Yii::t('vote', 'Project ID'),
+            'value' => Yii::t('vote', 'Value'),
+            'created_at' => Yii::t('vote', 'Created At'),
+            'updated_at' => Yii::t('vote', 'Updated At'),
         ];
     }
 

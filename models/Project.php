@@ -38,6 +38,8 @@ use yii\db\Expression;
  */
 class Project extends \yii\db\ActiveRecord
 {
+    const SCENARIO_MANAGE = 'manage';
+
     const STATUS_DELETED = 0;
     const STATUS_PUBLISHED = 10;
 
@@ -80,10 +82,19 @@ class Project extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'yii_version'], 'required'],
-            [['is_opensource'], 'boolean'],
+            [['is_opensource', 'is_featured'], 'boolean'],
             [['title', 'url', 'source_url'], 'string', 'max' => 255],
+            [['url', 'source_url'], 'url'],
             [['yii_version'], 'in', 'range' => array_keys(self::versions())],
             [['description'], 'safe'],
+        ];
+    }
+
+    public function scenarios()
+    {
+        return [
+            self::SCENARIO_DEFAULT => ['title', 'url', 'is_opensource', 'source_url', 'yii_verison', 'description'],
+            self::SCENARIO_MANAGE => ['title', 'url', 'is_opensource', 'source_url', 'yii_verison', 'description', 'status', 'is_featured'],
         ];
     }
 
@@ -93,19 +104,19 @@ class Project extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'title' => Yii::t('app', 'Title'),
-            'slug' => Yii::t('app', 'Slug'),
-            'url' => Yii::t('app', 'URL'),
-            'is_opensource' => Yii::t('app', 'Is OpenSource'),
-            'source_url' => Yii::t('app', 'Source URL'),
-            'created_by' => Yii::t('app', 'Created By'),
-            'updated_by' => Yii::t('app', 'Updated By'),
-            'status' => Yii::t('app', 'Status'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
-            'is_featured' => Yii::t('app', 'Is Featured'),
-            'yii_version' => Yii::t('app', 'Yii Version'),
+            'id' => Yii::t('project', 'ID'),
+            'title' => Yii::t('project', 'Title'),
+            'slug' => Yii::t('project', 'Slug'),
+            'url' => Yii::t('project', 'URL'),
+            'is_opensource' => Yii::t('project', 'Is OpenSource'),
+            'source_url' => Yii::t('project', 'Source URL'),
+            'created_by' => Yii::t('project', 'Created By'),
+            'updated_by' => Yii::t('project', 'Updated By'),
+            'status' => Yii::t('project', 'Status'),
+            'created_at' => Yii::t('project', 'Created At'),
+            'updated_at' => Yii::t('project', 'Updated At'),
+            'is_featured' => Yii::t('project', 'Is Featured'),
+            'yii_version' => Yii::t('project', 'Yii Version'),
         ];
     }
 

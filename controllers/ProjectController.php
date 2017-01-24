@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\components\feed\Feed;
 use app\components\feed\Item;
+use app\components\Permissions;
 use app\models\Project;
 use app\notifier\NewProjectNotification;
 use app\notifier\Notifier;
@@ -63,6 +64,9 @@ class ProjectController extends Controller
     public function actionCreate()
     {
         $model = new Project();
+        if (Yii::$app->user->can(Permissions::MANAGE_PROJECTS)) {
+            $model->setScenario(Project::SCENARIO_MANAGE);
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $notifier = new Notifier(new NewProjectNotification($model));
@@ -128,6 +132,9 @@ class ProjectController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        if (Yii::$app->user->can(Permissions::MANAGE_PROJECTS)) {
+            $model->setScenario(Project::SCENARIO_MANAGE);
+        }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id, 'slug' => $model->slug]);
         } else {

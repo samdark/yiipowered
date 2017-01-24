@@ -42,8 +42,8 @@ class ProjectUser extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'project_id' => Yii::t('app', 'Project ID'),
-            'user_id' => Yii::t('app', 'User ID'),
+            'project_id' => Yii::t('project', 'Project ID'),
+            'user_id' => Yii::t('project', 'User ID'),
         ];
     }
 

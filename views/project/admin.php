@@ -4,7 +4,7 @@ use \yii\widgets\ListView;
 
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $this yii\web\View */
-$this->title = Yii::t('project', 'Project admin');
+$this->title = Yii::t('project', 'Manage projects');
 ?>
 <div class="row news-index">
     <div class="col-xs-12">

@@ -198,19 +198,19 @@ class User extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'username' => Yii::t('app', 'Username'),
-            'fullname' => Yii::t('app', 'Fullname'),
-            'auth_key' => Yii::t('app', 'Auth Key'),
-            'password_hash' => Yii::t('app', 'Password Hash'),
-            'password_reset_token' => Yii::t('app', 'Password Reset Token'),
-            'email' => Yii::t('app', 'Email'),
-            'github' => Yii::t('app', 'Github'),
-            'twitter' => Yii::t('app', 'Twitter'),
-            'facebook' => Yii::t('app', 'Facebook'),
-            'status' => Yii::t('app', 'Status'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
+            'id' => Yii::t('user', 'ID'),
+            'username' => Yii::t('user', 'Username'),
+            'fullname' => Yii::t('user', 'Fullname'),
+            'auth_key' => Yii::t('user', 'Auth Key'),
+            'password_hash' => Yii::t('user', 'Password Hash'),
+            'password_reset_token' => Yii::t('user', 'Password Reset Token'),
+            'email' => Yii::t('user', 'Email'),
+            'github' => Yii::t('user', 'Github'),
+            'twitter' => Yii::t('user', 'Twitter'),
+            'facebook' => Yii::t('user', 'Facebook'),
+            'status' => Yii::t('user', 'Status'),
+            'created_at' => Yii::t('user', 'Created At'),
+            'updated_at' => Yii::t('user', 'Updated At'),
         ];
     }
 

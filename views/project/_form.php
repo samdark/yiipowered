@@ -1,5 +1,6 @@
 <?php
 
+use app\components\Permissions;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -19,6 +20,10 @@ use yii\widgets\ActiveForm;
 
 <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($model, 'status')->dropDownList(\app\models\Project::statuses()) ?>
+
+<?php if (Yii::$app->user->can(Permissions::MANAGE_PROJECTS)): ?>
+    <?= $form->field($model, 'is_featured')->checkbox() ?>
+<?php endif ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('project', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

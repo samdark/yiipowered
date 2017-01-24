@@ -32,11 +32,11 @@ use \yii\widgets\ListView;
 
                 <?php if (Yii::$app->user->can('manage_users')): ?>
                     <p>
-                        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
+                        <?= Html::a(Yii::t('user', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                        <?= Html::a(Yii::t('user', 'Delete'), ['delete', 'id' => $model->id], [
                             'class' => 'btn btn-danger',
                             'data' => [
-                                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                'confirm' => Yii::t('user', 'Are you sure you want to delete this item?'),
                                 'method' => 'post',
                             ],
                         ]) ?>

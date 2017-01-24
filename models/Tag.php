@@ -48,13 +48,13 @@ class Tag extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'icon' => Yii::t('app', 'Icon'),
-            'description' => Yii::t('app', 'Description'),
-            'type' => Yii::t('app', 'Type'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
+            'id' => Yii::t('tag', 'ID'),
+            'name' => Yii::t('tag', 'Name'),
+            'icon' => Yii::t('tag', 'Icon'),
+            'description' => Yii::t('tag', 'Description'),
+            'type' => Yii::t('tag', 'Type'),
+            'created_at' => Yii::t('tag', 'Created At'),
+            'updated_at' => Yii::t('tag', 'Updated At'),
         ];
     }
 

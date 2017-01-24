@@ -42,8 +42,8 @@ class ProjectTag extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'project_id' => Yii::t('app', 'Project ID'),
-            'tag_id' => Yii::t('app', 'Tag ID'),
+            'project_id' => Yii::t('project', 'Project ID'),
+            'tag_id' => Yii::t('project', 'Tag ID'),
         ];
     }
 

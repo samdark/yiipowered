@@ -49,13 +49,13 @@ class Image extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'project_id' => Yii::t('app', 'Project ID'),
-            'created_by' => Yii::t('app', 'Created By'),
-            'updated_by' => Yii::t('app', 'Updated By'),
-            'status' => Yii::t('app', 'Status'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
+            'id' => Yii::t('image', 'ID'),
+            'project_id' => Yii::t('image', 'Project ID'),
+            'created_by' => Yii::t('image', 'Created By'),
+            'updated_by' => Yii::t('image', 'Updated By'),
+            'status' => Yii::t('image', 'Status'),
+            'created_at' => Yii::t('image', 'Created At'),
+            'updated_at' => Yii::t('image', 'Updated At'),
         ];
     }
 
