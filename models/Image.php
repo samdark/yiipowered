@@ -82,4 +82,19 @@ class Image extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Project::className(), ['id' => 'project_id'])->inverseOf('images');
     }
+
+    public function getUrl()
+    {
+        return Yii::getAlias('@web/img/project/' . $this->project_id . '/' . $this->getFilename());
+    }
+
+    public function getFilename()
+    {
+        return $this->id . '.png';
+    }
+
+    public function getPath()
+    {
+        return Yii::getAlias('@app/images') . '/' . $this->project_id . '/' . $this->getFilename();
+    }
 }

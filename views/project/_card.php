@@ -1,11 +1,12 @@
 <?php
 /* @var $model \app\models\Project */
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 ?>
 
-<div class="project-card col-xs-3 well">
-    <h1>
-        <?= Html::a(Html::encode($model->title), ['project/view', 'id' => $model->id, 'slug' => $model->slug]) ?>
-    </h1>
-</div>
+
+<a class="project-card col-xs-4" href="<?= Url::to(['project/view', 'id' => $model->id, 'slug' => $model->slug]) ?>">
+    <img class="img-responsive" src="<?= $model->getPrimaryImageUrl() ?>" alt="">
+    <h1><?= Html::encode($model->title) ?></h1>
+</a>

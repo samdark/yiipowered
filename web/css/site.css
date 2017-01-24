@@ -117,3 +117,20 @@ a.desc:after {
 .CodeMirror {
     border: 1px solid #eee;
 }
+
+.project-card {
+    position: relative;
+}
+
+.project-card img {
+    background: #ccc;
+}
+
+.project-card h1 {
+    font-size: large;
+    position: absolute;
+    right: 15px;
+    bottom: 0;
+    padding: 1rem;
+    background: rgba(255, 255, 255, .8);
+}

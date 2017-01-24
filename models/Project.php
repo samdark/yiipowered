@@ -130,6 +130,20 @@ class Project extends \yii\db\ActiveRecord
         return $this->hasMany(Image::className(), ['project_id' => 'id'])->inverseOf('project');
     }
 
+    public function getPlaceholderUrl()
+    {
+        return '/img/project_no_image.png';
+    }
+
+    public function getPrimaryImageUrl()
+    {
+        if (empty($this->images)) {
+            return $this->getPlaceholderUrl();
+        }
+
+        return $this->images[0]->getUrl();
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */

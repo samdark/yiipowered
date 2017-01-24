@@ -23,7 +23,6 @@ $this->title = $model->title;
             </div>
         <?php endif ?>
         <?= $this->render('_view', [
-            'isFull' => true,
             'model' => $model,
         ]) ?>
     </div>
