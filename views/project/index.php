@@ -11,22 +11,27 @@ $this->title = Yii::t('project', 'Projects built with Yii');
     <div class="col-xs-12">
         <h1><?= Yii::t('project', 'Featured projects') ?></h1>
 
-        <?= ListView::widget([
-            'dataProvider' => $featuredProvider,
-            'layout' => '{items}',
-            'itemOptions' => ['class' => 'item'],
-            'itemView' => '_view'
-        ]) ?>
+        <div class="container">
+            <?= ListView::widget([
+                'dataProvider' => $featuredProvider,
+                'layout' => '{items}',
+                'itemOptions' => ['class' => 'item'],
+                'itemView' => '_card'
+            ]) ?>
+        </div>
 
         <h1><?= Yii::t('project', 'New projects') ?></h1>
 
-        <?= ListView::widget([
-            'dataProvider' => $newProvider,
-            'layout' => '{items}',
-            'itemOptions' => ['class' => 'item'],
-            'itemView' => '_view'
-        ]) ?>
-        
+
+        <div class="container">
+            <?= ListView::widget([
+                'dataProvider' => $newProvider,
+                'layout' => '{items}',
+                'itemOptions' => ['class' => 'item'],
+                'itemView' => '_card'
+            ]) ?>
+        </div>
+
         <?= \yii\bootstrap\Html::a(Yii::t('project', 'More projects'), ['project/list'], ['class' => 'btn btn-default']) ?>
     </div>
 </div>

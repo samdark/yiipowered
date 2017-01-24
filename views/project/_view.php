@@ -46,15 +46,6 @@ $this->registerMetaTag(['property' => 'og:url', 'content' => Url::canonical()]);
         <?php if ($displayStatus): ?>
         <p><?= Yii::t('project', 'Status') .": ". $model->getStatusLabel() ?></p>
         <?php endif ?>
-
-        <?= Html::a(Yii::t('project', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('project', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('project', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
     </div>
     <div class="col-sm-9 col-md-10 post">
         <h1>

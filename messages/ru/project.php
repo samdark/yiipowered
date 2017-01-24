@@ -54,7 +54,7 @@ return [
     'Title' => 'Название',
     'URL' => 'URL',
     'Unknown' => 'Неизвестен',
-    'Update' => 'Редактиоровать',
+    'Update' => 'Редактировать',
     'Update project {title}' => 'Редактировать проект {title}',
     'User ID' => 'ID пользователя',
     'Yes' => 'Да',

@@ -4,7 +4,6 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Project */
-/* @var $commentForm app\models\Comment */
 
 $this->title = $model->title;
 ?>

@@ -40,11 +40,13 @@ $this->title = Yii::t('project', 'Projects');
             ]);
         } ?>
 
-        <?= ListView::widget([
-            'dataProvider' => $dataProvider,
-            'layout' => '{items}{pager}',
-            'itemOptions' => ['class' => 'item'],
-            'itemView' => '_view'
-        ]) ?>
+        <div class="container">
+            <?= ListView::widget([
+                'dataProvider' => $dataProvider,
+                'layout' => '{items}{pager}',
+                'itemOptions' => ['class' => 'item'],
+                'itemView' => '_card'
+            ]) ?>
+        </div>
     </div>
 </div>
