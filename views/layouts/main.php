@@ -37,13 +37,6 @@ AppAsset::register($this);
             ]);
 
             $menuItems = [
-                '<form id="searchbox_006237035567373325440:lmymu4nwvsa" action="http://www.google.com/search" class="navbar-form navbar-left">
-                    <fieldset class="form-group">
-                        <input id="search_input" name="q" type="text" size="20" maxlength="256" class="form-control" placeholder="Search for...">
-                        <input type="hidden" name="cx" value="FILL_ME">
-                        <input type="hidden" name="cof" value="FORID:0">
-                    </fieldset>
-                </form>',
                 ['label' => 'RSS', 'url' => ['/project/rss']],
             ];
             if (Yii::$app->user->isGuest) {
