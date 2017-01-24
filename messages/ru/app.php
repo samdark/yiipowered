@@ -17,6 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'Unknown' => 'Неизвестен',
     'About' => 'О проекте',
     'Linked {client} account.' => '{client} привязан.',
     'Social network {client} has been successfully disabled.' => '{client} отвязан.',

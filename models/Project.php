@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\components\Language;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\SluggableBehavior;
@@ -117,6 +118,7 @@ class Project extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('project', 'Updated At'),
             'is_featured' => Yii::t('project', 'Is Featured'),
             'yii_version' => Yii::t('project', 'Yii Version'),
+            'description' => Yii::t('project', 'Description in {language}', ['language' => Language::current()])
         ];
     }
 

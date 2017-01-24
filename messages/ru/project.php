@@ -19,10 +19,9 @@
 return [
     'Created At' => '',
     'Created By' => '',
-    'No' => 'Нет',
+    'Description in {language}' => 'Описание на языке "{language}"',
     'Updated At' => '',
     'Updated By' => '',
-    'Yes' => 'Да',
     'Add project' => 'Добавить проект',
     'Any Verison' => 'Любая версия',
     'Apply' => 'Применить',
@@ -38,6 +37,7 @@ return [
     'Language' => 'Язык',
     'Manage projects' => 'Упраление проектами',
     'New projects' => 'Новые проекты',
+    'No' => 'Нет',
     'Only Featured' => 'Только выбор редакции',
     'OpenSource' => 'Открытый код',
     'Project ID' => 'ID проекта',
@@ -56,5 +56,6 @@ return [
     'Update' => 'Редактиоровать',
     'Update project {title}' => 'Редактировать проект {title}',
     'User ID' => 'ID пользователя',
+    'Yes' => 'Да',
     'Yii Version' => 'Версия Yii',
 ];
