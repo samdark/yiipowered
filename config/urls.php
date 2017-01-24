@@ -1,6 +1,7 @@
 <?php
 return [
-    'project/<id:\d+>/<slug>' => 'project/view',
+    'projects' => 'project/list',
+    'projects/<id:\d+>/<slug>' => 'project/view',
     'user' => 'user/view',
 
     'about' => 'site/about',

@@ -26,6 +26,7 @@ $this->title = Yii::t('project', 'Projects built with Yii');
             'itemOptions' => ['class' => 'item'],
             'itemView' => '_view'
         ]) ?>
+        
+        <?= \yii\bootstrap\Html::a(Yii::t('project', 'More projects'), ['project/list'], ['class' => 'btn btn-default']) ?>
     </div>
-
 </div>

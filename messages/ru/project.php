@@ -19,7 +19,7 @@
 return [
     'Created At' => '',
     'Created By' => '',
-    'Description in {language}' => 'Описание на языке "{language}"',
+    'More projects' => 'Ещё проекты',
     'Updated At' => '',
     'Updated By' => '',
     'Add project' => 'Добавить проект',
@@ -29,6 +29,7 @@ return [
     'Content' => 'Содержимое',
     'Delete' => 'Удалить',
     'Deleted' => 'Удалён',
+    'Description in {language}' => 'Описание на языке "{language}"',
     'Does not matter' => 'Не важно',
     'Featured projects' => 'Выбор редакции',
     'ID' => 'ID',
