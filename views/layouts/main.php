@@ -89,7 +89,7 @@ AppAsset::register($this);
         <div class="container">
             <p class="pull-left">
                 &copy; YiiPowered <?= date('Y') ?> |
-                <?= Html::a('About', ['/site/about']) ?>
+                <?= Html::a(Yii::t('app', 'About'), ['/site/about']) ?>
             </p>
             <p class="pull-right"><?= Yii::powered() ?></p>
         </div>

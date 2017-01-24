@@ -224,8 +224,8 @@ class Project extends \yii\db\ActiveRecord
     public static function versions()
     {
         return [
-            self::YII_VERSION_11 => self::YII_VERSION_11,
             self::YII_VERSION_20 => self::YII_VERSION_20,
+            self::YII_VERSION_11 => self::YII_VERSION_11,
         ];
     }
 

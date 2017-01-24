@@ -1,25 +1,28 @@
 <?php
 
 use \yii\widgets\ListView;
-use yii\bootstrap\Alert;
 
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $featuredProvider yii\data\ActiveDataProvider */
+/* @var $newProvider yii\data\ActiveDataProvider */
 /* @var $this yii\web\View */
-$this->title = Yii::t('project', 'Projects');
+$this->title = Yii::t('project', 'Projects built with Yii');
 ?>
-<div class="row news-index">
-    <?php if (Yii::$app->session->hasFlash('project.project_successfully_added')) {
-        echo Alert::widget([
-            'options' => [
-                'class' => 'alert-success',
-            ],
-            'body' => Yii::t('project', 'Project added!'),
-        ]);
-    } ?>
+<div class="row project-index">
     <div class="col-xs-12">
+        <h1><?= Yii::t('project', 'Featured projects') ?></h1>
+
         <?= ListView::widget([
-            'dataProvider' => $dataProvider,
-            'layout' => '{items}{pager}',
+            'dataProvider' => $featuredProvider,
+            'layout' => '{items}',
+            'itemOptions' => ['class' => 'item'],
+            'itemView' => '_view'
+        ]) ?>
+
+        <h1><?= Yii::t('project', 'New projects') ?></h1>
+
+        <?= ListView::widget([
+            'dataProvider' => $newProvider,
+            'layout' => '{items}',
             'itemOptions' => ['class' => 'item'],
             'itemView' => '_view'
         ]) ?>

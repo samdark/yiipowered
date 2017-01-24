@@ -17,6 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'About' => 'О проекте',
     'Linked {client} account.' => '{client} привязан.',
     'Social network {client} has been successfully disabled.' => '{client} отвязан.',
     'Unable to link {client} account. There is another user using it.' => 'Не удалось привязать {client} так как это уже сделал другой пользователь.',

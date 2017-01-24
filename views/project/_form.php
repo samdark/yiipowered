@@ -1,6 +1,7 @@
 <?php
 
 use app\components\Permissions;
+use app\models\Project;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -13,20 +14,27 @@ use yii\widgets\ActiveForm;
 \app\assets\MarkdownEditorAsset::register($this);
 ?>
 
-<?php $form = ActiveForm::begin(['id' => 'news-form']) ?>
+<?php $form = ActiveForm::begin(['id' => 'project-form']) ?>
 
 <?= $form->field($model, 'title')->textInput(['maxlength' => 50]) ?>
 <?= $form->field($model, 'description')->textarea(['class' => 'markdown-editor']) ?>
 
 <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
-<?= $form->field($model, 'status')->dropDownList(\app\models\Project::statuses()) ?>
+
+<div class="well">
+    <?= $form->field($model, 'is_opensource')->checkbox() ?>
+    <?= $form->field($model, 'source_url')->textInput(['maxlength' => 255]) ?>
+</div>
 
 <?php if (Yii::$app->user->can(Permissions::MANAGE_PROJECTS)): ?>
-    <?= $form->field($model, 'is_featured')->checkbox() ?>
+    <fieldset class="well">
+        <?= $form->field($model, 'is_featured')->checkbox() ?>
+        <?= $form->field($model, 'status')->dropDownList(Project::statuses()) ?>
+    </fieldset>
 <?php endif ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('project', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton(Yii::t('project', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
 <?php ActiveForm::end() ?>

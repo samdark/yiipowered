@@ -6,6 +6,7 @@ use app\components\feed\Feed;
 use app\components\feed\Item;
 use app\components\Permissions;
 use app\models\Project;
+use app\models\ProjectFilterForm;
 use app\notifier\NewProjectNotification;
 use app\notifier\Notifier;
 use Yii;
@@ -51,13 +52,36 @@ class ProjectController extends Controller
 
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Project::find()->where(['status' => Project::STATUS_PUBLISHED])->orderBy('created_at DESC'),
-            'pagination' => ['pageSize' => 10],
+        $featuredProvider = new ActiveDataProvider([
+            'query' => Project::find()->where([
+                'status' => Project::STATUS_PUBLISHED,
+                'is_featured' => true,
+            ])->orderBy('created_at DESC')
+            ->limit(10)
+        ]);
+
+        $newProvider = new ActiveDataProvider([
+            'query' => Project::find()->where([
+                'status' => Project::STATUS_PUBLISHED,
+                'is_featured' => false,
+            ])->orderBy('created_at DESC')
+            ->limit(10)
         ]);
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+            'featuredProvider' => $featuredProvider,
+            'newProvider' => $newProvider,
+        ]);
+    }
+
+    public function actionList()
+    {
+        $filterForm = new ProjectFilterForm();
+        $filterForm->load(Yii::$app->request->get());
+
+        return $this->render('list', [
+            'dataProvider' => $filterForm->getDataProvider(),
+            'filterForm' => $filterForm,
         ]);
     }
 
