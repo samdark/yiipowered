@@ -113,3 +113,7 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.CodeMirror {
+    border: 1px solid #eee;
+}
