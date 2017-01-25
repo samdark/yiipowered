@@ -49,11 +49,10 @@ $this->registerMetaTag(['property' => 'og:url', 'content' => Url::canonical()]);
             <?php else: ?>
                 <?php foreach ($model->images as $image): ?>
                     <div class="col-xs-4">
-                        <img class="img-responsive" src="<?= $image->getUrl() ?>" alt="">
+                        <a href="<?= $image->getUrl() ?>"><img class="img-responsive" src="<?= $image->getThumbnailUrl() ?>" alt=""></a>
                     </div>
                 <?php endforeach ?>
             <?php endif ?>
         </div>
     </div>
 </div>
-

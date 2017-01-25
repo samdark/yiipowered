@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\components\feed\Feed;
 use app\components\feed\Item;
 use app\components\UserPermissions;
+use app\models\ImageUploadForm;
 use app\models\Project;
 use app\models\ProjectFilterForm;
 use app\notifier\NewProjectNotification;
@@ -18,10 +19,10 @@ use yii\web\Controller;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\ForbiddenHttpException;
-use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\ServerErrorHttpException;
+use yii\web\UploadedFile;
 
 class ProjectController extends Controller
 {
@@ -180,8 +181,17 @@ class ProjectController extends Controller
             'status' => Project::STATUS_PUBLISHED,
         ]);
 
+        $imageUploadForm = new ImageUploadForm($id);
+        if (Yii::$app->request->isPost) {
+            $imageUploadForm->files = UploadedFile::getInstances($imageUploadForm, 'files');
+            if ($imageUploadForm->upload()) {
+                return $this->refresh();
+            }
+        }
+
         return $this->render('view', [
             'model' => $project,
+            'imageUploadForm' => $imageUploadForm,
         ]);
     }
 

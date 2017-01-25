@@ -3,6 +3,10 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\helpers\FileHelper;
+use yii\imagine\Image as ImagineImage;
 
 /**
  * This is the model class for table "{{%image}}".
@@ -21,6 +25,12 @@ use Yii;
  */
 class Image extends \yii\db\ActiveRecord
 {
+    const STATUS_DELETED = 0;
+    const STATUS_PUBLISHED = 10;
+
+    const SIZE_FULL = [804, 528];
+    const SIZE_THUMBNAIL = [402, 264];
+
     /**
      * @inheritdoc
      */
@@ -32,13 +42,25 @@ class Image extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+            ],
+            [
+                'class' => BlameableBehavior::className(),
+            ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
-            [['project_id', 'created_by', 'updated_by', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['created_at', 'updated_at'], 'required'],
-            [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
-            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
+            [['project_id'], 'integer'],
             [['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => Project::className(), 'targetAttribute' => ['project_id' => 'id']],
         ];
     }
@@ -85,16 +107,76 @@ class Image extends \yii\db\ActiveRecord
 
     public function getUrl()
     {
-        return Yii::getAlias('@web/img/project/' . $this->project_id . '/' . $this->getFilename());
+        return Yii::getAlias('@web/img/project/' . $this->project_id . '/' . $this->getFullFilename());
     }
 
-    public function getFilename()
+    public function getThumbnailUrl()
+    {
+        return Yii::getAlias('@web/img/project/' . $this->project_id . '/' . $this->getThumbnailFilename());
+    }
+
+    public function getOriginalFilename()
     {
         return $this->id . '.png';
     }
 
-    public function getPath()
+    public function getFullFilename()
     {
-        return Yii::getAlias('@app/images') . '/' . $this->project_id . '/' . $this->getFilename();
+        return $this->id . '_full.png';
+    }
+
+    public function getThumbnailFilename()
+    {
+        return $this->id . '_thm.png';
+    }
+
+    public function getOriginalPath()
+    {
+        return Yii::getAlias('@app/images') . '/' . $this->project_id . '/' . $this->getOriginalFilename();
+    }
+
+    public function ensureOriginalPath()
+    {
+        $path = $this->getOriginalPath();
+        FileHelper::createDirectory(dirname($path));
+        return $path;
+    }
+
+    public function getFullPath()
+    {
+        return Yii::getAlias('@webroot/img/project/') . '/' . $this->project_id . '/' . $this->getFullFilename();
+    }
+
+    public function ensureFullPath()
+    {
+        $path = $this->getFullPath();
+        FileHelper::createDirectory(dirname($path));
+        return $path;
+    }
+
+    public function getThumbnailPath()
+    {
+        return Yii::getAlias('@webroot/img/project/') . '/' . $this->project_id . '/' . $this->getThumbnailFilename();
+    }
+
+    public function ensureThumbnailPath()
+    {
+        $path = $this->getThumbnailPath();
+        FileHelper::createDirectory(dirname($path));
+        return $path;
+    }
+
+    public function generateThumbnail()
+    {
+        $size = self::SIZE_THUMBNAIL;
+        ImagineImage::thumbnail($this->getOriginalPath(), $size[0], $size[1])
+            ->save($this->ensureThumbnailPath());
+    }
+
+    public function generateFull()
+    {
+        $size = self::SIZE_FULL;
+        ImagineImage::thumbnail($this->getOriginalPath(), $size[0], $size[1])
+            ->save($this->ensureFullPath());
     }
 }

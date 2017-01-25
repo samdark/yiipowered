@@ -12,6 +12,7 @@
         "yiisoft/yii2-bootstrap": "~2.0.6",
         "yiisoft/yii2-swiftmailer": "~2.0.6",
         "yiisoft/yii2-authclient": "~2.1.1",
+        "yiisoft/yii2-imagine": "~2.1.0",
         "cebe/yii2-gravatar": "~1.1",
         "baibaratsky/yii2-rollbar": "1.2.*",
         "bower-asset/codemirror": "~5.9.0",

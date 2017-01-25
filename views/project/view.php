@@ -1,9 +1,11 @@
 <?php
 
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Project */
+/* @var $imageUploadForm \app\models\ImageUploadForm */
 
 $this->title = $model->title;
 ?>
@@ -20,6 +22,14 @@ $this->title = $model->title;
                         'method' => 'post',
                     ],
                 ]) ?>
+
+                <?php $form = ActiveForm::begin(['id' => 'project-image-upload']) ?>
+                    <?= $form->field($imageUploadForm, 'files')->fileInput(['multiple' => true, 'accept' => 'image/png']) ?>
+                    <div class="form-group">
+                        <?= Html::submitButton(Yii::t('project', 'Upload'), ['class' => 'btn btn-primary']) ?>
+                    </div>
+
+                <?php ActiveForm::end() ?>
             </div>
         <?php endif ?>
         <?= $this->render('_view', [

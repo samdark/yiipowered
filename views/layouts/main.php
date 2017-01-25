@@ -43,7 +43,6 @@ AppAsset::register($this);
                 $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
                 $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
             } else {
-                $menuItems[] = ['label' => 'Manage projects', 'url' => ['/project/admin', 'status' => Project::STATUS_PUBLISHED], 'visible'=> \Yii::$app->user->can('manage_projects')];
                 $menuItems[] = ['label' => 'Manage users', 'url' => ['/user/index'], 'visible'=> \Yii::$app->user->can('manage_users')];
                 $menuItems[] = ['label' => Yii::$app->user->identity->username, 'url' => ['/user/view', 'id' => \Yii::$app->user->id]];
                 $menuItems[] = [
