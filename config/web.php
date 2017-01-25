@@ -10,7 +10,6 @@ foreach ($params['languages'] as $id => $data) {
 $config = [
     'id' => 'yiipowered',
     'basePath' => dirname(__DIR__),
-  //  'language' => 'ru-RU',
     'defaultRoute' => 'project/index',
     'bootstrap' => ['log'],
     'components' => [
@@ -76,6 +75,9 @@ $config = [
             'rules' => require __DIR__ . '/urls.php',
             'showScriptName' => false,
 
+            'normalizer' => [
+                'class' => 'yii\web\UrlNormalizer',
+            ],
         ],
 
         'assetManager' => [
@@ -83,18 +85,6 @@ $config = [
         ],
     ],
     'params' => $params,
-    'on beforeRequest' => function () {
-        // TODO: use new Yii stuff to do it!
-        $pathInfo = Yii::$app->request->pathInfo;
-        $query = Yii::$app->request->queryString;
-        if (!empty($pathInfo) && substr($pathInfo, -1) === '/') {
-            $url = '/' . substr($pathInfo, 0, -1);
-            if ($query) {
-                $url .= '?' . $query;
-            }
-            Yii::$app->response->redirect($url, 301);
-        }
-    },
 ];
 
 if (YII_ENV_DEV) {
