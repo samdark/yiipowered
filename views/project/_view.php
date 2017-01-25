@@ -17,7 +17,12 @@ $this->registerMetaTag(['property' => 'og:url', 'content' => Url::canonical()]);
 
 <div class="row">
     <div class="col-xs-12 col-md-4">
-        <h1><?= Html::a(Html::encode($model->title), ['project/view', 'id' => $model->id, 'slug' => $model->slug]) ?></h1>
+        <h1>
+            <?= Html::encode($model->title) ?>
+            <?php if ($model->is_featured): ?>
+                <span class="glyphicon glyphicon-star featured" aria-hidden="true"></span>
+            <?php endif ?>
+        </h1>
 
         <?php if (!empty($model->url)): ?>
             <p><?= Html::a(Html::encode($model->url), $model->url) ?></p>
@@ -34,7 +39,14 @@ $this->registerMetaTag(['property' => 'og:url', 'content' => Url::canonical()]);
             </p>
         <?php endforeach ?>
 
-        <p><?= Yii::t('project', 'Status') .": ". $model->getStatusLabel() ?></p>
+        <?php if ($model->is_opensource): ?>
+            <?= Yii::t('project', 'Source Code: ') . Html::a($model->source_url, $model->source_url) ?>
+        <?php endif ?>
+
+        <?php if (\app\components\UserPermissions::canManageProject($model)): ?>
+            <p><?= Yii::t('project', 'Status: ') . $model->getStatusLabel() ?></p>
+            <p><?= Yii::t('project', 'Updated: ') . Yii::$app->formatter->asDate($model->updated_at) ?></p>
+        <?php endif ?>
 
         <div class="content">
             <?= HtmlPurifier::process(Markdown::process($model->getDescription(), 'gfm')) ?>

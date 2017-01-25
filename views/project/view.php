@@ -23,13 +23,15 @@ $this->title = $model->title;
                     ],
                 ]) ?>
 
-                <?php $form = ActiveForm::begin(['id' => 'project-image-upload']) ?>
-                    <?= $form->field($imageUploadForm, 'files')->fileInput(['multiple' => true, 'accept' => 'image/png']) ?>
-                    <div class="form-group">
-                        <?= Html::submitButton(Yii::t('project', 'Upload'), ['class' => 'btn btn-primary']) ?>
-                    </div>
+                <?php if ($imageUploadForm !== null): ?>
+                    <?php $form = ActiveForm::begin(['id' => 'project-image-upload']) ?>
+                        <?= $form->field($imageUploadForm, 'files')->fileInput(['multiple' => true, 'accept' => 'image/png']) ?>
+                        <div class="form-group">
+                            <?= Html::submitButton(Yii::t('project', 'Upload'), ['class' => 'btn btn-primary']) ?>
+                        </div>
 
-                <?php ActiveForm::end() ?>
+                    <?php ActiveForm::end() ?>
+                <?php endif ?>
             </div>
         <?php endif ?>
         <?= $this->render('_view', [

@@ -181,11 +181,15 @@ class ProjectController extends Controller
             'status' => Project::STATUS_PUBLISHED,
         ]);
 
-        $imageUploadForm = new ImageUploadForm($id);
-        if (Yii::$app->request->isPost) {
-            $imageUploadForm->files = UploadedFile::getInstances($imageUploadForm, 'files');
-            if ($imageUploadForm->upload()) {
-                return $this->refresh();
+        $imageUploadForm = null;
+
+        if (UserPermissions::canManageProject($project)) {
+            $imageUploadForm = new ImageUploadForm($id);
+            if (Yii::$app->request->isPost) {
+                $imageUploadForm->files = UploadedFile::getInstances($imageUploadForm, 'files');
+                if ($imageUploadForm->upload()) {
+                    return $this->refresh();
+                }
             }
         }
 
