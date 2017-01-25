@@ -31,7 +31,6 @@ use yii\db\Expression;
  * @property User $createdBy
  * @property ProjectTag[] $projectTags
  * @property Tag[] $tags
- * @property ProjectUser[] $projectUsers
  * @property User[] $users
  * @property Vote[] $votes
  * @property User[] $voters
@@ -174,14 +173,6 @@ class Project extends \yii\db\ActiveRecord
     public function getTags()
     {
         return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->viaTable('{{%project_tag}}', ['project_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getProjectUsers()
-    {
-        return $this->hasMany(ProjectUser::className(), ['project_id' => 'id'])->inverseOf('project');
     }
 
     /**

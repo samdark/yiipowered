@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use app\components\feed\Feed;
 use app\components\feed\Item;
-use app\components\Permissions;
+use app\components\UserPermissions;
 use app\models\Project;
 use app\models\ProjectFilterForm;
 use app\notifier\NewProjectNotification;
@@ -17,8 +17,11 @@ use yii\helpers\Url;
 use yii\web\Controller;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\web\ForbiddenHttpException;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\ServerErrorHttpException;
 
 class ProjectController extends Controller
 {
@@ -27,17 +30,12 @@ class ProjectController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['admin', 'create', 'update', 'delete'], //only be applied to
+                'only' => ['create', 'update', 'delete'], //only be applied to
                 'rules' => [
                     [
                         'allow' => true,
                         'actions' => ['create', 'update', 'delete'],
                         'roles' => ['@'],
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['admin'],
-                        'roles' => ['manage_projects'],
                     ],
                 ],
             ],
@@ -88,7 +86,7 @@ class ProjectController extends Controller
     public function actionCreate()
     {
         $model = new Project();
-        if (Yii::$app->user->can(Permissions::MANAGE_PROJECTS)) {
+        if (Yii::$app->user->can(UserPermissions::MANAGE_PROJECTS)) {
             $model->setScenario(Project::SCENARIO_MANAGE);
         }
 
@@ -137,26 +135,15 @@ class ProjectController extends Controller
         $feed->render();
     }
 
-    public function actionAdmin($status)
-    {
-        $query = Project::find()->orderBy('created_at DESC');
-        $query->andWhere(['status' => $status]);
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => ['pageSize' => 10],
-        ]);
-
-        return $this->render('admin', [
-            'status' => $status,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        if (Yii::$app->user->can(Permissions::MANAGE_PROJECTS)) {
+
+        if (!UserPermissions::canManageProject($model)) {
+            throw new ForbiddenHttpException(Yii::t('project', 'You can not update this project.'));
+        }
+
+        if (Yii::$app->user->can(UserPermissions::MANAGE_PROJECTS)) {
             $model->setScenario(Project::SCENARIO_MANAGE);
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -170,9 +157,18 @@ class ProjectController extends Controller
 
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
 
-        return $this->redirect(['admin']);
+        if (!UserPermissions::canManageProject($model)) {
+            throw new ForbiddenHttpException(Yii::t('project', 'You can not delete this project.'));
+        }
+
+        $model->status = Project::STATUS_DELETED;
+        if (!$model->save()) {
+            throw new ServerErrorHttpException('Error prevented deleting a project.');
+        }
+
+        return $this->redirect(['project/list']);
     }
 
 

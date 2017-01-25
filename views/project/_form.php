@@ -1,6 +1,6 @@
 <?php
 
-use app\components\Permissions;
+use app\components\UserPermissions;
 use app\models\Project;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'source_url')->textInput(['maxlength' => 255]) ?>
 </div>
 
-<?php if (Yii::$app->user->can(Permissions::MANAGE_PROJECTS)): ?>
+<?php if (Yii::$app->user->can(UserPermissions::MANAGE_PROJECTS)): ?>
     <fieldset class="well">
         <?= $form->field($model, 'is_featured')->checkbox() ?>
         <?= $form->field($model, 'status')->dropDownList(Project::statuses()) ?>
