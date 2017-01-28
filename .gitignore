@@ -28,3 +28,9 @@ phpunit.phar
 
 tests/_output/*
 tests/_support/_generated
+
+# local configs
+/config/key.php
+/config/db.php
+/config/authclients.php
+/config/rollbar.php
