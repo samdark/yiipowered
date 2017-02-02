@@ -36,7 +36,7 @@ return [
     'Is Featured' => 'Выбор редакции',
     'Is OpenSource' => 'OpenSource',
     'Language' => 'Язык',
-    'Manage projects' => 'Упраление проектами',
+    'Manage projects' => 'Управление проектами',
     'New projects' => 'Новые проекты',
     'No' => 'Нет',
     'Only Featured' => 'Только выбор редакции',
