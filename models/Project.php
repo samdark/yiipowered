@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\components\Language;
+use creocoder\taggable\TaggableBehavior;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\SluggableBehavior;
@@ -25,6 +26,7 @@ use yii\db\Expression;
  * @property integer $updated_at
  * @property integer $is_featured
  * @property string $yii_version
+ * @property string $tagValues
  *
  * @property Image[] $images
  * @property User $updatedBy
@@ -73,6 +75,9 @@ class Project extends \yii\db\ActiveRecord
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'title',
             ],
+            [
+                'class' => TaggableBehavior::className(),
+            ],
         ];
     }
 
@@ -87,15 +92,24 @@ class Project extends \yii\db\ActiveRecord
             [['title', 'url', 'source_url'], 'string', 'max' => 255],
             [['url', 'source_url'], 'url'],
             [['yii_version'], 'in', 'range' => array_keys(self::versions())],
-            [['description'], 'safe'],
+            [['description', 'tagValues'], 'safe'],
         ];
     }
 
     public function scenarios()
     {
+        $defaultAttributes = ['title', 'url', 'is_opensource', 'source_url', 'yii_verison', 'description', 'status', 'tagValues'];
+
         return [
-            self::SCENARIO_DEFAULT => ['title', 'url', 'is_opensource', 'source_url', 'yii_verison', 'description', 'status'],
-            self::SCENARIO_MANAGE => ['title', 'url', 'is_opensource', 'source_url', 'yii_verison', 'description', 'status', 'is_featured'],
+            self::SCENARIO_DEFAULT => $defaultAttributes,
+            self::SCENARIO_MANAGE => array_merge($defaultAttributes, ['is_featured']),
+        ];
+    }
+
+    public function transactions()
+    {
+        return [
+            self::SCENARIO_DEFAULT => self::OP_ALL,
         ];
     }
 
@@ -118,7 +132,8 @@ class Project extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('project', 'Updated At'),
             'is_featured' => Yii::t('project', 'Is Featured'),
             'yii_version' => Yii::t('project', 'Yii Version'),
-            'description' => Yii::t('project', 'Description in {language}', ['language' => Language::current()])
+            'description' => Yii::t('project', 'Description in {language}', ['language' => Language::current()]),
+            'tagValues' => Yii::t('project', 'Tags'),
         ];
     }
 

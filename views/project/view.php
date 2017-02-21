@@ -58,13 +58,9 @@ $this->title = $model->title;
             <?php if ($model->is_opensource): ?>
                 <?= Yii::t('project', 'Source Code: ') . Html::a($model->source_url, $model->source_url) ?>
             <?php endif ?>
-
-            <div class="content">
-                <?= HtmlPurifier::process(Markdown::process($model->getDescription(), 'gfm')) ?>
-            </div>
         </div>
         <div class="col-xs-12">
-            <div class="container">
+
                 <?php if (empty($model->images)): ?>
                     <div class="col-xs-4">
                         <img class="img-responsive" src="<?= $model->getPlaceholderUrl() ?>" alt="">
@@ -87,7 +83,22 @@ $this->title = $model->title;
                         <?php ActiveForm::end() ?>
                     <?php endif ?>
                 </div>
-            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <div class="content">
+            <?= HtmlPurifier::process(Markdown::process($model->getDescription(), 'gfm')) ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="tags">
+                <?php foreach ($model->tags as $tag): ?>
+                    <li><?= Html::encode($tag->name) ?></li>
+                <?php endforeach ?>
+            </ul>
         </div>
     </div>
 

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%tag}}".
@@ -20,6 +21,9 @@ use Yii;
  */
 class Tag extends \yii\db\ActiveRecord
 {
+    const TYPE_USER = 10;
+    const TYPE_TECH = 20;
+
     /**
      * @inheritdoc
      */
@@ -31,12 +35,24 @@ class Tag extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+            ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
-            [['name', 'created_at', 'updated_at'], 'required'],
+            [['name'], 'required'],
             [['description'], 'string'],
-            [['type', 'created_at', 'updated_at'], 'integer'],
+            [['type'], 'integer'],
             [['name', 'icon'], 'string', 'max' => 255],
             [['name'], 'unique'],
         ];

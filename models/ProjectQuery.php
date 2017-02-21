@@ -2,10 +2,18 @@
 namespace app\models;
 
 use app\components\UserPermissions;
+use creocoder\taggable\TaggableQueryBehavior;
 use yii\db\ActiveQuery;
 
 class ProjectQuery extends ActiveQuery
 {
+    public function behaviors()
+    {
+        return [
+            TaggableQueryBehavior::className(),
+        ];
+    }
+
     /**
      * @param bool $value
      * @return $this

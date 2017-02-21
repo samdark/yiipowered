@@ -47,6 +47,8 @@ use yii\widgets\ActiveForm;
         <div class="col-xs-6">
             <div class="well">
                 <h2>Tags</h2>
+
+                <?= $form->field($model, 'tagValues')->textInput() ?>
             </div>
         </div>
 
