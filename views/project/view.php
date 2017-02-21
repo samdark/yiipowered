@@ -59,36 +59,38 @@ $this->title = $model->title;
                 <?= Yii::t('project', 'Source Code: ') . Html::a($model->source_url, $model->source_url) ?>
             <?php endif ?>
         </div>
-        <div class="col-xs-12">
+    </div>
 
-                <?php if (empty($model->images)): ?>
-                    <div class="col-xs-4">
-                        <img class="img-responsive" src="<?= $model->getPlaceholderUrl() ?>" alt="">
-                    </div>
-                <?php else: ?>
-                    <?php foreach ($model->images as $image): ?>
-                        <div class="col-xs-4">
-                            <a href="<?= $image->getUrl() ?>"><img class="img-responsive" src="<?= $image->getThumbnailUrl() ?>" alt=""></a>
-                        </div>
-                    <?php endforeach ?>
-                <?php endif ?>
+    <div class="row">
+        <?php if (empty($model->images)): ?>
+            <div class="col-xs-4">
+                <img class="img-responsive" src="<?= $model->getPlaceholderUrl() ?>" alt="">
+            </div>
+        <?php else: ?>
+            <?php foreach ($model->images as $image): ?>
                 <div class="col-xs-4">
-                    <?php if (isset($imageUploadForm)): ?>
-                        <?php $form = ActiveForm::begin(['id' => 'project-image-upload']) ?>
-                            <?= $form->field($imageUploadForm, 'files')->fileInput(['multiple' => true, 'accept' => 'image/png']) ?>
-                            <div class="form-group">
-                                <?= Html::submitButton(Yii::t('project', 'Upload'), ['class' => 'btn btn-primary']) ?>
-                            </div>
-
-                        <?php ActiveForm::end() ?>
-                    <?php endif ?>
+                    <a href="<?= $image->getUrl() ?>"><img class="img-responsive" src="<?= $image->getThumbnailUrl() ?>" alt=""></a>
                 </div>
+            <?php endforeach ?>
+        <?php endif ?>
+        <div class="col-xs-4">
+            <?php if (isset($imageUploadForm)): ?>
+                <?php $form = ActiveForm::begin(['id' => 'project-image-upload']) ?>
+                    <?= $form->field($imageUploadForm, 'files')->fileInput(['multiple' => true, 'accept' => 'image/png']) ?>
+                    <div class="form-group">
+                        <?= Html::submitButton(Yii::t('project', 'Upload'), ['class' => 'btn btn-primary']) ?>
+                    </div>
+
+                <?php ActiveForm::end() ?>
+            <?php endif ?>
         </div>
     </div>
 
-    <div class="col-xs-12">
-        <div class="content">
-            <?= HtmlPurifier::process(Markdown::process($model->getDescription(), 'gfm')) ?>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="content">
+                <?= HtmlPurifier::process(Markdown::process($model->getDescription(), 'gfm')) ?>
+            </div>
         </div>
     </div>
 
