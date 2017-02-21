@@ -1,5 +1,6 @@
 <?php
 
+use app\components\UserPermissions;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use app\models\Project;
@@ -19,11 +20,11 @@ $this->registerMetaTag(['property' => 'og:url', 'content' => Url::canonical()]);
 
 $this->title = $model->title;
 ?>
-<div class="news-view">
+<div class="project-view">
 
     <div class="row">
         <div class="col-xs-12">
-            <?php if(\Yii::$app->user->can('manage_projects')): ?>
+            <?php if (UserPermissions::canManageProject($model)): ?>
                 <div class="controls">
                     <?= Html::a(Yii::t('project', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
                     <?= Html::a(Yii::t('project', 'Delete'), ['delete', 'id' => $model->id], [
@@ -46,7 +47,7 @@ $this->title = $model->title;
                     <span class="glyphicon glyphicon-star featured" aria-hidden="true"></span>
                 <?php endif ?>
 
-                <?php if ($model->status !== Project::STATUS_PUBLISHED && \app\components\UserPermissions::canManageProject($model)): ?>
+                <?php if ($model->status !== Project::STATUS_PUBLISHED && UserPermissions::canManageProject($model)): ?>
                     <span class="label <?= $model->getStatusClass() ?>"><?= $model->getStatusLabel() ?></span>
                 <?php endif ?>
             </h1>
@@ -116,7 +117,7 @@ $this->title = $model->title;
         </div>
 
         <div class="col-xs-12">
-            <?php if (\app\components\UserPermissions::canManageProject($model)): ?>
+            <?php if (UserPermissions::canManageProject($model)): ?>
                 <span class="time">
                     <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                     <?= Yii::$app->formatter->asDate($model->created_at) ?>
