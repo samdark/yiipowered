@@ -52,19 +52,19 @@ class ProjectController extends Controller
     public function actionIndex()
     {
         $featuredProvider = new ActiveDataProvider([
-            'query' => Project::find()->where([
-                'status' => Project::STATUS_PUBLISHED,
-                'is_featured' => true,
-            ])->orderBy('created_at DESC')
-            ->limit(10)
+            'query' => Project::find()
+                ->featured()
+                ->publishedOrEditable()
+                ->orderBy('created_at DESC')
+                ->limit(10)
         ]);
 
         $newProvider = new ActiveDataProvider([
-            'query' => Project::find()->where([
-                'status' => Project::STATUS_PUBLISHED,
-                'is_featured' => false,
-            ])->orderBy('created_at DESC')
-            ->limit(10)
+            'query' => Project::find()
+                ->featured(false)
+                ->publishedOrEditable()
+                ->orderBy('created_at DESC')
+                ->limit(10)
         ]);
 
         return $this->render('index', [
@@ -87,7 +87,7 @@ class ProjectController extends Controller
     public function actionCreate()
     {
         $model = new Project();
-        if (Yii::$app->user->can(UserPermissions::MANAGE_PROJECTS)) {
+        if (UserPermissions::canManageProjects()) {
             $model->setScenario(Project::SCENARIO_MANAGE);
         }
 
@@ -178,7 +178,6 @@ class ProjectController extends Controller
         $project = $this->findModel([
             'id' => $id,
             'slug' => $slug,
-            'status' => Project::STATUS_PUBLISHED,
         ]);
 
         $imageUploadForm = null;
@@ -201,7 +200,11 @@ class ProjectController extends Controller
 
     protected function findModel($condition)
     {
-        if (($model = Project::findOne($condition)) !== null) {
+        $model = Project::find()
+            ->publishedOrEditable()
+            ->andWhere($condition)->one();
+
+        if ($model !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -48,14 +48,15 @@ class ProjectFilterForm extends Model
 
     public function getDataProvider()
     {
-        $query = Project::find()->where(['status' => Project::STATUS_PUBLISHED])->orderBy('created_at DESC');
+        $query = Project::find()
+            ->publishedOrEditable()
+            ->orderBy('created_at DESC');
 
         $query->andFilterWhere(['like', 'title', $this->title]);
         $query->andFilterWhere(['like', 'url', $this->url]);
         $query->andFilterWhere(['yii_version' => $this->yiiVersion]);
         $query->andFilterWhere(['is_opensource' => $this->opensource]);
         $query->andFilterWhere(['is_featured' => $this->featured]);
-
 
         return new ActiveDataProvider([
             'query' => $query,

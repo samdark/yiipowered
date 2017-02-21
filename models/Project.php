@@ -41,7 +41,8 @@ class Project extends \yii\db\ActiveRecord
     const SCENARIO_MANAGE = 'manage';
 
     const STATUS_DELETED = 0;
-    const STATUS_PUBLISHED = 10;
+    const STATUS_DRAFT = 10;
+    const STATUS_PUBLISHED = 20;
 
     const YII_VERSION_11 = '1.1';
     const YII_VERSION_20 = '2.0';
@@ -119,6 +120,14 @@ class Project extends \yii\db\ActiveRecord
             'yii_version' => Yii::t('project', 'Yii Version'),
             'description' => Yii::t('project', 'Description in {language}', ['language' => Language::current()])
         ];
+    }
+
+    /**
+     * @return ProjectQuery
+     */
+    public static function find()
+    {
+        return new ProjectQuery(get_called_class());
     }
 
     /**
@@ -241,6 +250,7 @@ class Project extends \yii\db\ActiveRecord
         return [
             self::STATUS_DELETED => Yii::t('project', 'Deleted'),
             self::STATUS_PUBLISHED => Yii::t('project', 'Published'),
+            self::STATUS_DRAFT => Yii::t('project', 'Draft'),
         ];
     }
 
@@ -305,5 +315,18 @@ class Project extends \yii\db\ActiveRecord
 
         $description->content = $content;
         return $description->save();
+    }
+
+    public function getStatusClass()
+    {
+        switch ($this->status) {
+            case Project::STATUS_DELETED:
+                return 'status-deleted';
+            case Project::STATUS_DRAFT:
+                return 'status-draft';
+            case Project::STATUS_PUBLISHED:
+                return 'status-published';
+        }
+        return 'status-unknown';
     }
 }

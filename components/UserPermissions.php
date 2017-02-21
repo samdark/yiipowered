@@ -12,13 +12,26 @@ class UserPermissions
     const MANAGE_PROJECTS = 'manage_projects';
     const MANAGE_USERS = 'manage_users';
 
-    public static function canManageProject(Project $project)
+    public static function canManageProjects()
     {
         if (\Yii::$app->user->isGuest) {
             return false;
         }
 
         if (\Yii::$app->user->can(self::MANAGE_PROJECTS)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function canManageProject(Project $project)
+    {
+        if (\Yii::$app->user->isGuest) {
+            return false;
+        }
+
+        if (self::canManageProjects()) {
             return true;
         }
 
@@ -29,6 +42,19 @@ class UserPermissions
             if ((int)$user->id === (int)$currentUserID) {
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    public static function canManagerUsers()
+    {
+        if (\Yii::$app->user->isGuest) {
+            return false;
+        }
+
+        if (\Yii::$app->user->can(self::MANAGE_USERS)) {
+            return true;
         }
 
         return false;
@@ -46,7 +72,7 @@ class UserPermissions
             return true;
         }
 
-        if (\Yii::$app->user->can(self::MANAGE_USERS)) {
+        if (self::canManagerUsers()) {
             return true;
         }
 

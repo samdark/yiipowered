@@ -63,7 +63,7 @@ use \yii\widgets\ListView;
             'itemOptions' => [
                 'class' => 'item',
             ],
-            'itemView' => '/project/_view',
+            'itemView' => '/project/_card',
             'viewParams' => [
                 'displayStatus' => true,
                 'displayUser' => false,

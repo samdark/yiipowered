@@ -125,10 +125,43 @@ a.desc:after {
     margin: 0 1rem 1rem 0;
 }
 
+.featured {
+    color: #ffcc4b;
+}
+
+.label.status-deleted {
+    background: rgba(200, 10, 10, .5);
+}
+
+.label.status-draft {
+    background: rgba(10, 10, 200, .8);
+}
+
+.project-card.status-deleted {
+    border: 2px solid rgba(200, 10, 10, .5);
+}
+
+.project-card.status-draft {
+    border: 2px solid rgba(10, 10, 200, .5);
+}
+
 .project-card img {
     background: rgba(128, 128, 128, .1);
 }
 
 .project-card h1 {
     font-size: large;
+}
+
+.authors {
+    list-style: none;
+    padding: 0;
+}
+
+.authors li {
+    display: inline-block;
+}
+
+.author img {
+    border-radius: 32px;
 }

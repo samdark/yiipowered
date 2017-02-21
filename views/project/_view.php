@@ -3,6 +3,7 @@
 /* @var yii\web\View $this */
 /* @var \app\models\ImageUploadForm $imageUploadForm */
 
+use app\models\Project;
 use app\widgets\Avatar;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
@@ -24,30 +25,18 @@ $this->registerMetaTag(['property' => 'og:url', 'content' => Url::canonical()]);
             <?php if ($model->is_featured): ?>
                 <span class="glyphicon glyphicon-star featured" aria-hidden="true"></span>
             <?php endif ?>
+
+            <?php if ($model->status !== Project::STATUS_PUBLISHED && \app\components\UserPermissions::canManageProject($model)): ?>
+                <span class="label <?= $model->getStatusClass() ?>"><?= $model->getStatusLabel() ?></span>
+            <?php endif ?>
         </h1>
 
         <?php if (!empty($model->url)): ?>
             <p><?= Html::a(Html::encode($model->url), $model->url) ?></p>
         <?php endif ?>
 
-        <p class="time">
-            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-            <?= Yii::$app->formatter->asDate($model->created_at) ?>
-        </p>
-
-        <?php foreach ($model->users as $user): ?>
-            <p class="author">
-                <?= Html::a(Avatar::widget(['user' => $user]) . ' @' . Html::encode($user->username), ['user/view', 'id' => $user->id]) ?>
-            </p>
-        <?php endforeach ?>
-
         <?php if ($model->is_opensource): ?>
             <?= Yii::t('project', 'Source Code: ') . Html::a($model->source_url, $model->source_url) ?>
-        <?php endif ?>
-
-        <?php if (\app\components\UserPermissions::canManageProject($model)): ?>
-            <p><?= Yii::t('project', 'Status: ') . $model->getStatusLabel() ?></p>
-            <p><?= Yii::t('project', 'Updated: ') . Yii::$app->formatter->asDate($model->updated_at) ?></p>
         <?php endif ?>
 
         <div class="content">
@@ -68,7 +57,7 @@ $this->registerMetaTag(['property' => 'og:url', 'content' => Url::canonical()]);
                 <?php endforeach ?>
             <?php endif ?>
             <div class="col-xs-4">
-                <?php if ($imageUploadForm !== null): ?>
+                <?php if (isset($imageUploadForm)): ?>
                     <?php $form = ActiveForm::begin(['id' => 'project-image-upload']) ?>
                         <?= $form->field($imageUploadForm, 'files')->fileInput(['multiple' => true, 'accept' => 'image/png']) ?>
                         <div class="form-group">
@@ -79,5 +68,28 @@ $this->registerMetaTag(['property' => 'og:url', 'content' => Url::canonical()]);
                 <?php endif ?>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-6">
+        <ul class="authors">
+        <?php foreach ($model->users as $user): ?>
+            <li>
+                <?= Html::a(Avatar::widget(['user' => $user]) . ' @' . Html::encode($user->username), ['user/view', 'id' => $user->id], ['class' => 'author']) ?>
+            </li>
+        <?php endforeach ?>
+        </ul>
+    </div>
+
+    <div class="col-xs-6 pull-right">
+        <?php if (\app\components\UserPermissions::canManageProject($model)): ?>
+            <span class="time">
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                <?= Yii::$app->formatter->asDate($model->created_at) ?>
+            </span>
+
+            <span><?= Yii::t('project', 'Updated: ') . Yii::$app->formatter->asDate($model->updated_at) ?></span>
+        <?php endif ?>
     </div>
 </div>
