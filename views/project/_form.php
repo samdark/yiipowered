@@ -23,6 +23,7 @@ use yii\widgets\ActiveForm;
 
                 <?= $form->field($model, 'title')->textInput(['maxlength' => 50]) ?>
                 <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
+                <?= $form->field($model, 'tagValues')->textInput() ?>
             </fieldset>
         </div>
 
@@ -44,19 +45,13 @@ use yii\widgets\ActiveForm;
     </div>
 
     <div class="row">
-        <div class="col-xs-6">
-            <div class="well">
-                <h2>Tags</h2>
-
-                <?= $form->field($model, 'tagValues')->textInput() ?>
-            </div>
-        </div>
-
+        <?php /*
         <div class="col-xs-6">
             <div class="well">
                 <h2>Team</h2>
             </div>
         </div>
+        */ ?>
     </div>
 
     <div class="row">

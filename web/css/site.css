@@ -177,3 +177,9 @@ a.desc:after {
     background: #eedc43;
     border-radius: .25em;
 }
+
+.project-view .content {
+    margin: 4rem 0 1rem 0;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+}
