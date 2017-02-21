@@ -94,7 +94,7 @@ class Project extends \yii\db\ActiveRecord
     public function scenarios()
     {
         return [
-            self::SCENARIO_DEFAULT => ['title', 'url', 'is_opensource', 'source_url', 'yii_verison', 'description'],
+            self::SCENARIO_DEFAULT => ['title', 'url', 'is_opensource', 'source_url', 'yii_verison', 'description', 'status'],
             self::SCENARIO_MANAGE => ['title', 'url', 'is_opensource', 'source_url', 'yii_verison', 'description', 'status', 'is_featured'],
         ];
     }
@@ -248,9 +248,9 @@ class Project extends \yii\db\ActiveRecord
     public static function statuses()
     {
         return [
-            self::STATUS_DELETED => Yii::t('project', 'Deleted'),
-            self::STATUS_PUBLISHED => Yii::t('project', 'Published'),
             self::STATUS_DRAFT => Yii::t('project', 'Draft'),
+            self::STATUS_PUBLISHED => Yii::t('project', 'Published'),
+            self::STATUS_DELETED => Yii::t('project', 'Deleted'),
         ];
     }
 
