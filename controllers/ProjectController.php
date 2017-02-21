@@ -95,7 +95,7 @@ class ProjectController extends Controller
             $notifier = new Notifier(new NewProjectNotification($model));
             $notifier->sendEmails();
             Yii::$app->session->setFlash('project.project_successfully_added');
-            return $this->redirect(['index']);
+            return $this->redirect(['view', 'id' => $model->id, 'slug' => $model->slug]);
         }
 
         return $this->render('create', [
