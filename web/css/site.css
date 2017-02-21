@@ -183,3 +183,13 @@ a.desc:after {
     padding-bottom: 2rem;
     border-bottom: 1px solid #eee;
 }
+
+.project-view .images {
+    margin-top: 2rem;
+}
+
+.project-view .image {
+    display: inline-block;
+    padding: 2rem;
+    background: rgba(128, 128, 128, .1);
+}

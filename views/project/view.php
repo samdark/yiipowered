@@ -62,7 +62,7 @@ $this->title = $model->title;
         </div>
     </div>
 
-    <div class="row">
+    <div class="row images">
         <?php if (empty($model->images)): ?>
             <div class="col-xs-4">
                 <img class="img-responsive" src="<?= $model->getPlaceholderUrl() ?>" alt="">
@@ -70,7 +70,7 @@ $this->title = $model->title;
         <?php else: ?>
             <?php foreach ($model->images as $image): ?>
                 <div class="col-xs-4">
-                    <a href="<?= $image->getUrl() ?>"><img class="img-responsive" src="<?= $image->getThumbnailUrl() ?>" alt=""></a>
+                    <a href="<?= $image->getUrl() ?>" class="image"><img class="img-responsive" src="<?= $image->getThumbnailUrl() ?>" alt=""></a>
                 </div>
             <?php endforeach ?>
         <?php endif ?>
