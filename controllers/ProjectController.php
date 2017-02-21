@@ -138,7 +138,7 @@ class ProjectController extends Controller
 
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel(['id' => $id]);
 
         if (!UserPermissions::canManageProject($model)) {
             throw new ForbiddenHttpException(Yii::t('project', 'You can not update this project.'));
@@ -158,7 +158,7 @@ class ProjectController extends Controller
 
     public function actionDelete($id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel(['id' => $id]);
 
         if (!UserPermissions::canManageProject($model)) {
             throw new ForbiddenHttpException(Yii::t('project', 'You can not delete this project.'));
@@ -198,8 +198,14 @@ class ProjectController extends Controller
         ]);
     }
 
+    /**
+     * @param array $condition
+     * @return Project
+     * @throws NotFoundHttpException
+     */
     protected function findModel($condition)
     {
+        /** @var Project $model */
         $model = Project::find()
             ->publishedOrEditable()
             ->andWhere($condition)->one();
