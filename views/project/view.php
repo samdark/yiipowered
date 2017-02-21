@@ -22,20 +22,11 @@ $this->title = $model->title;
                         'method' => 'post',
                     ],
                 ]) ?>
-
-                <?php if ($imageUploadForm !== null): ?>
-                    <?php $form = ActiveForm::begin(['id' => 'project-image-upload']) ?>
-                        <?= $form->field($imageUploadForm, 'files')->fileInput(['multiple' => true, 'accept' => 'image/png']) ?>
-                        <div class="form-group">
-                            <?= Html::submitButton(Yii::t('project', 'Upload'), ['class' => 'btn btn-primary']) ?>
-                        </div>
-
-                    <?php ActiveForm::end() ?>
-                <?php endif ?>
             </div>
         <?php endif ?>
         <?= $this->render('_view', [
             'model' => $model,
+            'imageUploadForm' => $imageUploadForm,
         ]) ?>
     </div>
 </div>
