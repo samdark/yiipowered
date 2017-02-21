@@ -53,6 +53,7 @@ class ProjectController extends Controller
     {
         $featuredProvider = new ActiveDataProvider([
             'query' => Project::find()
+                ->with('images')
                 ->featured()
                 ->publishedOrEditable()
                 ->orderBy('created_at DESC')
@@ -61,6 +62,7 @@ class ProjectController extends Controller
 
         $newProvider = new ActiveDataProvider([
             'query' => Project::find()
+                ->with('images')
                 ->featured(false)
                 ->publishedOrEditable()
                 ->orderBy('created_at DESC')
@@ -106,7 +108,12 @@ class ProjectController extends Controller
     public function actionRss()
     {
         /** @var Project[] $projects */
-        $projects = Project::find()->where(['status' => Project::STATUS_PUBLISHED])->orderBy('created_at DESC')->limit(50)->all();
+        $projects = Project::find()
+            ->with('images')
+            ->where(['status' => Project::STATUS_PUBLISHED])
+            ->orderBy('created_at DESC')
+            ->limit(50)
+            ->all();
 
         $feed = new Feed();
         $feed->title = 'YiiPowered';

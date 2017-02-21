@@ -49,6 +49,7 @@ class ProjectFilterForm extends Model
     public function getDataProvider()
     {
         $query = Project::find()
+            ->with('images')
             ->publishedOrEditable()
             ->orderBy('created_at DESC');
 
