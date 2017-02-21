@@ -119,18 +119,16 @@ a.desc:after {
 }
 
 .project-card {
+    padding: 2rem;
+    background: rgba(128, 128, 128, .1);
     position: relative;
+    margin: 0 1rem 1rem 0;
 }
 
 .project-card img {
-    background: #ccc;
+    background: rgba(128, 128, 128, .1);
 }
 
 .project-card h1 {
     font-size: large;
-    position: absolute;
-    right: 15px;
-    bottom: 0;
-    padding: 1rem;
-    background: rgba(255, 255, 255, .8);
 }
