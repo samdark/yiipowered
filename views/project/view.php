@@ -105,7 +105,7 @@ $this->title = $model->title;
     </div>
 
     <div class="row">
-        <div class="col-xs-6">
+        <div class="col-xs-12">
             <ul class="authors">
             <?php foreach ($model->users as $user): ?>
                 <li>
@@ -115,7 +115,7 @@ $this->title = $model->title;
             </ul>
         </div>
 
-        <div class="col-xs-6 pull-right">
+        <div class="col-xs-12">
             <?php if (\app\components\UserPermissions::canManageProject($model)): ?>
                 <span class="time">
                     <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
