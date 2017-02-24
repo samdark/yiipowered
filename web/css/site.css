@@ -215,3 +215,7 @@ a.desc:after {
     margin: 1em;
     flex: 1 0 0;
 }
+
+.pagination {
+    width: 100%;
+}
