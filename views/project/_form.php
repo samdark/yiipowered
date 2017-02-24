@@ -23,6 +23,7 @@ use yii\widgets\ActiveForm;
 
                 <?= $form->field($model, 'title')->textInput(['maxlength' => 50]) ?>
                 <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
+                <?= $form->field($model, 'yii_version')->dropDownList(Project::versions()) ?>
                 <?= $form->field($model, 'tagValues')->textInput() ?>
             </fieldset>
         </div>
