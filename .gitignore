@@ -34,3 +34,6 @@ tests/_support/_generated
 /config/db.php
 /config/authclients.php
 /config/rollbar.php
+
+# apache
+/web/.htaccess

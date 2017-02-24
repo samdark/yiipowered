@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b6e4ec19a5ab1eaa98c12c41b0b3897e",
+    "content-hash": "1288e461e3988fd1daf48e0095ee50b5",
     "packages": [
         {
             "name": "baibaratsky/yii2-rollbar",
@@ -254,6 +254,37 @@
                 "mask",
                 "plugins"
             ]
+        },
+        {
+            "name": "bower-asset/magnific-popup",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dimsemenov/Magnific-Popup.git",
+                "reference": "6b7a8088783cbce01034414c1fd2d8e1889093ae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dimsemenov/Magnific-Popup/zipball/6b7a8088783cbce01034414c1fd2d8e1889093ae",
+                "reference": "6b7a8088783cbce01034414c1fd2d8e1889093ae",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.8.0"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "dist/jquery.magnific-popup.js",
+                    "dist/magnific-popup.css"
+                ],
+                "bower-asset-ignore": [
+                    "node_modules/",
+                    "components/",
+                    "website/",
+                    "libs/"
+                ]
+            }
         },
         {
             "name": "bower-asset/punycode",
