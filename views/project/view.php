@@ -27,13 +27,6 @@ $this->title = $model->title;
             <?php if (UserPermissions::canManageProject($model)): ?>
                 <div class="controls">
                     <?= Html::a(Yii::t('project', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                    <?= Html::a(Yii::t('project', 'Delete'), ['delete', 'id' => $model->id], [
-                        'class' => 'btn btn-danger',
-                        'data' => [
-                            'confirm' => Yii::t('project', 'Are you sure you want to delete this item?'),
-                            'method' => 'post',
-                        ],
-                    ]) ?>
                 </div>
             <?php endif ?>
         </div>

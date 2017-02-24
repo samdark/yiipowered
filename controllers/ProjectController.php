@@ -31,19 +31,13 @@ class ProjectController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'update', 'delete'], //only be applied to
+                'only' => ['create', 'update'], //only be applied to
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create', 'update', 'delete'],
+                        'actions' => ['create', 'update'],
                         'roles' => ['@'],
                     ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
                 ],
             ],
         ];
@@ -161,22 +155,6 @@ class ProjectController extends Controller
                 'model' => $model,
             ]);
         }
-    }
-
-    public function actionDelete($id)
-    {
-        $model = $this->findModel(['id' => $id]);
-
-        if (!UserPermissions::canManageProject($model)) {
-            throw new ForbiddenHttpException(Yii::t('project', 'You can not delete this project.'));
-        }
-
-        $model->status = Project::STATUS_DELETED;
-        if (!$model->save()) {
-            throw new ServerErrorHttpException('Error prevented deleting a project.');
-        }
-
-        return $this->redirect(['project/list']);
     }
 
 
