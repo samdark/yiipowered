@@ -18,7 +18,8 @@
         "bower-asset/codemirror": "~5.9.0",
         "bower-asset/codemirror-buttons": "~1.0.4",
         "creocoder/yii2-taggable": "~2.0.0",
-        "codemix/yii2-localeurls": "^1.2"
+        "codemix/yii2-localeurls": "^1.2",
+        "bower-asset/magnific-popup": "~1.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
