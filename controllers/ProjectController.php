@@ -127,8 +127,8 @@ class ProjectController extends Controller
         foreach ($projects as $project) {
             $item = new Item();
             $item->title = $project->title;
-            $item->link = Url::to(['project/view', 'id' => $project->id], true);
-            $item->guid = Url::to(['project/view', 'id' => $project->id], true);
+            $item->link = Url::to(['project/view', 'id' => $project->id, 'slug' => $project->slug], true);
+            $item->guid = Url::to(['project/view', 'id' => $project->id, 'slug' => $project->slug], true);
             $item->description = HtmlPurifier::process(Markdown::process($project->getDescription()));
 
             if (!empty($project->link)) {
