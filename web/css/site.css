@@ -137,11 +137,15 @@ a.desc:after {
     background: rgba(10, 10, 200, .8);
 }
 
-.project-card.status-deleted {
+.project-card img {
+    border: 2px solid transparent;
+}
+
+.project-card.status-deleted img {
     border: 2px solid rgba(200, 10, 10, .5);
 }
 
-.project-card.status-draft {
+.project-card.status-draft img {
     border: 2px solid rgba(10, 10, 200, .5);
 }
 
