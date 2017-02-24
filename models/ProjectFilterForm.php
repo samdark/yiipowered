@@ -57,7 +57,10 @@ class ProjectFilterForm extends Model
         $query->andFilterWhere(['like', 'url', $this->url]);
         $query->andFilterWhere(['yii_version' => $this->yiiVersion]);
         $query->andFilterWhere(['is_opensource' => $this->opensource]);
-        $query->andFilterWhere(['is_featured' => $this->featured]);
+
+        if ($this->featured) {
+            $query->andWhere(['is_featured' => true]);
+        }
 
         return new ActiveDataProvider([
             'query' => $query,
