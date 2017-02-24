@@ -98,7 +98,7 @@ class Project extends \yii\db\ActiveRecord
 
     public function scenarios()
     {
-        $defaultAttributes = ['title', 'url', 'is_opensource', 'source_url', 'yii_verison', 'description', 'status', 'tagValues'];
+        $defaultAttributes = ['title', 'url', 'is_opensource', 'source_url', 'yii_version', 'description', 'status', 'tagValues'];
 
         return [
             self::SCENARIO_DEFAULT => $defaultAttributes,
