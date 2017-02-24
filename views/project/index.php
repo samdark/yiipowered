@@ -14,6 +14,7 @@ $this->title = Yii::t('project', 'Projects built with Yii');
         <?= ListView::widget([
             'dataProvider' => $featuredProvider,
             'layout' => '{items}',
+            'options' => ['class' => 'projects-flow'],
             'itemOptions' => ['class' => 'item'],
             'itemView' => '_card'
         ]) ?>
@@ -25,6 +26,7 @@ $this->title = Yii::t('project', 'Projects built with Yii');
         <?= ListView::widget([
             'dataProvider' => $newProvider,
             'layout' => '{items}',
+            'options' => ['class' => 'projects-flow'],
             'itemOptions' => ['class' => 'item'],
             'itemView' => '_card'
         ]) ?>

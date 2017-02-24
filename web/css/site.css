@@ -197,3 +197,17 @@ a.desc:after {
     padding: 2rem;
     background: rgba(128, 128, 128, .1);
 }
+
+.projects-flow {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-content: space-around;
+    align-items: flex-start;
+}
+
+.projects-flow .item {
+    min-width: 25em;
+    margin: 1em;
+    flex: 1 0 0;
+}
