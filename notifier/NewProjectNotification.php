@@ -42,7 +42,7 @@ class NewProjectNotification implements NotificationInterface
      */
     public function getText()
     {
-        $link = Url::to(['project/view', 'id' => $this->project->id], true);
+        $link = Url::to(['project/view', 'id' => $this->project->id, 'slug' => $this->project->slug], true);
 
         return <<<TEXT
 There's a new project at YiiPowered:
