@@ -44,6 +44,7 @@ $this->title = Yii::t('project', 'Projects');
             <?= ListView::widget([
                 'dataProvider' => $dataProvider,
                 'layout' => '{items}{pager}',
+                'options' => ['class' => 'projects-flow'],
                 'itemOptions' => ['class' => 'item'],
                 'itemView' => '_card'
             ]) ?>
