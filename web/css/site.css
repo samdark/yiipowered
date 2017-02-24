@@ -137,6 +137,10 @@ a.desc:after {
     background: rgba(10, 10, 200, .8);
 }
 
+.project-card {
+    display: inline-block;
+}
+
 .project-card img {
     border: 2px solid transparent;
 }

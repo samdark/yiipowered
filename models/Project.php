@@ -158,13 +158,13 @@ class Project extends \yii\db\ActiveRecord
         return '/img/project_no_image.png';
     }
 
-    public function getPrimaryImageUrl()
+    public function getPrimaryImageThumbnail()
     {
         if (empty($this->images)) {
             return $this->getPlaceholderUrl();
         }
 
-        return $this->images[0]->getUrl();
+        return $this->images[0]->getThumbnailUrl();
     }
 
     /**
