@@ -196,10 +196,29 @@ a.desc:after {
     margin-top: 2rem;
 }
 
-.project-view .image {
+.project-view .image a {
     display: inline-block;
     padding: 2rem;
     background: rgba(128, 128, 128, .1);
+}
+
+.project-view .image {
+    position: relative;
+    display: inline-block;
+}
+
+.project-view .image .delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 150%;
+    background: #fff;
+    border-radius: 10rem;
+    cursor: pointer;
+}
+
+.project-view .image .delete:hover {
+    color: #f00;
 }
 
 .projects-flow {

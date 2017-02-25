@@ -15,7 +15,6 @@ use yii\imagine\Image as ImagineImage;
  * @property integer $project_id
  * @property integer $created_by
  * @property integer $updated_by
- * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
  *
@@ -25,9 +24,6 @@ use yii\imagine\Image as ImagineImage;
  */
 class Image extends \yii\db\ActiveRecord
 {
-    const STATUS_DELETED = 0;
-    const STATUS_PUBLISHED = 10;
-
     const SIZE_FULL = [804, 528];
     const SIZE_THUMBNAIL = [402, 264];
 
@@ -75,7 +71,6 @@ class Image extends \yii\db\ActiveRecord
             'project_id' => Yii::t('image', 'Project ID'),
             'created_by' => Yii::t('image', 'Created By'),
             'updated_by' => Yii::t('image', 'Updated By'),
-            'status' => Yii::t('image', 'Status'),
             'created_at' => Yii::t('image', 'Created At'),
             'updated_at' => Yii::t('image', 'Updated At'),
         ];
@@ -178,5 +173,14 @@ class Image extends \yii\db\ActiveRecord
         $size = self::SIZE_FULL;
         ImagineImage::thumbnail($this->getOriginalPath(), $size[0], $size[1])
             ->save($this->ensureFullPath());
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+
+        unlink($this->getThumbnailPath());
+        unlink($this->getFullPath());
+        unlink($this->getOriginalPath());
     }
 }

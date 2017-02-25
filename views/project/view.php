@@ -19,12 +19,14 @@ $this->registerMetaTag(['property' => 'og:site_name', 'content' => 'YiiPowered']
 $this->registerMetaTag(['property' => 'og:url', 'content' => Url::canonical()]);
 
 $this->title = $model->title;
+
+$canManageProject = UserPermissions::canManageProject($model);
 ?>
 <div class="project-view">
 
     <div class="row">
         <div class="col-xs-12">
-            <?php if (UserPermissions::canManageProject($model)): ?>
+            <?php if ($canManageProject): ?>
                 <div class="controls">
                     <?= Html::a(Yii::t('project', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
                 </div>
@@ -40,7 +42,7 @@ $this->title = $model->title;
                     <span class="glyphicon glyphicon-star featured" aria-hidden="true"></span>
                 <?php endif ?>
 
-                <?php if ($model->status !== Project::STATUS_PUBLISHED && UserPermissions::canManageProject($model)): ?>
+                <?php if ($model->status !== Project::STATUS_PUBLISHED && $canManageProject): ?>
                     <span class="label <?= $model->getStatusClass() ?>"><?= $model->getStatusLabel() ?></span>
                 <?php endif ?>
             </h1>
@@ -58,12 +60,19 @@ $this->title = $model->title;
     <div class="row images">
         <?php if (empty($model->images)): ?>
             <div class="col-xs-4">
-                <img class="img-responsive" src="<?= $model->getPlaceholderUrl() ?>" alt="">
+                <div class="image">
+                    <img class="img-responsive" src="<?= $model->getPlaceholderUrl() ?>" alt="">
+                </div>
             </div>
         <?php else: ?>
             <?php foreach ($model->images as $image): ?>
                 <div class="col-xs-4">
-                    <a href="<?= $image->getUrl() ?>" class="image"><img class="img-responsive" src="<?= $image->getThumbnailUrl() ?>" alt=""></a>
+                    <div class="image">
+                        <a href="<?= $image->getUrl() ?>"><img class="img-responsive" src="<?= $image->getThumbnailUrl() ?>" alt=""></a>
+                        <?php if ($canManageProject): ?>
+                            <span class="delete glyphicon glyphicon-remove" data-id="<?= $image->id ?>" data-url="<?= Url::to(['project/delete-image']) ?>" data-confirm="<?= Yii::t('project', 'Are you sure you want to delete this image?') ?>"></span>
+                        <?php endif ?>
+                    </div>
                 </div>
             <?php endforeach ?>
         <?php endif ?>
@@ -110,7 +119,7 @@ $this->title = $model->title;
         </div>
 
         <div class="col-xs-12">
-            <?php if (UserPermissions::canManageProject($model)): ?>
+            <?php if ($canManageProject): ?>
                 <span class="time">
                     <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                     <?= Yii::$app->formatter->asDate($model->created_at) ?>

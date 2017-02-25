@@ -5,16 +5,19 @@ namespace app\controllers;
 use app\components\feed\Feed;
 use app\components\feed\Item;
 use app\components\UserPermissions;
+use app\models\Image;
 use app\models\ImageUploadForm;
 use app\models\Project;
 use app\models\ProjectFilterForm;
 use app\notifier\NewProjectNotification;
 use app\notifier\Notifier;
 use Yii;
+use yii\base\InvalidParamException;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
 use yii\helpers\Url;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -31,11 +34,11 @@ class ProjectController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'update'], //only be applied to
+                'only' => ['create', 'update', 'delete-image'], //only be applied to
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create', 'update'],
+                        'actions' => ['create', 'update', 'delete-image'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -202,5 +205,27 @@ class ProjectController extends Controller
         }
     }
 
+    public function actionDeleteImage()
+    {
+        $id = Yii::$app->request->post('id');
+        if ($id === null) {
+            throw new BadRequestHttpException('Image id was not provided.');
+        }
 
+        /** @var Image $image */
+        $image = Image::find()->with('project')->where(['id' => $id])->one();
+        if (!$image) {
+            throw new NotFoundHttpException('No image was found.');
+        }
+
+        if (!UserPermissions::canManageProject($image->project)) {
+            throw new ForbiddenHttpException('You are not allowed to delete this image.');
+        }
+
+        if ($image->delete()) {
+            return 'OK';
+        } else {
+            throw new ServerErrorHttpException('Unable to delete image.');
+        }
+    }
 }
