@@ -1,7 +1,7 @@
 jQuery(function ($) {
     "use strict";
 
-    $('.image').magnificPopup({
+    $('.image a').magnificPopup({
         type: 'image',
         closeOnContentClick: true,
         mainClass: 'mfp-img-mobile',
