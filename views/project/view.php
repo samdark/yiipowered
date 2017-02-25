@@ -52,10 +52,10 @@ $canManageProject = UserPermissions::canManageProject($model);
             <?php endif ?>
 
             <?php if ($model->is_opensource): ?>
-                <?= Yii::t('project', 'Source Code: ') . Html::a($model->source_url, $model->source_url) ?>
+                <p><?= Yii::t('project', 'Source Code: ') . Html::a($model->source_url, $model->source_url) ?></p>
             <?php endif ?>
 
-            <?= Yii::t('project', 'Yii Version') ?>: <?= Html::encode($model->yii_version) ?>
+            <p><?= Yii::t('project', 'Yii Version') ?>: <?= Html::encode($model->yii_version) ?></p>
         </div>
     </div>
 
