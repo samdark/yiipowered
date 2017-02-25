@@ -11,4 +11,6 @@ return [
         'en' => ['en-US', 'English'],
         'ru' => ['ru-RU', 'Русский'],
     ],
+
+    'project.pagesize' => 9,
 ];

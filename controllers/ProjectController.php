@@ -54,7 +54,7 @@ class ProjectController extends Controller
                 ->featured()
                 ->publishedOrEditable()
                 ->orderBy('created_at DESC')
-                ->limit(10)
+                ->limit(Yii::$app->params['project.pagesize'])
         ]);
 
         $newProvider = new ActiveDataProvider([
@@ -63,7 +63,7 @@ class ProjectController extends Controller
                 ->featured(false)
                 ->publishedOrEditable()
                 ->orderBy('created_at DESC')
-                ->limit(10)
+                ->limit(Yii::$app->params['project.pagesize'])
         ]);
 
         return $this->render('index', [
