@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Imagine\Image\ImageInterface;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -163,15 +164,19 @@ class Image extends \yii\db\ActiveRecord
 
     public function generateThumbnail()
     {
+        ImagineImage::$thumbnailBackgroundAlpha = 0;
+
         $size = self::SIZE_THUMBNAIL;
-        ImagineImage::thumbnail($this->getOriginalPath(), $size[0], $size[1])
+        ImagineImage::thumbnail($this->getOriginalPath(), $size[0], $size[1], ImageInterface::THUMBNAIL_INSET)
             ->save($this->ensureThumbnailPath());
     }
 
     public function generateFull()
     {
+        ImagineImage::$thumbnailBackgroundAlpha = 0;
+
         $size = self::SIZE_FULL;
-        ImagineImage::thumbnail($this->getOriginalPath(), $size[0], $size[1])
+        ImagineImage::thumbnail($this->getOriginalPath(), $size[0], $size[1], ImageInterface::THUMBNAIL_INSET)
             ->save($this->ensureFullPath());
     }
 
