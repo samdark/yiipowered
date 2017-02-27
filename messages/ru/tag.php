@@ -17,11 +17,11 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Created At' => '',
+    'Created At' => 'Создан',
     'Description' => 'Описание',
     'ID' => 'ID',
-    'Icon' => '',
+    'Icon' => 'Значок',
     'Name' => 'Название',
     'Type' => 'Тип',
-    'Updated At' => '',
+    'Updated At' => 'Обновлён',
 ];

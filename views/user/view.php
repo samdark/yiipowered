@@ -60,6 +60,7 @@ use \yii\widgets\ListView;
         <?= ListView::widget([
             'dataProvider' => $dataProvider,
             'layout' => '{items}{pager}',
+            'emptyText' => Yii::t('user', 'You haven\'t added any projects yet.'),
             'itemOptions' => [
                 'class' => 'item',
             ],
