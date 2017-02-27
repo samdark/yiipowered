@@ -9,10 +9,12 @@ use app\models\Image;
 use app\models\ImageUploadForm;
 use app\models\Project;
 use app\models\ProjectFilterForm;
+use app\models\Tag;
 use app\notifier\NewProjectNotification;
 use app\notifier\Notifier;
 use Yii;
 use yii\base\InvalidParamException;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
@@ -24,6 +26,7 @@ use yii\filters\AccessControl;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 use yii\web\ServerErrorHttpException;
 use yii\web\UploadedFile;
 
@@ -227,5 +230,15 @@ class ProjectController extends Controller
         } else {
             throw new ServerErrorHttpException('Unable to delete image.');
         }
+    }
+
+    /**
+     * @param $term
+     * @return Response
+     */
+    public function actionAutocompleteTags($term)
+    {
+        $tags = Tag::find()->where(['like', 'name', $term])->limit(10)->all();
+        return $this->asJson(ArrayHelper::getColumn($tags, 'name'));
     }
 }
