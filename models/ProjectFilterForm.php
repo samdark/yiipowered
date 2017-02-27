@@ -10,6 +10,7 @@ use yii\data\ActiveDataProvider;
 
 class ProjectFilterForm extends Model
 {
+    public $tags;
     public $title;
     public $url;
     public $opensource;
@@ -23,12 +24,20 @@ class ProjectFilterForm extends Model
             [['opensource'], 'in', 'range' => array_keys($this->getOpenSourceOptions())],
             [['featured'], 'boolean'],
             [['yiiVersion'], 'in', 'range' => array_keys(Project::versions())],
+            [['tags'], 'safe'],
         ];
     }
+
+    public function formName()
+    {
+        return '';
+    }
+
 
     public function attributeLabels()
     {
         return [
+            'tags' => \Yii::t('project', 'Tags'),
             'title' => \Yii::t('project', 'Title'),
             'url' => \Yii::t('project', 'URL'),
             'opensource' => \Yii::t('project', 'OpenSource'),
@@ -53,6 +62,11 @@ class ProjectFilterForm extends Model
             ->with('images')
             ->publishedOrEditable()
             ->orderBy('created_at DESC');
+
+        if ($this->tags !== null) {
+            $tags = (array) $this->tags;
+            $query->allTagValues($tags);
+        }
 
         $query->andFilterWhere(['like', 'title', $this->title]);
         $query->andFilterWhere(['like', 'url', $this->url]);

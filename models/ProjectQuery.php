@@ -5,6 +5,13 @@ use app\components\UserPermissions;
 use creocoder\taggable\TaggableQueryBehavior;
 use yii\db\ActiveQuery;
 
+/**
+ * ProjectQuery
+ *
+ * @method anyTagValues($values, $attribute = null)
+ * @method allTagValues($values, $attribute = null)
+ * @method relatedByTagValues($values, $attribute = null)
+ */
 class ProjectQuery extends ActiveQuery
 {
     public function behaviors()

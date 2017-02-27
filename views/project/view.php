@@ -103,7 +103,7 @@ $canManageProject = UserPermissions::canManageProject($model);
         <div class="col-xs-12">
             <ul class="tags">
                 <?php foreach ($model->tags as $tag): ?>
-                    <li><?= Html::encode($tag->name) ?></li>
+                    <li><?= Html::a(Html::encode($tag->name), ['project/list', 'tags' => $tag->name]) ?></li>
                 <?php endforeach ?>
             </ul>
         </div>
