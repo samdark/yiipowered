@@ -23,7 +23,7 @@ return [
     'Password Hash' => 'Хеш пароля',
     'Password Reset Token' => 'Токен восстановления пароля',
     'Updated At' => 'Обновлён',
-    'You haven\'t added any projects yet.' => 'Вы ещё не добавили ни одного проекта.',
+    'Haven\'t added any projects yet.' => 'Пока нет добавленных проектов.',
     'Active' => 'Активен',
     'Create' => 'Создать',
     'Delete' => 'Удалить',
