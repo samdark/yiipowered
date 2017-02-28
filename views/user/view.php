@@ -59,6 +59,7 @@ use \yii\widgets\ListView;
 
         <?= ListView::widget([
             'dataProvider' => $dataProvider,
+            'options' => ['class' => 'projects-flow'],
             'layout' => '{items}{pager}',
             'emptyText' => Yii::t('user', 'Haven\'t added any projects yet.'),
             'itemOptions' => [
