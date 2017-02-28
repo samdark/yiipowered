@@ -25,9 +25,6 @@ use yii\imagine\Image as ImagineImage;
  */
 class Image extends \yii\db\ActiveRecord
 {
-    const SIZE_FULL = [804, 528];
-    const SIZE_THUMBNAIL = [402, 264];
-
     /**
      * @inheritdoc
      */
@@ -103,12 +100,12 @@ class Image extends \yii\db\ActiveRecord
 
     public function getUrl()
     {
-        return Yii::getAlias('@web/img/project/' . $this->project_id . '/' . $this->getFullFilename());
+        return Yii::getAlias('@web/img/project/' . $this->project_id . '/' . $this->getFullFilename()) . '?' . $this->updated_at;
     }
 
     public function getThumbnailUrl()
     {
-        return Yii::getAlias('@web/img/project/' . $this->project_id . '/' . $this->getThumbnailFilename());
+        return Yii::getAlias('@web/img/project/' . $this->project_id . '/' . $this->getThumbnailFilename()) . '?' . $this->updated_at;
     }
 
     public function getOriginalFilename()
@@ -166,7 +163,7 @@ class Image extends \yii\db\ActiveRecord
     {
         ImagineImage::$thumbnailBackgroundAlpha = 0;
 
-        $size = self::SIZE_THUMBNAIL;
+        $size = Yii::$app->params['image.size.thumbnail'];
         ImagineImage::thumbnail($this->getOriginalPath(), $size[0], $size[1], ImageInterface::THUMBNAIL_INSET)
             ->save($this->ensureThumbnailPath());
     }
@@ -175,7 +172,7 @@ class Image extends \yii\db\ActiveRecord
     {
         ImagineImage::$thumbnailBackgroundAlpha = 0;
 
-        $size = self::SIZE_FULL;
+        $size = Yii::$app->params['image.size.full'];
         ImagineImage::thumbnail($this->getOriginalPath(), $size[0], $size[1], ImageInterface::THUMBNAIL_INSET)
             ->save($this->ensureFullPath());
     }

@@ -13,4 +13,7 @@ return [
     ],
 
     'project.pagesize' => 9,
+
+    'image.size.full' => [1608, 1056],
+    'image.size.thumbnail' => [402, 264],
 ];
