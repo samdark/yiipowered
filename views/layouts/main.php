@@ -1,5 +1,5 @@
 <?php
-use app\models\Project;
+
 use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
@@ -53,12 +53,17 @@ AppAsset::register($this);
             }
             ?>
 
-            <span class="dropdown">
-                <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> <b class="caret"></b></a>
-                <?= \app\widgets\LanguageDropdown::widget() ?>
-            </span>
-
-            <?= yii\helpers\Html::a(Yii::t('project', 'Add project'), ['project/create'], ['class' => 'btn btn-success navbar-btn']) ?>
+            <ul class="navbar-nav navbar-left nav">
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> <b class="caret"></b></a>
+                    <?= \app\widgets\LanguageDropdown::widget() ?>
+                </li>
+                <li>
+                    <p class="navbar-btn">
+                        <?= yii\helpers\Html::a(Yii::t('project', 'Add project'), ['project/create'], ['class' => 'btn btn-success']) ?>
+                    </p>
+                </li>
+            </ul>
 
             <?php
             echo Nav::widget([

@@ -58,10 +58,10 @@ yii migrate
 ### 4. Permissions 
 
 Permissions tree should be already initialized at step 3 so you can 
-use `rbac/assign` to assign roles to users:
+use `user/assign` to assign roles to users:
 
 ```
-yii rbac/assign admin alex
+yii user/assign alex admin
 ```
 
 Will assign admin role to user with username=alex.
