@@ -29,6 +29,7 @@ Yii::$container->set('yii\grid\ActionColumn', [
     'template' => '{update} {delete}',
 ]);
 
+/*
 Yii::$container->set('yii\bootstrap\ActiveForm', [
     'validateOnBlur' => false,
     'validateOnChange' => false,
@@ -45,3 +46,4 @@ Yii::$container->set('yii\bootstrap\ActiveForm', [
         ],
     ],
 ]);
+*/
