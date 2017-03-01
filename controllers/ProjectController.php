@@ -52,6 +52,7 @@ class ProjectController extends Controller
     public function actionIndex()
     {
         $featuredProvider = new ActiveDataProvider([
+            'pagination' => false,
             'query' => Project::find()
                 ->with('images')
                 ->featured()
@@ -61,6 +62,7 @@ class ProjectController extends Controller
         ]);
 
         $newProvider = new ActiveDataProvider([
+            'pagination' => false,
             'query' => Project::find()
                 ->with('images')
                 ->featured(false)
