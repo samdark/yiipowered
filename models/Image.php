@@ -181,8 +181,17 @@ class Image extends \yii\db\ActiveRecord
     {
         parent::afterDelete();
 
-        unlink($this->getThumbnailPath());
-        unlink($this->getFullPath());
-        unlink($this->getOriginalPath());
+        $this->removeFile($this->getThumbnailPath());
+        $this->removeFile($this->getFullPath());
+        $this->removeFile($this->getOriginalPath());
+    }
+
+    private function removeFile($path)
+    {
+        if (!file_exists($path)) {
+            return true;
+        }
+
+        return unlink($path);
     }
 }
