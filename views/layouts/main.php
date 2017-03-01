@@ -40,10 +40,10 @@ AppAsset::register($this);
                 ['label' => 'RSS', 'url' => ['/project/rss']],
             ];
             if (Yii::$app->user->isGuest) {
-                $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-                $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+                $menuItems[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
+                $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
             } else {
-                $menuItems[] = ['label' => 'Manage users', 'url' => ['/user/index'], 'visible'=> \Yii::$app->user->can('manage_users')];
+                $menuItems[] = ['label' => Yii::t('user', 'Manage users'), 'url' => ['/user/index'], 'visible'=> \Yii::$app->user->can('manage_users')];
                 $menuItems[] = ['label' => Yii::$app->user->identity->username, 'url' => ['/user/view', 'id' => \Yii::$app->user->id]];
                 $menuItems[] = [
                     'label' => 'Logout',

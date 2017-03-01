@@ -18,10 +18,10 @@ $this->title = $name;
     </div>
 
     <p>
-        An error occured :(
+        Возникла ошибка :(
     </p>
     <p>
-        Most probably we're aware but it won't hurt emailing <a href="mailto:sam@rmcreative.ru">@samdark</a>.
+        Скорее всего мы о ней уже знаем, но, если что, пишите <a href="mailto:sam@rmcreative.ru">@samdark</a>.
     </p>
 
 </div>

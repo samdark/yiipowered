@@ -24,9 +24,7 @@ $this->title = Yii::t('project', 'Projects');
         <?= $form->field($filterForm, 'yiiVersion')->dropDownList(\app\models\Project::versions(), ['prompt' => Yii::t('project', 'Any Verison')]) ?>
 
         <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton(Yii::t('project', 'Apply'), ['class' => 'btn btn-primary']) ?>
-            </div>
+            <?= Html::submitButton(Yii::t('project', 'Apply'), ['class' => 'btn btn-primary']) ?>
         </div>
         <?php ActiveForm::end() ?>
     </div>

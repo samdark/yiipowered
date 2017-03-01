@@ -22,6 +22,7 @@ $this->title = Yii::t('user', 'Users');
                     'label' => 'User',
                     'attribute' => 'username',
                     'value' => function ($model) {
+                        /* @var $model \app\models\User */
                         return Html::a(Avatar::widget(['user' => $model]) . ' ' . Html::encode($model->username), ['user/view', 'id' => $model->id]);
                     }
                 ],
@@ -30,18 +31,21 @@ $this->title = Yii::t('user', 'Users');
                     'format' => 'raw',
                     'label' => 'GitHub',
                     'value' => function ($model) {
+                        /* @var $model \app\models\User */
                         return Html::a(Html::encode($model->getGithubProfileUrl()), $model->getGithubProfileUrl());
                     }
                 ],
                 [
                     'attribute' => 'status',
                     'value' => function ($model) {
+                        /* @var $model \app\models\User */
                         return $model->getStatusLabel();
                     }
                 ],
                 [
                     'attribute' => 'created_at',
                     'value' => function ($model) {
+                        /* @var $model \app\models\User */
                         return Yii::$app->formatter->asDate($model->created_at);
                     }
                 ],

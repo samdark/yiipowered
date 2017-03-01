@@ -22,7 +22,7 @@ $autocompleteTagUrl = Url::toRoute(['/project/autocomplete-tags']);
     <div class="row">
         <div class="col-xs-12 col-sm-6">
             <fieldset class="well">
-                <h2>General</h2>
+                <h2><?= Yii::t('project', 'General') ?></h2>
 
                 <?= $form->field($model, 'title')->textInput(['maxlength' => 50]) ?>
                 <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
@@ -75,7 +75,7 @@ $autocompleteTagUrl = Url::toRoute(['/project/autocomplete-tags']);
 
         <div class="col-xs-12 col-sm-6">
             <fieldset class="well">
-                <h2>Source</h2>
+                <h2><?= Yii::t('project', 'Source') ?></h2>
 
                 <?= $form->field($model, 'is_opensource')->checkbox() ?>
                 <?= $form->field($model, 'source_url')->textInput(['maxlength' => 255]) ?>

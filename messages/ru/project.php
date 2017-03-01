@@ -17,12 +17,12 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Are you sure you want to delete this image?' => 'Вы уверены что хотите удалить это изображение?',
-    'Tags' => 'Теги',
-    'Updated: ' => 'Обновлено:',
+    'General' => 'Общая информация',
+    'Source' => 'Исходный код',
     'Add project' => 'Добавить проект',
     'Any Verison' => 'Любая версия',
     'Apply' => 'Применить',
+    'Are you sure you want to delete this image?' => 'Вы уверены что хотите удалить это изображение?',
     'Content' => 'Содержимое',
     'Created At' => 'Создан',
     'Created By' => 'Автор',
@@ -52,6 +52,7 @@ return [
     'Source URL' => 'Исходный код',
     'Status' => 'Статус',
     'Tag ID' => 'ID тега',
+    'Tags' => 'Теги',
     'Title' => 'Название',
     'URL' => 'URL',
     'Unknown' => 'Неизвестен',
@@ -59,6 +60,7 @@ return [
     'Update project {title}' => 'Редактировать проект {title}',
     'Updated At' => 'Обновлён',
     'Updated By' => 'Обновил',
+    'Updated: ' => 'Обновлено:',
     'Upload' => 'Загрузить',
     'User ID' => 'ID пользователя',
     'Yes' => 'Да',
