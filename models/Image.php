@@ -125,7 +125,7 @@ class Image extends \yii\db\ActiveRecord
 
     public function getOriginalPath()
     {
-        return Yii::getAlias('@app/images') . '/' . $this->project_id . '/' . $this->getOriginalFilename();
+        return Yii::getAlias('@app/images/') . $this->project_id . '/' . $this->getOriginalFilename();
     }
 
     public function ensureOriginalPath()
@@ -137,7 +137,7 @@ class Image extends \yii\db\ActiveRecord
 
     public function getFullPath()
     {
-        return Yii::getAlias('@webroot/img/project/') . '/' . $this->project_id . '/' . $this->getFullFilename();
+        return Yii::getAlias('@webroot/img/project/') . $this->project_id . '/' . $this->getFullFilename();
     }
 
     public function ensureFullPath()
@@ -149,7 +149,7 @@ class Image extends \yii\db\ActiveRecord
 
     public function getThumbnailPath()
     {
-        return Yii::getAlias('@webroot/img/project/') . '/' . $this->project_id . '/' . $this->getThumbnailFilename();
+        return Yii::getAlias('@webroot/img/project/') . $this->project_id . '/' . $this->getThumbnailFilename();
     }
 
     public function ensureThumbnailPath()
