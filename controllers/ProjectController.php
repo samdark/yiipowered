@@ -177,8 +177,8 @@ class ProjectController extends Controller
 
         if (UserPermissions::canManageProject($project)) {
             $imageUploadForm = new ImageUploadForm($id);
-            if (Yii::$app->request->isPost) {
-                $imageUploadForm->files = UploadedFile::getInstances($imageUploadForm, 'files');
+            if ($imageUploadForm->load(Yii::$app->request->post())) {
+                $imageUploadForm->file = UploadedFile::getInstance($imageUploadForm, 'file');
                 if ($imageUploadForm->upload()) {
                     return $this->refresh();
                 }

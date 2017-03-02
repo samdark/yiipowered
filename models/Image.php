@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use Yii;
 use yii\behaviors\BlameableBehavior;
@@ -159,13 +160,22 @@ class Image extends \yii\db\ActiveRecord
         return $path;
     }
 
-    public function generateThumbnail()
+    /**
+     * @param array|null $crop
+     */
+    public function generateThumbnail($crop = null)
     {
         ImagineImage::$thumbnailBackgroundAlpha = 0;
-
         $size = Yii::$app->params['image.size.thumbnail'];
-        ImagineImage::thumbnail($this->getOriginalPath(), $size[0], $size[1], ImageInterface::THUMBNAIL_INSET)
-            ->save($this->ensureThumbnailPath());
+        
+        if ($crop === null) {
+            ImagineImage::thumbnail($this->getOriginalPath(), $size[0], $size[1], ImageInterface::THUMBNAIL_INSET)
+                ->save($this->ensureThumbnailPath());    
+        } else {
+            ImagineImage::crop($this->getOriginalPath(), $crop['width'], $crop['height'], [$crop['x'], $crop['y']])
+                ->thumbnail(new Box($size[0], $size[1]), ImageInterface::THUMBNAIL_INSET)
+                ->save($this->ensureThumbnailPath());
+        }
     }
 
     public function generateFull()
