@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "55457a5d274dba6f130e87911aa53573",
+    "content-hash": "65833cf6af13d4d4e7552ca128a4b6b2",
     "packages": [
         {
             "name": "baibaratsky/yii2-rollbar",
@@ -170,6 +170,63 @@
                 "codemirror",
                 "ui"
             ]
+        },
+        {
+            "name": "bower-asset/cropper",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fengyuanchen/cropper.git",
+                "reference": "d1bee4d3fb872a1c2f7f65e532c716ad5b9c5479"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fengyuanchen/cropper/zipball/d1bee4d3fb872a1c2f7f65e532c716ad5b9c5479",
+                "reference": "d1bee4d3fb872a1c2f7f65e532c716ad5b9c5479",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "dist/cropper.js",
+                    "dist/cropper.css"
+                ],
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "build",
+                    "docs",
+                    "examples",
+                    "test",
+                    "postcss.config.json",
+                    "rollup.config.js",
+                    "CONTRIBUTING.md",
+                    "ISSUE_TEMPLATE.md"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A simple jQuery image cropping plugin.",
+            "keywords": [
+                "crop",
+                "cropper",
+                "cropping",
+                "css",
+                "development",
+                "front-end",
+                "html",
+                "image",
+                "javascript",
+                "jquery",
+                "move",
+                "plugin",
+                "rotate",
+                "scale",
+                "web",
+                "zoom"
+            ],
+            "time": "2017-02-25 08:06:13"
         },
         {
             "name": "bower-asset/jquery",
@@ -1378,7 +1435,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "bower-asset/cropper": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

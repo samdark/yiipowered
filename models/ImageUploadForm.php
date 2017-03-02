@@ -3,32 +3,49 @@
 
 namespace app\models;
 
-
 use yii\base\Model;
+use yii\helpers\Json;
 use yii\web\UploadedFile;
 
+/**
+ * @property bool|array $imageCropDataAsArray
+ */
 class ImageUploadForm extends Model
 {
     const MAX_UPLOAD_SIZE = 20000000; // 20 MB
 
     private $_projectID;
+    /**
+     * @var array
+     */
+    private $_imageCropDataAsArray;
 
     /**
-     * @var UploadedFile[]
+     * @var UploadedFile
      */
-    public $files;
+    public $file;
+    /**
+     * @var string
+     */
+    public $imageCropData;
 
     public function rules()
     {
         return [
             [
-                ['files'],
-                'file',
+                ['file'],
+                'image',
                 'skipOnEmpty' => false,
                 'extensions' => 'png',
-                'maxSize' => self::MAX_UPLOAD_SIZE,
-                'maxFiles' => 5,
+                'maxSize' => self::MAX_UPLOAD_SIZE
             ],
+            
+            ['imageCropData', 'required'],
+            ['imageCropData', function ($attribute) {
+                if (!$this->imageCropDataAsArray) {
+                    $this->addError($attribute, 'Empty crop date for thumb.');
+                }
+            }],
         ];
     }
 
@@ -41,17 +58,40 @@ class ImageUploadForm extends Model
     public function upload()
     {
         if ($this->validate()) {
-            foreach ($this->files as $file) {
+            if ($this->file !== null) {
                 $model = new Image();
                 $model->project_id = $this->_projectID;
                 if ($model->save()) {
-                    $file->saveAs($model->ensureOriginalPath());
+                    $this->file->saveAs($model->ensureOriginalPath());
                     $model->generateFull();
-                    $model->generateThumbnail();
+                    $model->generateThumbnail($this->imageCropDataAsArray ?: null);
                 }
             }
+
             return true;
         }
+        
         return false;
+    }
+
+    /**
+     * @return bool|array
+     */
+    public function getImageCropDataAsArray()
+    {
+        if ($this->_imageCropDataAsArray === null) {
+            $this->_imageCropDataAsArray = false;
+            
+            try {
+                $imageCropData = Json::decode($this->imageCropData);
+                if (!array_diff(['width', 'height', 'x', 'y'], array_keys($imageCropData))) {
+                    $this->_imageCropDataAsArray = $imageCropData;
+                }
+            } catch (\Exception $ex) {
+
+            }   
+        }
+        
+        return $this->_imageCropDataAsArray;
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use app\assets\ImageCropperAsset;
 use app\components\UserPermissions;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
@@ -12,6 +13,10 @@ use \yii\helpers\HtmlPurifier;
 /* @var $this yii\web\View */
 /* @var $model app\models\Project */
 /* @var $imageUploadForm \app\models\ImageUploadForm */
+
+ImageCropperAsset::register($this);
+$sizeThumb = Yii::$app->params['image.size.thumbnail'];
+$this->registerJs("initProjectImageUpload({$sizeThumb[0]}, {$sizeThumb[1]});");
 
 // OpenGraph metatags
 $this->registerMetaTag(['property' => 'og:title', 'content' => Html::encode($model->title)]);
@@ -58,7 +63,7 @@ $canManageProject = UserPermissions::canManageProject($model);
             <p><?= Yii::t('project', 'Yii Version') ?>: <?= Html::encode($model->yii_version) ?></p>
         </div>
     </div>
-
+    
     <div class="row images">
         <?php if (empty($model->images)): ?>
             <div class="col-xs-4">
@@ -78,18 +83,32 @@ $canManageProject = UserPermissions::canManageProject($model);
                 </div>
             <?php endforeach ?>
         <?php endif ?>
-        <div class="col-xs-4">
-            <?php if (isset($imageUploadForm)): ?>
-                <?php $form = ActiveForm::begin(['id' => 'project-image-upload']) ?>
-                    <?= $form->field($imageUploadForm, 'files')->fileInput(['multiple' => true, 'accept' => 'image/png']) ?>
-                    <div class="form-group">
-                        <?= Html::submitButton(Yii::t('project', 'Upload'), ['class' => 'btn btn-primary']) ?>
-                    </div>
-
-                <?php ActiveForm::end() ?>
-            <?php endif ?>
-        </div>
     </div>
+    
+    <hr>
+    <?php if (isset($imageUploadForm)): ?>
+        <?php $form = ActiveForm::begin(['id' => 'project-image-upload']) ?>
+        <?= $form->errorSummary($imageUploadForm) ?>
+        
+        <?= Html::activeHiddenInput($imageUploadForm, 'imageCropData') ?>
+        <?= $form->field($imageUploadForm, 'file')->fileInput(['accept' => 'image/png']) ?>
+
+        <div id="image-cropper-block" class="form-group" style="display: none;">
+            <p>
+                <?= Html::button(Yii::t('project', 'Cancel'), [
+                    'class' => 'btn btn-danger js-project-image-reset'
+                ]) ?>
+
+                <?= Html::submitButton(Yii::t('project', 'Upload'), [
+                    'class' => 'btn btn-default'
+                ]) ?>
+            </p>
+            
+            <img class="image-block" src="" style="max-height: 500px">
+        </div>
+        
+        <?php ActiveForm::end() ?>
+    <?php endif ?>
 
     <div class="row">
         <div class="col-xs-12">

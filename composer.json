@@ -20,7 +20,8 @@
         "creocoder/yii2-taggable": "~2.0.0",
         "codemix/yii2-localeurls": "^1.2",
         "bower-asset/magnific-popup": "~1.1",
-        "yiisoft/yii2-jui": "~2.0.0"
+        "yiisoft/yii2-jui": "~2.0.0",
+        "bower-asset/cropper": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

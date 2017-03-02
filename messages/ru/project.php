@@ -66,4 +66,5 @@ return [
     'Yes' => 'Да',
     'Yii Version' => 'Версия Yii',
     'You can not update this project.' => 'Вы не можете редактировать этот проект.',
+    'Cancel' => 'Отменить'
 ];
