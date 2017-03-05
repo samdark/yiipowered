@@ -48,7 +48,7 @@ return [
     'Published' => 'Опубликован',
     'Save' => 'Сохранить',
     'Slug' => 'Slug',
-    'Source Code: ' => 'Исходный код:',
+    'Source Code' => 'Исходный код',
     'Source URL' => 'Исходный код',
     'Status' => 'Статус',
     'Tag ID' => 'ID тега',
