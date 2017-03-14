@@ -29,6 +29,9 @@ class ImageUploadForm extends Model
      */
     public $imageCropData;
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -36,10 +39,10 @@ class ImageUploadForm extends Model
                 ['file'],
                 'image',
                 'skipOnEmpty' => false,
-                'extensions' => 'png',
-                'maxSize' => self::MAX_UPLOAD_SIZE
+                'extensions'  => 'png',
+                'maxSize'     => self::MAX_UPLOAD_SIZE,
             ],
-            
+
             ['imageCropData', 'required'],
             ['imageCropData', function ($attribute) {
                 if (!$this->imageCropDataAsArray) {
@@ -49,17 +52,26 @@ class ImageUploadForm extends Model
         ];
     }
 
+    /**
+     * ImageUploadForm constructor.
+     *
+     * @param array $projectID
+     * @param array $config
+     */
     public function __construct($projectID, array $config = [])
     {
         $this->_projectID = $projectID;
         parent::__construct($config);
     }
 
+    /**
+     * @return bool
+     */
     public function upload()
     {
         if ($this->validate()) {
             if ($this->file !== null) {
-                $model = new Image();
+                $model             = new Image();
                 $model->project_id = $this->_projectID;
                 if ($model->save()) {
                     $this->file->saveAs($model->ensureOriginalPath());
@@ -70,7 +82,7 @@ class ImageUploadForm extends Model
 
             return true;
         }
-        
+
         return false;
     }
 
@@ -81,7 +93,7 @@ class ImageUploadForm extends Model
     {
         if ($this->_imageCropDataAsArray === null) {
             $this->_imageCropDataAsArray = false;
-            
+
             try {
                 $imageCropData = Json::decode($this->imageCropData);
                 if (!array_diff(['width', 'height', 'x', 'y'], array_keys($imageCropData))) {
@@ -89,9 +101,9 @@ class ImageUploadForm extends Model
                 }
             } catch (\Exception $ex) {
 
-            }   
+            }
         }
-        
+
         return $this->_imageCropDataAsArray;
     }
 }

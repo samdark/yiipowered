@@ -13,7 +13,8 @@ use app\models\Tag;
 use app\notifier\NewProjectNotification;
 use app\notifier\Notifier;
 use Yii;
-use yii\base\InvalidParamException;
+use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
@@ -21,62 +22,66 @@ use yii\helpers\Markdown;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use yii\data\ActiveDataProvider;
-use yii\filters\AccessControl;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\Response;
 use yii\web\ServerErrorHttpException;
 use yii\web\UploadedFile;
 
+/**
+ * Class ProjectController
+ *
+ * @package app\controllers
+ */
 class ProjectController extends Controller
 {
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'update', 'delete-image'], //only be applied to
+                'only'  => ['create', 'update', 'delete-image'], //only be applied to
                 'rules' => [
                     [
-                        'allow' => true,
+                        'allow'   => true,
                         'actions' => ['create', 'update', 'delete-image'],
-                        'roles' => ['@'],
+                        'roles'   => ['@'],
                     ],
                 ],
             ],
         ];
     }
 
+    /**
+     * @return string
+     */
     public function actionIndex()
     {
+        $limit = Yii::$app->params['project.pagesize'];
+
+        $project          = new Project();
         $featuredProvider = new ActiveDataProvider([
             'pagination' => false,
-            'query' => Project::find()
-                ->with('images')
-                ->featured()
-                ->publishedOrEditable()
-                ->orderBy('created_at DESC')
-                ->limit(Yii::$app->params['project.pagesize'])
+            'query'      => $project->getFeaturedProjectsQuery($limit),
         ]);
 
         $newProvider = new ActiveDataProvider([
             'pagination' => false,
-            'query' => Project::find()
-                ->with('images')
-                ->featured(false)
-                ->publishedOrEditable()
-                ->orderBy('created_at DESC')
-                ->limit(Yii::$app->params['project.pagesize'])
+            'query'      => $project->getNewProjectsQuery($limit),
         ]);
 
         return $this->render('index', [
             'featuredProvider' => $featuredProvider,
-            'newProvider' => $newProvider,
+            'newProvider'      => $newProvider,
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function actionList()
     {
         $filterForm = new ProjectFilterForm();
@@ -84,10 +89,13 @@ class ProjectController extends Controller
 
         return $this->render('list', [
             'dataProvider' => $filterForm->getDataProvider(),
-            'filterForm' => $filterForm,
+            'filterForm'   => $filterForm,
         ]);
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionCreate()
     {
         $model = new Project();
@@ -99,6 +107,7 @@ class ProjectController extends Controller
             $notifier = new Notifier(new NewProjectNotification($model));
             $notifier->sendEmails();
             Yii::$app->session->setFlash('project.project_successfully_added');
+
             return $this->redirect(['view', 'id' => $model->id, 'slug' => $model->slug]);
         }
 
@@ -107,30 +116,31 @@ class ProjectController extends Controller
         ]);
     }
 
+    /**
+     *Rss feed action
+     */
     public function actionRss()
     {
-        /** @var Project[] $projects */
-        $projects = Project::find()
-            ->with('images')
-            ->where(['status' => Project::STATUS_PUBLISHED])
-            ->orderBy('created_at DESC')
-            ->limit(50)
-            ->all();
+        $project  = new Project();
+        $projects = $project->getRecent(50);
 
-        $feed = new Feed();
-        $feed->title = 'YiiPowered';
-        $feed->link = Url::to('');
-        $feed->selfLink = Url::to(['project/rss'], true);
+        $feed              = new Feed();
+        $feed->title       = 'YiiPowered';
+        $feed->link        = Url::to('');
+        $feed->selfLink    = Url::to(['project/rss'], true);
         $feed->description = 'Yii powered projects';
-        $feed->language = 'en';
+        $feed->language    = 'en';
         $feed->setWebMaster('sam@rmcreative.ru', 'Alexander Makarov');
         $feed->setManagingEditor('sam@rmcreative.ru', 'Alexander Makarov');
 
         foreach ($projects as $project) {
-            $item = new Item();
-            $item->title = $project->title;
-            $item->link = Url::to(['project/view', 'id' => $project->id, 'slug' => $project->slug], true);
-            $item->guid = Url::to(['project/view', 'id' => $project->id, 'slug' => $project->slug], true);
+
+            $projectPageUrl = $project->getPageUrl();
+
+            $item              = new Item();
+            $item->title       = $project->title;
+            $item->link        = $projectPageUrl;
+            $item->guid        = $projectPageUrl;
             $item->description = HtmlPurifier::process(Markdown::process($project->getDescription()));
 
             if (!empty($project->link)) {
@@ -145,6 +155,12 @@ class ProjectController extends Controller
         $feed->render();
     }
 
+    /**
+     * @param $id
+     *
+     * @return string|\yii\web\Response
+     * @throws \yii\web\ForbiddenHttpException
+     */
     public function actionUpdate($id)
     {
         $model = $this->findModel(['id' => $id]);
@@ -158,18 +174,24 @@ class ProjectController extends Controller
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id, 'slug' => $model->slug]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
 
+    /**
+     * @param $id
+     * @param $slug
+     *
+     * @return string|\yii\web\Response
+     */
     public function actionView($id, $slug)
     {
         $project = $this->findModel([
-            'id' => $id,
+            'id'   => $id,
             'slug' => $slug,
         ]);
 
@@ -186,13 +208,14 @@ class ProjectController extends Controller
         }
 
         return $this->render('view', [
-            'model' => $project,
+            'model'           => $project,
             'imageUploadForm' => $imageUploadForm,
         ]);
     }
 
     /**
      * @param array $condition
+     *
      * @return Project
      * @throws NotFoundHttpException
      */
@@ -200,16 +223,23 @@ class ProjectController extends Controller
     {
         /** @var Project $model */
         $model = Project::find()
-            ->publishedOrEditable()
-            ->andWhere($condition)->one();
+                        ->publishedOrEditable()
+                        ->andWhere($condition)
+                        ->one();
 
         if ($model !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+    /**
+     * @return string
+     * @throws \yii\web\BadRequestHttpException
+     * @throws \yii\web\ForbiddenHttpException
+     * @throws \yii\web\NotFoundHttpException
+     * @throws \yii\web\ServerErrorHttpException
+     */
     public function actionDeleteImage()
     {
         $id = Yii::$app->request->post('id');
@@ -229,18 +259,20 @@ class ProjectController extends Controller
 
         if ($image->delete()) {
             return 'OK';
-        } else {
-            throw new ServerErrorHttpException('Unable to delete image.');
         }
+        throw new ServerErrorHttpException('Unable to delete image.');
+        
     }
 
     /**
      * @param $term
+     *
      * @return Response
      */
     public function actionAutocompleteTags($term)
     {
         $tags = Tag::find()->where(['like', 'name', $term])->limit(10)->all();
+
         return $this->asJson(ArrayHelper::getColumn($tags, 'name'));
     }
 }

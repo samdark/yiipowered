@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models;
 
 use app\components\UserPermissions;
@@ -14,6 +15,9 @@ use yii\db\ActiveQuery;
  */
 class ProjectQuery extends ActiveQuery
 {
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
@@ -23,6 +27,7 @@ class ProjectQuery extends ActiveQuery
 
     /**
      * @param bool $value
+     *
      * @return $this
      */
     public function featured($value = true)
@@ -40,14 +45,15 @@ class ProjectQuery extends ActiveQuery
             return $this;
         }
 
-        $parts = ['status = :status'];
+        $parts  = ['status = :status'];
         $params = ['status' => Project::STATUS_PUBLISHED];
 
         if (\Yii::$app->user->id) {
             $this->leftJoin('project_user pu', 'pu.project_id = project.id');
-            $parts[] = 'pu.user_id = :userid';
+            $parts[]          = 'pu.user_id = :userid';
             $params['userid'] = \Yii::$app->user->id;
         }
+
         return $this->andWhere(implode(' OR ', $parts), $params);
     }
 }

@@ -29,10 +29,13 @@ class LoginForm extends Model
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [
-            'username' => Yii::t('app', 'User name'),
+            'username' => Yii::t('app', 'Username'),
             'password' => Yii::t('app', 'Password'),
         ];
     }
@@ -43,7 +46,7 @@ class LoginForm extends Model
      * This method serves as the inline validation for password.
      *
      * @param string $attribute the attribute currently being validated
-     * @param array $params the additional name-value pairs given in the rule
+     * @param array  $params    the additional name-value pairs given in the rule
      */
     public function validatePassword($attribute, $params)
     {

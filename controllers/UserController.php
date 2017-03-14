@@ -2,20 +2,24 @@
 
 namespace app\controllers;
 
-use Yii;
-use app\models\User;
 use app\models\Project;
+use app\models\User;
+use Yii;
 use yii\authclient\Collection;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
+
 /**
  * UserController implements the CRUD actions for User model.
  */
 class UserController extends Controller
 {
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
@@ -23,19 +27,19 @@ class UserController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'allow' => true,
+                        'allow'   => true,
                         'actions' => ['view'],
-                        'roles' => ['@'],
+                        'roles'   => ['@'],
                     ],
                     [
-                        'allow' => true,
+                        'allow'   => true,
                         'actions' => ['index', 'create', 'update', 'delete'],
-                        'roles' => ['manage_users'],
+                        'roles'   => ['manage_users'],
                     ],
                 ],
             ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
+            'verbs'  => [
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
                 ],
@@ -45,6 +49,7 @@ class UserController extends Controller
 
     /**
      * Lists all User models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -60,7 +65,9 @@ class UserController extends Controller
 
     /**
      * Displays user profile
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException
      */
@@ -78,7 +85,7 @@ class UserController extends Controller
             $auths = $user->auths;
             /** @var Collection $clientCollection */
             $clientCollection = Yii::$app->authClientCollection;
-            $authClients = $clientCollection->getClients();
+            $authClients      = $clientCollection->getClients();
             foreach ($auths as $auth) {
                 unset($authClients[$auth->source]);
             }
@@ -86,14 +93,14 @@ class UserController extends Controller
 
         // FIXME: need to select all projects used belongs to, not only these he created
         $dataProvider = new ActiveDataProvider([
-            'query' => Project::find()->where(['created_by'=>$id])->orderBy('id DESC'),
+            'query'      => Project::find()->where(['created_by' => $id])->orderBy('id DESC'),
             'pagination' => ['pageSize' => 10],
         ]);
 
         return $this->render('view', [
-            'model' => $user,
+            'model'        => $user,
             'dataProvider' => $dataProvider,
-            'authClients' => $authClients,
+            'authClients'  => $authClients,
         ]);
     }
 
@@ -101,7 +108,9 @@ class UserController extends Controller
     /**
      * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      */
     public function actionUpdate($id)
@@ -120,12 +129,14 @@ class UserController extends Controller
     /**
      * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      */
     public function actionDelete($id)
     {
-        $model = $this->findModel($id);
+        $model         = $this->findModel($id);
         $model->status = User::STATUS_DELETED;
         $model->save(false);
 
@@ -135,7 +146,9 @@ class UserController extends Controller
     /**
      * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
+     *
      * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

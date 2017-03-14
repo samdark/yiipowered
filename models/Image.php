@@ -20,8 +20,8 @@ use yii\imagine\Image as ImagineImage;
  * @property integer $created_at
  * @property integer $updated_at
  *
- * @property User $updatedBy
- * @property User $createdBy
+ * @property User    $updatedBy
+ * @property User    $createdBy
  * @property Project $project
  */
 class Image extends \yii\db\ActiveRecord
@@ -66,7 +66,7 @@ class Image extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('image', 'ID'),
+            'id'         => Yii::t('image', 'ID'),
             'project_id' => Yii::t('image', 'Project ID'),
             'created_by' => Yii::t('image', 'Created By'),
             'updated_by' => Yii::t('image', 'Updated By'),
@@ -99,64 +99,100 @@ class Image extends \yii\db\ActiveRecord
         return $this->hasOne(Project::className(), ['id' => 'project_id'])->inverseOf('images');
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return Yii::getAlias('@web/img/project/' . $this->project_id . '/' . $this->getFullFilename()) . '?' . $this->updated_at;
     }
 
+    /**
+     * @return string
+     */
     public function getThumbnailUrl()
     {
         return Yii::getAlias('@web/img/project/' . $this->project_id . '/' . $this->getThumbnailFilename()) . '?' . $this->updated_at;
     }
 
+    /**
+     * @return string
+     */
     public function getOriginalFilename()
     {
         return $this->id . '.png';
     }
 
+    /**
+     * @return string
+     */
     public function getFullFilename()
     {
         return $this->id . '_full.png';
     }
 
+    /**
+     * @return string
+     */
     public function getThumbnailFilename()
     {
         return $this->id . '_thm.png';
     }
 
+    /**
+     * @return string
+     */
     public function getOriginalPath()
     {
         return Yii::getAlias('@app/images/') . $this->project_id . '/' . $this->getOriginalFilename();
     }
 
+    /**
+     * @return string
+     */
     public function ensureOriginalPath()
     {
         $path = $this->getOriginalPath();
         FileHelper::createDirectory(dirname($path));
+
         return $path;
     }
 
+    /**
+     * @return string
+     */
     public function getFullPath()
     {
         return Yii::getAlias('@webroot/img/project/') . $this->project_id . '/' . $this->getFullFilename();
     }
 
+    /**
+     * @return string
+     */
     public function ensureFullPath()
     {
         $path = $this->getFullPath();
         FileHelper::createDirectory(dirname($path));
+
         return $path;
     }
 
+    /**
+     * @return string
+     */
     public function getThumbnailPath()
     {
         return Yii::getAlias('@webroot/img/project/') . $this->project_id . '/' . $this->getThumbnailFilename();
     }
 
+    /**
+     * @return string
+     */
     public function ensureThumbnailPath()
     {
         $path = $this->getThumbnailPath();
         FileHelper::createDirectory(dirname($path));
+
         return $path;
     }
 
@@ -166,27 +202,33 @@ class Image extends \yii\db\ActiveRecord
     public function generateThumbnail($crop = null)
     {
         ImagineImage::$thumbnailBackgroundAlpha = 0;
-        $size = Yii::$app->params['image.size.thumbnail'];
-        
+        $size                                   = Yii::$app->params['image.size.thumbnail'];
+
         if ($crop === null) {
             ImagineImage::thumbnail($this->getOriginalPath(), $size[0], $size[1], ImageInterface::THUMBNAIL_INSET)
-                ->save($this->ensureThumbnailPath());    
+                        ->save($this->ensureThumbnailPath());
         } else {
             ImagineImage::crop($this->getOriginalPath(), $crop['width'], $crop['height'], [$crop['x'], $crop['y']])
-                ->thumbnail(new Box($size[0], $size[1]), ImageInterface::THUMBNAIL_INSET)
-                ->save($this->ensureThumbnailPath());
+                        ->thumbnail(new Box($size[0], $size[1]), ImageInterface::THUMBNAIL_INSET)
+                        ->save($this->ensureThumbnailPath());
         }
     }
 
+    /**
+     *
+     */
     public function generateFull()
     {
         ImagineImage::$thumbnailBackgroundAlpha = 0;
 
         $size = Yii::$app->params['image.size.full'];
         ImagineImage::thumbnail($this->getOriginalPath(), $size[0], $size[1], ImageInterface::THUMBNAIL_INSET)
-            ->save($this->ensureFullPath());
+                    ->save($this->ensureFullPath());
     }
 
+    /**
+     *
+     */
     public function afterDelete()
     {
         parent::afterDelete();
@@ -196,6 +238,11 @@ class Image extends \yii\db\ActiveRecord
         $this->removeFile($this->getOriginalPath());
     }
 
+    /**
+     * @param $path
+     *
+     * @return bool
+     */
     private function removeFile($path)
     {
         if (!file_exists($path)) {

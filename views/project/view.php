@@ -2,13 +2,13 @@
 
 use app\assets\ImageCropperAsset;
 use app\components\UserPermissions;
-use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
 use app\models\Project;
 use app\widgets\Avatar;
-use yii\helpers\Url;
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
+use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
-use \yii\helpers\HtmlPurifier;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Project */
@@ -25,8 +25,12 @@ $this->registerMetaTag(['property' => 'og:url', 'content' => Url::canonical()]);
 
 $this->title = $model->title;
 
+$this->params['breadcrumbs'][] = ['label' => Yii::t('project', 'Projects'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+
 $canManageProject = UserPermissions::canManageProject($model);
 ?>
+
 <div class="project-view">
 
     <div class="row">
@@ -57,13 +61,14 @@ $canManageProject = UserPermissions::canManageProject($model);
             <?php endif ?>
 
             <?php if ($model->is_opensource): ?>
-                <p><?= Yii::t('project', 'Source Code') ?>: <?= Html::a(Html::encode($model->source_url), $model->source_url, ['target' => '_blank']) ?></p>
+                <p><?= Yii::t('project', 'Source Code') ?>
+                    : <?= Html::a(Html::encode($model->source_url), $model->source_url, ['target' => '_blank']) ?></p>
             <?php endif ?>
 
             <p><?= Yii::t('project', 'Yii Version') ?>: <?= Html::encode($model->yii_version) ?></p>
         </div>
     </div>
-    
+
     <div class="row images">
         <?php if (empty($model->images)): ?>
             <div class="col-xs-4">
@@ -75,38 +80,41 @@ $canManageProject = UserPermissions::canManageProject($model);
             <?php foreach ($model->images as $image): ?>
                 <div class="col-xs-4">
                     <div class="image">
-                        <a href="<?= $image->getUrl() ?>"><img class="img-responsive" src="<?= $image->getThumbnailUrl() ?>" alt=""></a>
+                        <a href="<?= $image->getUrl() ?>"><img class="img-responsive"
+                                                               src="<?= $image->getThumbnailUrl() ?>" alt=""></a>
                         <?php if ($canManageProject): ?>
-                            <span class="delete glyphicon glyphicon-remove" data-id="<?= $image->id ?>" data-url="<?= Url::to(['project/delete-image']) ?>" data-confirm="<?= Yii::t('project', 'Are you sure you want to delete this image?') ?>"></span>
+                            <span class="delete glyphicon glyphicon-remove" data-id="<?= $image->id ?>"
+                                  data-url="<?= Url::to(['project/delete-image']) ?>"
+                                  data-confirm="<?= Yii::t('project', 'Are you sure you want to delete this image?') ?>"></span>
                         <?php endif ?>
                     </div>
                 </div>
             <?php endforeach ?>
         <?php endif ?>
     </div>
-    
+
     <hr>
     <?php if (isset($imageUploadForm)): ?>
         <?php $form = ActiveForm::begin(['id' => 'project-image-upload']) ?>
         <?= $form->errorSummary($imageUploadForm) ?>
-        
+
         <?= Html::activeHiddenInput($imageUploadForm, 'imageCropData') ?>
         <?= $form->field($imageUploadForm, 'file')->fileInput(['accept' => 'image/png']) ?>
 
         <div id="image-cropper-block" class="form-group" style="display: none;">
             <p>
                 <?= Html::button(Yii::t('project', 'Cancel'), [
-                    'class' => 'btn btn-danger js-project-image-reset'
+                    'class' => 'btn btn-danger js-project-image-reset',
                 ]) ?>
 
                 <?= Html::submitButton(Yii::t('project', 'Upload'), [
-                    'class' => 'btn btn-default'
+                    'class' => 'btn btn-default',
                 ]) ?>
             </p>
-            
+
             <img class="image-block" src="" style="max-height: 500px">
         </div>
-        
+
         <?php ActiveForm::end() ?>
     <?php endif ?>
 
@@ -131,11 +139,11 @@ $canManageProject = UserPermissions::canManageProject($model);
     <div class="row">
         <div class="col-xs-12">
             <ul class="authors">
-            <?php foreach ($model->users as $user): ?>
-                <li>
-                    <?= Html::a(Avatar::widget(['user' => $user]) . ' @' . Html::encode($user->username), ['user/view', 'id' => $user->id], ['class' => 'author']) ?>
-                </li>
-            <?php endforeach ?>
+                <?php foreach ($model->users as $user): ?>
+                    <li>
+                        <?= Html::a(Avatar::widget(['user' => $user]) . ' @' . Html::encode($user->username), ['user/view', 'id' => $user->id], ['class' => 'author']) ?>
+                    </li>
+                <?php endforeach ?>
             </ul>
         </div>
 
