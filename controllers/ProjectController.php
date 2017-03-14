@@ -51,6 +51,9 @@ class ProjectController extends Controller
 
     public function actionIndex()
     {
+        $limit = Yii::$app->params['project.pagesize'];
+
+        $project = new Project();
         $featuredProvider = new ActiveDataProvider([
             'pagination' => false,
             'query' => Project::find()
@@ -58,7 +61,7 @@ class ProjectController extends Controller
                 ->featured()
                 ->publishedOrEditable()
                 ->orderBy('created_at DESC')
-                ->limit(Yii::$app->params['project.pagesize'])
+                ->limit($limit)
         ]);
 
         $newProvider = new ActiveDataProvider([
@@ -68,7 +71,7 @@ class ProjectController extends Controller
                 ->featured(false)
                 ->publishedOrEditable()
                 ->orderBy('created_at DESC')
-                ->limit(Yii::$app->params['project.pagesize'])
+                ->limit($limit)
         ]);
 
         return $this->render('index', [
@@ -127,10 +130,11 @@ class ProjectController extends Controller
         $feed->setManagingEditor('sam@rmcreative.ru', 'Alexander Makarov');
 
         foreach ($projects as $project) {
+            $url = Url::to(['project/view', 'id' => $project->id, 'slug' => $project->slug], true);
             $item = new Item();
             $item->title = $project->title;
-            $item->link = Url::to(['project/view', 'id' => $project->id, 'slug' => $project->slug], true);
-            $item->guid = Url::to(['project/view', 'id' => $project->id, 'slug' => $project->slug], true);
+            $item->link = $url;
+            $item->guid = $url;
             $item->description = HtmlPurifier::process(Markdown::process($project->getDescription()));
 
             if (!empty($project->link)) {
@@ -158,11 +162,11 @@ class ProjectController extends Controller
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id, 'slug' => $model->slug]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
 
@@ -201,13 +205,13 @@ class ProjectController extends Controller
         /** @var Project $model */
         $model = Project::find()
             ->publishedOrEditable()
-            ->andWhere($condition)->one();
+            ->andWhere($condition)
+            ->one();
 
         if ($model !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 
     public function actionDeleteImage()
@@ -229,9 +233,9 @@ class ProjectController extends Controller
 
         if ($image->delete()) {
             return 'OK';
-        } else {
-            throw new ServerErrorHttpException('Unable to delete image.');
         }
+        throw new ServerErrorHttpException('Unable to delete image.');
+
     }
 
     /**
