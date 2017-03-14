@@ -17,6 +17,9 @@ class ProjectFilterForm extends Model
     public $featured;
     public $yiiVersion;
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -28,25 +31,34 @@ class ProjectFilterForm extends Model
         ];
     }
 
+    /**
+     * @return string
+     */
     public function formName()
     {
         return '';
     }
 
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [
-            'tags' => \Yii::t('project', 'Tags'),
-            'title' => \Yii::t('project', 'Title'),
-            'url' => \Yii::t('project', 'URL'),
+            'tags'       => \Yii::t('project', 'Tags'),
+            'title'      => \Yii::t('project', 'Title'),
+            'url'        => \Yii::t('project', 'URL'),
             'opensource' => \Yii::t('project', 'OpenSource'),
-            'featured' => \Yii::t('project', 'Only Featured'),
+            'featured'   => \Yii::t('project', 'Only Featured'),
             'yiiVersion' => \Yii::t('project', 'Yii Version'),
         ];
     }
 
 
+    /**
+     * @return array
+     */
     public function getOpenSourceOptions()
     {
         return [
@@ -56,15 +68,18 @@ class ProjectFilterForm extends Model
     }
 
 
+    /**
+     * @return \yii\data\ActiveDataProvider
+     */
     public function getDataProvider()
     {
         $query = Project::find()
-            ->with('images')
-            ->publishedOrEditable()
-            ->orderBy('created_at DESC');
+                        ->with('images')
+                        ->publishedOrEditable()
+                        ->orderBy('created_at DESC');
 
         if ($this->tags !== null) {
-            $tags = (array) $this->tags;
+            $tags = (array)$this->tags;
             $query->allTagValues($tags);
         }
 
@@ -78,7 +93,7 @@ class ProjectFilterForm extends Model
         }
 
         return new ActiveDataProvider([
-            'query' => $query,
+            'query'      => $query,
             'pagination' => ['pageSize' => Yii::$app->params['project.pagesize']],
         ]);
     }

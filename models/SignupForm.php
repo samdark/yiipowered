@@ -1,8 +1,9 @@
 <?php
+
 namespace app\models;
 
-use yii\base\Model;
 use Yii;
+use yii\base\Model;
 
 /**
  * Signup form
@@ -34,12 +35,15 @@ class SignupForm extends Model
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [
-            'username' => Yii::t('app', 'User name'),
+            'username' => Yii::t('app', 'Username'),
             'password' => Yii::t('app', 'Password'),
-            'email' => Yii::t('app', 'Email'),
+            'email'    => Yii::t('app', 'Email'),
         ];
     }
 
@@ -51,13 +55,14 @@ class SignupForm extends Model
     public function signup()
     {
         if ($this->validate()) {
-            $user = new User();
+            $user           = new User();
             $user->username = $this->username;
-            $user->email = $this->email;
+            $user->email    = $this->email;
             $user->setPassword($this->password);
             $user->generatePasswordResetToken();
             $user->generateAuthKey();
             $user->save();
+
             return $user;
         }
 

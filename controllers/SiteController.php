@@ -3,21 +3,23 @@
 namespace app\controllers;
 
 use app\components\AuthHandler;
-use app\models\Auth;
+use app\models\LoginForm;
 use app\models\PasswordResetRequestForm;
 use app\models\ResetPasswordForm;
 use app\models\SignupForm;
-use app\models\User;
 use Yii;
 use yii\authclient\ClientInterface;
 use yii\base\InvalidParamException;
 use yii\filters\AccessControl;
-use yii\helpers\ArrayHelper;
+use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
 
+/**
+ * Class SiteController
+ *
+ * @package app\controllers
+ */
 class SiteController extends Controller
 {
     /**
@@ -28,22 +30,22 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only'  => ['logout', 'signup'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
-                        'allow' => true,
-                        'roles' => ['?'],
+                        'allow'   => true,
+                        'roles'   => ['?'],
                     ],
                     [
                         'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
+                        'allow'   => true,
+                        'roles'   => ['@'],
                     ],
                 ],
             ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
+            'verbs'  => [
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
                 ],
@@ -57,15 +59,15 @@ class SiteController extends Controller
     public function actions()
     {
         return [
-            'error' => [
+            'error'   => [
                 'class' => 'yii\web\ErrorAction',
             ],
             'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
+                'class'           => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
-            'auth' => [
-                'class' => 'yii\authclient\AuthAction',
+            'auth'    => [
+                'class'           => 'yii\authclient\AuthAction',
                 'successCallback' => [$this, 'onAuthSuccess'],
             ],
         ];
@@ -79,6 +81,9 @@ class SiteController extends Controller
         (new AuthHandler($client))->handle();
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
@@ -88,13 +93,16 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('login', [
+            'model' => $model,
+        ]);
     }
 
+    /**
+     * @return \yii\web\Response
+     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
@@ -102,11 +110,17 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+    /**
+     * @return string
+     */
     public function actionAbout()
     {
         return $this->render('about');
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionSignup()
     {
         $model = new SignupForm();
@@ -123,6 +137,9 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionRequestPasswordReset()
     {
         $model = new PasswordResetRequestForm();
@@ -141,6 +158,12 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @param $token
+     *
+     * @return string|\yii\web\Response
+     * @throws \yii\web\BadRequestHttpException
+     */
     public function actionResetPassword($token)
     {
         try {

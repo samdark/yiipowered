@@ -1,6 +1,6 @@
 <?php
 
-use \yii\widgets\ListView;
+use yii\widgets\ListView;
 
 /* @var $featuredProvider yii\data\ActiveDataProvider */
 /* @var $newProvider yii\data\ActiveDataProvider */
@@ -9,14 +9,14 @@ $this->title = Yii::t('project', 'Projects built with Yii');
 ?>
 <div class="project-index">
     <h1><?= Yii::t('project', 'Featured projects') ?></h1>
-    
+
     <div class="row">
         <?= ListView::widget([
             'dataProvider' => $featuredProvider,
-            'layout' => '{items}',
-            'options' => ['class' => 'projects-flow'],
-            'itemOptions' => ['class' => 'item'],
-            'itemView' => '_card'
+            'layout'       => '{items}',
+            'options'      => ['class' => 'projects-flow'],
+            'itemOptions'  => ['class' => 'item'],
+            'itemView'     => '_card',
         ]) ?>
     </div>
 
@@ -25,10 +25,10 @@ $this->title = Yii::t('project', 'Projects built with Yii');
     <div class="row">
         <?= ListView::widget([
             'dataProvider' => $newProvider,
-            'layout' => '{items}',
-            'options' => ['class' => 'projects-flow'],
-            'itemOptions' => ['class' => 'item'],
-            'itemView' => '_card'
+            'layout'       => '{items}',
+            'options'      => ['class' => 'projects-flow'],
+            'itemOptions'  => ['class' => 'item'],
+            'itemView'     => '_card',
         ]) ?>
     </div>
 
