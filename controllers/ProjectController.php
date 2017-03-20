@@ -53,7 +53,6 @@ class ProjectController extends Controller
     {
         $limit = Yii::$app->params['project.pagesize'];
 
-        $project = new Project();
         $featuredProvider = new ActiveDataProvider([
             'pagination' => false,
             'query' => Project::find()
