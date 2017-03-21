@@ -8,6 +8,7 @@ use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\FileHelper;
+use yii\helpers\Url;
 use yii\imagine\Image as ImagineImage;
 
 /**
@@ -104,9 +105,14 @@ class Image extends \yii\db\ActiveRecord
         return Yii::getAlias('@web/img/project/' . $this->project_id . '/' . $this->getFullFilename()) . '?' . $this->updated_at;
     }
 
-    public function getThumbnailUrl()
+    public function getThumbnailRelativeUrl()
     {
         return Yii::getAlias('@web/img/project/' . $this->project_id . '/' . $this->getThumbnailFilename()) . '?' . $this->updated_at;
+    }
+
+    public function getThumbnailAbsoluteUrl()
+    {
+        return Url::to($this->getThumbnailRelativeUrl(), 'http');
     }
 
     public function getOriginalFilename()

@@ -68,14 +68,14 @@ $canManageProject = UserPermissions::canManageProject($model);
         <?php if (empty($model->images)): ?>
             <div class="col-xs-4">
                 <div class="image">
-                    <img class="img-responsive" src="<?= $model->getPlaceholderUrl() ?>" alt="">
+                    <img class="img-responsive" src="<?= $model->getPlaceholderRelativeUrl() ?>" alt="">
                 </div>
             </div>
         <?php else: ?>
             <?php foreach ($model->images as $image): ?>
                 <div class="col-xs-4">
                     <div class="image">
-                        <a href="<?= $image->getUrl() ?>"><img class="img-responsive" src="<?= $image->getThumbnailUrl() ?>" alt=""></a>
+                        <a href="<?= $image->getUrl() ?>"><img class="img-responsive" src="<?= $image->getThumbnailRelativeUrl() ?>" alt=""></a>
                         <?php if ($canManageProject): ?>
                             <span class="delete glyphicon glyphicon-remove" data-id="<?= $image->id ?>" data-url="<?= Url::to(['project/delete-image']) ?>" data-confirm="<?= Yii::t('project', 'Are you sure you want to delete this image?') ?>"></span>
                         <?php endif ?>

@@ -50,4 +50,12 @@ class ProjectQuery extends ActiveQuery
         }
         return $this->andWhere(implode(' OR ', $parts), $params);
     }
+
+    /**
+     * @return $this
+     */
+    public function published()
+    {
+        return $this->andWhere(['status' => Project::STATUS_PUBLISHED]);
+    }
 }

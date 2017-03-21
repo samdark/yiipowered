@@ -243,4 +243,12 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->github ? 'http://github.com/' . $this->github : null;
     }
+
+    /**
+     * @return UserQuery
+     */
+    public static function find()
+    {
+        return new UserQuery(get_called_class());
+    }
 }

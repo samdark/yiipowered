@@ -9,6 +9,7 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "{{%project}}".
@@ -65,17 +66,17 @@ class Project extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            [
+            'timestamp' => [
                 'class' => TimestampBehavior::className(),
             ],
-            [
+            'blameable' => [
                 'class' => BlameableBehavior::className(),
             ],
-            [
+            'sluggable' => [
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'title',
             ],
-            [
+            'taggable' => [
                 'class' => TaggableBehavior::className(),
             ],
         ];
@@ -153,18 +154,32 @@ class Project extends \yii\db\ActiveRecord
         return $this->hasMany(Image::className(), ['project_id' => 'id'])->inverseOf('project');
     }
 
-    public function getPlaceholderUrl()
+    public function getPlaceholderRelativeUrl()
     {
         return '/img/project_no_image.png';
     }
 
-    public function getPrimaryImageThumbnail()
+    public function getPlaceholderAbsoluteUrl()
+    {
+        return Url::to($this->getPlaceholderRelativeUrl(), 'http');
+    }
+
+    public function getPrimaryImageThumbnailRelativeUrl()
     {
         if (empty($this->images)) {
-            return $this->getPlaceholderUrl();
+            return $this->getPlaceholderRelativeUrl();
         }
 
-        return $this->images[0]->getThumbnailUrl();
+        return $this->images[0]->getThumbnailRelativeUrl();
+    }
+
+    public function getPrimaryImageThumbnailAbsoluteUrl()
+    {
+        if (empty($this->images)) {
+            return $this->getPlaceholderAbsoluteUrl();
+        }
+
+        return $this->images[0]->getThumbnailAbsoluteUrl();
     }
 
     /**
