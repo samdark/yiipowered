@@ -16,9 +16,9 @@ class GoogleAnalytics
      */
     public static function track($id)
     {
-//        if (YII_DEBUG) {
-//            return;
-//        }
+        if (YII_DEBUG) {
+            return;
+        }
 
         $js = <<<JS
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
