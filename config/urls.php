@@ -18,6 +18,12 @@ return [
         'controller' => ['1.0/projects' => 'api1/project'],
         'only' => ['index', 'view'],
         'prefix' => 'api',
+        'ruleConfig' => [
+            'class' => 'yii\web\UrlRule',
+            'defaults' => [
+                'expand' => 'users',
+            ]
+        ],
     ],
     [
         'class' => 'yii\rest\UrlRule',

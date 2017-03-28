@@ -24,6 +24,7 @@ Each project contains the following fields:
 - `description` - project description. Note that it may be in different language depending on which URL you are using
   for API calls. See [Languages](#languages).
 - `thumbnail` - URL pointing to project thumbnail image.
+- `users` - users participated in the project.
 
 ### Particular project <a href="#projects-view" id="projects-view">#</a>
 
@@ -39,12 +40,6 @@ In order to list projects use the following request:
 
 
 > GET [/projects](/en/api/1.0/projects)
-
-
-You may want to get info about users participated in the projects by adding `?expand=users` to URL:
-
-
-> GET [/projects?expand=users](/en/api/1.0/projects?expand=users)
 
 
 ### Filtering list <a href="#projects-search" id="projects-search">#</a>
