@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%vote}}".
@@ -19,6 +21,9 @@ use Yii;
  */
 class Vote extends \yii\db\ActiveRecord
 {
+    const VALUE_UP = 1;
+    const VALUE_DOWN = -1;
+
     /**
      * @inheritdoc
      */
@@ -30,14 +35,31 @@ class Vote extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::className(),
+            ],
+            'blameable' => [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'user_id',
+                'updatedByAttribute' => false,
+            ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
-            [['user_id', 'project_id', 'value', 'created_at', 'updated_at'], 'required'],
-            [['user_id', 'project_id', 'value', 'created_at', 'updated_at'], 'integer'],
+            [['project_id', 'value'], 'required'],
+            [['value'], 'in', 'range' => [self::VALUE_DOWN, self::VALUE_UP]],
+            [['project_id'], 'integer'],
             [['user_id', 'project_id'], 'unique', 'targetAttribute' => ['user_id', 'project_id'], 'message' => 'The combination of User ID and Project ID has already been taken.'],
             [['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => Project::className(), 'targetAttribute' => ['project_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
