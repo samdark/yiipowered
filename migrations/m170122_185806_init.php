@@ -1,6 +1,6 @@
 <?php
 
-use yii\db\Migration;
+use app\components\Migration;
 
 /**
  * Initial database structure
@@ -10,14 +10,8 @@ class m170122_185806_init extends Migration
     /**
      * @inheritdoc
      */
-    public function up()
+    public function safeUp()
     {
-        $tableOptions = null;
-        if ($this->db->driverName === 'mysql') {
-            // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
-            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
-        }
-
         $this->createTable('{{%user}}', [
             'id' => $this->primaryKey(),
             'username' => $this->string()->notNull()->unique(),
@@ -33,7 +27,7 @@ class m170122_185806_init extends Migration
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
-        ], $tableOptions);
+        ]);
 
 
         $this->createTable('{{%auth}}', [
@@ -41,7 +35,7 @@ class m170122_185806_init extends Migration
             'user_id' => $this->integer()->notNull(),
             'source' => $this->string()->notNull(),
             'source_id' => $this->string()->notNull(),
-        ], $tableOptions);
+        ]);
 
         $this->addForeignKey('fk-auth-user_id-user-id', '{{%auth}}', 'user_id', '{{%user}}', 'id', 'CASCADE');
 
@@ -59,7 +53,7 @@ class m170122_185806_init extends Migration
             'updated_at' => $this->integer()->notNull(),
             'is_featured' => $this->boolean()->notNull()->defaultValue(false),
             'yii_version' => $this->string()->notNull(),
-        ], $tableOptions);
+        ]);
 
         $this->addForeignKey('fk-project-created_by-user-id', '{{%project}}', 'created_by', '{{%user}}', 'id', 'SET NULL');
         $this->addForeignKey('fk-project-updated_by-user-id', '{{%project}}', 'updated_by', '{{%user}}', 'id', 'SET NULL');
@@ -69,12 +63,12 @@ class m170122_185806_init extends Migration
             'project_id' => $this->integer()->notNull(),
             'language' => $this->string()->notNull()->defaultValue('en-US'),
             'content' => $this->text()->notNull(),
-        ], $tableOptions);
+        ]);
         
         $this->createTable('{{%project_user}}', [
             'project_id' => $this->integer()->notNull(),
             'user_id' => $this->integer()->notNull(),
-        ], $tableOptions);
+        ]);
         
         $this->addPrimaryKey('pk-project_user', '{{%project_user}}', ['project_id', 'user_id']);
         $this->addForeignKey('fk-project_user-project_id', '{{%project_user}}', 'project_id', '{{%project}}', 'id', 'CASCADE');
@@ -89,7 +83,7 @@ class m170122_185806_init extends Migration
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
-        ], $tableOptions);
+        ]);
 
 
         $this->addForeignKey('fk-image-project_id', '{{%image}}', 'project_id', '{{%project}}', 'id', 'SET NULL');
@@ -103,7 +97,7 @@ class m170122_185806_init extends Migration
             'value' => $this->smallInteger()->notNull(),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
-        ], $tableOptions);
+        ]);
         
         $this->createIndex('idx-vote-unique', '{{%vote}}', ['user_id', 'project_id'], true);
         $this->addForeignKey('fk-vote-user_id', '{{%vote}}', 'user_id', '{{%user}}', 'id', 'CASCADE');
@@ -117,12 +111,12 @@ class m170122_185806_init extends Migration
             'type' => $this->smallInteger()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
-        ], $tableOptions);
+        ]);
 
         $this->createTable('{{%project_tag}}', [
             'project_id' => $this->integer()->notNull(),
             'tag_id' => $this->integer()->notNull(),
-        ], $tableOptions);
+        ]);
 
         $this->addPrimaryKey('pk-project_tag', '{{%project_tag}}', ['project_id', 'tag_id']);
         $this->addForeignKey('fk-project_tag-project_id', '{{%project_tag}}', 'project_id', '{{%project}}', 'id', 'CASCADE');
@@ -132,7 +126,7 @@ class m170122_185806_init extends Migration
     /**
      * @inheritdoc
      */
-    public function down()
+    public function safeDown()
     {
         $this->dropTable('{{%project_tag}}');
         $this->dropTable('{{%tag}}');
