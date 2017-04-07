@@ -46,6 +46,7 @@ AppAsset::register($this);
             } else {
                 $menuItems[] = ['label' => Yii::t('user', 'Manage users'), 'url' => ['/user/index'], 'visible'=> \Yii::$app->user->can('manage_users')];
                 $menuItems[] = ['label' => Yii::$app->user->identity->username, 'url' => ['/user/view', 'id' => \Yii::$app->user->id]];
+                $menuItems[] = ['label' => Yii::t('bookmark', 'Favorite projects'), 'url' => ['project/bookmark-list']];
                 $menuItems[] = [
                     'label' => 'Logout',
                     'url' => ['/site/logout'],
