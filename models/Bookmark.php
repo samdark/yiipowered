@@ -71,7 +71,7 @@ class Bookmark extends ActiveRecord
      */
     public function getProject()
     {
-        return $this->hasOne(Project::className(), ['id' => 'project_id'])->inverseOf('stars');
+        return $this->hasOne(Project::className(), ['id' => 'project_id']);
     }
     
     /**
@@ -79,7 +79,7 @@ class Bookmark extends ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id'])->inverseOf('stars');
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
     
     /**

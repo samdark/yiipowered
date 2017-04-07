@@ -78,12 +78,12 @@ class ProjectController extends Controller
             'newProvider' => $newProvider,
         ]);
     }
-    
+
     public function actionList()
     {
         $filterForm = new ProjectFilterForm();
         $filterForm->load(Yii::$app->request->get());
-        
+
         return $this->render('list', [
             'dataProvider' => $filterForm->getDataProvider(),
             'filterForm' => $filterForm,

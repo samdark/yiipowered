@@ -21,7 +21,7 @@ class Bookmark extends Widget
     public function init()
     {
         if ($this->project === null) {
-            throw new InvalidConfigException('Star widget property project is not set.');
+            throw new InvalidConfigException('Bookmark widget property project is not set.');
         }
     }
     
