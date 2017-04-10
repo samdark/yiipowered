@@ -10,10 +10,10 @@ use app\models\ImageUploadForm;
 use app\models\Project;
 use app\models\ProjectFilterForm;
 use app\models\Tag;
+use app\models\User;
 use app\notifier\NewProjectNotification;
 use app\notifier\Notifier;
 use Yii;
-use yii\base\InvalidParamException;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
@@ -37,11 +37,11 @@ class ProjectController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'update', 'delete-image'], //only be applied to
+                'only' => ['create', 'update', 'delete-image', 'bookmark-list'], //only be applied to
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create', 'update', 'delete-image'],
+                        'actions' => ['create', 'update', 'delete-image', 'bookmark-list'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -87,6 +87,25 @@ class ProjectController extends Controller
         return $this->render('list', [
             'dataProvider' => $filterForm->getDataProvider(),
             'filterForm' => $filterForm,
+        ]);
+    }
+    
+    /**
+     * Return bookmark projects.
+     * 
+     * @return string
+     */
+    public function actionBookmarkList()
+    {
+        /** @var User $user */
+        $user = Yii::$app->user->identity;
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $user->getBookmarkProjects(),
+        ]);
+        
+        return $this->render('bookmarkList', [
+            'dataProvider' => $dataProvider
         ]);
     }
 

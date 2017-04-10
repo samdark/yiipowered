@@ -238,3 +238,7 @@ a.desc:after {
 .pagination {
     width: 100%;
 }
+
+.bookmark-wrapper .action {
+    cursor: pointer;
+}

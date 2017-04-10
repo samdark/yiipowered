@@ -28,6 +28,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property Auth[] $auths
  * @property Project[] $projects
+ * @property Project[] $bookmarkProjects
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -250,5 +251,16 @@ class User extends ActiveRecord implements IdentityInterface
     public static function find()
     {
         return new UserQuery(get_called_class());
+    }
+    
+    /**
+     * Return bookmark projects.
+     * 
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBookmarkProjects()
+    {
+        return $this->hasMany(Project::className(), ['id' => 'project_id'])
+            ->viaTable(Bookmark::tableName(), ['user_id' => 'id']);
     }
 }
