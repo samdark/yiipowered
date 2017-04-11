@@ -38,6 +38,9 @@ use yii\helpers\Url;
  * @property Vote[] $votes
  * @property User[] $voters
  * @property ProjectDescription[] $descriptions
+ * @property User[] $starUsers
+ * @property Star[] $stars
+ * @property int $starCount
  */
 class Project extends \yii\db\ActiveRecord
 {
@@ -358,5 +361,34 @@ class Project extends \yii\db\ActiveRecord
                 return 'status-published';
         }
         return 'status-unknown';
+    }
+    
+    /**
+     * Return follower users.
+     * 
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStars()
+    {
+        return $this->hasMany(Star::className(), ['project_id' => 'id'])->inverseOf('project');
+    }
+    
+    /**
+     * Return follower count.
+     *
+     * @return int
+     */
+    public function getStarCount()
+    {
+        return $this->getStars()->sum('star');
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStarUsers()
+    {
+        return $this->hasMany(User::className(), ['id' => 'user_id'])
+            ->viaTable(Star::tableName(), ['project_id' => 'id']);
     }
 }

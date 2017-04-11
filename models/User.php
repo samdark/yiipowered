@@ -28,6 +28,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property Auth[] $auths
  * @property Project[] $projects
+ * @property Star[] $stars
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -250,5 +251,13 @@ class User extends ActiveRecord implements IdentityInterface
     public static function find()
     {
         return new UserQuery(get_called_class());
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStars()
+    {
+        return $this->hasMany(Star::className(), ['user_id' => 'id'])->inverseOf('user');
     }
 }

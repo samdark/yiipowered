@@ -8,3 +8,4 @@ use yii\helpers\Url;
     <img class="img-responsive" src="<?= $model->getPrimaryImageThumbnailRelativeUrl() ?>" alt="">
     <h1><?= Html::encode($model->title) ?></h1>
 </a>
+<?= \app\widgets\star\Star::widget(['project' => $model]) ?>
