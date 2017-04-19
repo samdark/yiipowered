@@ -87,3 +87,31 @@ In order to list users use the following request:
 
 > GET [/users](/en/api/1.0/users)
 
+## `/bookmarks` <a href="#bookmarks" id="bookmarks">#</a>
+
+Users are able to add or remove projects to bookmarks (favorites).
+
+### Bookmark object
+
+- `createdAt` - UNIX timestamp of when a project was bookmarked
+- `project` - expanded project object.
+ 
+### Current user bookmarks
+
+In order to get current user bookmarks use the following request:
+
+> GET [/bookmarks](/en/api/1.0/bookmarks)
+
+### Bookmark a project
+
+In order to add a project to bookmarks use the following request:
+
+> POST /bookmarks
+
+  - id: id of a project to bookmark
+
+### Remove a project from bookmarks
+
+In order to remove a project from bookmarks issue the following request:
+
+> DELETE /bookmarks/91
