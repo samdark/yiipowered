@@ -254,11 +254,11 @@ class User extends ActiveRecord implements IdentityInterface
     }
     
     /**
-     * Return bookmark projects.
+     * Returns bookmarked projects query
      * 
      * @return \yii\db\ActiveQuery
      */
-    public function getBookmarkProjects()
+    public function getBookmarkedProjects()
     {
         return $this->hasMany(Project::className(), ['id' => 'project_id'])
             ->viaTable(Bookmark::tableName(), ['user_id' => 'id']);

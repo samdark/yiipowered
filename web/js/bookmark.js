@@ -1,33 +1,52 @@
-(function ($) {
+jQuery(function($) {
     "use strict";
-    
-    $(document).ready(function () {
-        $('[data-bookmark-url]').on('click', function () {
-            var el = $(this);
-            
-            $.ajax({
-                url: el.data('bookmark-url'),
-                data: {
-                    state: !el.data('bookmark-exists') * 1
-                },
-                method: 'post',
-                dataType: 'json',
-                success: function(data) {
-                    if (data) {
-                        var bookmarkExists = data['bookmarkExists'];
-                        if (el.data('bookmark-exists') != bookmarkExists) {
-                            el.data('bookmark-exists', bookmarkExists);
-                            el.find('.action-item').toggleClass('hide');   
-                        }
-                    }
-                },
-                error: function(data) {
-                    if (data && data.status == 403) {
-                        alert('You must log in.');   
-                    }
-                }
-            });
-        }); 
+
+    $('.bookmark .delete').on('click', function (e) {
+        e.preventDefault();
+
+        var el = $(this);
+        var container = el.parents('.bookmark');
+        var endpoint = el.data('endpoint');
+
+        $.ajax({
+            url: endpoint,
+            method: 'delete',
+            dataType: 'json',
+            success: function() {
+                el.addClass('hide');
+                container.find('.create').removeClass('hide');
+            },
+            error: function() {
+                alert('There was an error while processing bookmark.');
+            }
+        });
     });
-}) (jQuery);
+
+    $('.bookmark .create').on('click', function (e) {
+        e.preventDefault();
+
+        var el = $(this);
+        var container = el.parents('.bookmark');
+        var endpoint = el.data('endpoint');
+        var id = el.data('id');
+
+        $.ajax({
+            url: endpoint,
+            method: 'post',
+            dataType: 'json',
+            data: {
+                id: id
+            },
+            success: function() {
+                el.addClass('hide');
+                container.find('.delete').removeClass('hide');
+            },
+            error: function() {
+                alert('There was an error while processing bookmark.');
+            }
+        });
+    });
+});
+
+
     

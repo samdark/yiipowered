@@ -1,5 +1,6 @@
 <?php
 return [
+    'bookmarks' => 'project/bookmarks',
     'projects' => 'project/list',
     'projects/<id:\d+>/<slug>' => 'project/view',
     'user' => 'user/view',
@@ -30,5 +31,17 @@ return [
         'controller' => ['1.0/users' => 'api1/user'],
         'only' => ['index', 'view'],
         'prefix' => 'api',
+    ],
+    [
+        'class' => 'yii\rest\UrlRule',
+        'controller' => ['1.0/bookmarks' => 'api1/bookmark'],
+        'only' => ['index', 'create', 'delete'],
+        'prefix' => 'api',
+        'ruleConfig' => [
+            'class' => 'yii\web\UrlRule',
+            'defaults' => [
+                'expand' => 'project',
+            ]
+        ],
     ],
 ];

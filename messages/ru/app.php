@@ -17,8 +17,9 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Email' => 'Почта',
+    'Username' => 'Имя пользователя',
     'About' => 'О проекте',
+    'Email' => 'Почта',
     'If you forgot your password you can {reset_it}.' => 'Если вы забыли пароль, можете {reset_it}.',
     'Linked {client} account.' => '{client} привязан.',
     'Login' => 'Вход',

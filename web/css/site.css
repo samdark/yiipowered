@@ -239,6 +239,27 @@ a.desc:after {
     width: 100%;
 }
 
-.bookmark-wrapper .action {
+.bookmark {
+    font-size: 120%;
+    position: absolute;
+    top: -2px;
+    left: 1rem;
+    text-decoration: none;
     cursor: pointer;
+}
+
+.bookmark .create {
+    color: grey;
+}
+
+.bookmark .create:hover {
+    color: #ffd537;
+}
+
+.bookmark .delete {
+    color: #ffa918;
+}
+
+.bookmark .delete:hover {
+    color: #bfbfbf;
 }

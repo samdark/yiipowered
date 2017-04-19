@@ -2,10 +2,9 @@
 
 namespace app\modules\api1\controllers;
 
+use app\modules\api1\components\Controller;
 use app\modules\api1\models\Project;
 use app\modules\api1\models\ProjectSearch;
-use yii\data\ActiveDataProvider;
-use yii\rest\Controller;
 
 class ProjectController extends Controller
 {

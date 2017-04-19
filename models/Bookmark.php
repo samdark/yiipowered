@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
@@ -29,14 +30,31 @@ class Bookmark extends ActiveRecord
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::className(),
+                'updatedAtAttribute' => null,
+            ],
+            'blameable' => [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'user_id',
+                'updatedByAttribute' => null,
+            ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
-            [['user_id', 'project_id'], 'required'],
-            [['user_id', 'project_id', 'created_at'], 'integer'],
+            [['project_id'], 'required'],
+            [['project_id'], 'integer'],
 
             [['project_id'], 'exist', 'targetClass' => Project::className(), 'targetAttribute' => 'id'],
-            [['user_id'], 'exist', 'targetClass' => User::className(), 'targetAttribute' => 'id'],
             [['project_id', 'user_id'], 'unique', 'targetAttribute' => [ 'project_id', 'user_id']]
         ];
     }
@@ -50,19 +68,6 @@ class Bookmark extends ActiveRecord
             'project_id' => 'Project',
             'user_id' => 'User',
             'created_at' => 'Created At',
-        ];
-    }
-    
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            [
-                'class' => TimestampBehavior::className(),
-                'updatedAtAttribute' => null
-            ]
         ];
     }
     
@@ -98,34 +103,5 @@ class Bookmark extends ActiveRecord
                 'user_id' => $userId,
             ])
             ->exists();
-    }
-    
-    /**
-     * Add or remove bookmark for pair the project and user.
-     * 
-     * @param $projectId
-     * @param $userId
-     * @param bool $state If true then add bookmark else delete bookmark
-     *
-     * @return bool
-     */
-    public static function changeState($projectId, $userId, $state)
-    {
-        /** @var Bookmark $bookmark */
-        $bookmark = static::findOne([
-            'project_id' => $projectId,
-            'user_id' => $userId,
-        ]);
-
-        if ($bookmark && !$state) {
-            return $bookmark->delete();
-        } elseif (!$bookmark && $state) {
-            $bookmark = new static();
-            $bookmark->project_id = $projectId;
-            $bookmark->user_id = $userId;
-            return $bookmark->save();
-        }
-        
-        return true;
     }
 }

@@ -37,11 +37,11 @@ class ProjectController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'update', 'delete-image', 'bookmark-list'], //only be applied to
+                'only' => ['create', 'update', 'delete-image', 'bookmarks'], //only be applied to
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create', 'update', 'delete-image', 'bookmark-list'],
+                        'actions' => ['create', 'update', 'delete-image', 'bookmarks'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -95,16 +95,16 @@ class ProjectController extends Controller
      * 
      * @return string
      */
-    public function actionBookmarkList()
+    public function actionBookmarks()
     {
         /** @var User $user */
         $user = Yii::$app->user->identity;
         
         $dataProvider = new ActiveDataProvider([
-            'query' => $user->getBookmarkProjects(),
+            'query' => $user->getBookmarkedProjects(),
         ]);
         
-        return $this->render('bookmarkList', [
+        return $this->render('bookmarks', [
             'dataProvider' => $dataProvider
         ]);
     }

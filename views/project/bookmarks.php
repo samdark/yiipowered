@@ -7,7 +7,7 @@
 use yii\helpers\Html;
 use \yii\widgets\ListView;
 
-$this->title = Yii::t('bookmark', 'Favorite projects');
+$this->title = Yii::t('bookmark', 'Bookmarked projects');
 ?>
 <div class="project-index">
     <h1><?= Html::encode($this->title) ?></h1>
