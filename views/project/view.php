@@ -77,6 +77,7 @@ $canManageProject = UserPermissions::canManageProject($model);
                     <div class="image">
                         <a href="<?= $image->getUrl() ?>"><img class="img-responsive" src="<?= $image->getThumbnailRelativeUrl() ?>" alt=""></a>
                         <?php if ($canManageProject): ?>
+                            <span class="recrop glyphicon glyphicon-scissors js-project-image-recrop" data-id="<?= $image->id ?>" data-url="<?= Url::to(['project/image-original', 'imageId' => $image->id]) ?>"></span>
                             <span class="delete glyphicon glyphicon-remove" data-id="<?= $image->id ?>" data-url="<?= Url::to(['project/delete-image']) ?>" data-confirm="<?= Yii::t('project', 'Are you sure you want to delete this image?') ?>"></span>
                         <?php endif ?>
                     </div>
@@ -91,6 +92,7 @@ $canManageProject = UserPermissions::canManageProject($model);
         <?= $form->errorSummary($imageUploadForm) ?>
         
         <?= Html::activeHiddenInput($imageUploadForm, 'imageCropData') ?>
+        <?= Html::activeHiddenInput($imageUploadForm, 'imageId') ?>
         <?= $form->field($imageUploadForm, 'file')->fileInput(['accept' => 'image/png']) ?>
 
         <div id="image-cropper-block" class="form-group" style="display: none;">
