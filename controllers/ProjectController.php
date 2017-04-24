@@ -287,7 +287,7 @@ class ProjectController extends Controller
         }
 
         if (!UserPermissions::canManageProject($image->project)) {
-            throw new ForbiddenHttpException('You are not allowed to delete this image.');
+            throw new ForbiddenHttpException("You don't have access to this image.");
         }
 
         return Yii::$app->response->sendFile($image->getOriginalPath(), $image->getOriginalFilename());
