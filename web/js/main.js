@@ -42,6 +42,7 @@ function initProjectImageUpload(widthMin, heightMin) {
     var imageBlock = imageCropperBlock.find('.image-block');
     var inputImageCropData = $('#project-image-upload [name="ImageUploadForm[imageCropData]"]');
     var inputFile = $('#project-image-upload [name="ImageUploadForm[file]"]');
+    var inputImageId = $('#project-image-upload [name="ImageUploadForm[imageId]"]');
 
     imageBlock.cropper({
         viewMode: 1,
@@ -71,16 +72,26 @@ function initProjectImageUpload(widthMin, heightMin) {
         }
     });
 
-    inputFile.on('change', function() {
+    function clear() {
         imageCropperBlock.hide(0);
         inputImageCropData.val('');
-
-        var files = this.files;
+        inputImageId.val('');
 
         if (!imageBlock.data('cropper')) {
-            return;
+            return false;
         }
 
+        return true;
+    }
+
+    inputFile.on('change', function (e) {
+        e.stopPropagation();
+
+        if (!clear()) {
+            return false;
+        }
+
+        var files = this.files;
         if (files && files.length > 0) {
             var file = files[0];
 
@@ -94,13 +105,29 @@ function initProjectImageUpload(widthMin, heightMin) {
         }
     });
 
-    $('.js-project-image-reset').on('click', function () {
-        imageCropperBlock.hide(0);
-        inputImageCropData.val('');
+    $('.js-project-image-recrop').on('click', function (e) {
+        e.stopPropagation();
+
+        if (!clear()) {
+            return false;
+        }
+
         inputFile.val('');
 
-        if (!imageCropperBlock.data('cropper')) {
-            return;
+        var imageId = $(this).data('id');
+        var imageUrl = $(this).data('url');
+
+        inputImageId.val(imageId);
+        imageBlock.cropper('reset').cropper('replace', imageUrl);
+
+        imageCropperBlock.show(0);
+    });
+
+    $('.js-project-image-reset').on('click', function (e) {
+        e.stopPropagation();
+
+        if (!clear()) {
+            return false;
         }
 
         imageCropperBlock.cropper('reset')
