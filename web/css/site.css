@@ -221,6 +221,20 @@ a.desc:after {
     color: #f00;
 }
 
+.project-view .image .recrop {
+    position: absolute;
+    top: 0;
+    left: 0px;
+    font-size: 150%;
+    background: #fff;
+    border-radius: 10rem;
+    cursor: pointer;
+}
+
+.project-view .image .recrop:hover {
+    color: green;
+}
+
 .projects-flow {
     display: flex;
     flex-flow: row wrap;

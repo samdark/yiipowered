@@ -265,4 +265,31 @@ class ProjectController extends Controller
         $tags = Tag::find()->where(['like', 'name', $term])->limit(10)->all();
         return $this->asJson(ArrayHelper::getColumn($tags, 'name'));
     }
+
+    /**
+     * @param int $imageId
+     *
+     * @return $this
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     */
+    public function actionImageOriginal($imageId)
+    {
+        /** @var Image $image */
+        $image = Image::find()
+            ->with('project')
+            ->where(['id' => $imageId])
+            ->limit(1)
+            ->one();
+
+        if (!$image) {
+            throw new NotFoundHttpException('Image not found.');
+        }
+
+        if (!UserPermissions::canManageProject($image->project)) {
+            throw new ForbiddenHttpException("You don't have access to this image.");
+        }
+
+        return Yii::$app->response->sendFile($image->getOriginalPath(), $image->getOriginalFilename());
+    }
 }

@@ -182,6 +182,8 @@ class Image extends \yii\db\ActiveRecord
                 ->thumbnail(new Box($size[0], $size[1]), ImageInterface::THUMBNAIL_INSET)
                 ->save($this->ensureThumbnailPath());
         }
+
+        $this->touch('updated_at');
     }
 
     public function generateFull()
