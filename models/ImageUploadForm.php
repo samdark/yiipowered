@@ -39,6 +39,19 @@ class ImageUploadForm extends Model
      */
     public $imageId;
 
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'file' => \Yii::t('project', 'Upload an image'),
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [

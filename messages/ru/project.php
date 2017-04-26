@@ -17,12 +17,14 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'General' => 'Общая информация',
-    'Source' => 'Исходный код',
+    'Delete image' => 'Удалить скриншот',
+    'Re-crop image' => 'Кадрировать скриншот',
+    'Upload an image' => 'Загрзуить скриншот',
     'Add project' => 'Добавить проект',
     'Any Verison' => 'Любая версия',
     'Apply' => 'Применить',
     'Are you sure you want to delete this image?' => 'Вы уверены что хотите удалить это изображение?',
+    'Cancel' => 'Отменить',
     'Content' => 'Содержимое',
     'Created At' => 'Создан',
     'Created By' => 'Автор',
@@ -31,6 +33,7 @@ return [
     'Does not matter' => 'Не важно',
     'Draft' => 'Черновик',
     'Featured projects' => 'Выбор редакции',
+    'General' => 'Общая информация',
     'ID' => 'ID',
     'Is Featured' => 'Выбор редакции',
     'Is OpenSource' => 'OpenSource',
@@ -48,6 +51,7 @@ return [
     'Published' => 'Опубликован',
     'Save' => 'Сохранить',
     'Slug' => 'Slug',
+    'Source' => 'Исходный код',
     'Source Code' => 'Исходный код',
     'Source URL' => 'Исходный код',
     'Status' => 'Статус',
@@ -66,5 +70,4 @@ return [
     'Yes' => 'Да',
     'Yii Version' => 'Версия Yii',
     'You can not update this project.' => 'Вы не можете редактировать этот проект.',
-    'Cancel' => 'Отменить'
 ];

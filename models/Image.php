@@ -24,6 +24,10 @@ use yii\imagine\Image as ImagineImage;
  * @property User $updatedBy
  * @property User $createdBy
  * @property Project $project
+ *
+ * Timestamp behavior:
+ *
+ * @method touch($attribute)
  */
 class Image extends \yii\db\ActiveRecord
 {

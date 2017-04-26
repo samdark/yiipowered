@@ -267,9 +267,11 @@ class ProjectController extends Controller
     }
 
     /**
-     * @param int $imageId
+     * Returns an image
      *
-     * @return $this
+     * @param int $imageId id of the image to return
+     *
+     * @return Response
      * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
      */
@@ -290,6 +292,6 @@ class ProjectController extends Controller
             throw new ForbiddenHttpException("You don't have access to this image.");
         }
 
-        return Yii::$app->response->sendFile($image->getOriginalPath(), $image->getOriginalFilename());
+        return Yii::$app->getResponse()->sendFile($image->getOriginalPath(), $image->getOriginalFilename());
     }
 }

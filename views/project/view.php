@@ -77,8 +77,8 @@ $canManageProject = UserPermissions::canManageProject($model);
                     <div class="image">
                         <a href="<?= $image->getUrl() ?>"><img class="img-responsive" src="<?= $image->getThumbnailRelativeUrl() ?>" alt=""></a>
                         <?php if ($canManageProject): ?>
-                            <span class="recrop glyphicon glyphicon-scissors js-project-image-recrop" data-id="<?= $image->id ?>" data-url="<?= Url::to(['project/image-original', 'imageId' => $image->id]) ?>"></span>
-                            <span class="delete glyphicon glyphicon-remove" data-id="<?= $image->id ?>" data-url="<?= Url::to(['project/delete-image']) ?>" data-confirm="<?= Yii::t('project', 'Are you sure you want to delete this image?') ?>"></span>
+                            <span class="recrop glyphicon glyphicon-scissors js-project-image-recrop" data-id="<?= $image->id ?>" data-url="<?= Url::to(['project/image-original', 'imageId' => $image->id]) ?>" title="<?= Yii::t('project', 'Re-crop image') ?>"></span>
+                            <span class="delete glyphicon glyphicon-remove" data-id="<?= $image->id ?>" data-url="<?= Url::to(['project/delete-image']) ?>" data-confirm="<?= Yii::t('project', 'Are you sure you want to delete this image?') ?>" title="<?= Yii::t('project', 'Delete image') ?>"></span>
                         <?php endif ?>
                     </div>
                 </div>

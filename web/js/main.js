@@ -40,9 +40,11 @@ jQuery(function ($) {
 function initProjectImageUpload(widthMin, heightMin) {
     var imageCropperBlock = $('#image-cropper-block');
     var imageBlock = imageCropperBlock.find('.image-block');
-    var inputImageCropData = $('#project-image-upload [name="ImageUploadForm[imageCropData]"]');
-    var inputFile = $('#project-image-upload [name="ImageUploadForm[file]"]');
-    var inputImageId = $('#project-image-upload [name="ImageUploadForm[imageId]"]');
+    var uploadForm = $('#project-image-upload');
+
+    var inputImageCropData = uploadForm.find('[name="ImageUploadForm[imageCropData]"]');
+    var inputFile = uploadForm.find('[name="ImageUploadForm[file]"]');
+    var inputImageId = uploadForm.find('[name="ImageUploadForm[imageId]"]');
 
     imageBlock.cropper({
         viewMode: 1,
@@ -77,11 +79,7 @@ function initProjectImageUpload(widthMin, heightMin) {
         inputImageCropData.val('');
         inputImageId.val('');
 
-        if (!imageBlock.data('cropper')) {
-            return false;
-        }
-
-        return true;
+        return !!imageBlock.data('cropper');
     }
 
     inputFile.on('change', function (e) {
