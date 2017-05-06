@@ -12,11 +12,14 @@ $config = [
     'basePath' => dirname(__DIR__),
     'defaultRoute' => 'project/index',
     'bootstrap' => ['log'],
+    'aliases' => [
+        'bower' => '@vendor/bower-asset',
+        'npm' => '@vendor/npm-asset',
+    ],
     'components' => [
         'authManager' => [
             'class' => 'yii\rbac\PhpManager',
         ],
-        'rollbar' => require __DIR__ . '/rollbar.php',
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => require __DIR__ . '/key.php',
@@ -61,7 +64,7 @@ $config = [
         ],
         'authClientCollection' => [
             'class' => 'yii\authclient\Collection',
-            'clients' => require __DIR__ . '/authclients.php',
+//            'clients' => require __DIR__ . '/authclients.php',
         ],
         'urlManager' => [
             'class' => 'codemix\localeurls\UrlManager',
@@ -79,9 +82,9 @@ $config = [
                 'class' => 'yii\web\UrlNormalizer',
             ],
         ],
-
         'assetManager' => [
-            'appendTimestamp' => true,
+            'appendTimestamp' => false,
+            'linkAssets' => true,
         ],
     ],
     'params' => $params,

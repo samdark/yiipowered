@@ -73,9 +73,14 @@ class ProjectController extends Controller
                 ->limit($limit)
         ]);
 
+        $projectsCount = (clone $newProvider->query)->limit(null)->count();
+        $seeMoreCount = $projectsCount - $limit;
+
         return $this->render('index', [
             'featuredProvider' => $featuredProvider,
             'newProvider' => $newProvider,
+            'projectsCount' => $projectsCount,
+            'seeMoreCount' => $seeMoreCount
         ]);
     }
 

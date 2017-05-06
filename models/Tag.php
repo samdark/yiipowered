@@ -89,4 +89,9 @@ class Tag extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Project::className(), ['id' => 'project_id'])->viaTable('{{%project_tag}}', ['tag_id' => 'id']);
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

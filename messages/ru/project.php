@@ -17,6 +17,9 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    '{n, plural, one{# project} other{# projects}} made with {link}' => '{n,plural,one{# проект} few{# проекта} many{# проектов} other{# проектов}} сделано на {link}',
+    'View other {n, plural, one{# project} other{# projects}}' => 'Посмотреть еще {n, plural, one{# проект} few{# проекта} many{# проектов} other{# проектов}}',
+    'Made one? Share it!' => 'Зафигачил? Запость!',
     'Delete image' => 'Удалить скриншот',
     'Re-crop image' => 'Кадрировать скриншот',
     'Upload an image' => 'Загрзуить скриншот',
