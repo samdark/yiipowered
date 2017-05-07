@@ -536,7 +536,11 @@ select[multiple].input-lg {
 .project-view header:before,
 .project-view header:after,
 .project-view .project-body:before,
-.project-view .project-body:after {
+.project-view .project-body:after,
+.projects-list .projects:before,
+.projects-list .projects:after,
+.projects-list .projects .filters:before,
+.projects-list .projects .filters:after {
   content: " ";
   display: table;
 }
@@ -552,7 +556,9 @@ select[multiple].input-lg {
 .project-index .group:after,
 .project-index .group:after,
 .project-view header:after,
-.project-view .project-body:after {
+.project-view .project-body:after,
+.projects-list .projects:after,
+.projects-list .projects .filters:after {
   clear: both;
 }
 .center-block {
@@ -2597,7 +2603,6 @@ a:hover {
   display: inline-block;
   height: 27px;
   min-width: 10px;
-  padding: 5px;
   margin: 3px;
   background: #3B80B8;
   border-radius: 3px;
@@ -2611,11 +2616,12 @@ a:hover {
   background: #7BB6DF;
 }
 .project-view .project-body .information ul.tags li a {
+  padding: 5px;
+  display: block;
+  line-height: 17px;
   color: #fff;
 }
-.project-view .project-body .information ul.tags li a:hover {
-  text-decoration: none;
-}
+.project-view .project-body .information ul.tags li a:hover,
 .project-view .project-body .information ul.tags li a:active {
   text-decoration: none;
 }
@@ -2649,10 +2655,19 @@ a:hover {
   }
 }
 .project-view .project-body .details .images .image:not(:first-child) {
-  margin: 10px;
+  margin: 15px;
   flex: 1 0 0;
   display: inline-block;
   width: 33%;
+}
+.project-view .project-body .details .images .image:nth-child(2) {
+  margin-left: 0;
+}
+.project-view .project-body .details .images .image:last-child {
+  margin-right: 0;
+}
+.project-view .project-body .details .images .image .img-responsive {
+  border: 1px #1B65A4 solid;
 }
 .project-view .project-body .details .description {
   position: relative;
@@ -2665,6 +2680,101 @@ a:hover {
     float: left;
     width: 33.33333333%;
   }
+}
+.projects-list .projects {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #F7F9FB;
+  position: relative;
+}
+.projects-list .projects > .navbar-header,
+.projects-list .projects > .navbar-collapse {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+@media (min-width: 768px) {
+  .projects-list .projects > .navbar-header,
+  .projects-list .projects > .navbar-collapse {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+@media (min-width: 768px) {
+  .projects-list .projects {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .projects-list .projects {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .projects-list .projects {
+    width: 1350px;
+  }
+}
+.projects-list .projects .filters {
+  margin-left: -15px;
+  margin-right: -15px;
+  display: block;
+  background-color: #fff;
+}
+@media (min-width: 1800px) {
+  .projects-list .projects .filters {
+    position: absolute;
+    top: 10px;
+    left: -14.58333333%;
+    width: 12.5%;
+  }
+}
+@media (min-width: 480px) {
+  .projects-list .projects .filters {
+    padding-top: 10px;
+  }
+}
+@media (max-width: 1199px) {
+  .projects-list .projects .filters form {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .projects-list .projects .filters form .form-group {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .projects-list .projects .filters form .form-group:last-child {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+@media (max-width: 1199px) and (min-width: 768px) {
+  .projects-list .projects .filters form {
+    float: left;
+    width: 100%;
+  }
+}
+@media (max-width: 1199px) and (min-width: 768px) {
+  .projects-list .projects .filters form .form-group {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (max-width: 1199px) and (min-width: 768px) {
+  .projects-list .projects .filters form .form-group:last-child {
+    float: left;
+    width: 100%;
+  }
+}
+.projects-list .projects .projects-flow {
+  margin-left: 0;
 }
 footer.footer {
   height: 50px;

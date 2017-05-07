@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Project;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
 use \yii\widgets\ListView;
@@ -10,25 +11,40 @@ use yii\bootstrap\Alert;
 /* @var $this yii\web\View */
 $this->title = Yii::t('project', 'Projects');
 ?>
-<div class="row project-list">
-    <div class="col-xs-2">
-        <?php $form = ActiveForm::begin([
-            'method' => 'get',
-            'action' => ['project/list'],
-        ]) ?>
+<div class="projects-list">
+    <div class="projects">
+        <div class="filters">
+            <?php $form = ActiveForm::begin([
+                'method' => 'get',
+                'action' => ['project/list'],
+            ]) ?>
 
-        <?= $form->field($filterForm, 'title') ?>
-        <?= $form->field($filterForm, 'url') ?>
-        <?= $form->field($filterForm, 'opensource')->dropDownList($filterForm->getOpenSourceOptions(), ['prompt' => Yii::t('project', 'Does not matter')]) ?>
-        <?= $form->field($filterForm, 'featured')->checkbox() ?>
-        <?= $form->field($filterForm, 'yiiVersion')->dropDownList(\app\models\Project::versions(), ['prompt' => Yii::t('project', 'Any Verison')]) ?>
+            <?= $form->field($filterForm, 'title')
+                ->textInput(['placeholder' => $filterForm->getAttributeLabel('title')])
+                ->label(false)
+            ?>
+            <?= $form->field($filterForm, 'url')
+                ->textInput(['placeholder' => $filterForm->getAttributeLabel('url')])
+                ->label(false)
+            ?>
+            <?= $form->field($filterForm, 'opensource')
+                ->dropDownList($filterForm->getOpenSourceOptions(), [
+                    'prompt' => Yii::t('project', 'Any code access')
+                ])
+                ->label(false)
+            ?>
+            <?= $form->field($filterForm, 'featured')->checkbox() ?>
+            <?= $form->field($filterForm, 'yiiVersion')
+                ->dropDownList(Project::versions(), [
+                    'prompt' => Yii::t('project', 'Any Yii verison')
+                ])->label(false) ?>
 
-        <div class="form-group">
-            <?= Html::submitButton(Yii::t('project', 'Apply'), ['class' => 'btn btn-primary']) ?>
+            <div class="form-group">
+                <?= Html::submitButton(Yii::t('project', 'Apply'), ['class' => 'btn btn-primary']) ?>
+            </div>
+            <?php ActiveForm::end() ?>
         </div>
-        <?php ActiveForm::end() ?>
-    </div>
-    <div class="col-xs-10">
+
         <?php if (Yii::$app->session->hasFlash('project.project_successfully_added')) {
             echo Alert::widget([
                 'options' => [
@@ -38,14 +54,12 @@ $this->title = Yii::t('project', 'Projects');
             ]);
         } ?>
 
-        <div class="container">
-            <?= ListView::widget([
-                'dataProvider' => $dataProvider,
-                'layout' => '{items}{pager}',
-                'options' => ['class' => 'projects-flow'],
-                'itemOptions' => ['class' => 'item'],
-                'itemView' => '_card'
-            ]) ?>
-        </div>
+        <?= ListView::widget([
+            'dataProvider' => $dataProvider,
+            'layout' => '{items}{pager}',
+            'options' => ['class' => 'projects-flow'],
+            'itemOptions' => ['class' => 'item'],
+            'itemView' => '_card'
+        ]) ?>
     </div>
 </div>

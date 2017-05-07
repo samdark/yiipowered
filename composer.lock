@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1f6d6a180c4860d9e517288ad91b5dfc",
+    "content-hash": "2b4355cc112fb34c9f958f1720e71a54",
     "packages": [
         {
             "name": "baibaratsky/yii2-rollbar",
@@ -476,6 +476,45 @@
             "time": "2013-12-10T17:49:58+00:00"
         },
         {
+            "name": "claviska/simpleimage",
+            "version": "3.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/claviska/SimpleImage.git",
+                "reference": "2909eec9b899519339c5d06c0fa55c25c5cfed8e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/claviska/SimpleImage/zipball/2909eec9b899519339c5d06c0fa55c25c5cfed8e",
+                "reference": "2909eec9b899519339c5d06c0fa55c25c5cfed8e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "league/color-extractor": "0.3.*",
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "claviska": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cory LaViska",
+                    "homepage": "http://www.abeautifulsite.net/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PHP class that makes working with images as simple as possible.",
+            "time": "2017-03-29T16:49:22+00:00"
+        },
+        {
             "name": "codemix/yii2-localeurls",
             "version": "1.4.11",
             "source": {
@@ -660,6 +699,60 @@
                 "image processing"
             ],
             "time": "2015-09-19T16:54:05+00:00"
+        },
+        {
+            "name": "league/color-extractor",
+            "version": "0.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/color-extractor.git",
+                "reference": "837086ec60f50c84c611c613963e4ad2e2aec806"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/color-extractor/zipball/837086ec60f50c84c611c613963e4ad2e2aec806",
+                "reference": "837086ec60f50c84c611c613963e4ad2e2aec806",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "php": ">=5.4.0"
+            },
+            "replace": {
+                "matthecat/colorextractor": "*"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "~2",
+                "phpunit/phpunit": "~5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mathieu Lechat",
+                    "email": "math.lechat@gmail.com",
+                    "homepage": "http://matthecat.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Extract colors from an image as a human would do.",
+            "homepage": "https://github.com/thephpleague/color-extractor",
+            "keywords": [
+                "color",
+                "extract",
+                "human",
+                "image",
+                "palette"
+            ],
+            "time": "2016-12-15T09:30:02+00:00"
         },
         {
             "name": "rollbar/rollbar",

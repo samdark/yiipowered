@@ -77,15 +77,13 @@ $canManageProject = UserPermissions::canManageProject($model);
             <div class="details">
                 <div class="images">
                     <?php if (empty($model->images)): ?>
-                        <div class="image">
-                            <img class="img-responsive" src="<?= $model->getPlaceholderRelativeUrl() ?>" alt="">
-                        </div>
+                        <img class="image" src="<?= $model->getPlaceholderRelativeUrl() ?>" alt="">
                     <?php else: ?>
                         <?php $i = 0; ?>
                         <?php foreach ($model->images as $image): ?>
                             <div class="image">
                                 <a href="<?= $image->getUrl() ?>">
-                                    <img class="img-responsive" src="<?= $i === 0 ? $image->getUrl() : $image->getThumbnailRelativeUrl() ?>" alt="">
+                                    <img class="img-responsive" src="<?= $i === 0 ? $image->getBigThumbnailRelativeUrl() : $image->getThumbnailRelativeUrl() ?>" alt="">
                                 </a>
                                 <?php if ($canManageProject): ?>
                                     <span class="recrop glyphicon glyphicon-scissors js-project-image-recrop"

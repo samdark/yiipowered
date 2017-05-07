@@ -46,12 +46,11 @@ class ProjectFilterForm extends Model
         ];
     }
 
-
     public function getOpenSourceOptions()
     {
         return [
-            '1' => \Yii::t('project', 'Yes'),
-            '0' => \Yii::t('project', 'No'),
+            '1' => \Yii::t('project', 'Open source'),
+            '0' => \Yii::t('project', 'Not open source'),
         ];
     }
 
