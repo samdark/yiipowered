@@ -1,6 +1,6 @@
 <?php
-/** 
- * @var $model \app\models\Project 
+/**
+ * @var $model \app\models\Project
  */
 
 use app\widgets\bookmark\Bookmark;
@@ -9,7 +9,7 @@ use yii\helpers\Url;
 
 ?>
 
-<article class="project <?= $model->getStatusClass() ?>">
+<article class="<?= $model->getStatusClass() ?>">
     <a class="details" href="<?= Url::to(['project/view', 'id' => $model->id, 'slug' => $model->slug]) ?>">
         <img class="img-responsive" src="<?= $model->getPrimaryImageThumbnailRelativeUrl() ?>" />
         <h1><?= Html::encode($model->title) ?></h1>

@@ -10,7 +10,7 @@ use yii\data\ActiveDataProvider;
 
 class ProjectFilterForm extends Model
 {
-    public $tags;
+    public $tags = [];
     public $title;
     public $url;
     public $opensource;
@@ -33,6 +33,10 @@ class ProjectFilterForm extends Model
         return '';
     }
 
+    public function hasTag($tag)
+    {
+        return in_array($tag, (array)$this->tags);
+    }
 
     public function attributeLabels()
     {
@@ -62,7 +66,7 @@ class ProjectFilterForm extends Model
             ->publishedOrEditable()
             ->orderBy('created_at DESC');
 
-        if ($this->tags !== null) {
+        if (!empty($this->tags)) {
             $tags = (array) $this->tags;
             $query->allTagValues($tags);
         }

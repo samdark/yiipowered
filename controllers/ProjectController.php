@@ -9,11 +9,13 @@ use app\models\Image;
 use app\models\ImageUploadForm;
 use app\models\Project;
 use app\models\ProjectFilterForm;
+use app\models\ProjectTag;
 use app\models\Tag;
 use app\models\User;
 use app\notifier\NewProjectNotification;
 use app\notifier\Notifier;
 use Yii;
+use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
@@ -89,8 +91,13 @@ class ProjectController extends Controller
         $filterForm = new ProjectFilterForm();
         $filterForm->load(Yii::$app->request->get());
 
+        $tagsDataProvider = new ActiveDataProvider([
+            'query' => Tag::find()->top(10)
+        ]);
+
         return $this->render('list', [
             'dataProvider' => $filterForm->getDataProvider(),
+            'tagsDataProvider' => $tagsDataProvider,
             'filterForm' => $filterForm,
         ]);
     }

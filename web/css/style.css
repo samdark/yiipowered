@@ -539,8 +539,8 @@ select[multiple].input-lg {
 .project-view .project-body:after,
 .projects-list .projects:before,
 .projects-list .projects:after,
-.projects-list .projects .filters:before,
-.projects-list .projects .filters:after {
+.projects-list .projects .filters-wrapper .tags .list .item a:before,
+.projects-list .projects .filters-wrapper .tags .list .item a:after {
   content: " ";
   display: table;
 }
@@ -558,7 +558,7 @@ select[multiple].input-lg {
 .project-view header:after,
 .project-view .project-body:after,
 .projects-list .projects:after,
-.projects-list .projects .filters:after {
+.projects-list .projects .filters-wrapper .tags .list .item a:after {
   clear: both;
 }
 .center-block {
@@ -1131,12 +1131,12 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 }
 @media (min-width: 992px) {
   .container {
-    width: 970px;
+    width: 95%;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 1440px) {
   .container {
-    width: 1350px;
+    width: 1430px;
   }
 }
 .container-fluid {
@@ -1627,7 +1627,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
     margin-left: 0%;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 1440px) {
   .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {
     float: left;
   }
@@ -2257,6 +2257,7 @@ a:hover {
 }
 .navbar-inverse {
   font-family: 'Roboto', sans-serif;
+  height: 5rem;
 }
 .navbar-inverse .navbar-header .navbar-brand {
   padding: 5px 30px;
@@ -2402,12 +2403,12 @@ a:hover {
 }
 @media (min-width: 992px) {
   .project-index .group {
-    width: 970px;
+    width: 95%;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 1440px) {
   .project-index .group {
-    width: 1350px;
+    width: 1430px;
   }
 }
 .project-index .group header {
@@ -2441,8 +2442,7 @@ a:hover {
 .projects-flow {
   display: flex;
   flex-flow: row wrap;
-  justify-content: flex-start;
-  align-content: space-around;
+  justify-content: center;
   align-items: flex-start;
 }
 .projects-flow .project {
@@ -2452,27 +2452,28 @@ a:hover {
   background: #fff;
   box-shadow: 0 1px 3px 0 rgba(26, 101, 163, 0.5);
 }
-@media (min-width: 768px) {
+@media (max-width: 991px) {
   .projects-flow .project {
-    min-width: 25em;
+    min-width: 28rem;
   }
 }
 @media (min-width: 992px) {
   .projects-flow .project {
-    min-width: 25em;
+    min-width: 30rem;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 1440px) {
   .projects-flow .project {
-    min-width: 25em;
+    min-width: 36rem;
   }
 }
 .projects-flow .project a.details {
   font-family: 'Rubik', sans-serif;
   color: #000;
+  display: inline-block;
 }
 .projects-flow .project a.details h1 {
-  font-size: 16pt;
+  font-size: 14pt;
   margin: 10px 0 0 0;
   padding: 0 12px;
 }
@@ -2494,12 +2495,29 @@ a:hover {
 .projects-flow .project .tags a:hover {
   color: #bc5e2f;
 }
+.projects-flow .pagination:before,
+.projects-flow .pagination:after {
+  content: " ";
+  display: table;
+}
+.projects-flow .pagination:after {
+  clear: both;
+}
+.projects-flow .pagination:before,
+.projects-flow .pagination:after {
+  content: " ";
+  display: table;
+}
+.projects-flow .pagination:after {
+  clear: both;
+}
 .project-view header {
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
-  padding: 35px 32px;
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 .project-view header > .navbar-header,
 .project-view header > .navbar-collapse {
@@ -2520,12 +2538,12 @@ a:hover {
 }
 @media (min-width: 992px) {
   .project-view header {
-    width: 970px;
+    width: 95%;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 1440px) {
   .project-view header {
-    width: 1350px;
+    width: 1430px;
   }
 }
 .project-view header .title {
@@ -2534,7 +2552,7 @@ a:hover {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 1200px) {
+@media (min-width: 1440px) {
   .project-view header .title {
     float: left;
     width: 75%;
@@ -2553,7 +2571,7 @@ a:hover {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 1200px) {
+@media (min-width: 1440px) {
   .project-view header .authors {
     float: left;
     width: 25%;
@@ -2561,6 +2579,7 @@ a:hover {
 }
 .project-view header .authors ul {
   list-style: none;
+  text-align: right;
 }
 .project-view .project-body {
   margin-right: auto;
@@ -2589,7 +2608,7 @@ a:hover {
   padding-right: 15px;
   font-size: 14pt;
 }
-@media (min-width: 1200px) {
+@media (min-width: 1440px) {
   .project-view .project-body .information {
     float: left;
     width: 16.66666667%;
@@ -2598,6 +2617,7 @@ a:hover {
 .project-view .project-body .information ul.tags {
   list-style: none;
   padding: 0;
+  margin: -3px;
 }
 .project-view .project-body .information ul.tags li {
   display: inline-block;
@@ -2686,8 +2706,7 @@ a:hover {
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
-  background-color: #F7F9FB;
-  position: relative;
+  padding: 0;
 }
 .projects-list .projects > .navbar-header,
 .projects-list .projects > .navbar-collapse {
@@ -2708,73 +2727,91 @@ a:hover {
 }
 @media (min-width: 992px) {
   .projects-list .projects {
-    width: 970px;
+    width: 95%;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 1440px) {
   .projects-list .projects {
-    width: 1350px;
+    width: 1430px;
   }
 }
-.projects-list .projects .filters {
+.projects-list .projects .filters-wrapper {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: 1em;
+}
+@media (min-width: 992px) {
+  .projects-list .projects .filters-wrapper {
+    float: left;
+    width: 16.66666667%;
+  }
+}
+@media (min-width: 1440px) {
+  .projects-list .projects .filters-wrapper {
+    float: left;
+    width: 16.66666667%;
+  }
+}
+.projects-list .projects .filters-wrapper .title {
+  text-align: center;
+  font-size: 14pt;
+  margin-bottom: 1em;
+}
+.projects-list .projects .filters-wrapper .tags {
+  margin: 3em 0;
+}
+.projects-list .projects .filters-wrapper .tags .list .item a {
   margin-left: -15px;
   margin-right: -15px;
   display: block;
-  background-color: #fff;
+  color: #4A4A4A;
+  padding: 5px;
 }
-@media (min-width: 1800px) {
-  .projects-list .projects .filters {
-    position: absolute;
-    top: 10px;
-    left: -14.58333333%;
-    width: 12.5%;
-  }
+.projects-list .projects .filters-wrapper .tags .list .item a:hover,
+.projects-list .projects .filters-wrapper .tags .list .item a.selected {
+  background: #2B70AB;
+  border-radius: 3px;
+  color: #fff;
 }
-@media (min-width: 480px) {
-  .projects-list .projects .filters {
-    padding-top: 10px;
-  }
+.projects-list .projects .filters-wrapper .tags .list .item .name {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-weight: 500;
+  font-size: 12pt;
 }
-@media (max-width: 1199px) {
-  .projects-list .projects .filters form {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .projects-list .projects .filters form .form-group {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .projects-list .projects .filters form .form-group:last-child {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-@media (max-width: 1199px) and (min-width: 768px) {
-  .projects-list .projects .filters form {
+@media (min-width: 768px) {
+  .projects-list .projects .filters-wrapper .tags .list .item .name {
     float: left;
-    width: 100%;
+    width: 66.66666667%;
   }
 }
-@media (max-width: 1199px) and (min-width: 768px) {
-  .projects-list .projects .filters form .form-group {
+.projects-list .projects .filters-wrapper .tags .list .item .count {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: right;
+  font-size: 10pt;
+}
+@media (min-width: 768px) {
+  .projects-list .projects .filters-wrapper .tags .list .item .count {
     float: left;
     width: 33.33333333%;
   }
 }
-@media (max-width: 1199px) and (min-width: 768px) {
-  .projects-list .projects .filters form .form-group:last-child {
-    float: left;
-    width: 100%;
-  }
-}
 .projects-list .projects .projects-flow {
+  background-color: #F7F9FB;
   margin-left: 0;
+}
+.projects-list .projects .projects-flow .project .tags {
+  font-size: 11pt;
+}
+.projects-list .projects .projects-flow .project h1 {
+  font-size: 13pt;
 }
 footer.footer {
   height: 50px;

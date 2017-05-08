@@ -31,7 +31,7 @@ $this->title = Yii::t('project', 'Projects built with Yii');
             'dataProvider' => $featuredProvider,
             'layout' => '{items}',
             'options' => ['class' => 'projects-flow'],
-            'itemOptions' => ['class' => 'item'],
+            'itemOptions' => ['class' => 'project'],
             'itemView' => '_card',
         ]) ?>
     </section>
@@ -43,7 +43,7 @@ $this->title = Yii::t('project', 'Projects built with Yii');
             'dataProvider' => $newProvider,
             'layout' => '{items}',
             'options' => ['class' => 'projects-flow'],
-            'itemOptions' => ['class' => 'item'],
+            'itemOptions' => ['class' => 'project'],
             'itemView' => '_card',
         ]) ?>
 
