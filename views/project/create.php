@@ -9,14 +9,15 @@ use yii\widgets\ActiveForm;
  */
 
 $this->title = Yii::t('project', 'Add project');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('project', 'Projects'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="project-add">
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
+    <div class="form-box">
+        <div class="form-wrapper">
+            <?= $this->render('_form', [
+                'model' => $model,
+            ]) ?>
+        </div>
+    </div>
 </div>

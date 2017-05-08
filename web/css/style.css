@@ -540,7 +540,11 @@ select[multiple].input-lg {
 .projects-list .projects:before,
 .projects-list .projects:after,
 .projects-list .projects .filters-wrapper .tags .list .item a:before,
-.projects-list .projects .filters-wrapper .tags .list .item a:after {
+.projects-list .projects .filters-wrapper .tags .list .item a:after,
+.project-add .form-box:before,
+.project-add .form-box:after,
+.project-add .form-box .form-wrapper:before,
+.project-add .form-box .form-wrapper:after {
   content: " ";
   display: table;
 }
@@ -558,7 +562,9 @@ select[multiple].input-lg {
 .project-view header:after,
 .project-view .project-body:after,
 .projects-list .projects:after,
-.projects-list .projects .filters-wrapper .tags .list .item a:after {
+.projects-list .projects .filters-wrapper .tags .list .item a:after,
+.project-add .form-box:after,
+.project-add .form-box .form-wrapper:after {
   clear: both;
 }
 .center-block {
@@ -2812,6 +2818,99 @@ a:hover {
 }
 .projects-list .projects .projects-flow .project h1 {
   font-size: 13pt;
+}
+.project-add {
+  background-color: #F7F9FB;
+}
+.project-add .form-box {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.project-add .form-box > .navbar-header,
+.project-add .form-box > .navbar-collapse {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+@media (min-width: 768px) {
+  .project-add .form-box > .navbar-header,
+  .project-add .form-box > .navbar-collapse {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+@media (min-width: 768px) {
+  .project-add .form-box {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .project-add .form-box {
+    width: 95%;
+  }
+}
+@media (min-width: 1440px) {
+  .project-add .form-box {
+    width: 1430px;
+  }
+}
+.project-add .form-box .form-wrapper {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin: 7rem;
+  padding-bottom: 2rem;
+  background-color: #fff;
+}
+.project-add .form-box .form-wrapper h2 {
+  font-size: 14pt;
+  text-align: center;
+  font-weight: 300;
+}
+.project-add .form-box .form-wrapper .general {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .project-add .form-box .form-wrapper .general {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+.project-add .form-box .form-wrapper .general label {
+  font-weight: 300;
+}
+.project-add .form-box .form-wrapper .description {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .project-add .form-box .form-wrapper .description {
+    float: left;
+    width: 66.66666667%;
+  }
+}
+.project-add .form-box .form-wrapper .description .CodeMirror {
+  background: #FFFFFF;
+  box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+}
+.project-add .form-box .form-wrapper .next {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .project-add .form-box .form-wrapper .next {
+    float: left;
+    width: 100%;
+  }
 }
 footer.footer {
   height: 50px;

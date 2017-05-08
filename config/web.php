@@ -16,6 +16,37 @@ $config = [
         'bower' => '@vendor/bower-asset',
         'npm' => '@vendor/npm-asset',
     ],
+    'container' => [
+        'definitions' => [
+            'yii\grid\ActionColumn' => [
+                'header' => 'Action',
+                'headerOptions' => [
+                    'class' => 'text-center col-md-1',
+                ],
+                'contentOptions' => [
+                    'class' => 'text-center text-nowrap',
+                ],
+                'buttonOptions' => [
+                    'class' => 'btn btn-default btn-xs',
+                ],
+                'template' => '{update} {delete}',
+            ],
+            'yii\grid\GridView' => [
+                'pager' => [
+                    'options' => [
+                        'class' => 'pagination pull-right',
+                    ],
+                ],
+                'tableOptions' => [
+                    'class' => 'table table-hover'
+                ],
+                'options' => [
+                    'class' => 'panel panel-default'
+                ],
+                'layout' => "{items}{pager}",
+            ]
+        ]
+    ],
     'components' => [
         'authManager' => [
             'class' => 'yii\rbac\PhpManager',

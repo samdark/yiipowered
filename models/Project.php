@@ -47,8 +47,8 @@ class Project extends \yii\db\ActiveRecord
     const STATUS_DRAFT = 10;
     const STATUS_PUBLISHED = 20;
 
-    const YII_VERSION_11 = '1.1';
-    const YII_VERSION_20 = '2.0';
+    const YII_VERSION_11 = 'Yii 1.1';
+    const YII_VERSION_20 = 'Yii 2.0';
 
     private $_description;
 
