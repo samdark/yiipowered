@@ -3,15 +3,11 @@
 namespace app\models;
 
 use claviska\SimpleImage;
-use Eventviva\ImageResize;
-use Imagine\Image\Box;
-use Imagine\Image\ImageInterface;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\FileHelper;
 use yii\helpers\Url;
-use yii\imagine\Image as ImagineImage;
 
 /**
  * This is the model class for table "{{%image}}".
@@ -214,7 +210,7 @@ class Image extends \yii\db\ActiveRecord
 
         $image = new SimpleImage($this->getOriginalPath());
         if ($crop !== null) {
-            $image->crop($crop['x'], $crop['y'], $crop['width'], $crop['height']);
+            $image->crop($crop['x'], $crop['y'], $crop['width'] + $crop['x'], $crop['height'] + $crop['y']);
         }
 
         $image
@@ -232,7 +228,7 @@ class Image extends \yii\db\ActiveRecord
 
         $image = new SimpleImage($this->getOriginalPath());
         if ($crop !== null) {
-            $image->crop($crop['x'], $crop['y'], $crop['width'], $crop['height']);
+            $image->crop($crop['x'], $crop['y'], $crop['width'] + $crop['x'], $crop['height'] + $crop['y']);
         }
 
         $image
@@ -249,7 +245,7 @@ class Image extends \yii\db\ActiveRecord
 
         (new SimpleImage($this->getOriginalPath()))
             ->bestFit($size[0], $size[1])
-            ->toFile($this->getFullPath());
+            ->toFile($this->ensureFullPath());
 
         $this->touch('updated_at');
     }

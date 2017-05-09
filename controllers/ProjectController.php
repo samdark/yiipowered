@@ -48,6 +48,12 @@ class ProjectController extends Controller
                     ],
                 ],
             ],
+            'verb' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'publish' => ['post']
+                ]
+            ]
         ];
     }
 
@@ -59,6 +65,7 @@ class ProjectController extends Controller
             'pagination' => false,
             'query' => Project::find()
                 ->with('images')
+                ->with('tags')
                 ->featured()
                 ->publishedOrEditable()
                 ->orderBy('created_at DESC')
@@ -69,6 +76,7 @@ class ProjectController extends Controller
             'pagination' => false,
             'query' => Project::find()
                 ->with('images')
+                ->with('tags')
                 ->featured(false)
                 ->publishedOrEditable()
                 ->orderBy('created_at DESC')
@@ -131,8 +139,7 @@ class ProjectController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $notifier = new Notifier(new NewProjectNotification($model));
             $notifier->sendEmails();
-            Yii::$app->session->setFlash('project.project_successfully_added');
-            return $this->redirect(['view', 'id' => $model->id, 'slug' => $model->slug]);
+            return $this->redirect(['screenshots', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -190,8 +197,9 @@ class ProjectController extends Controller
         if (Yii::$app->user->can(UserPermissions::MANAGE_PROJECTS)) {
             $model->setScenario(Project::SCENARIO_MANAGE);
         }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id, 'slug' => $model->slug]);
+            return $this->redirect(['screenshots', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -199,17 +207,21 @@ class ProjectController extends Controller
         ]);
     }
 
-
-    public function actionView($id, $slug)
+    public function actionScreenshots($id)
     {
-        $project = $this->findModel([
-            'id' => $id,
-            'slug' => $slug,
-        ]);
+        $model = $this->findModel(['id' => $id]);
+
+        if (!UserPermissions::canManageProject($model)) {
+            throw new ForbiddenHttpException(Yii::t('project', 'You can not update this project.'));
+        }
+
+        if (Yii::$app->user->can(UserPermissions::MANAGE_PROJECTS)) {
+            $model->setScenario(Project::SCENARIO_MANAGE);
+        }
 
         $imageUploadForm = null;
 
-        if (UserPermissions::canManageProject($project)) {
+        if (UserPermissions::canManageProject($model)) {
             $imageUploadForm = new ImageUploadForm($id);
             if ($imageUploadForm->load(Yii::$app->request->post())) {
                 $imageUploadForm->file = UploadedFile::getInstance($imageUploadForm, 'file');
@@ -219,9 +231,41 @@ class ProjectController extends Controller
             }
         }
 
+        return $this->render('screenshots', [
+            'model' => $model,
+            'imageUploadForm' => $imageUploadForm
+        ]);
+    }
+
+    public function actionPreview($id)
+    {
+        $project = $this->findModel([
+            'id' => $id,
+        ]);
+
+        return $this->render('preview', [
+            'model' => $project,
+        ]);
+    }
+
+    public function actionPublish($id)
+    {
+        $project = $this->findModel(['id' => $id]);
+        $project->publish();
+        Yii::$app->session->setFlash('project.project_successfully_added');
+
+        return $this->redirect(['view', 'id' => $project->id, 'slug' => $project->slug]);
+    }
+
+    public function actionView($id, $slug)
+    {
+        $project = $this->findModel([
+            'id' => $id,
+            'slug' => $slug,
+        ]);
+
         return $this->render('view', [
             'model' => $project,
-            'imageUploadForm' => $imageUploadForm,
         ]);
     }
 

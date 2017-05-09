@@ -34,3 +34,4 @@ tests/_support/_generated
 /config/db.php
 /config/authclients.php
 /config/rollbar.php
+/config/params-local.php

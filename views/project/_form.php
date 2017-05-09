@@ -94,9 +94,10 @@ $autocompleteTagUrl = Url::toRoute(['/project/autocomplete-tags']);
     <?php /* <h2>Team</h2> */ ?>
 </div>
 
-<div class="next">
-    <?= Html::submitButton(Yii::t('project', 'Next'),
-        ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+<div class="buttons-wrapper">
+    <div class="next">
+        <?= Html::submitButton(Yii::t('project', 'Next')) ?>
+    </div>
 </div>
 
 <?php ActiveForm::end() ?>

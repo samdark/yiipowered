@@ -1,8 +1,6 @@
 <?php
 
-use app\assets\ImageCropperAsset;
 use app\components\UserPermissions;
-use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use app\models\Project;
 use app\widgets\Avatar;
@@ -12,11 +10,7 @@ use \yii\helpers\HtmlPurifier;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Project */
-/* @var $imageUploadForm \app\models\ImageUploadForm */
-
-ImageCropperAsset::register($this);
-$sizeThumb = Yii::$app->params['image.size.thumbnail'];
-$this->registerJs("initProjectImageUpload({$sizeThumb[0]}, {$sizeThumb[1]});");
+/* @var $management bool */
 
 // OpenGraph metatags
 $this->registerMetaTag(['property' => 'og:title', 'content' => Html::encode($model->title)]);
@@ -85,45 +79,9 @@ $canManageProject = UserPermissions::canManageProject($model);
                                 <a href="<?= $image->getUrl() ?>">
                                     <img class="img-responsive" src="<?= $i === 0 ? $image->getBigThumbnailRelativeUrl() : $image->getThumbnailRelativeUrl() ?>" alt="">
                                 </a>
-                                <?php if ($canManageProject): ?>
-                                    <span class="recrop glyphicon glyphicon-scissors js-project-image-recrop"
-                                          data-id="<?= $image->id ?>"
-                                          data-url="<?= Url::to(['project/image-original', 'imageId' => $image->id]) ?>"
-                                          title="<?= Yii::t('project', 'Re-crop image') ?>"></span>
-                                    <span class="delete glyphicon glyphicon-remove" data-id="<?= $image->id ?>"
-                                          data-url="<?= Url::to(['project/delete-image']) ?>"
-                                          data-confirm="<?= Yii::t('project',
-                                              'Are you sure you want to delete this image?') ?>"
-                                          title="<?= Yii::t('project', 'Delete image') ?>"></span>
-                                <?php endif ?>
                             </div>
                             <?php $i++; ?>
                         <?php endforeach ?>
-                    <?php endif ?>
-
-                    <?php if (isset($imageUploadForm)): ?>
-                        <?php $form = ActiveForm::begin(['id' => 'project-image-upload']) ?>
-                        <?= $form->errorSummary($imageUploadForm) ?>
-
-                        <?= Html::activeHiddenInput($imageUploadForm, 'imageCropData') ?>
-                        <?= Html::activeHiddenInput($imageUploadForm, 'imageId') ?>
-                        <?= $form->field($imageUploadForm, 'file')->fileInput(['accept' => 'image/png']) ?>
-
-                        <div id="image-cropper-block" class="form-group" style="display: none;">
-                            <p>
-                                <?= Html::button(Yii::t('project', 'Cancel'), [
-                                    'class' => 'btn btn-danger js-project-image-reset',
-                                ]) ?>
-
-                                <?= Html::submitButton(Yii::t('project', 'Upload'), [
-                                    'class' => 'btn btn-default',
-                                ]) ?>
-                            </p>
-
-                            <img class="image-block" src="" style="max-height: 500px">
-                        </div>
-
-                        <?php ActiveForm::end() ?>
                     <?php endif ?>
                 </div>
 
@@ -131,24 +89,28 @@ $canManageProject = UserPermissions::canManageProject($model);
                     <?= HtmlPurifier::process(Markdown::process($model->getDescription(), 'gfm')) ?>
                 </div>
 
-                <?php if ($canManageProject): ?>
-                    <div class="controls">
-                        <?= Html::a(Yii::t('project', 'Update'), ['update', 'id' => $model->id],
-                            ['class' => 'btn btn-primary']) ?>
+                <?php if ($management !== false) : ?>
+                    <div class="management">
+                        <?php if ($canManageProject): ?>
+                            <div class="controls">
+                                <?= Html::a(Yii::t('project', 'Update'), ['update', 'id' => $model->id],
+                                    ['class' => 'btn btn-primary']) ?>
+                            </div>
+                        <?php endif ?>
+
+
+                        <?php if ($canManageProject): ?>
+                            <span class="time">
+                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                <?= Yii::$app->formatter->asDate($model->created_at) ?>
+                        </span>
+
+                            <span>
+                            <?= Yii::t('project', 'Updated: ') ?>
+                            <?= Yii::$app->formatter->asDate($model->updated_at) ?>
+                        </span>
+                        <?php endif ?>
                     </div>
-                <?php endif ?>
-
-
-                <?php if ($canManageProject): ?>
-                    <span class="time">
-                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                            <?= Yii::$app->formatter->asDate($model->created_at) ?>
-                    </span>
-
-                    <span>
-                        <?= Yii::t('project', 'Updated: ') ?>
-                        <?= Yii::$app->formatter->asDate($model->updated_at) ?>
-                    </span>
                 <?php endif ?>
             </div>
         </div>

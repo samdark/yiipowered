@@ -15,7 +15,7 @@ class TagQuery extends ActiveQuery
     {
         $this->orderBy('frequency desc');
         $this->indexBy('frequency');
-
+        $this->limit($count);
 
         return $this;
     }

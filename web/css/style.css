@@ -535,16 +535,38 @@ select[multiple].input-lg {
 .project-index .group:after,
 .project-view header:before,
 .project-view header:after,
+.project-preview header:before,
+.project-preview header:after,
 .project-view .project-body:before,
 .project-view .project-body:after,
+.project-preview .project-body:before,
+.project-preview .project-body:after,
 .projects-list .projects:before,
 .projects-list .projects:after,
 .projects-list .projects .filters-wrapper .tags .list .item a:before,
 .projects-list .projects .filters-wrapper .tags .list .item a:after,
 .project-add .form-box:before,
 .project-add .form-box:after,
+.project-update .form-box:before,
+.project-update .form-box:after,
+.project-screenshots .form-box:before,
+.project-screenshots .form-box:after,
 .project-add .form-box .form-wrapper:before,
-.project-add .form-box .form-wrapper:after {
+.project-add .form-box .form-wrapper:after,
+.project-update .form-box .form-wrapper:before,
+.project-update .form-box .form-wrapper:after,
+.project-screenshots .form-box .form-wrapper:before,
+.project-screenshots .form-box .form-wrapper:after,
+.project-add .form-box .screenshots-wrapper:before,
+.project-add .form-box .screenshots-wrapper:after,
+.project-update .form-box .screenshots-wrapper:before,
+.project-update .form-box .screenshots-wrapper:after,
+.project-screenshots .form-box .screenshots-wrapper:before,
+.project-screenshots .form-box .screenshots-wrapper:after,
+.control-buttons:before,
+.control-buttons:after,
+.buttons-wrapper:before,
+.buttons-wrapper:after {
   content: " ";
   display: table;
 }
@@ -560,11 +582,22 @@ select[multiple].input-lg {
 .project-index .group:after,
 .project-index .group:after,
 .project-view header:after,
+.project-preview header:after,
 .project-view .project-body:after,
+.project-preview .project-body:after,
 .projects-list .projects:after,
 .projects-list .projects .filters-wrapper .tags .list .item a:after,
 .project-add .form-box:after,
-.project-add .form-box .form-wrapper:after {
+.project-update .form-box:after,
+.project-screenshots .form-box:after,
+.project-add .form-box .form-wrapper:after,
+.project-update .form-box .form-wrapper:after,
+.project-screenshots .form-box .form-wrapper:after,
+.project-add .form-box .screenshots-wrapper:after,
+.project-update .form-box .screenshots-wrapper:after,
+.project-screenshots .form-box .screenshots-wrapper:after,
+.control-buttons:after,
+.buttons-wrapper:after {
   clear: both;
 }
 .center-block {
@@ -2019,26 +2052,26 @@ fieldset[disabled] .btn-success.focus {
 }
 .btn-info {
   color: #fff;
-  background-color: #5bc0de;
-  border-color: #46b8da;
+  background-color: #2B70AB;
+  border-color: #266397;
 }
 .btn-info:focus,
 .btn-info.focus {
   color: #fff;
-  background-color: #31b0d5;
-  border-color: #1b6d85;
+  background-color: #215582;
+  border-color: #0c2031;
 }
 .btn-info:hover {
   color: #fff;
-  background-color: #31b0d5;
-  border-color: #269abc;
+  background-color: #215582;
+  border-color: #1a4366;
 }
 .btn-info:active,
 .btn-info.active,
 .open > .dropdown-toggle.btn-info {
   color: #fff;
-  background-color: #31b0d5;
-  border-color: #269abc;
+  background-color: #215582;
+  border-color: #1a4366;
 }
 .btn-info:active:hover,
 .btn-info.active:hover,
@@ -2050,8 +2083,8 @@ fieldset[disabled] .btn-success.focus {
 .btn-info.active.focus,
 .open > .dropdown-toggle.btn-info.focus {
   color: #fff;
-  background-color: #269abc;
-  border-color: #1b6d85;
+  background-color: #1a4366;
+  border-color: #0c2031;
 }
 .btn-info:active,
 .btn-info.active,
@@ -2067,11 +2100,11 @@ fieldset[disabled] .btn-info:focus,
 .btn-info.disabled.focus,
 .btn-info[disabled].focus,
 fieldset[disabled] .btn-info.focus {
-  background-color: #5bc0de;
-  border-color: #46b8da;
+  background-color: #2B70AB;
+  border-color: #266397;
 }
 .btn-info .badge {
-  color: #5bc0de;
+  color: #2B70AB;
   background-color: #fff;
 }
 .btn-warning {
@@ -2517,97 +2550,118 @@ a:hover {
 .projects-flow .pagination:after {
   clear: both;
 }
-.project-view header {
+.project-view header,
+.project-preview header {
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
-  padding-top: 25px;
-  padding-bottom: 25px;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 .project-view header > .navbar-header,
-.project-view header > .navbar-collapse {
+.project-preview header > .navbar-header,
+.project-view header > .navbar-collapse,
+.project-preview header > .navbar-collapse {
   margin-right: -15px;
   margin-left: -15px;
 }
 @media (min-width: 768px) {
   .project-view header > .navbar-header,
-  .project-view header > .navbar-collapse {
+  .project-preview header > .navbar-header,
+  .project-view header > .navbar-collapse,
+  .project-preview header > .navbar-collapse {
     margin-right: 0;
     margin-left: 0;
   }
 }
 @media (min-width: 768px) {
-  .project-view header {
+  .project-view header,
+  .project-preview header {
     width: 750px;
   }
 }
 @media (min-width: 992px) {
-  .project-view header {
+  .project-view header,
+  .project-preview header {
     width: 95%;
   }
 }
 @media (min-width: 1440px) {
-  .project-view header {
+  .project-view header,
+  .project-preview header {
     width: 1430px;
   }
 }
-.project-view header .title {
+.project-view header .title,
+.project-preview header .title {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 1440px) {
-  .project-view header .title {
+  .project-view header .title,
+  .project-preview header .title {
     float: left;
     width: 75%;
   }
 }
-.project-view header .title h1 {
+.project-view header .title h1,
+.project-preview header .title h1 {
   margin: 0;
   font-size: 20pt;
 }
-.project-view header .title .url {
+.project-view header .title .url,
+.project-preview header .title .url {
   font-size: 16pt;
 }
-.project-view header .authors {
+.project-view header .authors,
+.project-preview header .authors {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 1440px) {
-  .project-view header .authors {
+  .project-view header .authors,
+  .project-preview header .authors {
     float: left;
     width: 25%;
   }
 }
-.project-view header .authors ul {
+.project-view header .authors ul,
+.project-preview header .authors ul {
   list-style: none;
   text-align: right;
 }
-.project-view .project-body {
+.project-view .project-body,
+.project-preview .project-body {
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
   background-color: #F7F9FB;
-  padding: 1em;
+  padding: 2em;
 }
 .project-view .project-body > .navbar-header,
-.project-view .project-body > .navbar-collapse {
+.project-preview .project-body > .navbar-header,
+.project-view .project-body > .navbar-collapse,
+.project-preview .project-body > .navbar-collapse {
   margin-right: -15px;
   margin-left: -15px;
 }
 @media (min-width: 768px) {
   .project-view .project-body > .navbar-header,
-  .project-view .project-body > .navbar-collapse {
+  .project-preview .project-body > .navbar-header,
+  .project-view .project-body > .navbar-collapse,
+  .project-preview .project-body > .navbar-collapse {
     margin-right: 0;
     margin-left: 0;
   }
 }
-.project-view .project-body .information {
+.project-view .project-body .information,
+.project-preview .project-body .information {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -2615,17 +2669,20 @@ a:hover {
   font-size: 14pt;
 }
 @media (min-width: 1440px) {
-  .project-view .project-body .information {
+  .project-view .project-body .information,
+  .project-preview .project-body .information {
     float: left;
     width: 16.66666667%;
   }
 }
-.project-view .project-body .information ul.tags {
+.project-view .project-body .information ul.tags,
+.project-preview .project-body .information ul.tags {
   list-style: none;
   padding: 0;
   margin: -3px;
 }
-.project-view .project-body .information ul.tags li {
+.project-view .project-body .information ul.tags li,
+.project-preview .project-body .information ul.tags li {
   display: inline-block;
   height: 27px;
   min-width: 10px;
@@ -2635,35 +2692,43 @@ a:hover {
   font-size: 16px;
   line-height: 13pt;
 }
-.project-view .project-body .information ul.tags li:hover {
+.project-view .project-body .information ul.tags li:hover,
+.project-preview .project-body .information ul.tags li:hover {
   background: #1B65A4;
 }
-.project-view .project-body .information ul.tags li:active {
+.project-view .project-body .information ul.tags li:active,
+.project-preview .project-body .information ul.tags li:active {
   background: #7BB6DF;
 }
-.project-view .project-body .information ul.tags li a {
+.project-view .project-body .information ul.tags li a,
+.project-preview .project-body .information ul.tags li a {
   padding: 5px;
   display: block;
   line-height: 17px;
   color: #fff;
 }
 .project-view .project-body .information ul.tags li a:hover,
-.project-view .project-body .information ul.tags li a:active {
+.project-preview .project-body .information ul.tags li a:hover,
+.project-view .project-body .information ul.tags li a:active,
+.project-preview .project-body .information ul.tags li a:active {
   text-decoration: none;
 }
-.project-view .project-body .details {
+.project-view .project-body .details,
+.project-preview .project-body .details {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 992px) {
-  .project-view .project-body .details {
+  .project-view .project-body .details,
+  .project-preview .project-body .details {
     float: left;
     width: 83.33333333%;
   }
 }
-.project-view .project-body .details .images {
+.project-view .project-body .details .images,
+.project-preview .project-body .details .images {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -2675,34 +2740,41 @@ a:hover {
   align-items: flex-start;
 }
 @media (min-width: 992px) {
-  .project-view .project-body .details .images {
+  .project-view .project-body .details .images,
+  .project-preview .project-body .details .images {
     float: left;
     width: 66.66666667%;
   }
 }
-.project-view .project-body .details .images .image:not(:first-child) {
+.project-view .project-body .details .images .image:not(:first-child),
+.project-preview .project-body .details .images .image:not(:first-child) {
   margin: 15px;
   flex: 1 0 0;
   display: inline-block;
   width: 33%;
 }
-.project-view .project-body .details .images .image:nth-child(2) {
+.project-view .project-body .details .images .image:nth-child(2),
+.project-preview .project-body .details .images .image:nth-child(2) {
   margin-left: 0;
 }
-.project-view .project-body .details .images .image:last-child {
+.project-view .project-body .details .images .image:last-child,
+.project-preview .project-body .details .images .image:last-child {
   margin-right: 0;
 }
-.project-view .project-body .details .images .image .img-responsive {
+.project-view .project-body .details .images .image .img-responsive,
+.project-preview .project-body .details .images .image .img-responsive {
   border: 1px #1B65A4 solid;
 }
-.project-view .project-body .details .description {
+.project-view .project-body .details .description,
+.project-preview .project-body .details .description {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 992px) {
-  .project-view .project-body .details .description {
+  .project-view .project-body .details .description,
+  .project-preview .project-body .details .description {
     float: left;
     width: 33.33333333%;
   }
@@ -2819,98 +2891,625 @@ a:hover {
 .projects-list .projects .projects-flow .project h1 {
   font-size: 13pt;
 }
-.project-add {
+.project-add,
+.project-update,
+.project-screenshots {
   background-color: #F7F9FB;
 }
-.project-add .form-box {
+.project-add .form-box,
+.project-update .form-box,
+.project-screenshots .form-box {
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
 }
 .project-add .form-box > .navbar-header,
-.project-add .form-box > .navbar-collapse {
+.project-update .form-box > .navbar-header,
+.project-screenshots .form-box > .navbar-header,
+.project-add .form-box > .navbar-collapse,
+.project-update .form-box > .navbar-collapse,
+.project-screenshots .form-box > .navbar-collapse {
   margin-right: -15px;
   margin-left: -15px;
 }
 @media (min-width: 768px) {
   .project-add .form-box > .navbar-header,
-  .project-add .form-box > .navbar-collapse {
+  .project-update .form-box > .navbar-header,
+  .project-screenshots .form-box > .navbar-header,
+  .project-add .form-box > .navbar-collapse,
+  .project-update .form-box > .navbar-collapse,
+  .project-screenshots .form-box > .navbar-collapse {
     margin-right: 0;
     margin-left: 0;
   }
 }
 @media (min-width: 768px) {
-  .project-add .form-box {
+  .project-add .form-box,
+  .project-update .form-box,
+  .project-screenshots .form-box {
     width: 750px;
   }
 }
 @media (min-width: 992px) {
-  .project-add .form-box {
+  .project-add .form-box,
+  .project-update .form-box,
+  .project-screenshots .form-box {
     width: 95%;
   }
 }
 @media (min-width: 1440px) {
-  .project-add .form-box {
+  .project-add .form-box,
+  .project-update .form-box,
+  .project-screenshots .form-box {
     width: 1430px;
   }
 }
-.project-add .form-box .form-wrapper {
+.project-add .form-box .form-wrapper,
+.project-update .form-box .form-wrapper,
+.project-screenshots .form-box .form-wrapper {
   margin-left: -15px;
   margin-right: -15px;
-  margin: 7rem;
-  padding-bottom: 2rem;
+  margin: 0 5em 5em 5em;
+  padding-bottom: 2em;
   background-color: #fff;
 }
-.project-add .form-box .form-wrapper h2 {
+.project-add .form-box .form-wrapper h2,
+.project-update .form-box .form-wrapper h2,
+.project-screenshots .form-box .form-wrapper h2 {
   font-size: 14pt;
   text-align: center;
   font-weight: 300;
 }
-.project-add .form-box .form-wrapper .general {
+.project-add .form-box .form-wrapper .general,
+.project-update .form-box .form-wrapper .general,
+.project-screenshots .form-box .form-wrapper .general {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 768px) {
-  .project-add .form-box .form-wrapper .general {
+  .project-add .form-box .form-wrapper .general,
+  .project-update .form-box .form-wrapper .general,
+  .project-screenshots .form-box .form-wrapper .general {
     float: left;
     width: 33.33333333%;
   }
 }
-.project-add .form-box .form-wrapper .general label {
+.project-add .form-box .form-wrapper .general label,
+.project-update .form-box .form-wrapper .general label,
+.project-screenshots .form-box .form-wrapper .general label {
   font-weight: 300;
 }
-.project-add .form-box .form-wrapper .description {
+.project-add .form-box .form-wrapper .description,
+.project-update .form-box .form-wrapper .description,
+.project-screenshots .form-box .form-wrapper .description {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 768px) {
-  .project-add .form-box .form-wrapper .description {
+  .project-add .form-box .form-wrapper .description,
+  .project-update .form-box .form-wrapper .description,
+  .project-screenshots .form-box .form-wrapper .description {
     float: left;
     width: 66.66666667%;
   }
 }
-.project-add .form-box .form-wrapper .description .CodeMirror {
+.project-add .form-box .form-wrapper .description .CodeMirror,
+.project-update .form-box .form-wrapper .description .CodeMirror,
+.project-screenshots .form-box .form-wrapper .description .CodeMirror {
   background: #FFFFFF;
   box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.5);
   border-radius: 3px;
 }
-.project-add .form-box .form-wrapper .next {
+.project-add .form-box .screenshots-wrapper,
+.project-update .form-box .screenshots-wrapper,
+.project-screenshots .form-box .screenshots-wrapper {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.project-add .form-box .screenshots-wrapper .images,
+.project-update .form-box .screenshots-wrapper .images,
+.project-screenshots .form-box .screenshots-wrapper .images {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-content: space-between;
+  align-items: flex-start;
+}
+@media (min-width: 992px) {
+  .project-add .form-box .screenshots-wrapper .images,
+  .project-update .form-box .screenshots-wrapper .images,
+  .project-screenshots .form-box .screenshots-wrapper .images {
+    float: left;
+    width: 58.33333333%;
+  }
+}
+@media (min-width: 992px) {
+  .project-add .form-box .screenshots-wrapper .images,
+  .project-update .form-box .screenshots-wrapper .images,
+  .project-screenshots .form-box .screenshots-wrapper .images {
+    left: 8.33333333%;
+  }
+}
+.project-add .form-box .screenshots-wrapper .images .image,
+.project-update .form-box .screenshots-wrapper .images .image,
+.project-screenshots .form-box .screenshots-wrapper .images .image {
+  margin: 1rem;
+  border: 1px solid #1B65A4;
+  border-radius: 3px;
+}
+.project-add .form-box .screenshots-wrapper .images .image:not(:first-child),
+.project-update .form-box .screenshots-wrapper .images .image:not(:first-child),
+.project-screenshots .form-box .screenshots-wrapper .images .image:not(:first-child) {
+  display: inline-block;
+  flex: 0 1 30%;
+}
+@media (max-width: 991px) {
+  .project-add .form-box .screenshots-wrapper .images .image:not(:first-child),
+  .project-update .form-box .screenshots-wrapper .images .image:not(:first-child),
+  .project-screenshots .form-box .screenshots-wrapper .images .image:not(:first-child) {
+    flex: none;
+  }
+}
+.project-add .form-box .screenshots-wrapper .images .upload,
+.project-update .form-box .screenshots-wrapper .images .upload,
+.project-screenshots .form-box .screenshots-wrapper .images .upload {
+  margin: 1rem;
+  border: 1px solid #1B65A4;
+  border-radius: 3px;
+  background-color: #d6d6d6;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+  padding: 1em 0;
+}
+.project-add .form-box .screenshots-wrapper .images .upload:not(:first-child),
+.project-update .form-box .screenshots-wrapper .images .upload:not(:first-child),
+.project-screenshots .form-box .screenshots-wrapper .images .upload:not(:first-child) {
+  display: inline-block;
+  flex: 0 1 30%;
+}
+@media (max-width: 991px) {
+  .project-add .form-box .screenshots-wrapper .images .upload:not(:first-child),
+  .project-update .form-box .screenshots-wrapper .images .upload:not(:first-child),
+  .project-screenshots .form-box .screenshots-wrapper .images .upload:not(:first-child) {
+    flex: none;
+  }
+}
+.project-add .form-box .screenshots-wrapper .images .upload:first-child,
+.project-update .form-box .screenshots-wrapper .images .upload:first-child,
+.project-screenshots .form-box .screenshots-wrapper .images .upload:first-child {
+  min-width: 50em;
+  min-height: 30em;
+}
+.project-add .form-box .screenshots-wrapper .images .upload:not(:first-child),
+.project-update .form-box .screenshots-wrapper .images .upload:not(:first-child),
+.project-screenshots .form-box .screenshots-wrapper .images .upload:not(:first-child) {
+  display: inline-flex;
+  min-height: 16em;
+}
+.project-add .form-box .screenshots-wrapper .images .upload.opened,
+.project-update .form-box .screenshots-wrapper .images .upload.opened,
+.project-screenshots .form-box .screenshots-wrapper .images .upload.opened {
+  flex: none;
+}
+.project-add .form-box .screenshots-wrapper .images .upload.opened .custom-upload-button,
+.project-update .form-box .screenshots-wrapper .images .upload.opened .custom-upload-button,
+.project-screenshots .form-box .screenshots-wrapper .images .upload.opened .custom-upload-button {
+  display: none;
+}
+.project-add .form-box .screenshots-wrapper .images .upload .custom-upload-button,
+.project-update .form-box .screenshots-wrapper .images .upload .custom-upload-button,
+.project-screenshots .form-box .screenshots-wrapper .images .upload .custom-upload-button {
+  cursor: pointer;
+  text-align: center;
+  padding: 2rem;
+  width: 100%;
+}
+.project-add .form-box .screenshots-wrapper .images .upload .custom-upload-button .fa-circle,
+.project-update .form-box .screenshots-wrapper .images .upload .custom-upload-button .fa-circle,
+.project-screenshots .form-box .screenshots-wrapper .images .upload .custom-upload-button .fa-circle {
+  color: #9B9B9B;
+}
+.project-add .form-box .screenshots-wrapper .images .upload .upload-button,
+.project-update .form-box .screenshots-wrapper .images .upload .upload-button,
+.project-screenshots .form-box .screenshots-wrapper .images .upload .upload-button {
+  display: none;
+}
+.project-add .form-box .screenshots-wrapper .images .upload .cropper-block,
+.project-update .form-box .screenshots-wrapper .images .upload .cropper-block,
+.project-screenshots .form-box .screenshots-wrapper .images .upload .cropper-block {
   text-align: center;
 }
+.control-buttons {
+  padding: 2em;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #F7F9FB;
+}
+.control-buttons > .navbar-header,
+.control-buttons > .navbar-collapse {
+  margin-right: -15px;
+  margin-left: -15px;
+}
 @media (min-width: 768px) {
-  .project-add .form-box .form-wrapper .next {
-    float: left;
-    width: 100%;
+  .control-buttons > .navbar-header,
+  .control-buttons > .navbar-collapse {
+    margin-right: 0;
+    margin-left: 0;
   }
+}
+.buttons-wrapper {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.buttons-wrapper > .navbar-header,
+.buttons-wrapper > .navbar-collapse {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+@media (min-width: 768px) {
+  .buttons-wrapper > .navbar-header,
+  .buttons-wrapper > .navbar-collapse {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+.buttons-wrapper div {
+  text-align: center;
+  margin: 0.5em 2em;
+}
+.buttons-wrapper div a,
+.buttons-wrapper div button {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 10em;
+}
+.buttons-wrapper div a:focus,
+.buttons-wrapper div button:focus,
+.buttons-wrapper div a:active:focus,
+.buttons-wrapper div button:active:focus,
+.buttons-wrapper div a.active:focus,
+.buttons-wrapper div button.active:focus,
+.buttons-wrapper div a.focus,
+.buttons-wrapper div button.focus,
+.buttons-wrapper div a:active.focus,
+.buttons-wrapper div button:active.focus,
+.buttons-wrapper div a.active.focus,
+.buttons-wrapper div button.active.focus {
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.buttons-wrapper div a:hover,
+.buttons-wrapper div button:hover,
+.buttons-wrapper div a:focus,
+.buttons-wrapper div button:focus,
+.buttons-wrapper div a.focus,
+.buttons-wrapper div button.focus {
+  color: #333;
+  text-decoration: none;
+}
+.buttons-wrapper div a:active,
+.buttons-wrapper div button:active,
+.buttons-wrapper div a.active,
+.buttons-wrapper div button.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.buttons-wrapper div a.disabled,
+.buttons-wrapper div button.disabled,
+.buttons-wrapper div a[disabled],
+.buttons-wrapper div button[disabled],
+fieldset[disabled] .buttons-wrapper div a,
+fieldset[disabled] .buttons-wrapper div button {
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+a.buttons-wrapper div a.disabled,
+a.buttons-wrapper div button.disabled,
+fieldset[disabled] a.buttons-wrapper div a,
+fieldset[disabled] a.buttons-wrapper div button {
+  pointer-events: none;
+}
+.buttons-wrapper div.back a,
+.buttons-wrapper div.draft a {
+  color: #fff;
+  background-color: #2B70AB;
+  border-color: #266397;
+}
+.buttons-wrapper div.back a:focus,
+.buttons-wrapper div.draft a:focus,
+.buttons-wrapper div.back a.focus,
+.buttons-wrapper div.draft a.focus {
+  color: #fff;
+  background-color: #215582;
+  border-color: #0c2031;
+}
+.buttons-wrapper div.back a:hover,
+.buttons-wrapper div.draft a:hover {
+  color: #fff;
+  background-color: #215582;
+  border-color: #1a4366;
+}
+.buttons-wrapper div.back a:active,
+.buttons-wrapper div.draft a:active,
+.buttons-wrapper div.back a.active,
+.buttons-wrapper div.draft a.active,
+.open > .dropdown-toggle.buttons-wrapper div.back a,
+.open > .dropdown-toggle.buttons-wrapper div.draft a {
+  color: #fff;
+  background-color: #215582;
+  border-color: #1a4366;
+}
+.buttons-wrapper div.back a:active:hover,
+.buttons-wrapper div.draft a:active:hover,
+.buttons-wrapper div.back a.active:hover,
+.buttons-wrapper div.draft a.active:hover,
+.open > .dropdown-toggle.buttons-wrapper div.back a:hover,
+.open > .dropdown-toggle.buttons-wrapper div.draft a:hover,
+.buttons-wrapper div.back a:active:focus,
+.buttons-wrapper div.draft a:active:focus,
+.buttons-wrapper div.back a.active:focus,
+.buttons-wrapper div.draft a.active:focus,
+.open > .dropdown-toggle.buttons-wrapper div.back a:focus,
+.open > .dropdown-toggle.buttons-wrapper div.draft a:focus,
+.buttons-wrapper div.back a:active.focus,
+.buttons-wrapper div.draft a:active.focus,
+.buttons-wrapper div.back a.active.focus,
+.buttons-wrapper div.draft a.active.focus,
+.open > .dropdown-toggle.buttons-wrapper div.back a.focus,
+.open > .dropdown-toggle.buttons-wrapper div.draft a.focus {
+  color: #fff;
+  background-color: #1a4366;
+  border-color: #0c2031;
+}
+.buttons-wrapper div.back a:active,
+.buttons-wrapper div.draft a:active,
+.buttons-wrapper div.back a.active,
+.buttons-wrapper div.draft a.active,
+.open > .dropdown-toggle.buttons-wrapper div.back a,
+.open > .dropdown-toggle.buttons-wrapper div.draft a {
+  background-image: none;
+}
+.buttons-wrapper div.back a.disabled:hover,
+.buttons-wrapper div.draft a.disabled:hover,
+.buttons-wrapper div.back a[disabled]:hover,
+.buttons-wrapper div.draft a[disabled]:hover,
+fieldset[disabled] .buttons-wrapper div.back a:hover,
+fieldset[disabled] .buttons-wrapper div.draft a:hover,
+.buttons-wrapper div.back a.disabled:focus,
+.buttons-wrapper div.draft a.disabled:focus,
+.buttons-wrapper div.back a[disabled]:focus,
+.buttons-wrapper div.draft a[disabled]:focus,
+fieldset[disabled] .buttons-wrapper div.back a:focus,
+fieldset[disabled] .buttons-wrapper div.draft a:focus,
+.buttons-wrapper div.back a.disabled.focus,
+.buttons-wrapper div.draft a.disabled.focus,
+.buttons-wrapper div.back a[disabled].focus,
+.buttons-wrapper div.draft a[disabled].focus,
+fieldset[disabled] .buttons-wrapper div.back a.focus,
+fieldset[disabled] .buttons-wrapper div.draft a.focus {
+  background-color: #2B70AB;
+  border-color: #266397;
+}
+.buttons-wrapper div.back a .badge,
+.buttons-wrapper div.draft a .badge {
+  color: #2B70AB;
+  background-color: #fff;
+}
+.buttons-wrapper div.publish a,
+.buttons-wrapper div.next a,
+.buttons-wrapper div.next button {
+  color: #fff;
+  background-color: #73B205;
+  border-color: #639904;
+}
+.buttons-wrapper div.publish a:focus,
+.buttons-wrapper div.next a:focus,
+.buttons-wrapper div.next button:focus,
+.buttons-wrapper div.publish a.focus,
+.buttons-wrapper div.next a.focus,
+.buttons-wrapper div.next button.focus {
+  color: #fff;
+  background-color: #538004;
+  border-color: #131d01;
+}
+.buttons-wrapper div.publish a:hover,
+.buttons-wrapper div.next a:hover,
+.buttons-wrapper div.next button:hover {
+  color: #fff;
+  background-color: #538004;
+  border-color: #3d5e03;
+}
+.buttons-wrapper div.publish a:active,
+.buttons-wrapper div.next a:active,
+.buttons-wrapper div.next button:active,
+.buttons-wrapper div.publish a.active,
+.buttons-wrapper div.next a.active,
+.buttons-wrapper div.next button.active,
+.open > .dropdown-toggle.buttons-wrapper div.publish a,
+.open > .dropdown-toggle.buttons-wrapper div.next a,
+.open > .dropdown-toggle.buttons-wrapper div.next button {
+  color: #fff;
+  background-color: #538004;
+  border-color: #3d5e03;
+}
+.buttons-wrapper div.publish a:active:hover,
+.buttons-wrapper div.next a:active:hover,
+.buttons-wrapper div.next button:active:hover,
+.buttons-wrapper div.publish a.active:hover,
+.buttons-wrapper div.next a.active:hover,
+.buttons-wrapper div.next button.active:hover,
+.open > .dropdown-toggle.buttons-wrapper div.publish a:hover,
+.open > .dropdown-toggle.buttons-wrapper div.next a:hover,
+.open > .dropdown-toggle.buttons-wrapper div.next button:hover,
+.buttons-wrapper div.publish a:active:focus,
+.buttons-wrapper div.next a:active:focus,
+.buttons-wrapper div.next button:active:focus,
+.buttons-wrapper div.publish a.active:focus,
+.buttons-wrapper div.next a.active:focus,
+.buttons-wrapper div.next button.active:focus,
+.open > .dropdown-toggle.buttons-wrapper div.publish a:focus,
+.open > .dropdown-toggle.buttons-wrapper div.next a:focus,
+.open > .dropdown-toggle.buttons-wrapper div.next button:focus,
+.buttons-wrapper div.publish a:active.focus,
+.buttons-wrapper div.next a:active.focus,
+.buttons-wrapper div.next button:active.focus,
+.buttons-wrapper div.publish a.active.focus,
+.buttons-wrapper div.next a.active.focus,
+.buttons-wrapper div.next button.active.focus,
+.open > .dropdown-toggle.buttons-wrapper div.publish a.focus,
+.open > .dropdown-toggle.buttons-wrapper div.next a.focus,
+.open > .dropdown-toggle.buttons-wrapper div.next button.focus {
+  color: #fff;
+  background-color: #3d5e03;
+  border-color: #131d01;
+}
+.buttons-wrapper div.publish a:active,
+.buttons-wrapper div.next a:active,
+.buttons-wrapper div.next button:active,
+.buttons-wrapper div.publish a.active,
+.buttons-wrapper div.next a.active,
+.buttons-wrapper div.next button.active,
+.open > .dropdown-toggle.buttons-wrapper div.publish a,
+.open > .dropdown-toggle.buttons-wrapper div.next a,
+.open > .dropdown-toggle.buttons-wrapper div.next button {
+  background-image: none;
+}
+.buttons-wrapper div.publish a.disabled:hover,
+.buttons-wrapper div.next a.disabled:hover,
+.buttons-wrapper div.next button.disabled:hover,
+.buttons-wrapper div.publish a[disabled]:hover,
+.buttons-wrapper div.next a[disabled]:hover,
+.buttons-wrapper div.next button[disabled]:hover,
+fieldset[disabled] .buttons-wrapper div.publish a:hover,
+fieldset[disabled] .buttons-wrapper div.next a:hover,
+fieldset[disabled] .buttons-wrapper div.next button:hover,
+.buttons-wrapper div.publish a.disabled:focus,
+.buttons-wrapper div.next a.disabled:focus,
+.buttons-wrapper div.next button.disabled:focus,
+.buttons-wrapper div.publish a[disabled]:focus,
+.buttons-wrapper div.next a[disabled]:focus,
+.buttons-wrapper div.next button[disabled]:focus,
+fieldset[disabled] .buttons-wrapper div.publish a:focus,
+fieldset[disabled] .buttons-wrapper div.next a:focus,
+fieldset[disabled] .buttons-wrapper div.next button:focus,
+.buttons-wrapper div.publish a.disabled.focus,
+.buttons-wrapper div.next a.disabled.focus,
+.buttons-wrapper div.next button.disabled.focus,
+.buttons-wrapper div.publish a[disabled].focus,
+.buttons-wrapper div.next a[disabled].focus,
+.buttons-wrapper div.next button[disabled].focus,
+fieldset[disabled] .buttons-wrapper div.publish a.focus,
+fieldset[disabled] .buttons-wrapper div.next a.focus,
+fieldset[disabled] .buttons-wrapper div.next button.focus {
+  background-color: #73B205;
+  border-color: #639904;
+}
+.buttons-wrapper div.publish a .badge,
+.buttons-wrapper div.next a .badge,
+.buttons-wrapper div.next button .badge {
+  color: #73B205;
+  background-color: #fff;
+}
+.wizard-progress {
+  background-color: #F7F9FB;
+  list-style: none;
+  padding: 2em 4em;
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  font-size: 1.5em;
+  color: #000;
+}
+.wizard-progress > li {
+  position: relative;
+  display: table-cell;
+  text-align: center;
+  font-size: 0.8em;
+}
+.wizard-progress > li:before {
+  content: attr(data-step);
+  display: block;
+  margin: 0 auto;
+  background: #d7d7d7;
+  width: 3em;
+  height: 3em;
+  text-align: center;
+  margin-bottom: 0.25em;
+  line-height: 3em;
+  border-radius: 100%;
+  position: relative;
+  z-index: 1000;
+}
+.wizard-progress > li:after {
+  content: '';
+  position: absolute;
+  display: block;
+  background: #d6d6d6;
+  width: 100%;
+  height: 0.5em;
+  top: 1.25em;
+  left: 50%;
+  margin-left: 1.5em;
+}
+.wizard-progress > li:last-child:after {
+  display: none;
+}
+.wizard-progress > li.is-complete {
+  color: #2B70AB;
+}
+.wizard-progress > li.is-complete:before,
+.wizard-progress > li.is-complete:after {
+  color: #FFF;
+  background: #2B70AB;
+}
+.wizard-progress > li.is-active {
+  color: #2B70AB;
+}
+.wizard-progress > li.is-active:before {
+  color: #FFF;
+  background: #2B70AB;
+}
+.form-control {
+  color: #4a4a4a;
 }
 footer.footer {
   height: 50px;

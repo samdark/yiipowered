@@ -99,22 +99,19 @@ class ImageUploadForm extends Model
             $image = new Image();
             $image->project_id = $this->_projectID;
 
-            if ($image->save()) {
-                $this->file->saveAs($image->ensureOriginalPath());
-                $image->generateFull();
-                $image->generateThumbnail($this->imageCropDataAsArray ? : null);
+            if (!$image->save()) {
+                return false;
+            }
 
-                return true;
-            }
-        } elseif ($this->image) {
-            $image = $this->image;
-            $image->generateThumbnail($this->imageCropDataAsArray ? : null);
-            if ($image->save()) {
-                return true;
-            }
+            $this->file->saveAs($image->ensureOriginalPath());
+            $image->generateFull();
+            $this->_image = $image;
         }
-        
-        return false;
+
+        $this->image->generateThumbnail($this->imageCropDataAsArray ? : null);
+        $this->image->generateBigThumbnail($this->imageCropDataAsArray ? : null);
+
+        return true;
     }
 
     /**
