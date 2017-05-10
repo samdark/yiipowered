@@ -19,7 +19,7 @@ $this->title = Yii::t('project', 'Add project');
             <?= Yii::t('project', 'Screenshots') ?>
         </li>
         <li class="is-active progress__last" data-step="3">
-            <?= Yii::t('project', 'Approve') ?>
+            <?= Yii::t('project', 'Preview & Approve') ?>
         </li>
     </ol>
 
@@ -34,7 +34,9 @@ $this->title = Yii::t('project', 'Add project');
                 <?= Html::a(Yii::t('project', 'Back'), ['/project/screenshots', 'id' => $model->id]) ?>
             </div>
             <div class="draft">
-                <?= Html::a(Yii::t('project', 'Save as draft'), ['/user/view', 'id' => Yii::$app->user->id]) ?>
+                <?= Html::a(Yii::t('project', 'Save as draft'), ['/project/draft', 'id' => Yii::$app->user->id], [
+                    'data-method' => 'POST',
+                ]) ?>
             </div>
             <div class="publish">
                 <?= Html::a(Yii::t('project', 'Publish'), ['/project/publish', 'id' => $model->id], [

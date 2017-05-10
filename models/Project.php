@@ -365,4 +365,10 @@ class Project extends \yii\db\ActiveRecord
         $this->status = self::STATUS_PUBLISHED;
         $this->save();
     }
+
+    public function draft()
+    {
+        $this->status = self::STATUS_DRAFT;
+        $this->save();
+    }
 }

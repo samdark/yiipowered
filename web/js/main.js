@@ -12,7 +12,8 @@ jQuery(function ($) {
 
     $('.image .delete').on('click', function (e) {
         e.stopPropagation();
-        var imageContainer = $(this).parents('.image').parent();
+        var imageContainer = $(this).closest('.image')
+        ;
 
         var url = $(this).data('url');
         var imageID = $(this).data('id');

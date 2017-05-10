@@ -27,7 +27,7 @@ $this->registerJs("initProjectImageUpload({$sizeThumb[0]}, {$sizeThumb[1]});");
             <?= Yii::t('project', 'Screenshots') ?>
         </li>
         <li data-step="3" class="progress__last">
-            <?= Yii::t('project', 'Approve') ?>
+            <?= Yii::t('project', 'Preview & Approve') ?>
         </li>
     </ol>
 
@@ -44,17 +44,21 @@ $this->registerJs("initProjectImageUpload({$sizeThumb[0]}, {$sizeThumb[1]});");
                                 <img class="img-responsive"
                                      src="<?= $i === 0 ? $image->getBigThumbnailRelativeUrl() : $image->getThumbnailRelativeUrl() ?>"/>
                             </a>
-                            <?php if ($canManageProject): ?>
-                                <span class="recrop glyphicon glyphicon-scissors js-project-image-recrop"
-                                      data-id="<?= $image->id ?>"
-                                      data-url="<?= Url::to(['project/image-original', 'imageId' => $image->id]) ?>"
-                                      title="<?= Yii::t('project', 'Re-crop image') ?>"></span>
-                                <span class="delete glyphicon glyphicon-remove" data-id="<?= $image->id ?>"
-                                      data-url="<?= Url::to(['project/delete-image']) ?>"
-                                      data-confirm="<?= Yii::t('project',
-                                          'Are you sure you want to delete this image?') ?>"
-                                      title="<?= Yii::t('project', 'Delete image') ?>"></span>
-                            <?php endif ?>
+                            <span class="recrop js-project-image-recrop"
+                                  data-id="<?= $image->id ?>"
+                                  data-url="<?= Url::to(['project/image-original', 'imageId' => $image->id]) ?>"
+                                  title="<?= Yii::t('project', 'Re-crop image') ?>">
+                                <span class="fa fa-scissors"></span>
+                            </span>
+                            <span class="delete" data-id="<?= $image->id ?>"
+                                  data-url="<?= Url::to(['project/delete-image']) ?>"
+                                  data-confirm="<?= Yii::t('project', 'Are you sure you want to delete this image?') ?>"
+                                  title="<?= Yii::t('project', 'Delete image') ?>">
+                                <span class="fa-stack fa-lg">
+                                  <i class="fa fa-circle fa-stack-2x"></i>
+                                  <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </span>
                         </div>
                         <?php $i++; ?>
                     <?php endforeach ?>
@@ -97,6 +101,12 @@ $this->registerJs("initProjectImageUpload({$sizeThumb[0]}, {$sizeThumb[1]});");
                         <?php ActiveForm::end() ?>
                     <?php endif ?>
                 <?php endif ?>
+            </div>
+
+            <div class="docs">
+                <p><?= Yii::t('project', 'Please, upload some screenshots to make your project look nice.') ?></p>
+                <p><?= Yii::t('project', 'You can upload up to 5 images. The first image will be used as a main preview of your project, while others will be displayed on the project details page') ?></p>
+                <p><?= Yii::t('project', 'After the image upload, you will be able to crop it.') ?></p>
             </div>
         </div>
 

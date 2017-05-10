@@ -28,7 +28,7 @@ $canManageProject = UserPermissions::canManageProject($model);
                 <?= Html::encode($model->title) ?>
 
                 <?php if ($model->is_featured): ?>
-                    <span class="glyphicon glyphicon-star featured" aria-hidden="true"></span>
+                    <span class="featured" aria-hidden="true"></span>
                 <?php endif ?>
 
                 <?php if ($model->status !== Project::STATUS_PUBLISHED && $canManageProject): ?>
@@ -54,6 +54,28 @@ $canManageProject = UserPermissions::canManageProject($model);
 
     <div class="project-body">
         <div class="container">
+            <div class="images">
+                <?php if (empty($model->images)): ?>
+                    <img class="image" src="<?= $model->getPlaceholderRelativeUrl() ?>" alt="">
+                <?php else: ?>
+                    <?php $i = 0; ?>
+                    <?php foreach ($model->images as $image): ?>
+                        <div class="image">
+                            <a href="<?= $image->getUrl() ?>">
+                                <img class="img-responsive"
+                                     src="<?= $i === 0 ? $image->getBigThumbnailRelativeUrl() : $image->getThumbnailRelativeUrl() ?>"
+                                     alt="">
+                            </a>
+                        </div>
+                        <?php $i++; ?>
+                    <?php endforeach ?>
+                <?php endif ?>
+            </div>
+
+            <div class="description">
+                <?= HtmlPurifier::process(Markdown::process($model->getDescription(), 'gfm')) ?>
+            </div>
+
             <div class="information">
                 <?php if ($model->is_opensource): ?>
                     <p><?= Html::a(Yii::t('project', 'Source Code'), $model->source_url, ['target' => '_blank']) ?></p>
@@ -66,53 +88,28 @@ $canManageProject = UserPermissions::canManageProject($model);
                         <li><?= Html::a(Html::encode($tag->name), ['project/list', 'tags' => $tag->name]) ?></li>
                     <?php endforeach ?>
                 </ul>
-            </div>
 
-            <div class="details">
-                <div class="images">
-                    <?php if (empty($model->images)): ?>
-                        <img class="image" src="<?= $model->getPlaceholderRelativeUrl() ?>" alt="">
-                    <?php else: ?>
-                        <?php $i = 0; ?>
-                        <?php foreach ($model->images as $image): ?>
-                            <div class="image">
-                                <a href="<?= $image->getUrl() ?>">
-                                    <img class="img-responsive" src="<?= $i === 0 ? $image->getBigThumbnailRelativeUrl() : $image->getThumbnailRelativeUrl() ?>" alt="">
-                                </a>
-                            </div>
-                            <?php $i++; ?>
-                        <?php endforeach ?>
-                    <?php endif ?>
-                </div>
-
-                <div class="description">
-                    <?= HtmlPurifier::process(Markdown::process($model->getDescription(), 'gfm')) ?>
-                </div>
-
-                <?php if ($management !== false) : ?>
+                <?php if ($management !== false && $canManageProject) : ?>
+                    <hr/>
                     <div class="management">
-                        <?php if ($canManageProject): ?>
-                            <div class="controls">
-                                <?= Html::a(Yii::t('project', 'Update'), ['update', 'id' => $model->id],
-                                    ['class' => 'btn btn-primary']) ?>
-                            </div>
-                        <?php endif ?>
-
-
-                        <?php if ($canManageProject): ?>
-                            <span class="time">
+                        <p class="time">
                             <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                <?= Yii::$app->formatter->asDate($model->created_at) ?>
-                        </span>
-
-                            <span>
+                            <?= Yii::$app->formatter->asDate($model->created_at) ?>
+                        </p>
+                        <p class="time">
                             <?= Yii::t('project', 'Updated: ') ?>
                             <?= Yii::$app->formatter->asDate($model->updated_at) ?>
-                        </span>
-                        <?php endif ?>
+                        </p>
+
+                        <div class="controls">
+                            <?= Html::a(
+                                '<i class="fa fa-pencil"></i> ' . Yii::t('project', 'Update'),
+                                ['update', 'id' => $model->id],
+                                ['class' => 'btn btn-primary']
+                            ) ?>
+                        </div>
                     </div>
                 <?php endif ?>
             </div>
         </div>
-    </div>
 </section>

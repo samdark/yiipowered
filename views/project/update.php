@@ -19,7 +19,7 @@ $this->title = Yii::t('project', 'Update project {title}', [
             <?= Yii::t('project', 'Screenshots') ?>
         </li>
         <li data-step="3" class="progress__last">
-            <?= Yii::t('project', 'Approve') ?>
+            <?= Yii::t('project', 'Preview & Approve') ?>
         </li>
     </ol>
 

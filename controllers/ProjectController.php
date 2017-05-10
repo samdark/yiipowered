@@ -43,7 +43,7 @@ class ProjectController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create', 'update', 'delete-image', 'bookmarks'],
+                        'actions' => ['create', 'update', 'delete-image', 'bookmarks', 'publish', 'draft'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -51,7 +51,8 @@ class ProjectController extends Controller
             'verb' => [
                 'class' => VerbFilter::class,
                 'actions' => [
-                    'publish' => ['post']
+                    'publish' => ['post'],
+                    'draft' => ['post']
                 ]
             ]
         ];
@@ -257,6 +258,14 @@ class ProjectController extends Controller
         return $this->redirect(['view', 'id' => $project->id, 'slug' => $project->slug]);
     }
 
+    public function actionDraft($id)
+    {
+        $project = $this->findModel(['id' => $id]);
+        $project->draft();
+
+        return $this->redirect(['/user/view', 'id' => Yii::$app->user->id]);
+    }
+
     public function actionView($id, $slug)
     {
         $project = $this->findModel([
@@ -308,6 +317,7 @@ class ProjectController extends Controller
         if ($image->delete()) {
             return 'OK';
         }
+
         throw new ServerErrorHttpException('Unable to delete image.');
 
     }
