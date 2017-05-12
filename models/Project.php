@@ -359,4 +359,16 @@ class Project extends \yii\db\ActiveRecord
         }
         return 'status-unknown';
     }
+
+    public function publish()
+    {
+        $this->status = self::STATUS_PUBLISHED;
+        $this->save();
+    }
+
+    public function draft()
+    {
+        $this->status = self::STATUS_DRAFT;
+        $this->save();
+    }
 }

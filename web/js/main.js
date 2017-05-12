@@ -12,7 +12,8 @@ jQuery(function ($) {
 
     $('.image .delete').on('click', function (e) {
         e.stopPropagation();
-        var imageContainer = $(this).parents('.image').parent();
+        var imageContainer = $(this).closest('.image')
+        ;
 
         var url = $(this).data('url');
         var imageID = $(this).data('id');
@@ -38,9 +39,10 @@ jQuery(function ($) {
  * @param {int} heightMin
  */
 function initProjectImageUpload(widthMin, heightMin) {
-    var imageCropperBlock = $('#image-cropper-block');
-    var imageBlock = imageCropperBlock.find('.image-block');
     var uploadForm = $('#project-image-upload');
+    var uploadButton = uploadForm.find('.custom-upload-button');
+    var imageCropperBlock = uploadForm.find('.cropper-block');
+    var imageBlock = imageCropperBlock.find('.image-block');
 
     var inputImageCropData = uploadForm.find('[name="ImageUploadForm[imageCropData]"]');
     var inputFile = uploadForm.find('[name="ImageUploadForm[file]"]');
@@ -76,6 +78,8 @@ function initProjectImageUpload(widthMin, heightMin) {
 
     function clear() {
         imageCropperBlock.hide(0);
+        uploadForm.removeClass('opened');
+
         inputImageCropData.val('');
         inputImageId.val('');
 
@@ -99,6 +103,7 @@ function initProjectImageUpload(widthMin, heightMin) {
                     URL.revokeObjectURL(blobURL);
                 }).cropper('reset').cropper('replace', blobURL);
                 imageCropperBlock.show(0);
+                uploadForm.addClass('opened');
             }
         }
     });
@@ -119,6 +124,7 @@ function initProjectImageUpload(widthMin, heightMin) {
         imageBlock.cropper('reset').cropper('replace', imageUrl);
 
         imageCropperBlock.show(0);
+        uploadForm.addClass('opened');
     });
 
     $('.js-project-image-reset').on('click', function (e) {

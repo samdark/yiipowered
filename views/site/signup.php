@@ -7,31 +7,37 @@ use yii\bootstrap\ActiveForm;
 /* @var $model \app\models\SignupForm */
 
 $this->title = Yii::t('app', 'Signup');
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-signup">
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="site-login">
+    <div class="form-wrapper">
+        <div class="login-box">
+            <h2><?= Html::encode($this->title) ?></h2>
 
-    <div class="row">
-        <div class="col-sm-3 col-sm-offset-1">
-            <?= yii\authclient\widgets\AuthChoice::widget([
+            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+                <?= $form->field($model, 'username')
+                    ->textInput(['placeholder' => $model->getAttributeLabel('username')])
+                    ->label(false) ?>
+                <?= $form->field($model, 'email')
+                    ->textInput(['placeholder' => $model->getAttributeLabel('email')])
+                    ->label(false) ?>
+                <?= $form->field($model, 'password')
+                    ->passwordInput(['placeholder' => $model->getAttributeLabel('password')])
+                    ->label(false) ?>
+                <div class="form-group">
+                    <?= Html::submitButton(Yii::t('app', 'Signup'), ['class' => 'signup-button', 'name' => 'signup-button']) ?>
+                </div>
+            <?php ActiveForm::end(); ?>
+        </div>
+
+        <div class="divider">
+            <?= Yii::t('app', 'or') ?>
+        </div>
+
+        <div class="oauth-box">
+            <?= \app\widgets\AuthChoise::widget([
+                'options' => ['class' => 'auth-clients-wrapper'],
                 'baseAuthUrl' => ['site/auth'],
                 'popupMode' => false,
             ]) ?>
         </div>
-        <div class="col-sm-2">
-            <h2><?= Yii::t('app', 'OR') ?></h2>
-        </div>
-        <div class="col-sm-5">
-            <h2><?= Yii::t('app', 'fill out the following form') ?></h2>
-            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
-                <?= $form->field($model, 'username') ?>
-                <?= $form->field($model, 'email') ?>
-                <?= $form->field($model, 'password')->passwordInput() ?>
-                <div class="form-group">
-                    <?= Html::submitButton(Yii::t('app', 'Signup'), ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-                </div>
-            <?php ActiveForm::end(); ?>
-        </div>
-    </div>
 </div>
