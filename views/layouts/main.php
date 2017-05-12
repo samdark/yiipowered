@@ -29,53 +29,80 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
     <div class="wrap">
         <?php
-            NavBar::begin([
-                'brandLabel' => '<span class="glyphicon glyphicon-cog" aria-hidden="true"></span> YiiPowered',
-                'brandUrl' => Yii::$app->homeUrl,
-                'options' => [
-                    'class' => 'navbar-inverse navbar-fixed-top',
-                ],
-            ]);
+        NavBar::begin([
+            'brandLabel' => '<span class="yii-logo"></span> YiiPowered',
+            'brandUrl' => Yii::$app->homeUrl,
+            'options' => [
+                'class' => 'navbar-inverse navbar-fixed-top',
+            ],
+        ]);
 
-            $menuItems = [
-                ['label' => 'RSS', 'url' => ['/project/rss']],
+        $menuItems = [
+            ['label' => Html::tag('span', '', ['class' => 'fa fa-search']), 'encode' => false, 'url' => ['/projects']],
+            [
+                'label' => Html::tag('span', '', ['class' => 'fa fa-rss-square']),
+                'encode' => false,
+                'url' => ['/project/rss'],
+                'linkOptions' => [
+                    'alt' => Yii::t('app', 'RSS feed'),
+                    'title' => Yii::t('app', 'RSS feed'),
+                ]
+            ],
+        ];
+        if (Yii::$app->user->isGuest) {
+            $menuItems[] = [
+                'label' => Html::tag('span', '', ['class' => 'fa fa-sign-in']),
+                'encode' => false,
+                'url' => ['/site/login'],
+                'linkOptions' => ['alt' => Yii::t('app', 'Login'), 'title' => Yii::t('app', 'Login')],
             ];
-            if (Yii::$app->user->isGuest) {
-                $menuItems[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
-                $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
-            } else {
-                $menuItems[] = ['label' => Yii::t('user', 'Manage users'), 'url' => ['/user/index'], 'visible'=> \Yii::$app->user->can('manage_users')];
-                $menuItems[] = ['label' => Yii::$app->user->identity->username, 'url' => ['/user/view', 'id' => \Yii::$app->user->id]];
-                $menuItems[] = ['label' => Yii::t('bookmark', 'Bookmarks'), 'url' => ['/project/bookmarks']];
-                $menuItems[] = [
-                    'label' => 'Logout',
-                    'url' => ['/site/logout'],
-                    'linkOptions' => ['data-method' => 'post']
-                ];
-            }
-            ?>
-
-            <ul class="navbar-nav navbar-left nav">
-                <li class="dropdown">
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> <b class="caret"></b></a>
-                    <?= \app\widgets\LanguageDropdown::widget() ?>
-                </li>
-                <li>
-                    <p class="navbar-btn">
-                        <?= yii\helpers\Html::a(Yii::t('project', 'Add project'), ['project/create'], ['class' => 'btn btn-success']) ?>
-                    </p>
-                </li>
-            </ul>
-
-            <?php
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav navbar-right'],
-                'items' => $menuItems,
-            ]);
-            NavBar::end();
+        } else {
+            $menuItems[] = [
+                'label' => Yii::t('user', 'Manage users'),
+                'url' => ['/user/index'],
+                'visible'=> \Yii::$app->user->can('manage_users'),
+            ];
+            $menuItems[] = [
+                'label' => Html::tag('span', '', ['class' => 'fa fa-bookmark']),
+                'encode' => false,
+                'url' => ['/project/bookmarks'],
+                'linkOptions' => ['alt' => Yii::t('app', 'Bookmarks'), 'title' => Yii::t('app', 'Bookmarks')],
+            ];
+            $menuItems[] = ['label' => Yii::$app->user->identity->username, 'url' => ['/user/view', 'id' => \Yii::$app->user->id]];
+            $menuItems[] = [
+                'label' => Html::tag('span', '', ['class' => 'fa fa-sign-out']),
+                'url' => ['/site/logout'],
+                'encode' => false,
+                'linkOptions' => [
+                    'data-method' => 'post',
+                    'alt' => Yii::t('app', 'Bookmarks'),
+                    'title' => Yii::t('app', 'Bookmarks'),
+                ],
+            ];
+        }
         ?>
 
-        <div class="container">
+        <ul class="navbar-nav navbar-right nav">
+            <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="fa fa-globe"></span> <b class="caret"></b></a>
+                <?= \app\widgets\LanguageDropdown::widget() ?>
+            </li>
+        </ul>
+
+        <?= Nav::widget([
+            'options' => ['class' => 'navbar-nav navbar-right'],
+            'items' => $menuItems,
+        ]); ?>
+
+        <ul class="navbar-nav navbar-right nav">
+            <li>
+                <?= yii\helpers\Html::a(Yii::t('project', 'Add project'), ['project/create'], ['class' => 'btn-add-project']) ?>
+            </li>
+        </ul>
+
+        <?php NavBar::end(); ?>
+
+        <div class="content-wrapper">
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>

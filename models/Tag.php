@@ -15,6 +15,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $type
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $frequency
  *
  * @property ProjectTag[] $projectTags
  * @property Project[] $projects
@@ -88,5 +89,18 @@ class Tag extends \yii\db\ActiveRecord
     public function getProjects()
     {
         return $this->hasMany(Project::className(), ['id' => 'project_id'])->viaTable('{{%project_tag}}', ['tag_id' => 'id']);
+    }
+
+    /**
+     * @return TagQuery
+     */
+    public static function find()
+    {
+        return new TagQuery(get_called_class());
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

@@ -2,14 +2,12 @@
 
 namespace app\models;
 
-use Imagine\Image\Box;
-use Imagine\Image\ImageInterface;
+use claviska\SimpleImage;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\FileHelper;
 use yii\helpers\Url;
-use yii\imagine\Image as ImagineImage;
 
 /**
  * This is the model class for table "{{%image}}".
@@ -61,7 +59,13 @@ class Image extends \yii\db\ActiveRecord
     {
         return [
             [['project_id'], 'integer'],
-            [['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => Project::className(), 'targetAttribute' => ['project_id' => 'id']],
+            [
+                ['project_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Project::className(),
+                'targetAttribute' => ['project_id' => 'id'],
+            ],
         ];
     }
 
@@ -114,6 +118,11 @@ class Image extends \yii\db\ActiveRecord
         return Yii::getAlias('@web/img/project/' . $this->project_id . '/' . $this->getThumbnailFilename()) . '?' . $this->updated_at;
     }
 
+    public function getBigThumbnailRelativeUrl()
+    {
+        return Yii::getAlias('@web/img/project/' . $this->project_id . '/' . $this->getBigThumbnailFilename()) . '?' . $this->updated_at;
+    }
+
     public function getThumbnailAbsoluteUrl()
     {
         return Url::to($this->getThumbnailRelativeUrl(), 'http');
@@ -134,6 +143,11 @@ class Image extends \yii\db\ActiveRecord
         return $this->id . '_thm.png';
     }
 
+    public function getBigThumbnailFilename()
+    {
+        return $this->id . '_big_thm.png';
+    }
+
     public function getOriginalPath()
     {
         return Yii::getAlias('@app/images/') . $this->project_id . '/' . $this->getOriginalFilename();
@@ -143,6 +157,7 @@ class Image extends \yii\db\ActiveRecord
     {
         $path = $this->getOriginalPath();
         FileHelper::createDirectory(dirname($path));
+
         return $path;
     }
 
@@ -155,6 +170,7 @@ class Image extends \yii\db\ActiveRecord
     {
         $path = $this->getFullPath();
         FileHelper::createDirectory(dirname($path));
+
         return $path;
     }
 
@@ -163,10 +179,25 @@ class Image extends \yii\db\ActiveRecord
         return Yii::getAlias('@webroot/img/project/') . $this->project_id . '/' . $this->getThumbnailFilename();
     }
 
+    private function getBigThumbnailPath()
+    {
+        return Yii::getAlias('@webroot/img/project/') . $this->project_id . '/' . $this->getBigThumbnailFilename();
+    }
+
+
     public function ensureThumbnailPath()
     {
         $path = $this->getThumbnailPath();
         FileHelper::createDirectory(dirname($path));
+
+        return $path;
+    }
+
+    private function ensureBigThumbnailPath()
+    {
+        $path = $this->getBigThumbnailPath();
+        FileHelper::createDirectory(dirname($path));
+
         return $path;
     }
 
@@ -175,28 +206,48 @@ class Image extends \yii\db\ActiveRecord
      */
     public function generateThumbnail($crop = null)
     {
-        ImagineImage::$thumbnailBackgroundAlpha = 0;
         $size = Yii::$app->params['image.size.thumbnail'];
-        
-        if ($crop === null) {
-            ImagineImage::thumbnail($this->getOriginalPath(), $size[0], $size[1], ImageInterface::THUMBNAIL_INSET)
-                ->save($this->ensureThumbnailPath());    
-        } else {
-            ImagineImage::crop($this->getOriginalPath(), $crop['width'], $crop['height'], [$crop['x'], $crop['y']])
-                ->thumbnail(new Box($size[0], $size[1]), ImageInterface::THUMBNAIL_INSET)
-                ->save($this->ensureThumbnailPath());
+
+        $image = new SimpleImage($this->getOriginalPath());
+        if ($crop !== null) {
+            $image->crop($crop['x'], $crop['y'], $crop['width'] + $crop['x'], $crop['height'] + $crop['y']);
         }
+
+        $image
+            ->resize($size[0])
+            ->crop(0, 0, $size[0], $size[1])
+            ->toFile($this->ensureThumbnailPath());
+
+        $this->touch('updated_at');
+    }
+
+
+    public function generateBigThumbnail($crop = null)
+    {
+        $size = Yii::$app->params['image.size.big_thumbnail'];
+
+        $image = new SimpleImage($this->getOriginalPath());
+        if ($crop !== null) {
+            $image->crop($crop['x'], $crop['y'], $crop['width'] + $crop['x'], $crop['height'] + $crop['y']);
+        }
+
+        $image
+            ->resize($size[0])
+            ->crop(0, 0, $size[0], $size[1])
+            ->toFile($this->ensureBigThumbnailPath());
 
         $this->touch('updated_at');
     }
 
     public function generateFull()
     {
-        ImagineImage::$thumbnailBackgroundAlpha = 0;
-
         $size = Yii::$app->params['image.size.full'];
-        ImagineImage::thumbnail($this->getOriginalPath(), $size[0], $size[1], ImageInterface::THUMBNAIL_INSET)
-            ->save($this->ensureFullPath());
+
+        (new SimpleImage($this->getOriginalPath()))
+            ->bestFit($size[0], $size[1])
+            ->toFile($this->ensureFullPath());
+
+        $this->touch('updated_at');
     }
 
     public function afterDelete()
@@ -204,6 +255,7 @@ class Image extends \yii\db\ActiveRecord
         parent::afterDelete();
 
         $this->removeFile($this->getThumbnailPath());
+        $this->removeFile($this->getBigThumbnailPath());
         $this->removeFile($this->getFullPath());
         $this->removeFile($this->getOriginalPath());
     }

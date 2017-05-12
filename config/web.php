@@ -1,6 +1,9 @@
 <?php
 
-$params = require(__DIR__ . '/params.php');
+$params = array_merge(
+    require(__DIR__ . '/params.php'),
+    is_file(__DIR__ . '/params-local.php') ? require(__DIR__ . '/params-local.php') : []
+);
 
 $languages = [];
 foreach ($params['languages'] as $id => $data) {
@@ -12,11 +15,45 @@ $config = [
     'basePath' => dirname(__DIR__),
     'defaultRoute' => 'project/index',
     'bootstrap' => ['log'],
+    'aliases' => [
+        'bower' => '@vendor/bower-asset',
+        'npm' => '@vendor/npm-asset',
+    ],
+    'container' => [
+        'definitions' => [
+            'yii\grid\ActionColumn' => [
+                'header' => 'Action',
+                'headerOptions' => [
+                    'class' => 'text-center col-md-1',
+                ],
+                'contentOptions' => [
+                    'class' => 'text-center text-nowrap',
+                ],
+                'buttonOptions' => [
+                    'class' => 'btn btn-default btn-xs',
+                ],
+                'template' => '{update} {delete}',
+            ],
+            'yii\grid\GridView' => [
+                'pager' => [
+                    'options' => [
+                        'class' => 'pagination pull-right',
+                    ],
+                ],
+                'tableOptions' => [
+                    'class' => 'table table-hover'
+                ],
+                'options' => [
+                    'class' => 'panel panel-default'
+                ],
+                'layout' => "{items}{pager}",
+            ]
+        ]
+    ],
     'components' => [
         'authManager' => [
             'class' => 'yii\rbac\PhpManager',
         ],
-        'rollbar' => require __DIR__ . '/rollbar.php',
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => require __DIR__ . '/key.php',
@@ -79,9 +116,11 @@ $config = [
                 'class' => 'yii\web\UrlNormalizer',
             ],
         ],
-
         'assetManager' => [
-            'appendTimestamp' => true,
+            'appendTimestamp' => false,
+            'bundles' => [
+                \yii\authclient\widgets\AuthChoiceStyleAsset::class => false
+            ]
         ],
     ],
     'params' => $params,
@@ -95,7 +134,10 @@ $config = [
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] = 'yii\debug\Module';
+    $config['modules']['debug'] = [
+        'class' => \yii\debug\Module::class,
+        'allowedIPs' => $params['debug.allowedIPs']
+    ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = 'yii\gii\Module';

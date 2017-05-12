@@ -17,6 +17,9 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    '{n, plural, one{# project} other{# projects}} made with {link}' => '{n,plural,one{# проект} few{# проекта} many{# проектов} other{# проектов}} сделано на {link}',
+    'View other {n, plural, one{# project} other{# projects}}' => 'Посмотреть еще {n, plural, one{# проект} few{# проекта} many{# проектов} other{# проектов}}',
+    'Made one? Share it!' => 'Зафигачил? Запость!',
     'Delete image' => 'Удалить скриншот',
     'Re-crop image' => 'Кадрировать скриншот',
     'Upload an image' => 'Загрзуить скриншот',
@@ -29,14 +32,14 @@ return [
     'Created At' => 'Создан',
     'Created By' => 'Автор',
     'Deleted' => 'Удалён',
-    'Description in {language}' => 'Описание на языке "{language}"',
+    'Description in {language}' => 'Описание на {language, select, Русский{русском} other{языке {language}}}',
     'Does not matter' => 'Не важно',
     'Draft' => 'Черновик',
     'Featured projects' => 'Выбор редакции',
     'General' => 'Общая информация',
     'ID' => 'ID',
     'Is Featured' => 'Выбор редакции',
-    'Is OpenSource' => 'OpenSource',
+    'Is OpenSource' => 'Является OpenSource',
     'Language' => 'Язык',
     'Manage projects' => 'Управление проектами',
     'More projects' => 'Ещё проекты',
