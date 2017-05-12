@@ -98,7 +98,7 @@ $config = [
         ],
         'authClientCollection' => [
             'class' => 'yii\authclient\Collection',
-//            'clients' => require __DIR__ . '/authclients.php',
+            'clients' => require __DIR__ . '/authclients.php',
         ],
         'urlManager' => [
             'class' => 'codemix\localeurls\UrlManager',
@@ -118,7 +118,9 @@ $config = [
         ],
         'assetManager' => [
             'appendTimestamp' => false,
-            'linkAssets' => true,
+            'bundles' => [
+                \yii\authclient\widgets\AuthChoiceStyleAsset::class => false
+            ]
         ],
     ],
     'params' => $params,

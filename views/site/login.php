@@ -35,7 +35,14 @@ $this->title = Yii::t('app', 'Login');
         </div>
 
         <div class="oauth-box">
-            <?= yii\authclient\widgets\AuthChoice::widget([
+            <div class="registration-prompt">
+                <?= Yii::t('app', 'Don\'t have an account? {signUpLink}', [
+                    'signUpLink' => Html::a(Yii::t('app', 'Sign up!'), ['/site/signup'])
+                ]) ?>
+            </div>
+
+            <?= \app\widgets\AuthChoise::widget([
+                'options' => ['class' => 'auth-clients-wrapper'],
                 'baseAuthUrl' => ['site/auth'],
                 'popupMode' => false,
             ]) ?>

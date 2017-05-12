@@ -44,4 +44,8 @@ return [
     'User with the same email as in {client} account already exists but isn\'t linked to it. Login using email first to link it.' => 'Пользователь с таким же email как в {client} уже существует, но не привязан. Залогиньтесь при помощи email чтобы это исправить.',
     'fill out the following form' => 'заполните форму',
     'reset it' => 'восстановить его',
+    'or' => 'или',
+    'Don\'t have an account? {signUpLink}' => 'Нет аккаунта? {signUpLink}',
+    'Sign up!' => 'Жми сюда!',
+    'Sign in with {service}' => 'Войти через {service}',
 ];

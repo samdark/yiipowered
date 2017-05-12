@@ -570,7 +570,9 @@ select[multiple].input-lg {
 .user-view .information:before,
 .user-view .information:after,
 .user-view .projects .projects-flow:before,
-.user-view .projects .projects-flow:after {
+.user-view .projects .projects-flow:after,
+.site-about .panes-wrapper:before,
+.site-about .panes-wrapper:after {
   content: " ";
   display: table;
 }
@@ -603,7 +605,8 @@ select[multiple].input-lg {
 .control-buttons:after,
 .buttons-wrapper:after,
 .user-view .information:after,
-.user-view .projects .projects-flow:after {
+.user-view .projects .projects-flow:after,
+.site-about .panes-wrapper:after {
   clear: both;
 }
 .center-block {
@@ -6125,32 +6128,74 @@ fieldset[disabled] .buttons-wrapper div.next button.focus {
     width: 1430px;
   }
 }
-.site-login {
+.site-request-password-reset,
+.site-reset-password {
   background-color: #F7F9FB;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.site-login .form-wrapper {
+.site-request-password-reset .form-wrapper,
+.site-reset-password .form-wrapper {
   padding: 1em;
   width: 66rem;
   min-height: 32rem;
   background-color: #fff;
   margin: 10em;
   border-radius: 3px;
-}
-.site-login .form-wrapper .login-box {
   position: relative;
-  padding: 0 6rem;
-  width: 45%;
-  float: left;
 }
-.site-login .form-wrapper .login-box h2 {
+.center-box {
+  padding: 1em;
+  width: 66rem;
+  min-height: 32rem;
+  background-color: #fff;
+  margin: 10em;
+  border-radius: 3px;
+  position: relative;
+}
+.site-login,
+.site-signup {
+  background-color: #F7F9FB;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.site-login .form-wrapper,
+.site-signup .form-wrapper {
+  padding: 1em;
+  width: 66rem;
+  min-height: 32rem;
+  background-color: #fff;
+  margin: 10em;
+  border-radius: 3px;
+  position: relative;
+}
+@media (min-width: 992px) {
+  .site-login .form-wrapper,
+  .site-signup .form-wrapper {
+    display: flex;
+  }
+}
+@media (min-width: 992px) {
+  .site-login .form-wrapper .login-box,
+  .site-signup .form-wrapper .login-box {
+    position: relative;
+    padding: 0 6rem;
+    width: 49%;
+    float: left;
+  }
+}
+.site-login .form-wrapper .login-box h2,
+.site-signup .form-wrapper .login-box h2 {
   font-weight: 300;
   text-align: center;
   margin-bottom: 1em;
 }
-.site-login .form-wrapper .login-box .login-button {
+.site-login .form-wrapper .login-box .login-button,
+.site-signup .form-wrapper .login-box .login-button,
+.site-login .form-wrapper .login-box .signup-button,
+.site-signup .form-wrapper .login-box .signup-button {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -6176,30 +6221,72 @@ fieldset[disabled] .buttons-wrapper div.next button.focus {
   width: 100%;
 }
 .site-login .form-wrapper .login-box .login-button:focus,
+.site-signup .form-wrapper .login-box .login-button:focus,
+.site-login .form-wrapper .login-box .signup-button:focus,
+.site-signup .form-wrapper .login-box .signup-button:focus,
 .site-login .form-wrapper .login-box .login-button:active:focus,
+.site-signup .form-wrapper .login-box .login-button:active:focus,
+.site-login .form-wrapper .login-box .signup-button:active:focus,
+.site-signup .form-wrapper .login-box .signup-button:active:focus,
 .site-login .form-wrapper .login-box .login-button.active:focus,
+.site-signup .form-wrapper .login-box .login-button.active:focus,
+.site-login .form-wrapper .login-box .signup-button.active:focus,
+.site-signup .form-wrapper .login-box .signup-button.active:focus,
 .site-login .form-wrapper .login-box .login-button.focus,
+.site-signup .form-wrapper .login-box .login-button.focus,
+.site-login .form-wrapper .login-box .signup-button.focus,
+.site-signup .form-wrapper .login-box .signup-button.focus,
 .site-login .form-wrapper .login-box .login-button:active.focus,
-.site-login .form-wrapper .login-box .login-button.active.focus {
+.site-signup .form-wrapper .login-box .login-button:active.focus,
+.site-login .form-wrapper .login-box .signup-button:active.focus,
+.site-signup .form-wrapper .login-box .signup-button:active.focus,
+.site-login .form-wrapper .login-box .login-button.active.focus,
+.site-signup .form-wrapper .login-box .login-button.active.focus,
+.site-login .form-wrapper .login-box .signup-button.active.focus,
+.site-signup .form-wrapper .login-box .signup-button.active.focus {
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
 .site-login .form-wrapper .login-box .login-button:hover,
+.site-signup .form-wrapper .login-box .login-button:hover,
+.site-login .form-wrapper .login-box .signup-button:hover,
+.site-signup .form-wrapper .login-box .signup-button:hover,
 .site-login .form-wrapper .login-box .login-button:focus,
-.site-login .form-wrapper .login-box .login-button.focus {
+.site-signup .form-wrapper .login-box .login-button:focus,
+.site-login .form-wrapper .login-box .signup-button:focus,
+.site-signup .form-wrapper .login-box .signup-button:focus,
+.site-login .form-wrapper .login-box .login-button.focus,
+.site-signup .form-wrapper .login-box .login-button.focus,
+.site-login .form-wrapper .login-box .signup-button.focus,
+.site-signup .form-wrapper .login-box .signup-button.focus {
   color: #333;
   text-decoration: none;
 }
 .site-login .form-wrapper .login-box .login-button:active,
-.site-login .form-wrapper .login-box .login-button.active {
+.site-signup .form-wrapper .login-box .login-button:active,
+.site-login .form-wrapper .login-box .signup-button:active,
+.site-signup .form-wrapper .login-box .signup-button:active,
+.site-login .form-wrapper .login-box .login-button.active,
+.site-signup .form-wrapper .login-box .login-button.active,
+.site-login .form-wrapper .login-box .signup-button.active,
+.site-signup .form-wrapper .login-box .signup-button.active {
   outline: 0;
   background-image: none;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 .site-login .form-wrapper .login-box .login-button.disabled,
+.site-signup .form-wrapper .login-box .login-button.disabled,
+.site-login .form-wrapper .login-box .signup-button.disabled,
+.site-signup .form-wrapper .login-box .signup-button.disabled,
 .site-login .form-wrapper .login-box .login-button[disabled],
-fieldset[disabled] .site-login .form-wrapper .login-box .login-button {
+.site-signup .form-wrapper .login-box .login-button[disabled],
+.site-login .form-wrapper .login-box .signup-button[disabled],
+.site-signup .form-wrapper .login-box .signup-button[disabled],
+fieldset[disabled] .site-login .form-wrapper .login-box .login-button,
+fieldset[disabled] .site-signup .form-wrapper .login-box .login-button,
+fieldset[disabled] .site-login .form-wrapper .login-box .signup-button,
+fieldset[disabled] .site-signup .form-wrapper .login-box .signup-button {
   cursor: not-allowed;
   opacity: 0.65;
   filter: alpha(opacity=65);
@@ -6207,91 +6294,579 @@ fieldset[disabled] .site-login .form-wrapper .login-box .login-button {
   box-shadow: none;
 }
 a.site-login .form-wrapper .login-box .login-button.disabled,
-fieldset[disabled] a.site-login .form-wrapper .login-box .login-button {
+a.site-signup .form-wrapper .login-box .login-button.disabled,
+a.site-login .form-wrapper .login-box .signup-button.disabled,
+a.site-signup .form-wrapper .login-box .signup-button.disabled,
+fieldset[disabled] a.site-login .form-wrapper .login-box .login-button,
+fieldset[disabled] a.site-signup .form-wrapper .login-box .login-button,
+fieldset[disabled] a.site-login .form-wrapper .login-box .signup-button,
+fieldset[disabled] a.site-signup .form-wrapper .login-box .signup-button {
   pointer-events: none;
 }
 .site-login .form-wrapper .login-box .login-button:focus,
-.site-login .form-wrapper .login-box .login-button.focus {
+.site-signup .form-wrapper .login-box .login-button:focus,
+.site-login .form-wrapper .login-box .signup-button:focus,
+.site-signup .form-wrapper .login-box .signup-button:focus,
+.site-login .form-wrapper .login-box .login-button.focus,
+.site-signup .form-wrapper .login-box .login-button.focus,
+.site-login .form-wrapper .login-box .signup-button.focus,
+.site-signup .form-wrapper .login-box .signup-button.focus {
   color: #fff;
   background-color: #538004;
   border-color: #131d01;
 }
-.site-login .form-wrapper .login-box .login-button:hover {
+.site-login .form-wrapper .login-box .login-button:hover,
+.site-signup .form-wrapper .login-box .login-button:hover,
+.site-login .form-wrapper .login-box .signup-button:hover,
+.site-signup .form-wrapper .login-box .signup-button:hover {
   color: #fff;
   background-color: #538004;
   border-color: #3d5e03;
 }
 .site-login .form-wrapper .login-box .login-button:active,
+.site-signup .form-wrapper .login-box .login-button:active,
+.site-login .form-wrapper .login-box .signup-button:active,
+.site-signup .form-wrapper .login-box .signup-button:active,
 .site-login .form-wrapper .login-box .login-button.active,
-.open > .dropdown-toggle.site-login .form-wrapper .login-box .login-button {
+.site-signup .form-wrapper .login-box .login-button.active,
+.site-login .form-wrapper .login-box .signup-button.active,
+.site-signup .form-wrapper .login-box .signup-button.active,
+.open > .dropdown-toggle.site-login .form-wrapper .login-box .login-button,
+.open > .dropdown-toggle.site-signup .form-wrapper .login-box .login-button,
+.open > .dropdown-toggle.site-login .form-wrapper .login-box .signup-button,
+.open > .dropdown-toggle.site-signup .form-wrapper .login-box .signup-button {
   color: #fff;
   background-color: #538004;
   border-color: #3d5e03;
 }
 .site-login .form-wrapper .login-box .login-button:active:hover,
+.site-signup .form-wrapper .login-box .login-button:active:hover,
+.site-login .form-wrapper .login-box .signup-button:active:hover,
+.site-signup .form-wrapper .login-box .signup-button:active:hover,
 .site-login .form-wrapper .login-box .login-button.active:hover,
+.site-signup .form-wrapper .login-box .login-button.active:hover,
+.site-login .form-wrapper .login-box .signup-button.active:hover,
+.site-signup .form-wrapper .login-box .signup-button.active:hover,
 .open > .dropdown-toggle.site-login .form-wrapper .login-box .login-button:hover,
+.open > .dropdown-toggle.site-signup .form-wrapper .login-box .login-button:hover,
+.open > .dropdown-toggle.site-login .form-wrapper .login-box .signup-button:hover,
+.open > .dropdown-toggle.site-signup .form-wrapper .login-box .signup-button:hover,
 .site-login .form-wrapper .login-box .login-button:active:focus,
+.site-signup .form-wrapper .login-box .login-button:active:focus,
+.site-login .form-wrapper .login-box .signup-button:active:focus,
+.site-signup .form-wrapper .login-box .signup-button:active:focus,
 .site-login .form-wrapper .login-box .login-button.active:focus,
+.site-signup .form-wrapper .login-box .login-button.active:focus,
+.site-login .form-wrapper .login-box .signup-button.active:focus,
+.site-signup .form-wrapper .login-box .signup-button.active:focus,
 .open > .dropdown-toggle.site-login .form-wrapper .login-box .login-button:focus,
+.open > .dropdown-toggle.site-signup .form-wrapper .login-box .login-button:focus,
+.open > .dropdown-toggle.site-login .form-wrapper .login-box .signup-button:focus,
+.open > .dropdown-toggle.site-signup .form-wrapper .login-box .signup-button:focus,
 .site-login .form-wrapper .login-box .login-button:active.focus,
+.site-signup .form-wrapper .login-box .login-button:active.focus,
+.site-login .form-wrapper .login-box .signup-button:active.focus,
+.site-signup .form-wrapper .login-box .signup-button:active.focus,
 .site-login .form-wrapper .login-box .login-button.active.focus,
-.open > .dropdown-toggle.site-login .form-wrapper .login-box .login-button.focus {
+.site-signup .form-wrapper .login-box .login-button.active.focus,
+.site-login .form-wrapper .login-box .signup-button.active.focus,
+.site-signup .form-wrapper .login-box .signup-button.active.focus,
+.open > .dropdown-toggle.site-login .form-wrapper .login-box .login-button.focus,
+.open > .dropdown-toggle.site-signup .form-wrapper .login-box .login-button.focus,
+.open > .dropdown-toggle.site-login .form-wrapper .login-box .signup-button.focus,
+.open > .dropdown-toggle.site-signup .form-wrapper .login-box .signup-button.focus {
   color: #fff;
   background-color: #3d5e03;
   border-color: #131d01;
 }
 .site-login .form-wrapper .login-box .login-button:active,
+.site-signup .form-wrapper .login-box .login-button:active,
+.site-login .form-wrapper .login-box .signup-button:active,
+.site-signup .form-wrapper .login-box .signup-button:active,
 .site-login .form-wrapper .login-box .login-button.active,
-.open > .dropdown-toggle.site-login .form-wrapper .login-box .login-button {
+.site-signup .form-wrapper .login-box .login-button.active,
+.site-login .form-wrapper .login-box .signup-button.active,
+.site-signup .form-wrapper .login-box .signup-button.active,
+.open > .dropdown-toggle.site-login .form-wrapper .login-box .login-button,
+.open > .dropdown-toggle.site-signup .form-wrapper .login-box .login-button,
+.open > .dropdown-toggle.site-login .form-wrapper .login-box .signup-button,
+.open > .dropdown-toggle.site-signup .form-wrapper .login-box .signup-button {
   background-image: none;
 }
 .site-login .form-wrapper .login-box .login-button.disabled:hover,
+.site-signup .form-wrapper .login-box .login-button.disabled:hover,
+.site-login .form-wrapper .login-box .signup-button.disabled:hover,
+.site-signup .form-wrapper .login-box .signup-button.disabled:hover,
 .site-login .form-wrapper .login-box .login-button[disabled]:hover,
+.site-signup .form-wrapper .login-box .login-button[disabled]:hover,
+.site-login .form-wrapper .login-box .signup-button[disabled]:hover,
+.site-signup .form-wrapper .login-box .signup-button[disabled]:hover,
 fieldset[disabled] .site-login .form-wrapper .login-box .login-button:hover,
+fieldset[disabled] .site-signup .form-wrapper .login-box .login-button:hover,
+fieldset[disabled] .site-login .form-wrapper .login-box .signup-button:hover,
+fieldset[disabled] .site-signup .form-wrapper .login-box .signup-button:hover,
 .site-login .form-wrapper .login-box .login-button.disabled:focus,
+.site-signup .form-wrapper .login-box .login-button.disabled:focus,
+.site-login .form-wrapper .login-box .signup-button.disabled:focus,
+.site-signup .form-wrapper .login-box .signup-button.disabled:focus,
 .site-login .form-wrapper .login-box .login-button[disabled]:focus,
+.site-signup .form-wrapper .login-box .login-button[disabled]:focus,
+.site-login .form-wrapper .login-box .signup-button[disabled]:focus,
+.site-signup .form-wrapper .login-box .signup-button[disabled]:focus,
 fieldset[disabled] .site-login .form-wrapper .login-box .login-button:focus,
+fieldset[disabled] .site-signup .form-wrapper .login-box .login-button:focus,
+fieldset[disabled] .site-login .form-wrapper .login-box .signup-button:focus,
+fieldset[disabled] .site-signup .form-wrapper .login-box .signup-button:focus,
 .site-login .form-wrapper .login-box .login-button.disabled.focus,
+.site-signup .form-wrapper .login-box .login-button.disabled.focus,
+.site-login .form-wrapper .login-box .signup-button.disabled.focus,
+.site-signup .form-wrapper .login-box .signup-button.disabled.focus,
 .site-login .form-wrapper .login-box .login-button[disabled].focus,
-fieldset[disabled] .site-login .form-wrapper .login-box .login-button.focus {
+.site-signup .form-wrapper .login-box .login-button[disabled].focus,
+.site-login .form-wrapper .login-box .signup-button[disabled].focus,
+.site-signup .form-wrapper .login-box .signup-button[disabled].focus,
+fieldset[disabled] .site-login .form-wrapper .login-box .login-button.focus,
+fieldset[disabled] .site-signup .form-wrapper .login-box .login-button.focus,
+fieldset[disabled] .site-login .form-wrapper .login-box .signup-button.focus,
+fieldset[disabled] .site-signup .form-wrapper .login-box .signup-button.focus {
   background-color: #73B205;
   border-color: #639904;
 }
-.site-login .form-wrapper .login-box .login-button .badge {
+.site-login .form-wrapper .login-box .login-button .badge,
+.site-signup .form-wrapper .login-box .login-button .badge,
+.site-login .form-wrapper .login-box .signup-button .badge,
+.site-signup .form-wrapper .login-box .signup-button .badge {
   color: #73B205;
   background-color: #fff;
 }
-.site-login .form-wrapper .login-box .hint-block {
+.site-login .form-wrapper .login-box .hint-block,
+.site-signup .form-wrapper .login-box .hint-block {
   color: #9B9B9B;
   font-size: 90%;
 }
-.site-login .form-wrapper .divider {
-  content: '';
-  float: left;
-  width: 10%;
+.site-login .form-wrapper .divider,
+.site-signup .form-wrapper .divider {
+  color: #9B9B9B;
+}
+@media (max-width: 991px) {
+  .site-login .form-wrapper .divider,
+  .site-signup .form-wrapper .divider {
+    position: relative;
+    text-align: center;
+  }
+}
+@media (min-width: 992px) {
+  .site-login .form-wrapper .divider,
+  .site-signup .form-wrapper .divider {
+    width: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.site-login .form-wrapper .divider::before,
+.site-signup .form-wrapper .divider::before {
+  content: "";
+  display: block;
+  background-color: #9B9B9B;
+}
+@media (max-width: 991px) {
+  .site-login .form-wrapper .divider::before,
+  .site-signup .form-wrapper .divider::before {
+    height: 0.1rem;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 45%;
+  }
+}
+@media (min-width: 992px) {
+  .site-login .form-wrapper .divider::before,
+  .site-signup .form-wrapper .divider::before {
+    width: 0.1rem;
+    position: absolute;
+    height: 40%;
+    top: 10px;
+    left: 50%;
+  }
+}
+.site-login .form-wrapper .divider::after,
+.site-signup .form-wrapper .divider::after {
+  content: "";
+  display: block;
+  background-color: #9B9B9B;
+}
+@media (max-width: 991px) {
+  .site-login .form-wrapper .divider::after,
+  .site-signup .form-wrapper .divider::after {
+    height: 0.1rem;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 45%;
+  }
+}
+@media (min-width: 992px) {
+  .site-login .form-wrapper .divider::after,
+  .site-signup .form-wrapper .divider::after {
+    width: 0.1rem;
+    position: absolute;
+    height: 40%;
+    bottom: 10px;
+    left: 50%;
+  }
+}
+@media (min-width: 992px) {
+  .site-login .form-wrapper .oauth-box,
+  .site-signup .form-wrapper .oauth-box {
+    width: 49%;
+    padding: 2rem 4rem;
+  }
+}
+.site-login .form-wrapper .oauth-box .registration-prompt,
+.site-signup .form-wrapper .oauth-box .registration-prompt {
+  font-size: 1.6rem;
+  text-align: center;
+}
+@media (max-width: 991px) {
+  .site-login .form-wrapper .oauth-box .registration-prompt,
+  .site-signup .form-wrapper .oauth-box .registration-prompt {
+    padding: 1rem 0;
+  }
+}
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+@media (min-width: 992px) {
+  .site-login .form-wrapper .oauth-box .auth-clients-wrapper,
+  .site-signup .form-wrapper .oauth-box .auth-clients-wrapper {
+    margin-top: -2rem;
+  }
+}
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients {
+  flex: 1;
+  list-style: none;
+  padding: 0;
+}
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: block;
+  width: 100%;
+  position: relative;
+  padding-left: 44px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link:focus,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link:focus,
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link:active:focus,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link:active:focus,
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.active:focus,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.active:focus,
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.focus,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.focus,
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link:active.focus,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link:active.focus,
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.active.focus,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.active.focus {
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link:hover,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link:hover,
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link:focus,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link:focus,
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.focus,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.focus {
+  color: #333;
+  text-decoration: none;
+}
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link:active,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link:active,
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.active,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.disabled,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.disabled,
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link[disabled],
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link[disabled],
+fieldset[disabled] .site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link,
+fieldset[disabled] .site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link {
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+a.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.disabled,
+a.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.disabled,
+fieldset[disabled] a.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link,
+fieldset[disabled] a.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link {
+  pointer-events: none;
+}
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.github,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.github {
+  color: #fff;
+  background-color: #444;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.github:focus,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.github:focus,
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.github:hover,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.github:hover {
+  background-color: #2b2b2b;
+}
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.github:active:hover,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.github:active:hover,
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.github:active:focus,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link.github:active:focus {
+  background-color: #191919;
+}
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link .auth-icon,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link .auth-icon {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 32px;
+  line-height: 34px;
+  font-size: 1.6em;
+  text-align: center;
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+.site-login .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link .auth-icon.github:before,
+.site-signup .form-wrapper .oauth-box .auth-clients-wrapper .auth-clients .auth-link .auth-icon.github:before {
+  content: "\f09b";
+}
+.site-error {
+  background-color: #F7F9FB;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.site-error .center-box {
+  padding: 1em;
+  width: 66rem;
+  min-height: 32rem;
+  background-color: #fff;
+  margin: 10em;
+  border-radius: 3px;
   position: relative;
 }
-.site-login .form-wrapper .divider:before {
-  background-color: #9B9B9B;
-  width: 0.2rem;
-  position: absolute;
-  height: 45%;
-  top: 10px;
-  left: 50%;
+.site-about {
+  background-color: #F7F9FB;
 }
-.site-login .form-wrapper .divider:after {
-  background-color: #9B9B9B;
-  width: 0.2rem;
-  position: absolute;
-  height: 45%;
-  bottom: 10px;
-  left: 50%;
+.site-about .panes-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
 }
-.site-login .form-wrapper .oauth-box {
-  width: 45%;
-  float: left;
-  padding: 0 6rem;
+.site-about .panes-wrapper > .navbar-header,
+.site-about .panes-wrapper > .navbar-collapse {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+@media (min-width: 768px) {
+  .site-about .panes-wrapper > .navbar-header,
+  .site-about .panes-wrapper > .navbar-collapse {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+@media (min-width: 768px) {
+  .site-about .panes-wrapper {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .site-about .panes-wrapper {
+    width: 95%;
+  }
+}
+@media (min-width: 1440px) {
+  .site-about .panes-wrapper {
+    width: 1430px;
+  }
+}
+.site-about .panes-wrapper .pane {
+  padding: 1em;
+  width: 66rem;
+  min-height: 32rem;
+  background-color: #fff;
+  margin: 10em;
+  border-radius: 3px;
+  position: relative;
+  flex: 1;
+  margin: 4rem;
+  height: 100%;
+  padding: 3rem 5rem;
+}
+.site-about .panes-wrapper .pane h1,
+.site-about .panes-wrapper .pane h2 {
+  font-family: 'Rubik', sans-serif;
+  font-size: 3rem;
+  font-weight: 300;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.site-about .panes-wrapper .pane p {
+  margin: 0 3rem 0;
+  font-size: 1.7rem;
+}
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper {
+  margin: 2.5rem;
+  text-align: center;
+}
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #fff;
+  background-color: #73B205;
+  border-color: #639904;
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a:focus,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a:active:focus,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a.active:focus,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a.focus,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a:active.focus,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a.active.focus {
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a:hover,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a:focus,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a.focus {
+  color: #333;
+  text-decoration: none;
+}
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a:active,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a.disabled,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a[disabled],
+fieldset[disabled] .site-about .panes-wrapper .pane p.sponsor-link-wrapper a {
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+a.site-about .panes-wrapper .pane p.sponsor-link-wrapper a.disabled,
+fieldset[disabled] a.site-about .panes-wrapper .pane p.sponsor-link-wrapper a {
+  pointer-events: none;
+}
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a:focus,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a.focus {
+  color: #fff;
+  background-color: #538004;
+  border-color: #131d01;
+}
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a:hover {
+  color: #fff;
+  background-color: #538004;
+  border-color: #3d5e03;
+}
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a:active,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a.active,
+.open > .dropdown-toggle.site-about .panes-wrapper .pane p.sponsor-link-wrapper a {
+  color: #fff;
+  background-color: #538004;
+  border-color: #3d5e03;
+}
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a:active:hover,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a.active:hover,
+.open > .dropdown-toggle.site-about .panes-wrapper .pane p.sponsor-link-wrapper a:hover,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a:active:focus,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a.active:focus,
+.open > .dropdown-toggle.site-about .panes-wrapper .pane p.sponsor-link-wrapper a:focus,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a:active.focus,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a.active.focus,
+.open > .dropdown-toggle.site-about .panes-wrapper .pane p.sponsor-link-wrapper a.focus {
+  color: #fff;
+  background-color: #3d5e03;
+  border-color: #131d01;
+}
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a:active,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a.active,
+.open > .dropdown-toggle.site-about .panes-wrapper .pane p.sponsor-link-wrapper a {
+  background-image: none;
+}
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a.disabled:hover,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a[disabled]:hover,
+fieldset[disabled] .site-about .panes-wrapper .pane p.sponsor-link-wrapper a:hover,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a.disabled:focus,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a[disabled]:focus,
+fieldset[disabled] .site-about .panes-wrapper .pane p.sponsor-link-wrapper a:focus,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a.disabled.focus,
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a[disabled].focus,
+fieldset[disabled] .site-about .panes-wrapper .pane p.sponsor-link-wrapper a.focus {
+  background-color: #73B205;
+  border-color: #639904;
+}
+.site-about .panes-wrapper .pane p.sponsor-link-wrapper a .badge {
+  color: #73B205;
+  background-color: #fff;
 }
 .form-control {
   color: #4a4a4a;
