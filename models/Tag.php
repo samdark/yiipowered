@@ -15,7 +15,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $type
  * @property integer $created_at
  * @property integer $updated_at
- * @property mixed frequency
+ * @property integer $frequency
  *
  * @property ProjectTag[] $projectTags
  * @property Project[] $projects
