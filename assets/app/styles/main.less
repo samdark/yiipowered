@@ -337,8 +337,14 @@ a {
       .make-lg-column(3);
 
       ul {
+        margin: 0;
+        padding: 0;
         list-style: none;
         text-align: right;
+
+        @media (max-width: @screen-sm-max) {
+          text-align: left;
+        }
       }
     }
   }
@@ -415,6 +421,7 @@ a {
       .image {
         &:first-child {
           margin: 0 auto;
+          width: 100%;
         }
 
         &:not(:first-child) {
