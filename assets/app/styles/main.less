@@ -48,6 +48,9 @@
 @footer-link-color: @orange-color;
 @footer-link-hover-color: @orange-dark-color;
 
+@color-draft: rgba(10, 10, 200, .5);
+@color-deleted: rgba(200, 10, 10, .5);
+
 @screen-lg-min: 1440px;
 
 @container-tablet: (720px + @grid-gutter-width);
@@ -1043,4 +1046,23 @@ a {
 footer.footer {
   height: 5rem;
   padding: 1.7rem 13rem;
+}
+
+label.status-deleted {
+  background: @color-deleted;
+}
+
+.label.status-draft {
+  background: @color-draft;
+}
+
+
+.project article.status-deleted {
+  opacity: 0.5;
+  border: @color-deleted;
+}
+
+.project article.status-draft {
+  opacity: 0.7;
+  border: 2px solid @color-draft;
 }
