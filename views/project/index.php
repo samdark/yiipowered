@@ -18,9 +18,12 @@ $this->title = Yii::t('project', 'Projects built with Yii');
             'link' => Html::a('Yii framework', 'http://yiiframework.com'),
         ]) ?>
     </p>
-    <p class="add-project-wrapper">
-        <?= Html::a(Yii::t('project', 'Made one? Share it!'), ['project/create']) ?>
-    </p>
+
+    <?= Html::a(
+        Yii::t('project', 'Made one? Share it!'),
+        ['project/create'],
+        ['class' => 'add-project']
+    ) ?>
 </div>
 
 <div class="project-index">
@@ -47,11 +50,15 @@ $this->title = Yii::t('project', 'Projects built with Yii');
             'itemView' => '_card',
         ]) ?>
 
-        <p class="show-more">
-            <?= Html::a(Yii::t('project', 'View  {n, plural, one{one more project} other{# more projects}}', [
-                'n' => $seeMoreCount,
-            ]), ['project/list', 'page' => 2]) ?>
-        </p>
+
+        <?= Html::a(
+            Yii::t('project', 'View  {n, plural, one{one more project} other{# more projects}}', [
+            'n' => $seeMoreCount,
+            ]),
+            ['project/list', 'page' => 2],
+            ['class' => 'show-more']
+        ) ?>
+
     </section>
 
 </div>

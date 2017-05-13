@@ -173,17 +173,14 @@ a {
 
 .intro {
   text-align: center;
-  height: 26rem;
   padding: 6rem;
   font-size: 21pt;
 
-  .add-project-wrapper {
+  .add-project {
+    display: inline-block;
+    text-align: center;
     margin-top: 1em;
-
-    a {
-      white-space: nowrap;
-      .big-button;
-    }
+    .big-button;
   }
 }
 
@@ -206,13 +203,10 @@ a {
   }
 
   .show-more {
+    display: inline-block;
     margin-top: 1em;
+    .big-button;
     text-align: center;
-
-    a {
-      white-space: nowrap;
-      .big-button;
-    }
   }
 }
 
@@ -1048,8 +1042,32 @@ a {
 // FOOTER
 
 footer.footer {
-  height: 5rem;
-  padding: 1.7rem 13rem;
+  min-height: 5rem;
+  padding: 1.7rem 0;
+
+  .container {
+
+    .left, .right {
+      .make-xs-column(12);
+      .make-sm-column(6);
+    }
+
+    .left {
+      text-align: left;
+
+      @media (max-width: @screen-sm-max) {
+        text-align: center;
+      }
+    }
+
+    .right {
+      text-align: right;
+
+      @media (max-width: @screen-sm-max) {
+        text-align: center;
+      }
+    }
+  }
 }
 
 label.status-deleted {
@@ -1059,7 +1077,6 @@ label.status-deleted {
 .label.status-draft {
   background: @color-draft;
 }
-
 
 .project article.status-deleted {
   opacity: 0.5;
