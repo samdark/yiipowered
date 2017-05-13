@@ -15,11 +15,7 @@ class ImageController extends Controller
         $batchSize = 100;
         $batch = Image::find()->batch($batchSize);
         foreach ($batch as $images) {
-            if (function_exists('pcntl_fork')) {
-                $this->processImagesInParallel($images);
-            } else {
-                $this->processImagesOneByOne($images);
-            }
+            $this->processImagesOneByOne($images);
         }
     }
 
@@ -31,6 +27,10 @@ class ImageController extends Controller
         }
     }
 
+    /**
+     * Not used currently since it kills server with load :)
+     * @param Image[] $images
+     */
     private function processImagesInParallel($images)
     {
         $childPids = [];
