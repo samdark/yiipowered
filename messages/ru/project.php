@@ -17,7 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'View  {n, plural, one{one more project} other{# more projects}}' => 'Ещё {n, plural, one{один проект} few{# проекта} many{# проектов} other{# проектов}}',
+    'View  {n, plural, one{one more project} other{# more projects}}' => 'Ещё {n, plural, one{# проект} few{# проекта} many{# проектов} other{# проектов}}',
     'Add project' => 'Добавить проект',
     'After the image upload, you will be able to crop it.' => 'Вы сможете кадрировать изображение после его загрузки.',
     'Any Yii verison' => 'Любая версия Yii',
