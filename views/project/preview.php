@@ -34,7 +34,7 @@ $this->title = Yii::t('project', 'Add project');
                 <?= Html::a(Yii::t('project', 'Back'), ['/project/screenshots', 'id' => $model->id]) ?>
             </div>
             <div class="draft">
-                <?= Html::a(Yii::t('project', 'Save as draft'), ['/project/draft', 'id' => Yii::$app->user->id], [
+                <?= Html::a(Yii::t('project', 'Save as draft'), ['/project/draft', 'id' => $model->id], [
                     'data-method' => 'POST',
                 ]) ?>
             </div>
