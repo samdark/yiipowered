@@ -143,6 +143,7 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = 'yii\gii\Module';
 } else {
+    $config['components']['rollbar'] = require __DIR__  . '/rollbar.php';
     $config['bootstrap'][] = 'rollbar';
     $config['components']['errorHandler']['class'] = 'baibaratsky\yii\rollbar\web\ErrorHandler';
 }
