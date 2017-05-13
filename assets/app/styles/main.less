@@ -522,6 +522,11 @@ a {
     .form-wrapper {
       .make-row();
       margin: 0 5em 5em 5em;
+
+      @media (max-width: @screen-sm-max) {
+        margin: 0 0 1em 0;
+      }
+
       padding-bottom: 2em;
       background-color: #fff;
 
@@ -566,7 +571,7 @@ a {
           position: relative;
           margin: 1rem;
           border: 1px solid @dark-blue-color;
-          border-radius: 3px;;
+          border-radius: 3px;
           &:not(:first-child) {
             display: inline-block;
             flex: 0 1 30%;
@@ -603,6 +608,11 @@ a {
           &:first-child {
             min-width: 50em;
             min-height: 30em;
+
+            @media (max-width: @screen-sm-max) {
+              min-width: 95%;
+              min-height: 3em;
+            }
           }
 
           &:not(:first-child) {
@@ -687,6 +697,12 @@ a {
   .bg-colored;
   list-style: none;
   padding: 2em 4em;
+
+  @media (max-width: @screen-sm-max) {
+    padding: 1em .5em 0 .5em;
+    font-size: 1em;
+  }
+
   display: table;
   table-layout: fixed;
   width: 100%;
@@ -993,17 +1009,29 @@ a {
   .bg-colored();
 
   .panes-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
     .container();
 
+    @media (max-width: @screen-sm-max) {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
     .pane {
-      .center-box();
-      flex: 1;
-      margin: 4rem;
-      height: 100%;
-      padding: 3rem 5rem;
+      .make-xs-column(12);
+      .make-sm-column(4);
+      .make-xs-column-offset(1);
+
+      background-color: #fff;
+      border-radius: 3px;
+
+      padding: 3rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+
+      @media (max-width: @screen-sm-max) {
+        margin: 1rem 0;
+        padding: .2rem;
+      }
 
       h1, h2 {
         .font-secondary();
