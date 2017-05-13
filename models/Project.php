@@ -195,7 +195,7 @@ class Project extends \yii\db\ActiveRecord
      */
     public function getCreatedBy()
     {
-        return $this->hasOne(User::className(), ['id' => 'created_by'])->inverseOf('projects0');
+        return $this->hasOne(User::className(), ['id' => 'created_by'])->inverseOf('projects');
     }
 
     /**

@@ -13,10 +13,10 @@ $this->title = Yii::t('project', 'Add project');
 <div class="project-preview">
     <ol class="wizard-progress">
         <li class="is-complete" data-step="1">
-            <?= Yii::t('project', 'General info') ?>
+            <?= Html::a(Yii::t('project', 'General info'), ['project/update', 'id' => $model->id]) ?>
         </li>
         <li class="is-complete" data-step="2">
-            <?= Yii::t('project', 'Screenshots') ?>
+            <?= Html::a(Yii::t('project', 'Screenshots'), ['project/screenshots', 'id' => $model->id]) ?>
         </li>
         <li class="is-active progress__last" data-step="3">
             <?= Yii::t('project', 'Preview & Approve') ?>

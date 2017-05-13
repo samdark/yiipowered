@@ -20,6 +20,7 @@ $this->registerMetaTag(['property' => 'og:url', 'content' => Url::canonical()]);
 $this->title = $model->title;
 
 $canManageProject = UserPermissions::canManageProject($model);
+$management = isset($management) ? $management : null;
 ?>
 <section class="project-view">
     <header>

@@ -10,14 +10,13 @@ use \yii\widgets\ListView;
 $this->title = Yii::t('bookmark', 'Bookmarked projects');
 ?>
 <div class="project-index">
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <div class="row">
         <?= ListView::widget([
             'dataProvider' => $dataProvider,
             'layout' => '{items}',
             'options' => ['class' => 'projects-flow'],
-            'itemOptions' => ['class' => 'item'],
+            'emptyText' => Yii::t('project', 'You have no bookmarked projects yet.'),
+            'itemOptions' => ['class' => 'project'],
             'itemView' => '_card'
         ]) ?>
     </div>

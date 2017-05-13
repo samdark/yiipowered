@@ -1,12 +1,12 @@
-@import "vendor/bower-asset/bootstrap/less/variables";
-@import "vendor/bower-asset/bootstrap/less/mixins";
-@import "vendor/bower-asset/bootstrap/less/forms";
-@import "vendor/bower-asset/bootstrap/less/utilities";
-@import "vendor/bower-asset/bootstrap/less/navbar";
-@import "vendor/bower-asset/bootstrap/less/grid";
-@import "vendor/bower-asset/bootstrap/less/buttons";
+@import "../../../vendor/bower-asset/bootstrap/less/variables";
+@import "../../../vendor/bower-asset/bootstrap/less/mixins";
+@import "../../../vendor/bower-asset/bootstrap/less/forms";
+@import "../../../vendor/bower-asset/bootstrap/less/utilities";
+@import "../../../vendor/bower-asset/bootstrap/less/navbar";
+@import "../../../vendor/bower-asset/bootstrap/less/grid";
+@import "../../../vendor/bower-asset/bootstrap/less/buttons";
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500|Rubik:400,500');
-@import "vendor/bower-asset/font-awesome/less/font-awesome";
+@import (reference) "../../../vendor/bower-asset/font-awesome/less/font-awesome";
 
 .font-primary() {
   font-family: 'Roboto', sans-serif;
@@ -89,7 +89,7 @@ a {
         display: inline-block;
         float: left;
         margin: 0 10px 0 0;
-        background-image: url("../img/yii-logo.png");
+        background-image: url("/img/yii-logo.png");
       }
     }
   }
@@ -271,17 +271,25 @@ a {
     }
 
     .bookmark {
-      cursor: cell;
+      font-size: 140%;
+      color: @yellow-color;
+      cursor: pointer;
       position: absolute;
       top: -0.4rem;
       left: 1rem;
 
       .delete {
         color: @yellow-color;
+        &:hover {
+          color: @gray;
+        }
       }
 
       .create {
         color: @gray;
+        &:hover {
+          color: @yellow-color;
+        }
       }
     }
   }
@@ -639,9 +647,6 @@ a {
   }
 }
 
-.project-preview {
-}
-
 .control-buttons {
   padding: 2em;
   .container-fluid();
@@ -768,8 +773,6 @@ a {
     }
   }
 }
-
-
 
 .site-request-password-reset,
 .site-reset-password {
@@ -1011,7 +1014,7 @@ a {
       }
 
       p {
-        margin: 0 3rem 0;
+        margin: 0 3rem (@line-height-computed / 2);
         font-size: 1.7rem;
 
         &.sponsor-link-wrapper {

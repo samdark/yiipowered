@@ -22,7 +22,7 @@ $this->title = Yii::t('project', 'Projects');
             ]) ?>
 
             <div class="filters">
-                <div class="title"><?= Yii::t('yiipowered', 'Filters') ?></div>
+                <div class="title"><?= Yii::t('project', 'Filters') ?></div>
 
                 <?= $form->field($filterForm, 'title')
                     ->textInput(['placeholder' => $filterForm->getAttributeLabel('title')])
@@ -49,7 +49,7 @@ $this->title = Yii::t('project', 'Projects');
                 </div>
             </div>
             <div class="tags">
-                <div class="title"><?= Yii::t('yiipowered', 'Tags') ?></div>
+                <div class="title"><?= Yii::t('project', 'Tags') ?></div>
 
                 <?= ListView::widget([
                     'dataProvider' => $tagsDataProvider,
@@ -59,7 +59,7 @@ $this->title = Yii::t('project', 'Projects');
                     'itemView' => function ($model, $key, $index, $widget) use ($filterForm) {
                         /** @var Tag $model */
                         return Html::a(
-                            '<span class="name">' . $model->name . '</span>' .
+                            '<span class="name">' . Html::encode($model->name) . '</span>' .
                             '<span class="count">' . $model->frequency . '</span>',
                             ['/project/list', 'tags' => $model->name],
                             ['class' => $filterForm->hasTag($model->name) ? 'selected' : '']

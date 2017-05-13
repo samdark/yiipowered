@@ -117,7 +117,8 @@ $config = [
             ],
         ],
         'assetManager' => [
-            'appendTimestamp' => false,
+            'linkAssets' => true,
+            'appendTimestamp' => true,
             'bundles' => [
                 \yii\authclient\widgets\AuthChoiceStyleAsset::class => false
             ]

@@ -1,5 +1,6 @@
 <?php
 
+use yii\authclient\widgets\AuthChoice;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -25,6 +26,24 @@ use \yii\widgets\ListView;
 
         <div class="bio">
             <h1><?= Html::encode($this->title) ?></h1>
+
+            <?php if (count($authClients) > 0): ?>
+                <?php $authAuthChoice = AuthChoice::begin([
+                    'baseAuthUrl' => ['site/auth'],
+                    'popupMode' => false,
+                    'clients' => $authClients,
+                ]); ?>
+                <?php foreach ($authAuthChoice->getClients() as $client): ?>
+                    <h3>
+                        <?= $authAuthChoice->clientLink(
+                            $client,
+                            Yii::t('user', 'Connect with {servicename}', ['servicename' => $client->getName()])
+                        ) ?>
+                    </h3>
+                <?php endforeach; ?>
+                <?php AuthChoice::end(); ?>
+            <?php endif ?>
+
             <?php if ($model->getGithubProfileUrl() !== null): ?>
                 <h3><?= Html::a(Html::encode($model->getGithubProfileUrl()), $model->getGithubProfileUrl()) ?></h3>
             <?php endif ?>
@@ -43,19 +62,6 @@ use \yii\widgets\ListView;
             <?php endif ?>
         </div>
     </div>
-
-    <?php if (count($authClients) > 0): ?>
-        <div class="col-sm-4">
-            <div class="well well-sm">
-                <h2>Connect extra profiles:</h2>
-                <?= yii\authclient\widgets\AuthChoice::widget([
-                    'baseAuthUrl' => ['site/auth'],
-                    'popupMode' => false,
-                    'clients' => $authClients,
-                ]) ?>
-            </div>
-        </div>
-    <?php endif ?>
 
     <div class="projects">
         <?= ListView::widget([

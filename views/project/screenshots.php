@@ -21,13 +21,13 @@ $this->registerJs("initProjectImageUpload({$sizeThumb[0]}, {$sizeThumb[1]});");
 <div class="project-screenshots">
     <ol class="wizard-progress">
         <li class="is-complete" data-step="1">
-            <?= Yii::t('project', 'General info') ?>
+            <?= Html::a(Yii::t('project', 'General info'), ['project/update', 'id' => $model->id]) ?>
         </li>
         <li class="is-active" data-step="2">
             <?= Yii::t('project', 'Screenshots') ?>
         </li>
         <li data-step="3" class="progress__last">
-            <?= Yii::t('project', 'Preview & Approve') ?>
+            <?= Html::a(Yii::t('project', 'Preview & Approve'), ['project/preview', 'id' => $model->id]) ?>
         </li>
     </ol>
 

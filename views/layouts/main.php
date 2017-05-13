@@ -38,7 +38,12 @@ AppAsset::register($this);
         ]);
 
         $menuItems = [
-            ['label' => Html::tag('span', '', ['class' => 'fa fa-search']), 'encode' => false, 'url' => ['/projects']],
+            [
+                'label' => Html::tag('span', '', ['class' => 'fa fa-search']),
+                'encode' => false,
+                'url' => ['/projects'],
+                'linkOptions' => ['alt' => Yii::t('app', 'Explore projects'), 'title' => Yii::t('app', 'Explore projects')],
+            ],
             [
                 'label' => Html::tag('span', '', ['class' => 'fa fa-rss-square']),
                 'encode' => false,
@@ -75,8 +80,8 @@ AppAsset::register($this);
                 'encode' => false,
                 'linkOptions' => [
                     'data-method' => 'post',
-                    'alt' => Yii::t('app', 'Bookmarks'),
-                    'title' => Yii::t('app', 'Bookmarks'),
+                    'alt' => Yii::t('app', 'Logout'),
+                    'title' => Yii::t('app', 'Logout'),
                 ],
             ];
         }

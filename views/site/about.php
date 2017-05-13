@@ -37,10 +37,7 @@ $this->title = 'About YiiPowered';
                 Interface designed by <a href="https://www.facebook.com/elena.sandul.14">Olena Sandul</a>.
                 You can check <a href="https://github.com/samdark/yiipowered/graphs/contributors">all contributors at GitHub</a>.
             </p>
-            <br />
-            <br />
-            <br />
-            <br />
+
             <p>
                 Alexander is currently <a href="https://www.patreon.com/samdark">seeking for patronage</a> to work on
                 OpenSource fulltime so if you like this project and Yii in general, consider sponsorship:

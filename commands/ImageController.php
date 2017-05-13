@@ -12,29 +12,47 @@ class ImageController extends Controller
 {
     public function actionGenerateAll()
     {
-
         $batchSize = 100;
         $batch = Image::find()->batch($batchSize);
         foreach ($batch as $images) {
-            $childPids = [];
+            if (function_exists('pcntl_fork')) {
+                $this->processImagesInParallel($images);
+            } else {
+                $this->processImagesOneByOne($images);
+            }
+        }
+    }
 
-            foreach ($images as $i => $image) {
-                /** @var Image $image */
-                $newPid = pcntl_fork();
-                if ($newPid == -1) {
-                    die('Can\'t fork');
-                } elseif ($newPid) {
-                    $childPids[] = $newPid;
-                } else {
-                    \Yii::$app->db->pdo = null;
-                    $this->generateThumbs($image);
-                    exit(0);
-                }
+    private function processImagesOneByOne($images)
+    {
+        foreach ($images as $i => $image) {
+            /** @var Image $image */
+            $this->generateThumbs($image);
+        }
+    }
+
+    private function processImagesInParallel($images)
+    {
+        $childPids = [];
+
+        foreach ($images as $i => $image) {
+            /** @var Image $image */
+            $newPid = pcntl_fork();
+            if ($newPid == -1) {
+                die('Can\'t fork');
             }
 
-            foreach ($childPids as $childPid) {
-                pcntl_waitpid($childPid, $status);
+            if ($newPid) {
+                $childPids[] = $newPid;
+            } else {
+                \Yii::$app->db->pdo = null;
+                $this->generateThumbs($image);
+                exit(0);
             }
+        }
+
+        foreach ($childPids as $childPid) {
+            pcntl_waitpid($childPid, $status);
         }
     }
 
@@ -54,10 +72,12 @@ class ImageController extends Controller
 
     protected function generateThumbs(Image $image)
     {
+        echo 'Generating image #' . $image->id . ' for project #' . $image->project_id;
+
         $image->generateFull();
         $image->generateThumbnail();
         $image->generateBigThumbnail();
 
-        echo Console::renderColoredString('Generating thumb image ' . $image->id . ' for project ' . $image->project_id . " %Gdone.%n\n");
+        echo Console::renderColoredString(" %Gdone.%n\n");
     }
 }

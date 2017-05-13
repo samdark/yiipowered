@@ -3,10 +3,9 @@
 namespace app\widgets;
 
 use Yii;
-use yii\authclient\widgets\AuthChoice;
 use yii\helpers\Html;
 
-class AuthChoise extends AuthChoice
+class AuthChoice extends \yii\authclient\widgets\AuthChoice
 {
     /**
      * @param \yii\authclient\ClientInterface $client

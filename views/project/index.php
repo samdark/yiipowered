@@ -48,9 +48,9 @@ $this->title = Yii::t('project', 'Projects built with Yii');
         ]) ?>
 
         <p class="show-more">
-            <?= Html::a(Yii::t('project', 'View other {n, plural, one{# project} other{# projects}}', [
-                'n' => $seeMoreCount
-            ]), ['project/list']) ?>
+            <?= Html::a(Yii::t('project', 'View  {n, plural, one{one more project} other{# more projects}}', [
+                'n' => $seeMoreCount,
+            ]), ['project/list', 'page' => 2]) ?>
         </p>
     </section>
 

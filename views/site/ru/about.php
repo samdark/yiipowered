@@ -38,8 +38,7 @@ $this->title = 'О проекте YiiPowered';
                 Полный список участвовавших <a href="https://github.com/samdark/yiipowered/graphs/contributors">
                     можно найти на GitHub</a>.
             </p>
-            <p></p>
-            <p></p>
+
             <p>
                 Александр в данный момент ищет
                 <a href="https://www.patreon.com/samdark">спонсоров для постоянной работы над OpenSource</a>.

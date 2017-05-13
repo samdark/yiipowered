@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2b4355cc112fb34c9f958f1720e71a54",
+    "content-hash": "f94236431f221b76d9c5fbdc21386ab4",
     "packages": [
         {
             "name": "baibaratsky/yii2-rollbar",
@@ -177,16 +177,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fengyuanchen/cropper.git",
-                "reference": "9c7214edaa302bc85fab4cbc570bfeb4be62d3d7"
+                "reference": "d111ca1ae4d1bb6cbae2f0cdf9fc694835d21410"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fengyuanchen/cropper/zipball/9c7214edaa302bc85fab4cbc570bfeb4be62d3d7",
-                "reference": "9c7214edaa302bc85fab4cbc570bfeb4be62d3d7",
+                "url": "https://api.github.com/repos/fengyuanchen/cropper/zipball/d111ca1ae4d1bb6cbae2f0cdf9fc694835d21410",
+                "reference": "d111ca1ae4d1bb6cbae2f0cdf9fc694835d21410",
                 "shasum": null
             },
             "type": "bower-asset",
-            "time": "2017-03-25 12:05:01"
+            "time": "2017-04-30 03:19:03"
         },
         {
             "name": "bower-asset/font-awesome",
@@ -516,16 +516,16 @@
         },
         {
             "name": "codemix/yii2-localeurls",
-            "version": "1.4.11",
+            "version": "1.4.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codemix/yii2-localeurls.git",
-                "reference": "38e7bb86979d2ea4187e73007668e40464d990b2"
+                "reference": "6db663426cb204666170924fef4d2a0a1fb4c2eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codemix/yii2-localeurls/zipball/38e7bb86979d2ea4187e73007668e40464d990b2",
-                "reference": "38e7bb86979d2ea4187e73007668e40464d990b2",
+                "url": "https://api.github.com/repos/codemix/yii2-localeurls/zipball/6db663426cb204666170924fef4d2a0a1fb4c2eb",
+                "reference": "6db663426cb204666170924fef4d2a0a1fb4c2eb",
                 "shasum": ""
             },
             "require": {
@@ -553,7 +553,7 @@
                 "locale",
                 "yii2"
             ],
-            "time": "2017-04-18T07:00:54+00:00"
+            "time": "2017-05-12T06:21:43+00:00"
         },
         {
             "name": "creocoder/yii2-taggable",
@@ -642,63 +642,6 @@
                 "html"
             ],
             "time": "2017-03-13T06:30:53+00:00"
-        },
-        {
-            "name": "imagine/imagine",
-            "version": "v0.6.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/avalanche123/Imagine.git",
-                "reference": "149041d2a1b517107bfe270ca2b1a17aa341715d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/149041d2a1b517107bfe270ca2b1a17aa341715d",
-                "reference": "149041d2a1b517107bfe270ca2b1a17aa341715d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "sami/sami": "dev-master"
-            },
-            "suggest": {
-                "ext-gd": "to use the GD implementation",
-                "ext-gmagick": "to use the Gmagick implementation",
-                "ext-imagick": "to use the Imagick implementation"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-develop": "0.7-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Imagine": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bulat Shakirzyanov",
-                    "email": "mallluhuct@gmail.com",
-                    "homepage": "http://avalanche123.com"
-                }
-            ],
-            "description": "Image processing for PHP 5.3",
-            "homepage": "http://imagine.readthedocs.org/",
-            "keywords": [
-                "drawing",
-                "graphics",
-                "image manipulation",
-                "image processing"
-            ],
-            "time": "2015-09-19T16:54:05+00:00"
         },
         {
             "name": "league/color-extractor",
@@ -805,16 +748,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.7",
+            "version": "v5.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "56db4ed32a6d5c9824c3ecc1d2e538f663f47eb4"
+                "reference": "9a06dc570a0367850280eefd3f1dc2da45aef517"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/56db4ed32a6d5c9824c3ecc1d2e538f663f47eb4",
-                "reference": "56db4ed32a6d5c9824c3ecc1d2e538f663f47eb4",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/9a06dc570a0367850280eefd3f1dc2da45aef517",
+                "reference": "9a06dc570a0367850280eefd3f1dc2da45aef517",
                 "shasum": ""
             },
             "require": {
@@ -855,7 +798,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2017-04-20T17:32:18+00:00"
+            "time": "2017-05-01T15:54:03+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -1151,54 +1094,6 @@
                 "yii2"
             ],
             "time": "2017-02-15T14:28:10+00:00"
-        },
-        {
-            "name": "yiisoft/yii2-imagine",
-            "version": "2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yiisoft/yii2-imagine.git",
-                "reference": "59dcd0b43c2b0e5495c7e5c0320e2cbc1cd57411"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-imagine/zipball/59dcd0b43c2b0e5495c7e5c0320e2cbc1cd57411",
-                "reference": "59dcd0b43c2b0e5495c7e5c0320e2cbc1cd57411",
-                "shasum": ""
-            },
-            "require": {
-                "imagine/imagine": "~0.6.0",
-                "yiisoft/yii2": "~2.0.0"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "yii\\imagine\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Antonio Ramirez",
-                    "email": "amigo.cobos@gmail.com"
-                }
-            ],
-            "description": "The Imagine integration for the Yii framework",
-            "keywords": [
-                "helper",
-                "image",
-                "imagine",
-                "yii2"
-            ],
-            "time": "2016-11-03T19:28:39+00:00"
         },
         {
             "name": "yiisoft/yii2-jui",

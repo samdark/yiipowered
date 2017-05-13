@@ -152,7 +152,7 @@ class ProjectController extends Controller
     {
         /** @var Project[] $projects */
         $projects = Project::find()
-            ->with('images')
+            ->with('images', 'users')
             ->where(['status' => Project::STATUS_PUBLISHED])
             ->orderBy('created_at DESC')
             ->limit(50)
@@ -173,14 +173,26 @@ class ProjectController extends Controller
             $item->title = $project->title;
             $item->link = $url;
             $item->guid = $url;
-            $item->description = HtmlPurifier::process(Markdown::process($project->getDescription()));
+
+            $imageTag = '';
+
+            if (!empty($project->images)) {
+                $imageTag = Html::img($project->images[0]->getThumbnailAbsoluteUrl()) . '<br>';
+            }
+
+            $item->description = $imageTag . HtmlPurifier::process(Markdown::process($project->getDescription()));
 
             if (!empty($project->link)) {
                 $item->description .= Html::a(Html::encode($project->url), $project->url);
             }
 
             $item->pubDate = $project->created_at;
-            $item->setAuthor('noreply@yiipowered.com', 'YiiPowered');
+            $authors = [];
+            foreach ($project->users as $user) {
+                $authors[] = '@' . $user->username;
+            }
+
+            $item->setAuthor('noreply@yiipowered.com', implode(', ', $authors));
             $feed->addItem($item);
         }
 

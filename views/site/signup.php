@@ -34,7 +34,7 @@ $this->title = Yii::t('app', 'Signup');
         </div>
 
         <div class="oauth-box">
-            <?= \app\widgets\AuthChoise::widget([
+            <?= \app\widgets\AuthChoice::widget([
                 'options' => ['class' => 'auth-clients-wrapper'],
                 'baseAuthUrl' => ['site/auth'],
                 'popupMode' => false,
