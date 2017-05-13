@@ -264,6 +264,11 @@ class ProjectController extends Controller
     public function actionPublish($id)
     {
         $project = $this->findModel(['id' => $id]);
+
+        if (!UserPermissions::canManageProject($project)) {
+            throw new ForbiddenHttpException(Yii::t('project', 'You can not update this project.'));
+        }
+
         $project->publish();
         Yii::$app->session->setFlash('project.project_successfully_added');
 
@@ -273,6 +278,11 @@ class ProjectController extends Controller
     public function actionDraft($id)
     {
         $project = $this->findModel(['id' => $id]);
+
+        if (!UserPermissions::canManageProject($project)) {
+            throw new ForbiddenHttpException(Yii::t('project', 'You can not update this project.'));
+        }
+
         $project->draft();
 
         return $this->redirect(['/user/view', 'id' => Yii::$app->user->id]);
