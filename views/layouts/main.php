@@ -39,13 +39,13 @@ AppAsset::register($this);
 
         $menuItems = [
             [
-                'label' => Html::tag('span', '', ['class' => 'fa fa-search']),
+                'label' => Html::tag('span', '<span> ' . Yii::t('app', 'Explore projects'). '</span>', ['class' => 'fa fa-search']),
                 'encode' => false,
                 'url' => ['/projects'],
                 'linkOptions' => ['alt' => Yii::t('app', 'Explore projects'), 'title' => Yii::t('app', 'Explore projects')],
             ],
             [
-                'label' => Html::tag('span', '', ['class' => 'fa fa-rss-square']),
+                'label' => Html::tag('span', '<span> ' . Yii::t('app', 'RSS feed') . '</span>', ['class' => 'fa fa-rss-square']),
                 'encode' => false,
                 'url' => ['/project/rss'],
                 'linkOptions' => [
@@ -56,7 +56,7 @@ AppAsset::register($this);
         ];
         if (Yii::$app->user->isGuest) {
             $menuItems[] = [
-                'label' => Html::tag('span', '', ['class' => 'fa fa-sign-in']),
+                'label' => Html::tag('span', '<span> ' . Yii::t('app', 'Login') . '</span>', ['class' => 'fa fa-sign-in']),
                 'encode' => false,
                 'url' => ['/site/login'],
                 'linkOptions' => ['alt' => Yii::t('app', 'Login'), 'title' => Yii::t('app', 'Login')],
@@ -68,14 +68,14 @@ AppAsset::register($this);
                 'visible'=> \Yii::$app->user->can('manage_users'),
             ];
             $menuItems[] = [
-                'label' => Html::tag('span', '', ['class' => 'fa fa-bookmark']),
+                'label' => Html::tag('span', '<span> ' . Yii::t('app', 'Bookmarks') . '</span>', ['class' => 'fa fa-bookmark']),
                 'encode' => false,
                 'url' => ['/project/bookmarks'],
                 'linkOptions' => ['alt' => Yii::t('app', 'Bookmarks'), 'title' => Yii::t('app', 'Bookmarks')],
             ];
             $menuItems[] = ['label' => Yii::$app->user->identity->username, 'url' => ['/user/view', 'id' => \Yii::$app->user->id]];
             $menuItems[] = [
-                'label' => Html::tag('span', '', ['class' => 'fa fa-sign-out']),
+                'label' => Html::tag('span', '<span> ' . Yii::t('app', 'Logout') . '</span>', ['class' => 'fa fa-sign-out']),
                 'url' => ['/site/logout'],
                 'encode' => false,
                 'linkOptions' => [

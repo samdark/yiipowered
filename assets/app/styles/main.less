@@ -2,6 +2,7 @@
 @import "../../../../vendor/bower-asset/bootstrap/less/mixins";
 @import "../../../../vendor/bower-asset/bootstrap/less/forms";
 @import "../../../../vendor/bower-asset/bootstrap/less/utilities";
+@import "../../../../vendor/bower-asset/bootstrap/less/responsive-utilities";
 @import "../../../../vendor/bower-asset/bootstrap/less/navbar";
 @import "../../../../vendor/bower-asset/bootstrap/less/grid";
 @import "../../../../vendor/bower-asset/bootstrap/less/buttons";
@@ -51,11 +52,9 @@
 @color-draft: rgba(10, 10, 200, .5);
 @color-deleted: rgba(200, 10, 10, .5);
 
-@screen-lg-min: 1440px;
-
-@container-tablet: (720px + @grid-gutter-width);
-@container-desktop: (95%);
-@container-large-desktop: (1400px + @grid-gutter-width);
+@container-tablet: 95%;
+@container-desktop: 95%;
+@container-large-desktop: 95%;
 
 * {
   .font-primary();
@@ -74,7 +73,6 @@ a {
 
 .navbar-inverse {
   .font-primary();
-  height: 5rem;
 
   .navbar-header {
     .navbar-brand {
@@ -120,6 +118,10 @@ a {
 
       &:hover {
         background-color: @dark-blue-color;
+      }
+
+      span span {
+        .visible-xs-inline;
       }
     }
 
@@ -176,9 +178,10 @@ a {
   font-size: 21pt;
 
   .add-project-wrapper {
-    margin: 1em;
+    margin-top: 1em;
 
     a {
+      white-space: nowrap;
       .big-button;
     }
   }
@@ -203,10 +206,11 @@ a {
   }
 
   .show-more {
-    margin: 1em;
+    margin-top: 1em;
     text-align: center;
 
     a {
+      white-space: nowrap;
       .big-button;
     }
   }
@@ -298,10 +302,10 @@ a {
   }
 
   .pagination {
-    .clearfix();
-    .make-md-column(12);
+    width: 100%;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
   }
 }
 
