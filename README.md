@@ -65,3 +65,8 @@ yii user/assign alex admin
 ```
 
 Will assign admin role to user with username=alex.
+
+5. You need LESS compiler in order to compile styles. In order to install it:
+
+- Install nodeJS
+- `npm install -g less`
