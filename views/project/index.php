@@ -51,13 +51,14 @@ $this->title = Yii::t('project', 'Projects built with Yii');
         ]) ?>
 
 
-        <?= Html::a(
-            Yii::t('project', 'View  {n, plural, one{one more project} other{# more projects}}', [
-            'n' => $seeMoreCount,
-            ]),
-            ['project/list', 'page' => 2],
-            ['class' => 'show-more']
-        ) ?>
+        <div class="show-more">
+            <?= Html::a(
+                Yii::t('project', 'View  {n, plural, one{one more project} other{# more projects}}', [
+                'n' => $seeMoreCount,
+                ]),
+                ['project/list', 'page' => 2]
+            ) ?>
+        </div>
 
     </section>
 

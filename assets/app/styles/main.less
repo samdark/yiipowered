@@ -52,9 +52,11 @@
 @color-draft: rgba(10, 10, 200, .5);
 @color-deleted: rgba(200, 10, 10, .5);
 
-@container-tablet: 95%;
-@container-desktop: 95%;
-@container-large-desktop: 95%;
+@screen-lg-min: 1440px;
+
+@container-tablet: (720px + @grid-gutter-width);
+@container-desktop: (95%);
+@container-large-desktop: (1400px + @grid-gutter-width);
 
 * {
   .font-primary();
@@ -203,10 +205,12 @@ a {
   }
 
   .show-more {
-    display: inline-block;
-    margin-top: 1em;
-    .big-button;
     text-align: center;
+    a {
+      display: inline-block;
+      margin-top: 1em;
+      .big-button;
+    }
   }
 }
 
