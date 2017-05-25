@@ -83,5 +83,5 @@ return [
     'You can not update this project.' => 'Вы не можете редактировать этот проект.',
     'You can upload up to 5 images. The first image will be used as a main preview of your project, while others will be displayed on the project details page' => 'Можно загрузить до пяти изображений. Первое изображение используется в карточке проекта, остальные можно посмотреть на странице проекта.',
     'You have no bookmarked projects yet.' => 'В ваших закладках пока нет проектов.',
-    '{n, plural, one{# project} other{# projects}} made with {link}' => '{n,plural,one{# проект} few{# проекта} many{# проектов} other{# проектов}} сделано на {link}',
+    '{n, plural, one{# project} other{# projects}} made with {link}' => '{n,plural,one{# проект сделан} few{# проекта сделано} many{# проектов сделано} other{# проектов сделано}} на {link}',
 ];
