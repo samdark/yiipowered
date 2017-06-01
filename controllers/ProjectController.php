@@ -101,7 +101,8 @@ class ProjectController extends Controller
         $filterForm->load(Yii::$app->request->get());
 
         $tagsDataProvider = new ActiveDataProvider([
-            'query' => Tag::find()->top(10)
+            'query' => Tag::find()->top(10),
+            'pagination' => false,
         ]);
 
         return $this->render('list', [
