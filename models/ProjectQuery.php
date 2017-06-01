@@ -68,4 +68,14 @@ class ProjectQuery extends ActiveQuery
     {
         return $this->andWhere(['status' => Project::STATUS_PUBLISHED]);
     }
+
+    /**
+     * @param User $user
+     * @return $this
+     */
+    public function hasUser(User $user)
+    {
+        $this->leftJoin('project_user pu', 'pu.project_id = project.id');
+        return $this->andWhere(['pu.user_id' => $user->id]);
+    }
 }

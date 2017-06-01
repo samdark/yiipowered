@@ -84,10 +84,9 @@ class UserController extends Controller
             }
         }
 
-        // FIXME: need to select all projects user belongs to, not only these he created
         $dataProvider = new ActiveDataProvider([
-            'query' => Project::find()->where(['created_by'=>$id])->orderBy('id DESC'),
-            'pagination' => ['pageSize' => 10],
+            'query' => Project::find()->hasUser($user)->freshFirst(),
+            'pagination' => ['pageSize' => Yii::$app->params['project.pagesize']],
         ]);
 
         return $this->render('view', [
