@@ -1,4 +1,6 @@
 <?php
+use yii\web\UrlRule;
+
 return [
     'bookmarks' => 'project/bookmarks',
     'projects' => 'project/list',
@@ -15,30 +17,30 @@ return [
     'api/1.0' => 'api1/docs/index',
     'api' => 'api1/docs/index',
     [
-        'class' => 'yii\rest\UrlRule',
+        'class' => \yii\rest\UrlRule::class,
         'controller' => ['1.0/projects' => 'api1/project'],
         'only' => ['index', 'view'],
         'prefix' => 'api',
         'ruleConfig' => [
-            'class' => 'yii\web\UrlRule',
+            'class' => UrlRule::class,
             'defaults' => [
                 'expand' => 'users',
             ]
         ],
     ],
     [
-        'class' => 'yii\rest\UrlRule',
+        'class' => \yii\rest\UrlRule::class,
         'controller' => ['1.0/users' => 'api1/user'],
         'only' => ['index', 'view'],
         'prefix' => 'api',
     ],
     [
-        'class' => 'yii\rest\UrlRule',
+        'class' => \yii\rest\UrlRule::class,
         'controller' => ['1.0/bookmarks' => 'api1/bookmark'],
         'only' => ['index', 'create', 'delete'],
         'prefix' => 'api',
         'ruleConfig' => [
-            'class' => 'yii\web\UrlRule',
+            'class' => UrlRule::class,
             'defaults' => [
                 'expand' => 'project',
             ]

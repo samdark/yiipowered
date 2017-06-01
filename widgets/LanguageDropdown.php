@@ -45,9 +45,9 @@ class LanguageDropdown extends Dropdown
         // Only show this widget if we're not on the error page
         if ($this->_isError) {
             return '';
-        } else {
-            return parent::run();
         }
+
+        return parent::run();
     }
 
     public static function label($code)

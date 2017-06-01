@@ -37,11 +37,11 @@ class AuthHandler
         $nickname = ArrayHelper::getValue($attributes, 'login');
         $fullname = ArrayHelper::getValue($attributes, 'name');
 
-        if ($this->client->getName() == 'twitter') {
+        if ($this->client->getName() === 'twitter') {
             $nickname = ArrayHelper::getValue($attributes, 'screen_name');
         }
 
-        if ($this->client->getName() == 'facebook') {
+        if ($this->client->getName() === 'facebook') {
             $nickname = ArrayHelper::getValue($attributes, 'id');
         }
 
@@ -71,16 +71,16 @@ class AuthHandler
                     $user->fullname = $fullname;
                     $user->password = \Yii::$app->security->generateRandomString(6);
 
-                    if ($this->client->getName() == 'twitter') {
+                    if ($this->client->getName() === 'twitter') {
                         $user->twitter = $nickname;
                     }
 
-                    if ($this->client->getName() == 'facebook') {
+                    if ($this->client->getName() === 'facebook') {
                         $user->facebook = $nickname;
                         $user->email = $email;
                     }
 
-                    if ($this->client->getName() == 'github') {
+                    if ($this->client->getName() === 'github') {
                         $user->github = $nickname;
                         $user->email = $email;
                     }
@@ -174,15 +174,15 @@ class AuthHandler
     {
         $attributes = $this->client->getUserAttributes();
 
-        if ($this->client->getName() == 'github') {
+        if ($this->client->getName() === 'github') {
             $user->github = ArrayHelper::getValue($attributes, 'login');
         }
 
-        if ($this->client->getName() == 'twitter') {
+        if ($this->client->getName() === 'twitter') {
             $user->twitter = ArrayHelper::getValue($attributes, 'screen_name');
         }
 
-        if ($this->client->getName() == 'facebook') {
+        if ($this->client->getName() === 'facebook') {
             $user->facebook = ArrayHelper::getValue($attributes, 'id');
         }
 

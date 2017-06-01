@@ -9,9 +9,10 @@ class AuthChoice extends \yii\authclient\widgets\AuthChoice
 {
     /**
      * @param \yii\authclient\ClientInterface $client
-     * @param null $text
+     * @param string $text
      * @param array $htmlOptions
      * @return string
+     * @throws \yii\base\InvalidConfigException
      */
     public function clientLink($client, $text = null, array $htmlOptions = [])
     {

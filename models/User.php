@@ -8,6 +8,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use yii\helpers\ArrayHelper;
+
 /**
  * User model
  *
@@ -28,6 +29,10 @@ use yii\helpers\ArrayHelper;
  *
  * @property Auth[] $auths
  * @property Project[] $projects
+ * @property mixed $statusLabel
+ * @property \yii\db\ActiveQuery $bookmarkedProjects
+ * @property string $githubProfileUrl
+ * @property string $authKey
  * @property Project[] $bookmarkProjects
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -250,7 +255,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function find()
     {
-        return new UserQuery(get_called_class());
+        return new UserQuery(static::class);
     }
     
     /**

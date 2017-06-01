@@ -35,7 +35,7 @@ class ProjectFilterForm extends Model
 
     public function hasTag($tag)
     {
-        return in_array($tag, (array)$this->tags);
+        return in_array($tag, (array)$this->tags, true);
     }
 
     public function attributeLabels()

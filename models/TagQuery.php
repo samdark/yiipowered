@@ -1,13 +1,12 @@
 <?php
 namespace app\models;
 
-use app\components\UserPermissions;
-use creocoder\taggable\TaggableQueryBehavior;
 use yii\db\ActiveQuery;
-use yii\db\Expression;
 
 /**
  * TagQuery
+ *
+ * @see Tag
  */
 class TagQuery extends ActiveQuery
 {

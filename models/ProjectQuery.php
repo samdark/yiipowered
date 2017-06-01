@@ -11,6 +11,8 @@ use yii\db\ActiveQuery;
  * @method anyTagValues($values, $attribute = null)
  * @method allTagValues($values, $attribute = null)
  * @method relatedByTagValues($values, $attribute = null)
+ *
+ * @see Project
  */
 class ProjectQuery extends ActiveQuery
 {
@@ -49,6 +51,14 @@ class ProjectQuery extends ActiveQuery
             $params['userid'] = \Yii::$app->user->id;
         }
         return $this->andWhere(implode(' OR ', $parts), $params);
+    }
+
+    /**
+     * @return $this
+     */
+    public function freshFirst()
+    {
+        return $this->orderBy('created_at DESC');
     }
 
     /**

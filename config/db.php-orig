@@ -1,7 +1,9 @@
 <?php
 
+use yii\db\Connection;
+
 return [
-    'class' => 'yii\db\Connection',
+    'class' => Connection::class,
     'dsn' => 'mysql:host=localhost;dbname=yiipowered',
     'username' => 'root',
     'password' => '',

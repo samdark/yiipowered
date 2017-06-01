@@ -31,7 +31,7 @@ $autocompleteTagUrl = Url::toRoute(['/project/autocomplete-tags']);
     <?= $form->field($model, 'yii_version')->dropDownList(Project::versions())->label(false) ?>
 
 
-    <?= $form->field($model, 'tagValues')->widget(\yii\jui\AutoComplete::classname(), [
+    <?= $form->field($model, 'tagValues')->widget(\yii\jui\AutoComplete::className(), [
         'options' => [
             'class' => 'form-control',
             'placeholder' => $model->getAttributeLabel('tagValues')

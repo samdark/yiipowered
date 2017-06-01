@@ -80,11 +80,6 @@ class Item
         $this->author = [$email, $name];
     }
 
-    /**
-     * @var string
-     */
-    private $source;
-
     public function __toString() {
         $out = "\t\t<item>\n";
 

@@ -56,7 +56,7 @@ $this->title = Yii::t('project', 'Projects');
                     'layout' => '{items}',
                     'options' => ['class' => 'list'],
                     'itemOptions' => ['class' => 'item'],
-                    'itemView' => function ($model, $key, $index, $widget) use ($filterForm) {
+                    'itemView' => function ($model) use ($filterForm) {
                         /** @var Tag $model */
                         return Html::a(
                             '<span class="name">' . Html::encode($model->name) . '</span>' .

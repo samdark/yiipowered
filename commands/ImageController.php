@@ -19,10 +19,12 @@ class ImageController extends Controller
         }
     }
 
-    private function processImagesOneByOne($images)
+    /**
+     * @param Image[] $images
+     */
+    private function processImagesOneByOne(array $images)
     {
         foreach ($images as $i => $image) {
-            /** @var Image $image */
             $this->generateThumbs($image);
         }
     }
@@ -31,7 +33,7 @@ class ImageController extends Controller
      * Not used currently since it kills server with load :)
      * @param Image[] $images
      */
-    private function processImagesInParallel($images)
+    private function processImagesInParallel(array $images)
     {
         $childPids = [];
 

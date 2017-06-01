@@ -69,7 +69,7 @@ class UserController extends Controller
         /** @var User $user */
         $user = User::findOne($id);
         if (!$user) {
-            throw new NotFoundHttpException("No such user.");
+            throw new NotFoundHttpException('No such user.');
         }
 
         $authClients = [];
@@ -84,7 +84,7 @@ class UserController extends Controller
             }
         }
 
-        // FIXME: need to select all projects used belongs to, not only these he created
+        // FIXME: need to select all projects user belongs to, not only these he created
         $dataProvider = new ActiveDataProvider([
             'query' => Project::find()->where(['created_by'=>$id])->orderBy('id DESC'),
             'pagination' => ['pageSize' => 10],
@@ -110,11 +110,11 @@ class UserController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -143,8 +143,8 @@ class UserController extends Controller
     {
         if (($model = User::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

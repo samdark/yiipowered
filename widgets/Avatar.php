@@ -24,7 +24,7 @@ class Avatar extends Widget
     {
         return Gravatar::widget([
             'defaultImage' => 'identicon',
-            'email' => $this->user->email ? $this->user->email : $this->user->username,
+            'email' => $this->user->email ?: $this->user->username,
             'options' => [
                 'alt' => $this->user->username,
                 'width' => $this->size,

@@ -69,7 +69,7 @@ class ProjectController extends Controller
                 ->with('tags')
                 ->featured()
                 ->publishedOrEditable()
-                ->orderBy('created_at DESC')
+                ->freshFirst()
                 ->limit($limit)
         ]);
 
@@ -80,7 +80,7 @@ class ProjectController extends Controller
                 ->with('tags')
                 ->featured(false)
                 ->publishedOrEditable()
-                ->orderBy('created_at DESC')
+                ->freshFirst()
                 ->limit($limit)
         ]);
 
@@ -153,8 +153,8 @@ class ProjectController extends Controller
         /** @var Project[] $projects */
         $projects = Project::find()
             ->with('images', 'users')
-            ->where(['status' => Project::STATUS_PUBLISHED])
-            ->orderBy('created_at DESC')
+            ->published()
+            ->freshFirst()
             ->limit(50)
             ->all();
 

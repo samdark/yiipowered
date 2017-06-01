@@ -64,7 +64,7 @@ $this->registerJs("initProjectImageUpload({$sizeThumb[0]}, {$sizeThumb[1]});");
                     <?php endforeach ?>
 
                     <?php if (isset($imageUploadForm)): ?>
-                        <?php $form = ActiveForm::begin(['id' => 'project-image-upload', 'options' => ['class' => "image upload"]]) ?>
+                        <?php $form = ActiveForm::begin(['id' => 'project-image-upload', 'options' => ['class' => 'image upload']]) ?>
                         <?= $form->errorSummary($imageUploadForm) ?>
 
                         <?= Html::activeHiddenInput($imageUploadForm, 'imageCropData') ?>

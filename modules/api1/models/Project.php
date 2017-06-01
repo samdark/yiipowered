@@ -1,7 +1,6 @@
 <?php
 namespace app\modules\api1\models;
 
-use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
 use yii\web\Link;
 use yii\web\Linkable;

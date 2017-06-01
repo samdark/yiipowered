@@ -21,6 +21,18 @@ use yii\helpers\Url;
  *
  * @property User $updatedBy
  * @property User $createdBy
+ * @property string $originalFilename
+ * @property string $bigThumbnailFilename
+ * @property string $originalPath
+ * @property string $thumbnailPath
+ * @property string $bigThumbnailRelativeUrl
+ * @property string $thumbnailFilename
+ * @property string $url
+ * @property string $bigThumbnailPath
+ * @property string $thumbnailRelativeUrl
+ * @property string $thumbnailAbsoluteUrl
+ * @property string $fullPath
+ * @property string $fullFilename
  * @property Project $project
  *
  * Timestamp behavior:

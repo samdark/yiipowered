@@ -8,6 +8,8 @@
 namespace app\assets;
 
 use yii\web\AssetBundle;
+use yii\bootstrap\BootstrapAsset;
+use yii\web\YiiAsset;
 
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>
@@ -25,9 +27,9 @@ class AppAsset extends AssetBundle
         'js/bookmark.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
-        'app\assets\MagnificPopupAsset',
-        'app\assets\FontAwesomeAsset',
+        YiiAsset::class,
+        BootstrapAsset::class,
+        MagnificPopupAsset::class,
+        FontAwesomeAsset::class,
     ];
 }

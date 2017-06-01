@@ -37,6 +37,13 @@ use yii\helpers\Url;
  * @property User[] $users
  * @property Vote[] $votes
  * @property User[] $voters
+ * @property string $placeholderAbsoluteUrl
+ * @property string $placeholderRelativeUrl
+ * @property string $primaryImageThumbnailRelativeUrl
+ * @property string $statusClass
+ * @property string $primaryImageThumbnailAbsoluteUrl
+ * @property string $statusLabel
+ * @property string $description
  * @property ProjectDescription[] $descriptions
  */
 class Project extends \yii\db\ActiveRecord
@@ -99,7 +106,7 @@ class Project extends \yii\db\ActiveRecord
 
     public function scenarios()
     {
-        $defaultAttributes = ['title', 'url', 'is_opensource', 'source_url', 'yii_version', 'description', 'status', 'tagValues'];
+        static $defaultAttributes = ['title', 'url', 'is_opensource', 'source_url', 'yii_version', 'description', 'status', 'tagValues'];
 
         return [
             self::SCENARIO_DEFAULT => $defaultAttributes,
@@ -143,7 +150,7 @@ class Project extends \yii\db\ActiveRecord
      */
     public static function find()
     {
-        return new ProjectQuery(get_called_class());
+        return new ProjectQuery(static::class);
     }
 
     /**

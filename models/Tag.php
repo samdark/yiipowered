@@ -96,7 +96,7 @@ class Tag extends \yii\db\ActiveRecord
      */
     public static function find()
     {
-        return new TagQuery(get_called_class());
+        return new TagQuery(static::class);
     }
 
     public function __toString()
