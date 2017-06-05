@@ -1,11 +1,13 @@
 <?php
 namespace app\modules\api1\models;
 
-use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
 use yii\web\Link;
 use yii\web\Linkable;
 
+/**
+ * @property Image $primaryImage
+ */
 class Project extends \app\models\Project implements Linkable
 {
     public function behaviors()
@@ -57,4 +59,12 @@ class Project extends \app\models\Project implements Linkable
             Link::REL_SELF => Url::to(['/project/view', 'id' => $this->id, 'slug' => $this->slug], 'http'),
         ];
     }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPrimaryImage()
+    {
+        return $this->hasOne(Image::className(), ['id' => 'primary_image_id']);
+    }
+    
 }

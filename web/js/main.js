@@ -29,7 +29,27 @@ jQuery(function ($) {
                 }
             });
         }
-    })
+    });
+    
+    $('.image .primary-image').on('click', function (e) {
+        e.preventDefault();
+
+        var el = $(this);
+        var endpoint = el.data('url');
+        var imageId = el.data('image-id');
+
+        $.ajax({
+            url: endpoint,
+            method: 'put',
+            dataType: 'json',
+            data: {
+                imageId: imageId
+            },
+            success: function() {
+                $('.image .primary-image').removeClass('hide').filter('[data-image-id=' + imageId + ']').addClass('hide');
+            }
+        });
+    });
 });
 
 /**

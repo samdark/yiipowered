@@ -231,6 +231,16 @@ a.desc:after {
     cursor: pointer;
 }
 
+.project-view .image .primary-image {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    font-size: 150%;
+    background: #fff;
+    border-radius: 10rem;
+    cursor: pointer;
+}
+
 .project-view .image .recrop:hover {
     color: green;
 }

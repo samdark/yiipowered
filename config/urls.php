@@ -17,8 +17,12 @@ return [
     [
         'class' => 'yii\rest\UrlRule',
         'controller' => ['1.0/projects' => 'api1/project'],
-        'only' => ['index', 'view'],
+        'only' => ['index', 'view', 'view-primary-image', 'update-primary-image'],
         'prefix' => 'api',
+        'extraPatterns' => [
+            'GET,HEAD {id}/primary-image' => 'view-primary-image',
+            'PUT,PATCH {id}/primary-image' => 'update-primary-image',
+        ],
         'ruleConfig' => [
             'class' => 'yii\web\UrlRule',
             'defaults' => [

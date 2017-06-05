@@ -28,6 +28,7 @@ use yii\helpers\Url;
  * @property integer $is_featured
  * @property string $yii_version
  * @property string $tagValues
+ * @property int $primary_image_id
  *
  * @property Image[] $images
  * @property User $updatedBy
@@ -38,6 +39,7 @@ use yii\helpers\Url;
  * @property Vote[] $votes
  * @property User[] $voters
  * @property ProjectDescription[] $descriptions
+ * @property Image $primaryImage
  */
 class Project extends \yii\db\ActiveRecord
 {
@@ -94,12 +96,13 @@ class Project extends \yii\db\ActiveRecord
             [['url', 'source_url'], 'url'],
             [['yii_version'], 'in', 'range' => array_keys(self::versions())],
             [['description', 'tagValues'], 'safe'],
+            ['primary_image_id', 'integer']
         ];
     }
 
     public function scenarios()
     {
-        $defaultAttributes = ['title', 'url', 'is_opensource', 'source_url', 'yii_version', 'description', 'status', 'tagValues'];
+        $defaultAttributes = ['title', 'url', 'is_opensource', 'source_url', 'yii_version', 'description', 'status', 'tagValues', 'primary_image_id'];
 
         return [
             self::SCENARIO_DEFAULT => $defaultAttributes,
@@ -135,6 +138,7 @@ class Project extends \yii\db\ActiveRecord
             'yii_version' => Yii::t('project', 'Yii Version'),
             'description' => Yii::t('project', 'Description in {language}', ['language' => Language::current()]),
             'tagValues' => Yii::t('project', 'Tags'),
+            'primary_image_id' => Yii::t('project', 'Primary image'),
         ];
     }
 
@@ -164,22 +168,25 @@ class Project extends \yii\db\ActiveRecord
         return Url::to($this->getPlaceholderRelativeUrl(), 'http');
     }
 
+    /**
+     * @return string
+     */
     public function getPrimaryImageThumbnailRelativeUrl()
     {
-        if (empty($this->images)) {
+        if (!$this->primaryImage) {
             return $this->getPlaceholderRelativeUrl();
         }
-
-        return $this->images[0]->getThumbnailRelativeUrl();
+        
+        return $this->primaryImage->getThumbnailRelativeUrl();
     }
 
     public function getPrimaryImageThumbnailAbsoluteUrl()
     {
-        if (empty($this->images)) {
+        if (!$this->primaryImage) {
             return $this->getPlaceholderAbsoluteUrl();
         }
 
-        return $this->images[0]->getThumbnailAbsoluteUrl();
+        return $this->primaryImage->getThumbnailAbsoluteUrl();
     }
 
     /**
@@ -358,5 +365,13 @@ class Project extends \yii\db\ActiveRecord
                 return 'status-published';
         }
         return 'status-unknown';
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPrimaryImage()
+    {
+        return $this->hasOne(Image::className(), ['id' => 'primary_image_id']);
     }
 }
