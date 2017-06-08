@@ -1,7 +1,9 @@
 <?php
+use yii\authclient\clients\GitHub;
+
 return [
     'github' => [
-        'class' => 'yii\authclient\clients\GitHub',
+        'class' => GitHub::class,
         'clientId' => 'client_id',
         'clientSecret' => 'client_secret_key',
         'scope' => 'user:email',

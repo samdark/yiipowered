@@ -11,6 +11,8 @@ use yii\db\ActiveQuery;
  * @method anyTagValues($values, $attribute = null)
  * @method allTagValues($values, $attribute = null)
  * @method relatedByTagValues($values, $attribute = null)
+ *
+ * @see Project
  */
 class ProjectQuery extends ActiveQuery
 {
@@ -54,8 +56,26 @@ class ProjectQuery extends ActiveQuery
     /**
      * @return $this
      */
+    public function freshFirst()
+    {
+        return $this->orderBy('created_at DESC');
+    }
+
+    /**
+     * @return $this
+     */
     public function published()
     {
         return $this->andWhere(['status' => Project::STATUS_PUBLISHED]);
+    }
+
+    /**
+     * @param User $user
+     * @return $this
+     */
+    public function hasUser(User $user)
+    {
+        $this->leftJoin('project_user pu', 'pu.project_id = project.id');
+        return $this->andWhere(['pu.user_id' => $user->id]);
     }
 }

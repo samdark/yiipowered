@@ -6,6 +6,9 @@ namespace app\components;
 
 class Migration extends \yii\db\Migration
 {
+    /**
+     * @inheritdoc
+     */
     public function createTable($table, $columns, $options = null)
     {
         if ($options === null && $this->db->driverName === 'mysql') {

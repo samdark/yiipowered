@@ -3,6 +3,7 @@
 namespace app\assets;
 
 use yii\web\AssetBundle;
+use yii\web\JqueryAsset;
 
 class MagnificPopupAsset extends AssetBundle
 {
@@ -14,6 +15,6 @@ class MagnificPopupAsset extends AssetBundle
         'jquery.magnific-popup.min.js',
     ];
     public $depends = [
-        'yii\web\JqueryAsset',
+        JqueryAsset::class,
     ];
 }

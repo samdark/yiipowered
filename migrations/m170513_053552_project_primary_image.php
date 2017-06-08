@@ -8,7 +8,7 @@ class m170513_053552_project_primary_image extends Migration
     {
         $this->addColumn('{{%project}}', 'primary_image_id', $this->integer()->null()->comment('Primary image'));
         
-        $query = "UPDATE project p SET primary_image_id = (SELECT id FROM image i WHERE i.project_id = p.id ORDER BY id LIMIT 1)";
+        $query = "UPDATE project p SET p.primary_image_id = (SELECT i.id FROM image i WHERE i.project_id = p.id ORDER BY i.id LIMIT 1)";
         $this->execute($query);
     }
 

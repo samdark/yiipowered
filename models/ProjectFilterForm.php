@@ -10,7 +10,7 @@ use yii\data\ActiveDataProvider;
 
 class ProjectFilterForm extends Model
 {
-    public $tags;
+    public $tags = [];
     public $title;
     public $url;
     public $opensource;
@@ -33,6 +33,10 @@ class ProjectFilterForm extends Model
         return '';
     }
 
+    public function hasTag($tag)
+    {
+        return in_array($tag, (array)$this->tags, true);
+    }
 
     public function attributeLabels()
     {
@@ -46,12 +50,11 @@ class ProjectFilterForm extends Model
         ];
     }
 
-
     public function getOpenSourceOptions()
     {
         return [
-            '1' => \Yii::t('project', 'Yes'),
-            '0' => \Yii::t('project', 'No'),
+            '1' => \Yii::t('project', 'Open source'),
+            '0' => \Yii::t('project', 'Not open source'),
         ];
     }
 
@@ -63,7 +66,7 @@ class ProjectFilterForm extends Model
             ->publishedOrEditable()
             ->orderBy('created_at DESC');
 
-        if ($this->tags !== null) {
+        if (!empty($this->tags)) {
             $tags = (array) $this->tags;
             $query->allTagValues($tags);
         }

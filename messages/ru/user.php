@@ -17,7 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Manage users' => 'Управление пользователями',
+    'Connect with {servicename}' => 'Привязать {servicename}',
     'Active' => 'Активен',
     'Are you sure you want to delete this item?' => 'Удаляем?',
     'Auth Key' => 'Ключ авторизации',
@@ -30,6 +30,8 @@ return [
     'Github' => 'Github',
     'Haven\'t added any projects yet.' => 'Пока нет добавленных проектов.',
     'ID' => 'ID',
+    'Incorrect username or password.' => 'Неправильный логин или пароль.',
+    'Manage users' => 'Управление пользователями',
     'Password Hash' => 'Хеш пароля',
     'Password Reset Token' => 'Токен восстановления пароля',
     'Status' => 'Статус',

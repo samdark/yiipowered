@@ -1,10 +1,15 @@
 <?php
 
+use yii\gii\Module;
+use yii\rbac\PhpManager;
+use yii\caching\FileCache;
+use yii\log\FileTarget;
+
 Yii::setAlias('@tests', dirname(__DIR__) . '/tests');
 Yii::setAlias('@webroot', dirname(__DIR__) . '/web');
 
-$params = require(__DIR__ . '/params.php');
-$db = require(__DIR__ . '/db.php');
+$params = require __DIR__ . '/params.php';
+$db = require __DIR__ . '/db.php';
 
 return [
     'id' => 'yiipowered-console',
@@ -12,19 +17,19 @@ return [
     'bootstrap' => ['log', 'gii'],
     'controllerNamespace' => 'app\commands',
     'modules' => [
-        'gii' => 'yii\gii\Module',
+        'gii' => Module::class,
     ],
     'components' => [
         'authManager' => [
-            'class' => 'yii\rbac\PhpManager',
+            'class' => PhpManager::class,
         ],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => FileCache::class,
         ],
         'log' => [
             'targets' => [
                 [
-                    'class' => 'yii\log\FileTarget',
+                    'class' => FileTarget::class,
                     'levels' => ['error', 'warning'],
                 ],
             ],

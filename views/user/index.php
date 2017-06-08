@@ -1,5 +1,6 @@
 <?php
 
+use yii\grid\ActionColumn;
 use app\widgets\Avatar;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -49,7 +50,7 @@ $this->title = Yii::t('user', 'Users');
                         return Yii::$app->formatter->asDate($model->created_at);
                     }
                 ],
-                ['class' => 'yii\grid\ActionColumn', 'template' => '{update}'],
+                ['class' => ActionColumn::class, 'template' => '{update}'],
             ],
         ]
     ) ?>

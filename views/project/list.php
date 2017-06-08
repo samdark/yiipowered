@@ -1,34 +1,75 @@
 <?php
 
+use app\models\Project;
+use app\models\Tag;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
 use \yii\widgets\ListView;
 use yii\bootstrap\Alert;
 
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $tagsDataProvider yii\data\ActiveDataProvider */
 /* @var $filterForm \app\models\ProjectFilterForm */
 /* @var $this yii\web\View */
 $this->title = Yii::t('project', 'Projects');
 ?>
-<div class="row project-list">
-    <div class="col-xs-2">
-        <?php $form = ActiveForm::begin([
-            'method' => 'get',
-            'action' => ['project/list'],
-        ]) ?>
+<div class="projects-list">
+    <div class="projects">
+        <div class="filters-wrapper">
+            <?php $form = ActiveForm::begin([
+                'method' => 'get',
+                'action' => ['project/list'],
+            ]) ?>
 
-        <?= $form->field($filterForm, 'title') ?>
-        <?= $form->field($filterForm, 'url') ?>
-        <?= $form->field($filterForm, 'opensource')->dropDownList($filterForm->getOpenSourceOptions(), ['prompt' => Yii::t('project', 'Does not matter')]) ?>
-        <?= $form->field($filterForm, 'featured')->checkbox() ?>
-        <?= $form->field($filterForm, 'yiiVersion')->dropDownList(\app\models\Project::versions(), ['prompt' => Yii::t('project', 'Any Verison')]) ?>
+            <div class="filters">
+                <div class="title"><?= Yii::t('project', 'Filters') ?></div>
 
-        <div class="form-group">
-            <?= Html::submitButton(Yii::t('project', 'Apply'), ['class' => 'btn btn-primary']) ?>
+                <?= $form->field($filterForm, 'title')
+                    ->textInput(['placeholder' => $filterForm->getAttributeLabel('title')])
+                    ->label(false)
+                ?>
+                <?= $form->field($filterForm, 'url')
+                    ->textInput(['placeholder' => $filterForm->getAttributeLabel('url')])
+                    ->label(false)
+                ?>
+                <?= $form->field($filterForm, 'opensource')
+                    ->dropDownList($filterForm->getOpenSourceOptions(), [
+                        'prompt' => Yii::t('project', 'Any code access'),
+                    ])
+                    ->label(false)
+                ?>
+                <?= $form->field($filterForm, 'featured')->checkbox() ?>
+                <?= $form->field($filterForm, 'yiiVersion')
+                    ->dropDownList(Project::versions(), [
+                        'prompt' => Yii::t('project', 'Any Yii verison'),
+                    ])->label(false) ?>
+
+                <div class="form-group text-center">
+                    <?= Html::submitButton(Yii::t('project', 'Apply'), ['class' => 'btn btn-primary']) ?>
+                </div>
+            </div>
+            <div class="tags">
+                <div class="title"><?= Yii::t('project', 'Tags') ?></div>
+
+                <?= ListView::widget([
+                    'dataProvider' => $tagsDataProvider,
+                    'layout' => '{items}',
+                    'options' => ['class' => 'list'],
+                    'itemOptions' => ['class' => 'item'],
+                    'itemView' => function ($model) use ($filterForm) {
+                        /** @var Tag $model */
+                        return Html::a(
+                            '<span class="name">' . Html::encode($model->name) . '</span>' .
+                            '<span class="count">' . $model->frequency . '</span>',
+                            ['/project/list', 'tags' => $model->name],
+                            ['class' => $filterForm->hasTag($model->name) ? 'selected' : '']
+                        );
+                    }
+                ]) ?>
+            </div>
+            <?php ActiveForm::end() ?>
         </div>
-        <?php ActiveForm::end() ?>
-    </div>
-    <div class="col-xs-10">
+
         <?php if (Yii::$app->session->hasFlash('project.project_successfully_added')) {
             echo Alert::widget([
                 'options' => [
@@ -38,14 +79,12 @@ $this->title = Yii::t('project', 'Projects');
             ]);
         } ?>
 
-        <div class="container">
-            <?= ListView::widget([
-                'dataProvider' => $dataProvider,
-                'layout' => '{items}{pager}',
-                'options' => ['class' => 'projects-flow'],
-                'itemOptions' => ['class' => 'item'],
-                'itemView' => '_card'
-            ]) ?>
-        </div>
+        <?= ListView::widget([
+            'dataProvider' => $dataProvider,
+            'layout' => '{items}{pager}',
+            'options' => ['class' => 'projects-flow'],
+            'itemOptions' => ['class' => 'project'],
+            'itemView' => '_card',
+        ]) ?>
     </div>
 </div>

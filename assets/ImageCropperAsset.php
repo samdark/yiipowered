@@ -3,6 +3,7 @@
 namespace app\assets;
 
 use yii\web\AssetBundle;
+use yii\web\JqueryAsset;
 
 class ImageCropperAsset extends AssetBundle
 {
@@ -17,6 +18,6 @@ class ImageCropperAsset extends AssetBundle
     ];
     
     public $depends = [
-        'yii\web\JqueryAsset',
+        JqueryAsset::class,
     ];
 }

@@ -9,11 +9,13 @@ use app\models\Image;
 use app\models\ImageUploadForm;
 use app\models\Project;
 use app\models\ProjectFilterForm;
+use app\models\ProjectTag;
 use app\models\Tag;
 use app\models\User;
 use app\notifier\NewProjectNotification;
 use app\notifier\Notifier;
 use Yii;
+use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
@@ -41,11 +43,18 @@ class ProjectController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create', 'update', 'delete-image', 'bookmarks'],
+                        'actions' => ['create', 'update', 'delete-image', 'bookmarks', 'publish', 'draft'],
                         'roles' => ['@'],
                     ],
                 ],
             ],
+            'verb' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'publish' => ['post'],
+                    'draft' => ['post']
+                ]
+            ]
         ];
     }
 
@@ -57,9 +66,10 @@ class ProjectController extends Controller
             'pagination' => false,
             'query' => Project::find()
                 ->with('images')
+                ->with('tags')
                 ->featured()
                 ->publishedOrEditable()
-                ->orderBy('created_at DESC')
+                ->freshFirst()
                 ->limit($limit)
         ]);
 
@@ -67,15 +77,21 @@ class ProjectController extends Controller
             'pagination' => false,
             'query' => Project::find()
                 ->with('images')
+                ->with('tags')
                 ->featured(false)
                 ->publishedOrEditable()
-                ->orderBy('created_at DESC')
+                ->freshFirst()
                 ->limit($limit)
         ]);
+
+        $projectsCount = (clone $newProvider->query)->limit(null)->count();
+        $seeMoreCount = $projectsCount - $limit;
 
         return $this->render('index', [
             'featuredProvider' => $featuredProvider,
             'newProvider' => $newProvider,
+            'projectsCount' => $projectsCount,
+            'seeMoreCount' => $seeMoreCount
         ]);
     }
 
@@ -84,8 +100,14 @@ class ProjectController extends Controller
         $filterForm = new ProjectFilterForm();
         $filterForm->load(Yii::$app->request->get());
 
+        $tagsDataProvider = new ActiveDataProvider([
+            'query' => Tag::find()->top(10),
+            'pagination' => false,
+        ]);
+
         return $this->render('list', [
             'dataProvider' => $filterForm->getDataProvider(),
+            'tagsDataProvider' => $tagsDataProvider,
             'filterForm' => $filterForm,
         ]);
     }
@@ -119,8 +141,7 @@ class ProjectController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $notifier = new Notifier(new NewProjectNotification($model));
             $notifier->sendEmails();
-            Yii::$app->session->setFlash('project.project_successfully_added');
-            return $this->redirect(['view', 'id' => $model->id, 'slug' => $model->slug]);
+            return $this->redirect(['screenshots', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -132,9 +153,9 @@ class ProjectController extends Controller
     {
         /** @var Project[] $projects */
         $projects = Project::find()
-            ->with('images')
-            ->where(['status' => Project::STATUS_PUBLISHED])
-            ->orderBy('created_at DESC')
+            ->with('images', 'users')
+            ->published()
+            ->freshFirst()
             ->limit(50)
             ->all();
 
@@ -153,14 +174,26 @@ class ProjectController extends Controller
             $item->title = $project->title;
             $item->link = $url;
             $item->guid = $url;
-            $item->description = HtmlPurifier::process(Markdown::process($project->getDescription()));
+
+            $imageTag = '';
+
+            if (!empty($project->images)) {
+                $imageTag = Html::img($project->images[0]->getThumbnailAbsoluteUrl()) . '<br>';
+            }
+
+            $item->description = $imageTag . HtmlPurifier::process(Markdown::process($project->getDescription()));
 
             if (!empty($project->link)) {
                 $item->description .= Html::a(Html::encode($project->url), $project->url);
             }
 
             $item->pubDate = $project->created_at;
-            $item->setAuthor('noreply@yiipowered.com', 'YiiPowered');
+            $authors = [];
+            foreach ($project->users as $user) {
+                $authors[] = '@' . $user->username;
+            }
+
+            $item->setAuthor('noreply@yiipowered.com', implode(', ', $authors));
             $feed->addItem($item);
         }
 
@@ -178,8 +211,9 @@ class ProjectController extends Controller
         if (Yii::$app->user->can(UserPermissions::MANAGE_PROJECTS)) {
             $model->setScenario(Project::SCENARIO_MANAGE);
         }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id, 'slug' => $model->slug]);
+            return $this->redirect(['screenshots', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -187,17 +221,21 @@ class ProjectController extends Controller
         ]);
     }
 
-
-    public function actionView($id, $slug)
+    public function actionScreenshots($id)
     {
-        $project = $this->findModel([
-            'id' => $id,
-            'slug' => $slug,
-        ]);
+        $model = $this->findModel(['id' => $id]);
+
+        if (!UserPermissions::canManageProject($model)) {
+            throw new ForbiddenHttpException(Yii::t('project', 'You can not update this project.'));
+        }
+
+        if (Yii::$app->user->can(UserPermissions::MANAGE_PROJECTS)) {
+            $model->setScenario(Project::SCENARIO_MANAGE);
+        }
 
         $imageUploadForm = null;
 
-        if (UserPermissions::canManageProject($project)) {
+        if (UserPermissions::canManageProject($model)) {
             $imageUploadForm = new ImageUploadForm($id);
             if ($imageUploadForm->load(Yii::$app->request->post())) {
                 $imageUploadForm->file = UploadedFile::getInstance($imageUploadForm, 'file');
@@ -207,9 +245,59 @@ class ProjectController extends Controller
             }
         }
 
+        return $this->render('screenshots', [
+            'model' => $model,
+            'imageUploadForm' => $imageUploadForm
+        ]);
+    }
+
+    public function actionPreview($id)
+    {
+        $project = $this->findModel([
+            'id' => $id,
+        ]);
+
+        return $this->render('preview', [
+            'model' => $project,
+        ]);
+    }
+
+    public function actionPublish($id)
+    {
+        $project = $this->findModel(['id' => $id]);
+
+        if (!UserPermissions::canManageProject($project)) {
+            throw new ForbiddenHttpException(Yii::t('project', 'You can not update this project.'));
+        }
+
+        $project->publish();
+        Yii::$app->session->setFlash('project.project_successfully_added');
+
+        return $this->redirect(['view', 'id' => $project->id, 'slug' => $project->slug]);
+    }
+
+    public function actionDraft($id)
+    {
+        $project = $this->findModel(['id' => $id]);
+
+        if (!UserPermissions::canManageProject($project)) {
+            throw new ForbiddenHttpException(Yii::t('project', 'You can not update this project.'));
+        }
+
+        $project->draft();
+
+        return $this->redirect(['/user/view', 'id' => Yii::$app->user->id]);
+    }
+
+    public function actionView($id, $slug)
+    {
+        $project = $this->findModel([
+            'id' => $id,
+            'slug' => $slug,
+        ]);
+
         return $this->render('view', [
             'model' => $project,
-            'imageUploadForm' => $imageUploadForm,
         ]);
     }
 
@@ -252,6 +340,7 @@ class ProjectController extends Controller
         if ($image->delete()) {
             return 'OK';
         }
+
         throw new ServerErrorHttpException('Unable to delete image.');
 
     }

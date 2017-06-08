@@ -17,8 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Bookmarked projects' => 'Проекты в закладках',
     'Add to bookmarks' => 'Добавить в закладки',
-    'Bookmarks' => 'Закладки',
+    'Bookmarked projects' => 'Проекты в закладках',
     'Remove from bookmarks' => 'Удалить из закладок',
 ];

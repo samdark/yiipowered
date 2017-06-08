@@ -8,6 +8,8 @@
 namespace app\assets;
 
 use yii\web\AssetBundle;
+use yii\bootstrap\BootstrapAsset;
+use yii\web\YiiAsset;
 
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>
@@ -15,18 +17,19 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
+    public $sourcePath = '@app/assets/app';
+
     public $css = [
-        'css/site.css',
+        'styles/main.less',
     ];
     public $js = [
         'js/main.js',
         'js/bookmark.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
-        'app\assets\MagnificPopupAsset',
+        YiiAsset::class,
+        BootstrapAsset::class,
+        MagnificPopupAsset::class,
+        FontAwesomeAsset::class,
     ];
 }

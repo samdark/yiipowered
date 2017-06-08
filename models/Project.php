@@ -38,6 +38,13 @@ use yii\helpers\Url;
  * @property User[] $users
  * @property Vote[] $votes
  * @property User[] $voters
+ * @property string $placeholderAbsoluteUrl
+ * @property string $placeholderRelativeUrl
+ * @property string $primaryImageThumbnailRelativeUrl
+ * @property string $statusClass
+ * @property string $primaryImageThumbnailAbsoluteUrl
+ * @property string $statusLabel
+ * @property string $description
  * @property ProjectDescription[] $descriptions
  * @property Image $primaryImage
  */
@@ -102,7 +109,7 @@ class Project extends \yii\db\ActiveRecord
 
     public function scenarios()
     {
-        $defaultAttributes = ['title', 'url', 'is_opensource', 'source_url', 'yii_version', 'description', 'status', 'tagValues', 'primary_image_id'];
+        static $defaultAttributes = ['title', 'url', 'is_opensource', 'source_url', 'yii_version', 'description', 'status', 'tagValues', 'primary_image_id'];
 
         return [
             self::SCENARIO_DEFAULT => $defaultAttributes,
@@ -147,7 +154,7 @@ class Project extends \yii\db\ActiveRecord
      */
     public static function find()
     {
-        return new ProjectQuery(get_called_class());
+        return new ProjectQuery(static::class);
     }
 
     /**
@@ -202,7 +209,7 @@ class Project extends \yii\db\ActiveRecord
      */
     public function getCreatedBy()
     {
-        return $this->hasOne(User::className(), ['id' => 'created_by'])->inverseOf('projects0');
+        return $this->hasOne(User::className(), ['id' => 'created_by'])->inverseOf('projects');
     }
 
     /**
@@ -365,6 +372,18 @@ class Project extends \yii\db\ActiveRecord
                 return 'status-published';
         }
         return 'status-unknown';
+    }
+
+    public function publish()
+    {
+        $this->status = self::STATUS_PUBLISHED;
+        $this->save();
+    }
+
+    public function draft()
+    {
+        $this->status = self::STATUS_DRAFT;
+        $this->save();
     }
 
     /**

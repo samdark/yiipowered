@@ -5,6 +5,8 @@ use yii\db\ActiveQuery;
 
 /**
  * UserQuery
+ *
+ * @see User
  */
 class UserQuery extends ActiveQuery
 {
