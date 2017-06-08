@@ -244,9 +244,16 @@ class ProjectController extends Controller
                 }
             }
         }
-
+        
+        $images = ArrayHelper::index($model->images, 'id');
+        if ($images) {
+            unset($images[$model->primary_image_id]);
+            $images = array_merge([$model->primaryImage], $images);   
+        }
+        
         return $this->render('screenshots', [
             'model' => $model,
+            'images' => $images,
             'imageUploadForm' => $imageUploadForm
         ]);
     }

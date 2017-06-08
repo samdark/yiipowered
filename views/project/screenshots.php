@@ -4,9 +4,11 @@
  * @var yii\web\View $this
  * @var app\models\Project $model
  * @var $imageUploadForm \app\models\ImageUploadForm
+ * @var Image[] $images
  */
 
 use app\assets\ImageCropperAsset;
+use app\models\Image;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -34,11 +36,11 @@ $this->registerJs("initProjectImageUpload({$sizeThumb[0]}, {$sizeThumb[1]});");
     <div class="form-box">
         <div class="screenshots-wrapper">
             <div class="images">
-                <?php if (empty($model->images) && !isset($imageUploadForm)): ?>
+                <?php if (empty($images) && !isset($imageUploadForm)): ?>
                     <img class="image" src="<?= $model->getPlaceholderRelativeUrl() ?>" alt="">
                 <?php else: ?>
                     <?php $i = 0; ?>
-                    <?php foreach ($model->images as $image): ?>
+                    <?php foreach ($images as $image): ?>
                         <div class="image">
                             <a href="<?= $image->getUrl() ?>">
                                 <img class="img-responsive"
