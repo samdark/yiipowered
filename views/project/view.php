@@ -1,6 +1,7 @@
 <?php
 
 use app\components\UserPermissions;
+use app\models\Image;
 use yii\helpers\Html;
 use app\models\Project;
 use app\widgets\Avatar;
@@ -11,6 +12,7 @@ use \yii\helpers\HtmlPurifier;
 /* @var $this yii\web\View */
 /* @var $model app\models\Project */
 /* @var $management bool */
+/* @var Image[] $images */
 
 // OpenGraph metatags
 $this->registerMetaTag(['property' => 'og:title', 'content' => Html::encode($model->title)]);
@@ -60,7 +62,7 @@ $management = isset($management) ? $management : null;
                     <img class="image" src="<?= $model->getPlaceholderRelativeUrl() ?>" alt="">
                 <?php else: ?>
                     <?php $i = 0; ?>
-                    <?php foreach ($model->images as $image): ?>
+                    <?php foreach ($model->getSortedImages() as $image): ?>
                         <div class="image">
                             <a href="<?= $image->getUrl() ?>">
                                 <img class="img-responsive"

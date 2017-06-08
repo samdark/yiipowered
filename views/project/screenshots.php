@@ -36,11 +36,11 @@ $this->registerJs("initProjectImageUpload({$sizeThumb[0]}, {$sizeThumb[1]});");
     <div class="form-box">
         <div class="screenshots-wrapper">
             <div class="images">
-                <?php if (empty($images) && !isset($imageUploadForm)): ?>
+                <?php if (empty($model->images) && !isset($imageUploadForm)): ?>
                     <img class="image" src="<?= $model->getPlaceholderRelativeUrl() ?>" alt="">
                 <?php else: ?>
                     <?php $i = 0; ?>
-                    <?php foreach ($images as $image): ?>
+                    <?php foreach ($model->getSortedImages() as $image): ?>
                         <div class="image">
                             <a href="<?= $image->getUrl() ?>">
                                 <img class="img-responsive"

@@ -9,6 +9,7 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
 /**
@@ -165,6 +166,23 @@ class Project extends \yii\db\ActiveRecord
         return $this->hasMany(Image::className(), ['project_id' => 'id'])->inverseOf('project');
     }
 
+    /**
+     * Return sorted images. Primary image on first position.
+     * 
+     * @return Image[]
+     */
+    public function getSortedImages()
+    {
+        $images = ArrayHelper::index($this->images, 'id');
+        if ($images) {
+            $image = $images[$this->primary_image_id];
+            unset($images[$this->primary_image_id]);
+            $images = array_merge([$image], $images);
+        }
+        
+        return $images;
+    }
+
     public function getPlaceholderRelativeUrl()
     {
         return '/img/project_no_image.png';
@@ -183,7 +201,7 @@ class Project extends \yii\db\ActiveRecord
         if (!$this->primaryImage) {
             return $this->getPlaceholderRelativeUrl();
         }
-        
+
         return $this->primaryImage->getThumbnailRelativeUrl();
     }
 

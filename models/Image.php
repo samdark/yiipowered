@@ -262,6 +262,23 @@ class Image extends \yii\db\ActiveRecord
         $this->touch('updated_at');
     }
 
+    /**
+     * @param bool $insert
+     * @param array $changedAttributes
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        
+        if ($insert) {
+            $project = $this->project;
+            if ($project->primary_image_id === null) {
+                $project->primary_image_id = $this->id;
+                $project->save(false);
+            }
+        }
+    }
+
     public function afterDelete()
     {
         parent::afterDelete();
@@ -270,6 +287,13 @@ class Image extends \yii\db\ActiveRecord
         $this->removeFile($this->getBigThumbnailPath());
         $this->removeFile($this->getFullPath());
         $this->removeFile($this->getOriginalPath());
+        
+        if ($this->project->primary_image_id == $this->id) {
+            $project = $this->project;
+            $imageId = $project->getImages()->select('id')->limit(1)->scalar();
+            $project->primary_image_id = $imageId ?: null;
+            $project->save(false);
+        }
     }
 
     private function removeFile($path)
