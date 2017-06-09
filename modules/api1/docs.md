@@ -40,11 +40,23 @@ In order to update project, use the following request:
 
 > PUT [/projects/1](/en/api/1.0/projects)
 
-- primary_image_id: id of the primary image.
-
 In the above `1` is the project ID.
 
-    
+- `title` - Name of the project.
+- `url` - URL of the main project website.
+- `is_opensource` - `1` if project is OpenSource. `0` if it is not.
+- `source_url` - URL of project source. Typically GitHub or BitBucket.
+- `yii_version` - Yii framework version used. Either `1.1` or `2.0`.
+- `description` - Project description. Note that it may be in different language depending on which URL you are using
+  for API calls. See [Languages](#languages).
+- `status` - It can take the following values: 
+    - `0`: deleted; 
+    - `10`: draft;
+    - `20`: published.
+- `primary_image_id` - ID of the primary image.
+- `tagValues` - Tags of the project.
+
+
 ### List <a href="#projects-index" id="projects-index">#</a>
 
 In order to list projects use the following request:
