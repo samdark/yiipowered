@@ -425,7 +425,6 @@ class Project extends \yii\db\ActiveRecord
             $this->_primaryImage = false;
             
             if ($this->primary_image_id !== null) {
-                /** @var Image $image */
                 $this->_primaryImage = Image::findOne($this->primary_image_id);   
             } elseif (!empty($this->images)) {
                 $this->_primaryImage = $this->images[0];
