@@ -6,8 +6,8 @@ use app\modules\api1\components\Controller;
 use app\modules\api1\models\Image;
 use app\modules\api1\models\Project;
 use app\modules\api1\models\ProjectSearch;
+use app\modules\api1\models\User;
 use Yii;
-use yii\db\ActiveQuery;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
@@ -47,7 +47,7 @@ class ProjectController extends Controller
             throw new UnauthorizedHttpException('User should be authorized in order to manage image.');
         }
 
-        $project = $this->findProject($id, $user->id);
+        $project = $this->findProject($id, $user);
         
         $request = Yii::$app->getRequest();
         $imageId = $request->getBodyParam('imageId');
@@ -89,7 +89,7 @@ class ProjectController extends Controller
             throw new UnauthorizedHttpException('User should be authorized in order to manage image.');
         }
 
-        $project = $this->findProject($id, $user->id);
+        $project = $this->findProject($id, $user);
         
         $primaryImage = $project->primaryImage;
         if ($primaryImage) {
@@ -114,25 +114,17 @@ class ProjectController extends Controller
 
     /**
      * @param int $projectId
-     * @param int $userId
+     * @param User $user
      *
      * @return Project
      * @throws NotFoundHttpException
      */
-    protected function findProject($projectId, $userId)
+    protected function findProject($projectId, User $user)
     {
         /** @var Project $project */
         $project = Project::find()
-            ->alias('p')
-            ->innerJoinWith([
-                'users' => function (ActiveQuery $query) {
-                    $query->alias('u');
-                }
-            ], false)
-            ->where([
-                'p.id' => $projectId,
-                'u.id' => $userId,
-            ])
+            ->where(['id' => $projectId])
+            ->hasUser($user)
             ->one();
 
         if ($project) {

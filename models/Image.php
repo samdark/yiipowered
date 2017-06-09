@@ -287,13 +287,6 @@ class Image extends \yii\db\ActiveRecord
         $this->removeFile($this->getBigThumbnailPath());
         $this->removeFile($this->getFullPath());
         $this->removeFile($this->getOriginalPath());
-        
-        if ($this->project->primary_image_id == $this->id) {
-            $project = $this->project;
-            $imageId = $project->getImages()->select('id')->limit(1)->scalar();
-            $project->primary_image_id = $imageId ?: null;
-            $project->save(false);
-        }
     }
 
     private function removeFile($path)
