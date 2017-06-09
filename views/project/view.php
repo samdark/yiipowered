@@ -60,7 +60,7 @@ $management = isset($management) ? $management : null;
                     <img class="image" src="<?= $model->getPlaceholderRelativeUrl() ?>" alt="">
                 <?php else: ?>
                     <?php $i = 0; ?>
-                    <?php foreach ($model->images as $image): ?>
+                    <?php foreach ($model->getSortedImages() as $image): ?>
                         <div class="image">
                             <a href="<?= $image->getUrl() ?>">
                                 <img class="img-responsive"

@@ -12,8 +12,7 @@ jQuery(function ($) {
 
     $('.image .delete').on('click', function (e) {
         e.stopPropagation();
-        var imageContainer = $(this).closest('.image')
-        ;
+        var imageContainer = $(this).closest('.image');
 
         var url = $(this).data('url');
         var imageID = $(this).data('id');
@@ -30,7 +29,27 @@ jQuery(function ($) {
                 }
             });
         }
-    })
+    });
+    
+    $('.image .primary-image').on('click', function (e) {
+        e.preventDefault();
+
+        var el = $(this);
+        var endpoint = el.data('url');
+        var imageId = el.data('image-id');
+        
+        $.ajax({
+            url: endpoint,
+            method: 'put',
+            dataType: 'json',
+            data: {
+                primary_image_id: imageId
+            },
+            success: function() {
+                location.reload();
+            }
+        });
+    });
 });
 
 /**

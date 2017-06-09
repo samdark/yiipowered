@@ -9,6 +9,8 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use yii\db\Query;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
 /**
@@ -28,6 +30,7 @@ use yii\helpers\Url;
  * @property integer $is_featured
  * @property string $yii_version
  * @property string $tagValues
+ * @property int $primary_image_id
  *
  * @property Image[] $images
  * @property User $updatedBy
@@ -45,6 +48,7 @@ use yii\helpers\Url;
  * @property string $statusLabel
  * @property string $description
  * @property ProjectDescription[] $descriptions
+ * @property Image $primaryImage
  */
 class Project extends \yii\db\ActiveRecord
 {
@@ -58,6 +62,10 @@ class Project extends \yii\db\ActiveRecord
     const YII_VERSION_20 = '2.0';
 
     private $_description;
+    /**
+     * @var Image
+     */
+    private $_primaryImage;
 
     /**
      * @inheritdoc
@@ -101,12 +109,17 @@ class Project extends \yii\db\ActiveRecord
             [['url', 'source_url'], 'url'],
             [['yii_version'], 'in', 'range' => array_keys(self::versions())],
             [['description', 'tagValues'], 'safe'],
+            
+            ['primary_image_id', 'integer'],
+            ['primary_image_id', 'exist', 'targetClass' => Image::className(), 'targetAttribute' => 'id', 'filter' => function (Query $query) {
+                $query->andWhere(['project_id' => $this->id]);
+            }]
         ];
     }
 
     public function scenarios()
     {
-        static $defaultAttributes = ['title', 'url', 'is_opensource', 'source_url', 'yii_version', 'description', 'status', 'tagValues'];
+        static $defaultAttributes = ['title', 'url', 'is_opensource', 'source_url', 'yii_version', 'description', 'status', 'tagValues', 'primary_image_id'];
 
         return [
             self::SCENARIO_DEFAULT => $defaultAttributes,
@@ -142,6 +155,7 @@ class Project extends \yii\db\ActiveRecord
             'yii_version' => Yii::t('project', 'Yii Version'),
             'description' => Yii::t('project', 'Description in {language}', ['language' => Language::current()]),
             'tagValues' => Yii::t('project', 'Tags'),
+            'primary_image_id' => Yii::t('project', 'Primary image'),
         ];
     }
 
@@ -161,6 +175,23 @@ class Project extends \yii\db\ActiveRecord
         return $this->hasMany(Image::className(), ['project_id' => 'id'])->inverseOf('project');
     }
 
+    /**
+     * Return sorted images. Primary image on first position.
+     * 
+     * @return Image[]
+     */
+    public function getSortedImages()
+    {
+        $images = ArrayHelper::index($this->images, 'id');
+        if ($images) {
+            $image = $images[$this->primaryImage->id];
+            unset($images[$this->primaryImage->id]);
+            $images = array_merge([$image], $images);
+        }
+        
+        return $images;
+    }
+
     public function getPlaceholderRelativeUrl()
     {
         return '/img/project_no_image.png';
@@ -171,22 +202,28 @@ class Project extends \yii\db\ActiveRecord
         return Url::to($this->getPlaceholderRelativeUrl(), 'http');
     }
 
+    /**
+     * @return string
+     */
     public function getPrimaryImageThumbnailRelativeUrl()
     {
-        if (empty($this->images)) {
-            return $this->getPlaceholderRelativeUrl();
+        if ($this->primaryImage) {
+            return $this->primaryImage->getThumbnailRelativeUrl();
         }
 
-        return $this->images[0]->getThumbnailRelativeUrl();
+        return $this->getPlaceholderRelativeUrl();
     }
 
+    /**
+     * @return string
+     */
     public function getPrimaryImageThumbnailAbsoluteUrl()
     {
-        if (empty($this->images)) {
-            return $this->getPlaceholderAbsoluteUrl();
+        if ($this->primaryImage) {
+            return $this->primaryImage->getThumbnailAbsoluteUrl();
         }
 
-        return $this->images[0]->getThumbnailAbsoluteUrl();
+        return $this->getPlaceholderAbsoluteUrl();
     }
 
     /**
@@ -377,5 +414,23 @@ class Project extends \yii\db\ActiveRecord
     {
         $this->status = self::STATUS_DRAFT;
         $this->save();
+    }
+
+    /**
+     * @return Image|bool
+     */
+    public function getPrimaryImage()
+    {
+        if ($this->_primaryImage === null) {
+            $this->_primaryImage = false;
+            
+            if ($this->primary_image_id !== null) {
+                $this->_primaryImage = Image::findOne($this->primary_image_id);   
+            } elseif (!empty($this->images)) {
+                $this->_primaryImage = $this->images[0];
+            }
+        }
+        
+        return $this->_primaryImage;
     }
 }

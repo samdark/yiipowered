@@ -38,7 +38,7 @@ $this->registerJs("initProjectImageUpload({$sizeThumb[0]}, {$sizeThumb[1]});");
                     <img class="image" src="<?= $model->getPlaceholderRelativeUrl() ?>" alt="">
                 <?php else: ?>
                     <?php $i = 0; ?>
-                    <?php foreach ($model->images as $image): ?>
+                    <?php foreach ($model->getSortedImages() as $image): ?>
                         <div class="image">
                             <a href="<?= $image->getUrl() ?>">
                                 <img class="img-responsive"
@@ -57,6 +57,16 @@ $this->registerJs("initProjectImageUpload({$sizeThumb[0]}, {$sizeThumb[1]});");
                                 <span class="fa-stack fa-lg">
                                   <i class="fa fa-circle fa-stack-2x"></i>
                                   <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </span>
+                            <span class="primary-image <?= $model->primaryImage->id == $image->id ? 'hide' : '' ?>"
+                                  data-image-id="<?= $image->id ?>"
+                                  data-url="<?= Url::to(['/api1/project/update', 'id' => $image->project->id]) ?>"
+                                  title="<?= Yii::t('project', 'Mark as primary image') ?>">
+                                
+                                <span class="fa-stack fa-lg">
+                                  <i class="fa fa-circle fa-stack-2x"></i>
+                                  <i class="fa fa-home fa-stack-1x fa-inverse"></i>
                                 </span>
                             </span>
                         </div>

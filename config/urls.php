@@ -19,7 +19,7 @@ return [
     [
         'class' => \yii\rest\UrlRule::class,
         'controller' => ['1.0/projects' => 'api1/project'],
-        'only' => ['index', 'view'],
+        'only' => ['index', 'view', 'update'],
         'prefix' => 'api',
         'ruleConfig' => [
             'class' => UrlRule::class,
