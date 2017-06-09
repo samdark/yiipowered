@@ -37,16 +37,16 @@ jQuery(function ($) {
         var el = $(this);
         var endpoint = el.data('url');
         var imageId = el.data('image-id');
-
+        
         $.ajax({
             url: endpoint,
             method: 'put',
             dataType: 'json',
             data: {
-                imageId: imageId
+                primary_image_id: imageId
             },
             success: function() {
-                $('.image .primary-image').removeClass('hide').filter('[data-image-id=' + imageId + ']').addClass('hide');
+                location.reload();
             }
         });
     });

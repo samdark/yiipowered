@@ -19,12 +19,8 @@ return [
     [
         'class' => \yii\rest\UrlRule::class,
         'controller' => ['1.0/projects' => 'api1/project'],
-        'only' => ['index', 'view', 'view-primary-image', 'update-primary-image'],
+        'only' => ['index', 'view', 'update'],
         'prefix' => 'api',
-        'extraPatterns' => [
-            'GET,HEAD {id}/primary-image' => 'view-primary-image',
-            'PUT,PATCH {id}/primary-image' => 'update-primary-image',
-        ],
         'ruleConfig' => [
             'class' => UrlRule::class,
             'defaults' => [

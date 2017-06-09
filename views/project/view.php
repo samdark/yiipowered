@@ -1,7 +1,6 @@
 <?php
 
 use app\components\UserPermissions;
-use app\models\Image;
 use yii\helpers\Html;
 use app\models\Project;
 use app\widgets\Avatar;
@@ -12,7 +11,6 @@ use \yii\helpers\HtmlPurifier;
 /* @var $this yii\web\View */
 /* @var $model app\models\Project */
 /* @var $management bool */
-/* @var Image[] $images */
 
 // OpenGraph metatags
 $this->registerMetaTag(['property' => 'og:title', 'content' => Html::encode($model->title)]);

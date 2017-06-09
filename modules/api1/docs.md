@@ -33,6 +33,17 @@ In order to get particular project, use the following request:
 > GET [/projects/1](/en/api/1.0/projects/1)
 
 In the above `1` is the project ID.
+
+### Update project <a href="#projects-update" id="projects-update">#</a>
+
+In order to update project, use the following request: 
+
+> PUT [/projects/1](/en/api/1.0/projects)
+
+- primary_image_id: id of the primary image.
+
+In the above `1` is the project ID.
+
     
 ### List <a href="#projects-index" id="projects-index">#</a>
 
@@ -56,32 +67,6 @@ You may pass additional parameters when querying a list:
 - `isFeatured` - `1` if only Featured projects should be returned. If the value is omitted or is `0`, all projects are
   returned.
 - `yiiVersion` - version of the framework project built with. Either `1.0` or `1.1`.
-
-
-### Get primary image <a href="#projects-view-primary-image" id="projects-view-primary-image">#</a>
-
-In order to get primary image of a project, use the following request: 
-
-> GET [/projects/1/primary-image](/en/api/1.0/projects)
-
-In the above `1` is the project ID.
-
-Each image object contains the following fields: 
-- id: image id.
-- thumbnailAbsoluteUrl: absolute url to thumb.
-- updatedAt: UNIX timestamp indicating when image was updated last time.
-
-
-### Update primary image <a href="#projects-update-primary-image" id="projects-update-primary-image">#</a>
-
-In order to update primary image of a project, use the following request: 
-
-> PUT [/projects/1/primary-image](/en/api/1.0/projects)
-
-- imageId: image id.
-
-In the above `1` is the project ID.
-
 
 ## `/users` <a href="#users" id="users">#</a>
 

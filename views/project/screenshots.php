@@ -4,11 +4,9 @@
  * @var yii\web\View $this
  * @var app\models\Project $model
  * @var $imageUploadForm \app\models\ImageUploadForm
- * @var Image[] $images
  */
 
 use app\assets\ImageCropperAsset;
-use app\models\Image;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -61,10 +59,10 @@ $this->registerJs("initProjectImageUpload({$sizeThumb[0]}, {$sizeThumb[1]});");
                                   <i class="fa fa-times fa-stack-1x fa-inverse"></i>
                                 </span>
                             </span>
-                            <span class="primary-image <?= $model->primary_image_id == $image->id ? 'hide' : '' ?>"
+                            <span class="primary-image <?= $model->primaryImage->id == $image->id ? 'hide' : '' ?>"
                                   data-image-id="<?= $image->id ?>"
-                                  data-url="<?= Url::to(["api/1.0/projects/{$image->project->id}/primary-image"]) ?>"
-                                  title="<?= Yii::t('project', 'Make as primary image') ?>">
+                                  data-url="<?= Url::to(['/api1/project/update', 'id' => $image->project->id]) ?>"
+                                  title="<?= Yii::t('project', 'Mark as primary image') ?>">
                                 
                                 <span class="fa-stack fa-lg">
                                   <i class="fa fa-circle fa-stack-2x"></i>

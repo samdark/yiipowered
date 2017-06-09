@@ -2,13 +2,14 @@
 
 namespace app\modules\api1\controllers;
 
+use app\components\UserPermissions;
+use app\models\User;
 use app\modules\api1\components\Controller;
-use app\modules\api1\models\Image;
 use app\modules\api1\models\Project;
 use app\modules\api1\models\ProjectSearch;
-use app\modules\api1\models\User;
 use Yii;
 use yii\web\BadRequestHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
 use yii\web\UnauthorizedHttpException;
@@ -32,71 +33,32 @@ class ProjectController extends Controller
     }
 
     /**
-     * Update primary image for project.
-     * 
-     * @param int $id Id of the project for which to update the primary image.
+     * @param int $id
      *
-     * @throws NotFoundHttpException
+     * @throws ForbiddenHttpException
      * @throws ServerErrorHttpException
      * @throws UnauthorizedHttpException
      */
-    public function actionUpdatePrimaryImage($id)
+    public function actionUpdate($id)
     {
         $user = $this->getCurrentUser();
         if (!$user) {
-            throw new UnauthorizedHttpException('User should be authorized in order to manage image.');
+            throw new UnauthorizedHttpException('User should be authorized in order to manage project.');
         }
 
         $project = $this->findProject($id, $user);
-        
-        $request = Yii::$app->getRequest();
-        $imageId = $request->getBodyParam('imageId');
-        
-        /** @var Image $image */
-        $image = Image::find()
-            ->andWhere([
-                'id' => $imageId,
-                'project_id' => $project->id
-            ])
-            ->limit(1)
-            ->one();
-
-        if (!$image) {
-            throw new NotFoundHttpException("Image {$imageId} does not exist.");
+        if (!UserPermissions::canManageProject($project)) {
+            throw new ForbiddenHttpException(Yii::t('project', 'You can not update this project.'));
         }
-
-        $project->primary_image_id = $image->id;
-        if (!$project->save()) {
-            throw new ServerErrorHttpException('Unable to save primary image: ' . json_encode($project->getErrors()));
+        $project->scenario = Project::SCENARIO_MANAGE;
+        
+        if ($project->load(Yii::$app->request->getBodyParams(), '')) {
+            if (!$project->save()) {
+                throw new ServerErrorHttpException('Unable to save project: ' . json_encode($project->getErrors()));   
+            }
         }
-
+        
         Yii::$app->getResponse()->setStatusCode(204);
-    }
-
-    /**
-     * Return primary image for project.
-     *
-     * @param int $id Id of the project for which to return the primary image.
-     *
-     * @return Image
-     * @throws NotFoundHttpException
-     * @throws UnauthorizedHttpException
-     */
-    public function actionViewPrimaryImage($id)
-    {
-        $user = $this->getCurrentUser();
-        if (!$user) {
-            throw new UnauthorizedHttpException('User should be authorized in order to manage image.');
-        }
-
-        $project = $this->findProject($id, $user);
-        
-        $primaryImage = $project->primaryImage;
-        if ($primaryImage) {
-            return $primaryImage;
-        }
-
-        throw new NotFoundHttpException("Primary image not selected.");
     }
 
     /**
@@ -107,8 +69,7 @@ class ProjectController extends Controller
         return [
             'index' => ['GET', 'HEAD'],
             'view' => ['GET', 'HEAD'],
-            'view-primary-image' => ['GET', 'HEAD'],
-            'update-primary-image' => ['PATCH', 'PUT'],
+            'update' => ['PUT', 'PATCH']
         ];
     }
 

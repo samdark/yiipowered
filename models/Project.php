@@ -9,6 +9,7 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
@@ -48,7 +49,6 @@ use yii\helpers\Url;
  * @property string $description
  * @property ProjectDescription[] $descriptions
  * @property Image $primaryImage
- * @property Image $dynamicPrimaryImage
  */
 class Project extends \yii\db\ActiveRecord
 {
@@ -62,6 +62,10 @@ class Project extends \yii\db\ActiveRecord
     const YII_VERSION_20 = '2.0';
 
     private $_description;
+    /**
+     * @var Image
+     */
+    private $_primaryImage;
 
     /**
      * @inheritdoc
@@ -105,8 +109,11 @@ class Project extends \yii\db\ActiveRecord
             [['url', 'source_url'], 'url'],
             [['yii_version'], 'in', 'range' => array_keys(self::versions())],
             [['description', 'tagValues'], 'safe'],
+            
             ['primary_image_id', 'integer'],
-            ['primary_image_id', 'exist', 'targetClass' => Image::className(), 'targetAttribute' => 'id']
+            ['primary_image_id', 'exist', 'targetClass' => Image::className(), 'targetAttribute' => 'id', 'filter' => function (Query $query) {
+                $query->andWhere(['project_id' => $this->id]);
+            }]
         ];
     }
 
@@ -177,8 +184,8 @@ class Project extends \yii\db\ActiveRecord
     {
         $images = ArrayHelper::index($this->images, 'id');
         if ($images) {
-            $image = $images[$this->primary_image_id];
-            unset($images[$this->primary_image_id]);
+            $image = $images[$this->primaryImage->id];
+            unset($images[$this->primaryImage->id]);
             $images = array_merge([$image], $images);
         }
         
@@ -200,9 +207,8 @@ class Project extends \yii\db\ActiveRecord
      */
     public function getPrimaryImageThumbnailRelativeUrl()
     {
-        $primaryImage = $this->dynamicPrimaryImage;
-        if ($primaryImage) {
-            return $primaryImage->getThumbnailRelativeUrl();
+        if ($this->primaryImage) {
+            return $this->primaryImage->getThumbnailRelativeUrl();
         }
 
         return $this->getPlaceholderRelativeUrl();
@@ -213,9 +219,8 @@ class Project extends \yii\db\ActiveRecord
      */
     public function getPrimaryImageThumbnailAbsoluteUrl()
     {
-        $primaryImage = $this->dynamicPrimaryImage;
-        if ($primaryImage) {
-            return $primaryImage->getThumbnailAbsoluteUrl();
+        if ($this->primaryImage) {
+            return $this->primaryImage->getThumbnailAbsoluteUrl();
         }
 
         return $this->getPlaceholderAbsoluteUrl();
@@ -412,28 +417,21 @@ class Project extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return Image|bool
      */
     public function getPrimaryImage()
     {
-        return $this->hasOne(Image::className(), ['id' => 'primary_image_id']);
-    }
-
-    /**
-     * Return primary image.
-     *
-     * If primary image not set, then will return first image.
-     *
-     * @return Image
-     */
-    public function getDynamicPrimaryImage()
-    {
-        if ($this->primaryImage) {
-            return $this->primaryImage;
-        } elseif (!empty($this->images)) {
-            return $this->images[0];
+        if ($this->_primaryImage === null) {
+            $this->_primaryImage = false;
+            
+            if ($this->primary_image_id !== null) {
+                /** @var Image $image */
+                $this->_primaryImage = Image::findOne($this->primary_image_id);   
+            } elseif (!empty($this->images)) {
+                $this->_primaryImage = $this->images[0];
+            }
         }
         
-        return null;
+        return $this->_primaryImage;
     }
 }
