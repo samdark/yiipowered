@@ -48,6 +48,7 @@ use yii\helpers\Url;
  * @property string $description
  * @property ProjectDescription[] $descriptions
  * @property Image $primaryImage
+ * @property Image $dynamicPrimaryImage
  */
 class Project extends \yii\db\ActiveRecord
 {
@@ -104,7 +105,8 @@ class Project extends \yii\db\ActiveRecord
             [['url', 'source_url'], 'url'],
             [['yii_version'], 'in', 'range' => array_keys(self::versions())],
             [['description', 'tagValues'], 'safe'],
-            ['primary_image_id', 'integer']
+            ['primary_image_id', 'integer'],
+            ['primary_image_id', 'exist', 'targetClass' => Image::className(), 'targetAttribute' => 'id']
         ];
     }
 
@@ -198,20 +200,25 @@ class Project extends \yii\db\ActiveRecord
      */
     public function getPrimaryImageThumbnailRelativeUrl()
     {
-        if (!$this->primaryImage) {
-            return $this->getPlaceholderRelativeUrl();
+        $primaryImage = $this->dynamicPrimaryImage;
+        if ($primaryImage) {
+            return $primaryImage->getThumbnailRelativeUrl();
         }
 
-        return $this->primaryImage->getThumbnailRelativeUrl();
+        return $this->getPlaceholderRelativeUrl();
     }
 
+    /**
+     * @return string
+     */
     public function getPrimaryImageThumbnailAbsoluteUrl()
     {
-        if (!$this->primaryImage) {
-            return $this->getPlaceholderAbsoluteUrl();
+        $primaryImage = $this->dynamicPrimaryImage;
+        if ($primaryImage) {
+            return $primaryImage->getThumbnailAbsoluteUrl();
         }
 
-        return $this->primaryImage->getThumbnailAbsoluteUrl();
+        return $this->getPlaceholderAbsoluteUrl();
     }
 
     /**
@@ -410,5 +417,23 @@ class Project extends \yii\db\ActiveRecord
     public function getPrimaryImage()
     {
         return $this->hasOne(Image::className(), ['id' => 'primary_image_id']);
+    }
+
+    /**
+     * Return primary image.
+     *
+     * If primary image not set, then will return first image.
+     *
+     * @return Image
+     */
+    public function getDynamicPrimaryImage()
+    {
+        if ($this->primaryImage) {
+            return $this->primaryImage;
+        } elseif (!empty($this->images)) {
+            return $this->images[0];
+        }
+        
+        return null;
     }
 }
