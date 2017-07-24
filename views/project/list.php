@@ -44,6 +44,14 @@ $this->title = Yii::t('project', 'Projects');
                         'prompt' => Yii::t('project', 'Any Yii verison'),
                     ])->label(false) ?>
 
+                <?php if (\app\components\UserPermissions::canManageProjects()): ?>
+                    <?= $form->field($filterForm, 'status')
+                        ->dropDownList(Project::statuses(), [
+                            'prompt' => Yii::t('project', 'Any Status'),
+                        ])->label(false);
+                    ?>
+                <?php endif ?>
+
                 <div class="form-group text-center">
                     <?= Html::submitButton(Yii::t('project', 'Apply'), ['class' => 'btn btn-primary']) ?>
                 </div>

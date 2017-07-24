@@ -4,6 +4,7 @@
 namespace app\models;
 
 
+use app\components\UserPermissions;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -17,6 +18,8 @@ class ProjectFilterForm extends Model
     public $featured;
     public $yiiVersion;
 
+    public $status;
+
     public function rules()
     {
         return [
@@ -24,7 +27,7 @@ class ProjectFilterForm extends Model
             [['opensource'], 'in', 'range' => array_keys($this->getOpenSourceOptions())],
             [['featured'], 'boolean'],
             [['yiiVersion'], 'in', 'range' => array_keys(Project::versions())],
-            [['tags'], 'safe'],
+            [['tags', 'status'], 'safe'],
         ];
     }
 
@@ -75,6 +78,10 @@ class ProjectFilterForm extends Model
         $query->andFilterWhere(['like', 'url', $this->url]);
         $query->andFilterWhere(['yii_version' => $this->yiiVersion]);
         $query->andFilterWhere(['is_opensource' => $this->opensource]);
+
+        if ($this->status !== null && UserPermissions::canManageProjects()) {
+            $query->andFilterWhere(['status' => $this->status]);
+        }
 
         if ($this->featured) {
             $query->andWhere(['is_featured' => true]);
