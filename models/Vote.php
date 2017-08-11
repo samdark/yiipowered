@@ -96,7 +96,7 @@ class Vote extends ActiveRecord
     }
 
     /**
-     * Return a vote for pair the project and user.
+     * Returns a vote given project id and user id.
      * 
      * @param int $projectId
      * @param int $userId
