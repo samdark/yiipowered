@@ -297,41 +297,11 @@ a {
         }
       }
     }
-
+    
     .vote {
       margin: 0px 0px 5px 10px;
       
-      .button {
-        font-size: 120%;
-        cursor: pointer;
-      }
-      
-      .up {
-        color: green;
-        &:hover {
-          color: darkgreen;
-        }
-      }
-
-      .down {
-        color: red;
-        &:hover {
-          color: darkred;
-        }
-      }
-      
-      .value {
-        margin: 0px 5px;
-        vertical-align: top;
-      }
-      
-      .disabled {
-        cursor: inherit;
-        color: @gray;
-        &:hover {
-          color: @gray;
-        }
-      }
+      #block_vote
     }
   }
 
@@ -488,6 +458,10 @@ a {
         margin: 1em 0;
       }
     }
+  }
+
+  .vote {
+    #block_vote
   }
 }
 
@@ -1167,4 +1141,38 @@ label.status-deleted {
 .project article.status-draft {
   opacity: 0.7;
   border: 2px solid @color-draft;
+}
+
+#block_vote {
+  .button {
+    font-size: 120%;
+    cursor: pointer;
+  }
+
+  .up {
+    color: green;
+    &:hover {
+      color: darkgreen;
+    }
+  }
+
+  .down {
+    color: red;
+    &:hover {
+      color: darkred;
+    }
+  }
+
+  .value {
+    margin: 0px 5px;
+    vertical-align: top;
+  }
+
+  .disabled {
+    cursor: inherit;
+    color: @gray;
+    &:hover {
+      color: @gray;
+    }
+  }
 }
