@@ -84,7 +84,7 @@ class Vote extends ActiveRecord
      */
     public function getProject()
     {
-        return $this->hasOne(Project::className(), ['id' => 'project_id'])->inverseOf('votes');
+        return $this->hasOne(Project::className(), ['id' => 'project_id']);
     }
 
     /**
@@ -92,7 +92,7 @@ class Vote extends ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id'])->inverseOf('votes');
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     /**
