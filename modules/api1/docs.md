@@ -25,6 +25,7 @@ Each project contains the following fields:
   for API calls. See [Languages](#languages).
 - `thumbnail` - URL pointing to project thumbnail image.
 - `users` - users participated in the project.
+- `voteValue` - total voting to project.
 
 ### Particular project <a href="#projects-view" id="projects-view">#</a>
 
@@ -79,6 +80,21 @@ You may pass additional parameters when querying a list:
 - `isFeatured` - `1` if only Featured projects should be returned. If the value is omitted or is `0`, all projects are
   returned.
 - `yiiVersion` - version of the framework project built with. Either `1.0` or `1.1`.
+
+
+### Voting to project <a href="#projects-voting" id="projects-voting">#</a>
+
+In order to voting to project, use the following request:
+
+> PUT [/projects/1/voting](/en/api/1.0/projects/1/voting)
+
+In the above `1` is the project ID.
+
+- `value` - `-1` if thumbs down and `1` if thumbs up.
+
+Return data:
+
+- `totalValue` - total voting to project.
 
 ## `/users` <a href="#users" id="users">#</a>
 

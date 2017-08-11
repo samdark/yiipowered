@@ -19,8 +19,9 @@ return [
     [
         'class' => \yii\rest\UrlRule::class,
         'controller' => ['1.0/projects' => 'api1/project'],
-        'only' => ['index', 'view', 'update'],
+        'only' => ['index', 'view', 'update', 'voting'],
         'prefix' => 'api',
+        'extraPatterns' =>  ['PUT,PATCH {id}/voting' => 'voting'],
         'ruleConfig' => [
             'class' => UrlRule::class,
             'defaults' => [

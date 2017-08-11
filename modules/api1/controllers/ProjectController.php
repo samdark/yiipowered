@@ -7,6 +7,7 @@ use app\models\User;
 use app\modules\api1\components\Controller;
 use app\modules\api1\models\Project;
 use app\modules\api1\models\ProjectSearch;
+use app\modules\api1\models\Vote;
 use Yii;
 use yii\web\BadRequestHttpException;
 use yii\web\ForbiddenHttpException;
@@ -62,6 +63,51 @@ class ProjectController extends Controller
     }
 
     /**
+     * @param int $id
+     *
+     * @return array
+     * @throws NotFoundHttpException
+     * @throws ServerErrorHttpException
+     * @throws UnauthorizedHttpException
+     */
+    public function actionVoting($id)
+    {
+        $user = $this->getCurrentUser();
+        if (!$user) {
+            throw new UnauthorizedHttpException('User should be authorized in order to manage voting.');
+        }
+        
+        $project = Project::find()
+            ->where(['id' => $id])
+            ->limit(1)
+            ->one();
+        
+        if (!$project) {
+            throw new NotFoundHttpException("The requested project does not exist.");
+        }
+
+        $request = Yii::$app->getRequest();
+        $value = $request->getBodyParam('value');
+        
+        $vote = Vote::getVote($project->id, $user->id);
+        if (!$vote || $vote->value != $value) {
+            if (!$vote) {
+                $vote = new Vote();
+                $vote->project_id = $project->id;
+            }
+            $vote->value = $value;
+
+            if (!$vote->save()) {
+                throw new ServerErrorHttpException('Unable to save vote: ' . json_encode($vote->getErrors()));
+            }
+        }
+        
+        return [
+            'totalValue' => $project->voteValue
+        ];
+    }
+    
+    /**
      * @inheritdoc
      */
     protected function verbs()
@@ -69,7 +115,8 @@ class ProjectController extends Controller
         return [
             'index' => ['GET', 'HEAD'],
             'view' => ['GET', 'HEAD'],
-            'update' => ['PUT', 'PATCH']
+            'update' => ['PUT', 'PATCH'],
+            'voting' => ['PUT', 'PATCH']
         ];
     }
 

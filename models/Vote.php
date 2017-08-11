@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%vote}}".
@@ -19,7 +20,7 @@ use yii\behaviors\TimestampBehavior;
  * @property Project $project
  * @property User $user
  */
-class Vote extends \yii\db\ActiveRecord
+class Vote extends ActiveRecord
 {
     const VALUE_UP = 1;
     const VALUE_DOWN = -1;
@@ -92,5 +93,24 @@ class Vote extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id'])->inverseOf('votes');
+    }
+
+    /**
+     * Return a vote for pair the project and user.
+     * 
+     * @param int $projectId
+     * @param int $userId
+     *
+     * @return Vote|null
+     */
+    public static function getVote($projectId, $userId)
+    {
+        return static::find()
+            ->andWhere([
+                'project_id' => $projectId,
+                'user_id' => $userId,
+            ])
+            ->limit(1)
+            ->one();
     }
 }
