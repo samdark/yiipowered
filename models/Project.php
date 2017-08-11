@@ -50,7 +50,7 @@ use yii\helpers\Url;
  * @property string $description
  * @property ProjectDescription[] $descriptions
  * @property Image $primaryImage
- * @property int $voteValue
+ * @property int $votingResult
  */
 class Project extends ActiveRecord
 {
@@ -437,11 +437,11 @@ class Project extends ActiveRecord
     }
 
     /**
-     * Return vote value.
+     * Return voting result for a project.
      * 
      * @return int
      */
-    public function getVoteValue()
+    public function getVotingResult()
     {
         $value = Vote::find()
             ->andWhere([

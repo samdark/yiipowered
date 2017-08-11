@@ -105,12 +105,9 @@ class Vote extends ActiveRecord
      */
     public static function getVote($projectId, $userId)
     {
-        return static::find()
-            ->andWhere([
-                'project_id' => $projectId,
-                'user_id' => $userId,
-            ])
-            ->limit(1)
-            ->one();
+        return static::findOne([
+            'project_id' => $projectId,
+            'user_id' => $userId,
+        ]);
     }
 }

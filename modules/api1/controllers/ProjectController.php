@@ -70,24 +70,20 @@ class ProjectController extends Controller
      * @throws ServerErrorHttpException
      * @throws UnauthorizedHttpException
      */
-    public function actionVoting($id)
+    public function actionVote($id)
     {
         $user = $this->getCurrentUser();
         if (!$user) {
             throw new UnauthorizedHttpException('User should be authorized in order to manage voting.');
         }
         
-        $project = Project::find()
-            ->where(['id' => $id])
-            ->limit(1)
-            ->one();
+        $project = Project::findOne($id);
         
         if (!$project) {
             throw new NotFoundHttpException("The requested project does not exist.");
         }
-
-        $request = Yii::$app->getRequest();
-        $value = $request->getBodyParam('value');
+        
+        $value = Yii::$app->request->getBodyParam('value');
         
         $vote = Vote::getVote($project->id, $user->id);
         if (!$vote || $vote->value != $value) {
@@ -103,7 +99,7 @@ class ProjectController extends Controller
         }
         
         return [
-            'totalValue' => $project->voteValue
+            'votingResult' => $project->votingResult
         ];
     }
     
@@ -116,7 +112,7 @@ class ProjectController extends Controller
             'index' => ['GET', 'HEAD'],
             'view' => ['GET', 'HEAD'],
             'update' => ['PUT', 'PATCH'],
-            'voting' => ['PUT', 'PATCH']
+            'vote' => ['PUT', 'PATCH']
         ];
     }
 

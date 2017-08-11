@@ -10,7 +10,7 @@ jQuery(function($) {
         var value = el.data('value');
 
         if (el.is('.disabled')) {
-            return false
+            return false;
         }
         
         $.ajax({
@@ -23,7 +23,7 @@ jQuery(function($) {
             success: function(data) {
                 container.find('.button').removeClass('disabled');
                 el.addClass('disabled');
-                container.find('.value').text(data['totalValue']);
+                container.find('.value').text(data['votingResult']);
             },
             error: function() {
                 alert('There was an error while voting.');
