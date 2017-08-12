@@ -9,9 +9,9 @@ use app\models\Image;
 use app\models\ImageUploadForm;
 use app\models\Project;
 use app\models\ProjectFilterForm;
-use app\models\ProjectTag;
 use app\models\Tag;
 use app\models\User;
+use app\models\Vote;
 use app\notifier\NewProjectNotification;
 use app\notifier\Notifier;
 use Yii;
@@ -109,6 +109,44 @@ class ProjectController extends Controller
             'dataProvider' => $filterForm->getDataProvider(),
             'tagsDataProvider' => $tagsDataProvider,
             'filterForm' => $filterForm,
+        ]);
+    }
+
+    /**
+     * Return Top projects.
+     *
+     * @return string
+     */
+    public function actionTopProjects()
+    {
+        $countTopProjects = Yii::$app->params['project.countTopProjects'];
+        
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Project::find()
+                ->with('images')
+                ->with('tags')
+                ->published()
+                ->innerJoin([
+                    'v' => Vote::find()
+                        ->select([
+                            'project_id', 
+                            'sumValue' => new Expression('SUM(value)'), 
+                            'countVote' => new Expression('COUNT(*)')
+                        ])
+                        ->groupBy('project_id')
+                        ->having('sumValue >= 0')
+                ], 'v.project_id = project.id')
+                ->orderBy([
+                    'v.sumValue' => SORT_DESC,
+                    'v.countVote' => SORT_DESC,
+                ])
+                ->limit($countTopProjects)
+        ]); 
+
+        return $this->render('topProjects', [
+            'dataProvider' => $dataProvider,
+            'countTopProjects' => $countTopProjects
         ]);
     }
     

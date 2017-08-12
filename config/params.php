@@ -13,6 +13,7 @@ return [
     ],
 
     'project.pagesize' => 9,
+    'project.countTopProjects' => 100,
 
     'image.size.full' => [1920, 1080],
     'image.size.thumbnail' => [402, 264],

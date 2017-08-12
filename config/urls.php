@@ -5,6 +5,7 @@ return [
     'bookmarks' => 'project/bookmarks',
     'projects' => 'project/list',
     'projects/<id:\d+>/<slug>' => 'project/view',
+    'top-projects' => 'project/top-projects',
     'user' => 'user/view',
 
     'about' => 'site/about',
