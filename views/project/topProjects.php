@@ -7,7 +7,7 @@
 
 use \yii\widgets\ListView;
 
-$this->title = Yii::t('project', 'Top {n} projects', ['n' => $countTopProjects]);
+$this->title = Yii::t('project', 'Top {n}', ['n' => $countTopProjects]);
 ?>
 
 <div class="project-index">

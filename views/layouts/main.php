@@ -54,7 +54,7 @@ AppAsset::register($this);
                 ]
             ],
             [
-                'label' => Yii::t('project', 'Top {n} projects', ['n' => Yii::$app->params['project.countTopProjects']]),
+                'label' => Yii::t('project', 'Top {n}', ['n' => Yii::$app->params['project.countTopProjects']]),
                 'url' => ['/project/top-projects'],
             ]
         ];
