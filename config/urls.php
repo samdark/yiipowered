@@ -5,6 +5,7 @@ return [
     'bookmarks' => 'project/bookmarks',
     'projects' => 'project/list',
     'projects/<id:\d+>/<slug>' => 'project/view',
+    'top-100' => 'project/top-projects',
     'user' => 'user/view',
 
     'about' => 'site/about',
@@ -19,8 +20,9 @@ return [
     [
         'class' => \yii\rest\UrlRule::class,
         'controller' => ['1.0/projects' => 'api1/project'],
-        'only' => ['index', 'view', 'update'],
+        'only' => ['index', 'view', 'update', 'vote'],
         'prefix' => 'api',
+        'extraPatterns' =>  ['PUT,PATCH {id}/vote' => 'vote'],
         'ruleConfig' => [
             'class' => UrlRule::class,
             'defaults' => [

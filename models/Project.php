@@ -9,6 +9,7 @@ use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
@@ -51,8 +52,9 @@ use yii\helpers\Url;
  * @property string $description
  * @property ProjectDescription[] $descriptions
  * @property Image $primaryImage
+ * @property int $votingResult
  */
-class Project extends \yii\db\ActiveRecord
+class Project extends ActiveRecord
 {
     const SCENARIO_MANAGE = 'manage';
 
@@ -439,10 +441,26 @@ class Project extends \yii\db\ActiveRecord
         
         return $this->_primaryImage;
     }
-    
+
     /**
-     * Add a task to share project. 
+     * Return voting result for a project.
      * 
+     * @return int
+     */
+    public function getVotingResult()
+    {
+        $value = Vote::find()
+            ->andWhere([
+                'project_id' => $this->id
+            ])
+            ->sum('value');
+        
+        return (int) $value;
+    }
+
+    /**
+     * Add a task to share project.
+     *
      * @return bool
      */
     public function addShareJob()
@@ -451,10 +469,10 @@ class Project extends \yii\db\ActiveRecord
             Yii::$app->queue->push(new ProjectShareJob([
                 'projectId' => $this->id
             ]));
-            
+
             return true;
         }
-        
+
         return false;
     }
 }
