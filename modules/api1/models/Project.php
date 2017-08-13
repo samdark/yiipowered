@@ -29,6 +29,7 @@ class Project extends \app\models\Project implements Linkable
             'tags' => 'tagValues',
             'description' => 'description',
             'thumbnail' => 'primaryImageThumbnailAbsoluteUrl',
+            'voteValue' => 'voteValue'
         ];
     }
 
