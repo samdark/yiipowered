@@ -86,6 +86,6 @@ return [
     '{n, plural, one{# project} other{# projects}} made with {link}' => '{n,plural,one{# проект сделан} few{# проекта сделано} many{# проектов сделано} other{# проектов сделано}} на {link}',
     'Mark as primary image' => 'Сделать главным изображением',
     'Primary image' => 'Главное изображение',
-    'Top {n}' => 'Top {n}',
-    'Top {n} projects still empty' => 'Top {n} проектов еще пуст'
+    'Top {n}' => 'Топ {n}',
+    'Top {n} projects is still empty' => 'Топ {n} проектов еще пуст'
 ];

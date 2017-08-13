@@ -119,7 +119,7 @@ class ProjectController extends Controller
      */
     public function actionTopProjects()
     {
-        $countTopProjects = Yii::$app->params['project.countTopProjects'];
+        $maxTopProjects = Yii::$app->params['project.maxTopProjects'];
         
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
@@ -141,12 +141,12 @@ class ProjectController extends Controller
                     'v.sumValue' => SORT_DESC,
                     'v.countVote' => SORT_DESC,
                 ])
-                ->limit($countTopProjects)
+                ->limit($maxTopProjects)
         ]); 
 
         return $this->render('topProjects', [
             'dataProvider' => $dataProvider,
-            'countTopProjects' => $countTopProjects
+            'maxTopProjects' => $maxTopProjects
         ]);
     }
     
