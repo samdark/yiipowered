@@ -1,6 +1,7 @@
 <?php
 
 use app\components\UserPermissions;
+use app\widgets\Vote;
 use yii\helpers\Html;
 use app\models\Project;
 use app\widgets\Avatar;
@@ -40,6 +41,8 @@ $management = isset($management) ? $management : null;
             <?php if (!empty($model->url)): ?>
                 <p class="url"><?= Html::a(Html::encode($model->url), $model->url) ?></p>
             <?php endif ?>
+
+            <p><?= Vote::widget(['project' => $model]) ?></p>
         </div>
         <div class="authors">
             <ul>

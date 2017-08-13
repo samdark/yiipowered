@@ -53,6 +53,10 @@ AppAsset::register($this);
                     'title' => Yii::t('app', 'RSS feed'),
                 ]
             ],
+            [
+                'label' => Yii::t('project', 'Top {n}', ['n' => Yii::$app->params['project.maxTopProjects']]),
+                'url' => ['/project/top-projects'],
+            ]
         ];
         if (Yii::$app->user->isGuest) {
             $menuItems[] = [

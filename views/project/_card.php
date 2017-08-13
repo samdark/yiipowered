@@ -4,6 +4,7 @@
  */
 
 use app\widgets\bookmark\Bookmark;
+use app\widgets\Vote;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -22,4 +23,5 @@ use yii\helpers\Url;
     </p>
 
     <?= Bookmark::widget(['project' => $model]) ?>
+    <?= Vote::widget(['project' => $model]) ?>
 </article>
