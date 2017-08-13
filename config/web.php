@@ -9,8 +9,6 @@ use yii\swiftmailer\Mailer;
 use yii\log\FileTarget;
 use yii\i18n\PhpMessageSource;
 use yii\authclient\Collection;
-use codemix\localeurls\UrlManager;
-use yii\web\UrlNormalizer;
 use yii\gii\Module;
 use baibaratsky\yii\rollbar\web\ErrorHandler;
 
@@ -94,6 +92,7 @@ $config = [
             ],
         ],
         'db' => require __DIR__ . '/db.php',
+        'mutex' => \yii\mutex\MysqlMutex::class,
         'i18n' => [
             'translations' => [
                 '*' => [
