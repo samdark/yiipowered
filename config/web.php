@@ -19,11 +19,6 @@ $params = array_merge(
     is_file(__DIR__ . '/params-local.php') ? require __DIR__ . '/params-local.php' : []
 );
 
-$languages = [];
-foreach ($params['languages'] as $id => $data) {
-    $languages[$id] = $data[0];
-}
-
 $config = [
     'id' => 'yiipowered',
     'basePath' => dirname(__DIR__),
@@ -114,22 +109,8 @@ $config = [
             'class' => Collection::class,
             'clients' => require __DIR__ . '/authclients.php',
         ],
-        'urlManager' => [
-            'class' => UrlManager::class,
-            'languages' => $languages,
-            'ignoreLanguageUrlPatterns' => [
-                '~^site/auth~' => '~^auth~',
-            ],
-            'enableDefaultLanguageUrlCode' => true,
-
-            'enablePrettyUrl' => true,
-            'rules' => require __DIR__ . '/urls.php',
-            'showScriptName' => false,
-
-            'normalizer' => [
-                'class' => UrlNormalizer::class,
-            ],
-        ],
+        'urlManager' => $params['components.urlManager'],
+        'queue' => $params['components.queue'],
         'assetManager' => [
             'linkAssets' => true,
             'appendTimestamp' => true,

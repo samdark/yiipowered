@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\components\Language;
+use app\components\queue\ProjectShareJob;
 use creocoder\taggable\TaggableBehavior;
 use Yii;
 use yii\behaviors\BlameableBehavior;
@@ -31,6 +32,7 @@ use yii\helpers\Url;
  * @property string $yii_version
  * @property string $tagValues
  * @property int $primary_image_id
+ * @property boolean $published_to_twitter
  *
  * @property Image[] $images
  * @property User $updatedBy
@@ -104,7 +106,7 @@ class Project extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'yii_version'], 'required'],
-            [['is_opensource', 'is_featured'], 'boolean'],
+            [['is_opensource', 'is_featured', 'published_to_twitter'], 'boolean'],
             [['title', 'url', 'source_url'], 'string', 'max' => 255],
             [['url', 'source_url'], 'url'],
             [['yii_version'], 'in', 'range' => array_keys(self::versions())],
@@ -355,6 +357,10 @@ class Project extends \yii\db\ActiveRecord
         if ($this->_description !== null) {
             $this->saveDescription($this->_description);
         }
+        
+        if (isset($changedAttributes['status']) && $this->status == self::STATUS_PUBLISHED) {
+            $this->addShareJob();
+        }
 
         if ($insert) {
             $this->addCurrentUser();
@@ -432,5 +438,23 @@ class Project extends \yii\db\ActiveRecord
         }
         
         return $this->_primaryImage;
+    }
+    
+    /**
+     * Add a task to share project. 
+     * 
+     * @return bool
+     */
+    public function addShareJob()
+    {
+        if ($this->status == self::STATUS_PUBLISHED && !$this->published_to_twitter) {
+            Yii::$app->queue->push(new ProjectShareJob([
+                'projectId' => $this->id
+            ]));
+            
+            return true;
+        }
+        
+        return false;
     }
 }
