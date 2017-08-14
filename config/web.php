@@ -9,8 +9,6 @@ use yii\swiftmailer\Mailer;
 use yii\log\FileTarget;
 use yii\i18n\PhpMessageSource;
 use yii\authclient\Collection;
-use codemix\localeurls\UrlManager;
-use yii\web\UrlNormalizer;
 use yii\gii\Module;
 use baibaratsky\yii\rollbar\web\ErrorHandler;
 
@@ -18,11 +16,6 @@ $params = array_merge(
     require __DIR__ . '/params.php',
     is_file(__DIR__ . '/params-local.php') ? require __DIR__ . '/params-local.php' : []
 );
-
-$languages = [];
-foreach ($params['languages'] as $id => $data) {
-    $languages[$id] = $data[0];
-}
 
 $config = [
     'id' => 'yiipowered',
@@ -99,6 +92,7 @@ $config = [
             ],
         ],
         'db' => require __DIR__ . '/db.php',
+        'mutex' => \yii\mutex\MysqlMutex::class,
         'i18n' => [
             'translations' => [
                 '*' => [
@@ -114,22 +108,8 @@ $config = [
             'class' => Collection::class,
             'clients' => require __DIR__ . '/authclients.php',
         ],
-        'urlManager' => [
-            'class' => UrlManager::class,
-            'languages' => $languages,
-            'ignoreLanguageUrlPatterns' => [
-                '~^site/auth~' => '~^auth~',
-            ],
-            'enableDefaultLanguageUrlCode' => true,
-
-            'enablePrettyUrl' => true,
-            'rules' => require __DIR__ . '/urls.php',
-            'showScriptName' => false,
-
-            'normalizer' => [
-                'class' => UrlNormalizer::class,
-            ],
-        ],
+        'urlManager' => $params['components.urlManager'],
+        'queue' => $params['components.queue'],
         'assetManager' => [
             'linkAssets' => true,
             'appendTimestamp' => true,

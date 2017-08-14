@@ -1,0 +1,16 @@
+<?php
+
+return [
+    'siteAbsoluteUrl' => 'http://yiipowered.com',
+
+    /**
+     * @see https://apps.twitter.com/app/new
+     * 
+     * After create app need get accessToken and accessTokenSecret:
+     * Open App -> Keys and Access Tokens -> You Access Token -> Create my access token
+     */
+    'twitter.consumerKey' => '',
+    'twitter.consumerSecret' => '',
+    'twitter.accessToken' => '',
+    'twitter.accessTokenSecret' => ''
+];

@@ -22,7 +22,9 @@
         "yiisoft/yii2-jui": "~2.0.0",
         "bower-asset/cropper": "@dev",
         "bower-asset/font-awesome": "~4.7.0.0",
-        "claviska/simpleimage": "^3.3"
+        "claviska/simpleimage": "^3.3",
+        "abraham/twitteroauth": "~0.7.4",
+        "yiisoft/yii2-queue": "~2.0.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
