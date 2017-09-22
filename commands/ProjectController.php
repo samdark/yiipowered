@@ -11,14 +11,14 @@ class ProjectController extends Controller
     /**
      * Add a task to share projects.
      * 
-     * NOTE: For new projects, tasks are created automatically.
+     * NOTE: For new projects tasks are created automatically.
      */
     public function actionAddShareJobs()
     {
         $queryProjects = Project::find()
             ->published()
             ->andWhere([
-                'published_to_twitter' => false
+                'published_to_twitter' => false,
             ])
             ->orderBy(['created_by' => SORT_ASC]);
         
@@ -26,7 +26,7 @@ class ProjectController extends Controller
         /** @var Project $project */
         foreach ($queryProjects->each(100) as $project) {
             $current++;
-            $this->stdout("[{$current}] project: id={$project->id}\n");
+            $this->stdout("[{$current}] project: id = {$project->id}\n");
             
             $project->addShareJob();
         }

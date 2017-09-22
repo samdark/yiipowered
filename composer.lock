@@ -231,19 +231,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fengyuanchen/cropper.git",
-                "reference": "9ef4f5d7d1736ed7ae6e18efc2816c1b0897d664"
+                "reference": "4ef38019d257f2dc46624bb6f34801243ff8bc1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fengyuanchen/cropper/zipball/9ef4f5d7d1736ed7ae6e18efc2816c1b0897d664",
-                "reference": "9ef4f5d7d1736ed7ae6e18efc2816c1b0897d664",
+                "url": "https://api.github.com/repos/fengyuanchen/cropper/zipball/4ef38019d257f2dc46624bb6f34801243ff8bc1a",
+                "reference": "4ef38019d257f2dc46624bb6f34801243ff8bc1a",
                 "shasum": null
             },
             "type": "bower-asset",
             "license": [
                 "MIT"
             ],
-            "time": "2017-07-29 04:50:29"
+            "time": "2017-09-09T11:53:36+00:00"
         },
         {
             "name": "bower-asset/font-awesome",
@@ -319,16 +319,16 @@
         },
         {
             "name": "bower-asset/jquery.inputmask",
-            "version": "3.3.7",
+            "version": "3.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobinHerbots/Inputmask.git",
-                "reference": "9835731cb78cac749734d94a1cb5bd70da4d3b10"
+                "reference": "791d84990c4a98df1597e9d155be53a3725805dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/9835731cb78cac749734d94a1cb5bd70da4d3b10",
-                "reference": "9835731cb78cac749734d94a1cb5bd70da4d3b10",
+                "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/791d84990c4a98df1597e9d155be53a3725805dd",
+                "reference": "791d84990c4a98df1597e9d155be53a3725805dd",
                 "shasum": null
             },
             "require": {
@@ -537,16 +537,16 @@
         },
         {
             "name": "claviska/simpleimage",
-            "version": "3.3.2",
+            "version": "3.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/claviska/SimpleImage.git",
-                "reference": "b78d2f6d1cfbc94f6e2257a83b6f44f6d7ad9c95"
+                "reference": "31ba5b8358e1663a2813e2ada7242fa8d97a96dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/claviska/SimpleImage/zipball/b78d2f6d1cfbc94f6e2257a83b6f44f6d7ad9c95",
-                "reference": "b78d2f6d1cfbc94f6e2257a83b6f44f6d7ad9c95",
+                "url": "https://api.github.com/repos/claviska/SimpleImage/zipball/31ba5b8358e1663a2813e2ada7242fa8d97a96dc",
+                "reference": "31ba5b8358e1663a2813e2ada7242fa8d97a96dc",
                 "shasum": ""
             },
             "require": {
@@ -572,7 +572,7 @@
                 }
             ],
             "description": "A PHP class that makes working with images as simple as possible.",
-            "time": "2017-07-18T21:41:47+00:00"
+            "time": "2017-09-12T09:03:56+00:00"
         },
         {
             "name": "codemix/yii2-localeurls",
@@ -862,20 +862,20 @@
         },
         {
             "name": "symfony/process",
-            "version": "v3.3.6",
+            "version": "v3.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "07432804942b9f6dd7b7377faf9920af5f95d70a"
+                "reference": "b7666e9b438027a1ea0e1ee813ec5042d5d7f6f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/07432804942b9f6dd7b7377faf9920af5f95d70a",
-                "reference": "07432804942b9f6dd7b7377faf9920af5f95d70a",
+                "url": "https://api.github.com/repos/symfony/process/zipball/b7666e9b438027a1ea0e1ee813ec5042d5d7f6f0",
+                "reference": "b7666e9b438027a1ea0e1ee813ec5042d5d7f6f0",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9"
+                "php": "^5.5.9|>=7.0.8"
             },
             "type": "library",
             "extra": {
@@ -907,7 +907,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2017-07-13T13:05:09+00:00"
+            "time": "2017-07-29T21:54:42+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -1454,16 +1454,16 @@
         },
         {
             "name": "yiisoft/yii2-debug",
-            "version": "2.0.9",
+            "version": "2.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "647be6c9d48dc2f3c2e2f33b9eba0a4ca78abde9"
+                "reference": "372fbf0d47303b7d68275d6720935e5116915418"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/647be6c9d48dc2f3c2e2f33b9eba0a4ca78abde9",
-                "reference": "647be6c9d48dc2f3c2e2f33b9eba0a4ca78abde9",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/372fbf0d47303b7d68275d6720935e5116915418",
+                "reference": "372fbf0d47303b7d68275d6720935e5116915418",
                 "shasum": ""
             },
             "require": {
@@ -1497,7 +1497,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2017-02-21T10:30:50+00:00"
+            "time": "2017-09-05T23:21:05+00:00"
         },
         {
             "name": "yiisoft/yii2-gii",

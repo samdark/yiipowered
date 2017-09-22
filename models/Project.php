@@ -456,6 +456,7 @@ class Project extends ActiveRecord
             ->sum('value');
 
         return (int) $value;
+    }
 
 
     /**
@@ -465,14 +466,14 @@ class Project extends ActiveRecord
      */
     public function addShareJob()
     {
-        if ($this->status == self::STATUS_PUBLISHED && !$this->published_to_twitter) {
-            Yii::$app->queue->push(new ProjectShareJob([
-                'projectId' => $this->id
-            ]));
-
-            return true;
+        if ($this->status != self::STATUS_PUBLISHED || $this->published_to_twitter) {
+            return false;
         }
 
-        return false;
+        Yii::$app->queue->push(new ProjectShareJob([
+            'projectId' => $this->id,
+        ]));
+
+        return true;
     }
 }

@@ -24,26 +24,38 @@ class ProjectShareJob extends Job
             ->published()
             ->limit(1)
             ->one();
-        
-        if (!$project->published_to_twitter) {
-            $params = Yii::$app->params;
-            
-            $twitter = new TwitterOAuth(
-                $params['twitter.consumerKey'],
-                $params['twitter.consumerSecret'],
-                $params['twitter.accessToken'],
-                $params['twitter.accessTokenSecret']
-            );
 
-            $projectUrl = Url::to(['project/view', 'id' => $project->id, 'slug' => $project->slug], true);
+        if ($project->published_to_twitter) {
+            return;
+        }
 
-            //NOTE: The maximum message length is 140 characters. For url you need 23 characters.
-            $message = StringHelper::truncate($project->title, 108) . " {$projectUrl} #yii";
-            $twitter->post('statuses/update', ['status' => $message]);
-            if ($twitter->getLastHttpCode() == 200) {
-                $project->published_to_twitter = true;
-                $project->save();
+        $params = Yii::$app->params;
+
+        $twitter = new TwitterOAuth(
+            $params['twitter.consumerKey'],
+            $params['twitter.consumerSecret'],
+            $params['twitter.accessToken'],
+            $params['twitter.accessTokenSecret']
+        );
+
+        $projectUrl = Url::to([
+            'project/view',
+            'id' => $project->id,
+            'slug' => $project->slug
+        ], true);
+
+        // The maximum message length is 140 characters. For URL you need 23 characters.
+        $message = StringHelper::truncate($project->title, 108) . " {$projectUrl} #yii";
+        $twitter->post('statuses/update', ['status' => $message]);
+
+        $status = (int) $twitter->getLastHttpCode();
+        if ($status === 200) {
+            $project->published_to_twitter = true;
+            if (!$project->save()) {
+                Yii::error("Failed marking project $project->id as published_to_twitter.");
             }
+        } else {
+            Yii::error("Tweeting failed with status $status:\n" . $twitter->getLastBody());
         }
     }
 }

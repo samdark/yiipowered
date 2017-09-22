@@ -34,8 +34,6 @@ return [
             '~^site/auth~' => '~^auth~',
         ],
         'enableDefaultLanguageUrlCode' => true,
-
-        'enablePrettyUrl' => true,
         'rules' => require __DIR__ . '/urls.php',
         'showScriptName' => false,
 
