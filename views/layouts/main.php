@@ -124,6 +124,7 @@ AppAsset::register($this);
         <div class="container">
             <div class="left">
                 &copy; YiiPowered <?= date('Y') ?> |
+                <a href="https://twitter.com/yiipowered">Twitter</a> |
                 <?= Html::a(Yii::t('app', 'About'), ['/site/about']) ?>
             </div>
 
