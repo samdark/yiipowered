@@ -20,7 +20,7 @@ return [
     'View  {n, plural, one{one more project} other{# more projects}}' => 'Ещё {n, plural, one{# проект} few{# проекта} many{# проектов} other{# проектов}}',
     'Add project' => 'Добавить проект',
     'After the image upload, you will be able to crop it.' => 'Вы сможете кадрировать изображение после его загрузки.',
-    'Any Yii verison' => 'Любая версия Yii',
+    'Any Yii version' => 'Любая версия Yii',
     'Any code access' => 'Код не важен',
     'Apply' => 'Применить',
     'Approve' => 'Одобрить',
