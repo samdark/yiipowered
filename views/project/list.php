@@ -41,7 +41,7 @@ $this->title = Yii::t('project', 'Projects');
                 <?= $form->field($filterForm, 'featured')->checkbox() ?>
                 <?= $form->field($filterForm, 'yiiVersion')
                     ->dropDownList(Project::versions(), [
-                        'prompt' => Yii::t('project', 'Any Yii verison'),
+                        'prompt' => Yii::t('project', 'Any Yii version'),
                     ])->label(false) ?>
 
                 <?php if (\app\components\UserPermissions::canManageProjects()): ?>
