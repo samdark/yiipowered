@@ -331,8 +331,11 @@ class ProjectController extends Controller
     {
         $project = $this->findModel([
             'id' => $id,
-            'slug' => $slug,
         ]);
+
+        if ($project->slug !== $slug) {
+            return $this->redirect(['view', 'id' => $id, 'slug' => $project->slug], 301);
+        }
 
         return $this->render('view', [
             'model' => $project,
