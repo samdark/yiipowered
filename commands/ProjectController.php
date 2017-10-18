@@ -33,11 +33,11 @@ class ProjectController extends Controller
     }
 
     /**
-     * Add a task to delete projects.
+     * Adds jobs that clean up deleted projects.
      *
      * NOTE: When a project is marked for deletion the task is created automatically.
      */
-    public function actionAddDeleteJob()
+    public function actionAddDeleteJobs()
     {
         $queryProjects = Project::find()
             ->deleted()
