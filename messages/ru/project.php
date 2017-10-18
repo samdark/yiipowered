@@ -92,9 +92,9 @@ return [
     'Project deleted.' => 'Проект удален.',
     'Are you sure you want to delete this project?' => 'Вы уверены, что хотите удалить этот проект?',
     'You can not delete this project.' => 'Вы не можете удалить этот проект.',
-    'Failed to update project.' => 'Ошибка при изменение проекта.',
+    'Failed to update project.' => 'Ошибка при изменении проекта.',
     'Failed to delete project.' => 'Ошибка при удалении проекта.',
-    'You can not restore a deleted project.' => 'Нельзя восстановить удаленный проект.',
+    'You can not restore a deleted project.' => 'Нельзя восстановить удалённый проект.',
     'You can only delete a project from a draft.' => 'Проект можно удалить только из черновика.',
-    'The project has been moved to draft.' => 'Проект перенесен в черновик.'
+    'The project has been moved to draft.' => 'Проект перенесён в черновик.'
 ];
