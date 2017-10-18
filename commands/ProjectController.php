@@ -40,8 +40,7 @@ class ProjectController extends Controller
     public function actionAddDeleteJobs()
     {
         $queryProjects = Project::find()
-            ->deleted()
-            ->orderBy(['created_by' => SORT_ASC]);
+            ->deleted();
 
         $current = 0;
         /** @var Project $project */
