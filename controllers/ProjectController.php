@@ -39,11 +39,11 @@ class ProjectController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'update', 'delete-image', 'bookmarks'], //only be applied to
+                'only' => ['create', 'update', 'delete-image', 'bookmarks', 'delete'], //only be applied to
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create', 'update', 'delete-image', 'bookmarks', 'publish', 'draft'],
+                        'actions' => ['create', 'update', 'delete-image', 'bookmarks', 'publish', 'draft', 'delete'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -52,7 +52,8 @@ class ProjectController extends Controller
                 'class' => VerbFilter::class,
                 'actions' => [
                     'publish' => ['post'],
-                    'draft' => ['post']
+                    'draft' => ['post'],
+                    'delete' => ['post'],
                 ]
             ]
         ];
@@ -308,12 +309,26 @@ class ProjectController extends Controller
             throw new ForbiddenHttpException(Yii::t('project', 'You can not update this project.'));
         }
 
-        $project->publish();
-        Yii::$app->session->setFlash('project.project_successfully_added');
+        $session = Yii::$app->session;
+        
+        if ($project->publish()) {
+            $session->setFlash('success', Yii::t('project', 'Project added!'));   
+        } else {
+            $session->setFlash('error', Yii::t('project', 'Failed to update project.'));
+            if ($project->hasErrors()) {
+                $session->addFlash('error', Html::errorSummary($project, ['showAllErrors' => true]));
+            }
+        }
 
         return $this->redirect(['view', 'id' => $project->id, 'slug' => $project->slug]);
     }
 
+    /**
+     * @param int $id
+     *
+     * @return Response
+     * @throws ForbiddenHttpException
+     */
     public function actionDraft($id)
     {
         $project = $this->findModel(['id' => $id]);
@@ -322,9 +337,54 @@ class ProjectController extends Controller
             throw new ForbiddenHttpException(Yii::t('project', 'You can not update this project.'));
         }
 
-        $project->draft();
+        $session = Yii::$app->session;
+        
+        if ($project->draft()) {
+            $session->setFlash('success', Yii::t('project', 'The project has been moved to draft.'));
+        } else {
+            $session->setFlash('error', Yii::t('project', 'Failed to update project.'));
+            if ($project->hasErrors()) {
+                $session->addFlash('error', Html::errorSummary($project, ['showAllErrors' => true]));
+            }
+        }
 
-        return $this->redirect(['/user/view', 'id' => Yii::$app->user->id]);
+        return $this->redirect(['view', 'id' => $project->id, 'slug' => $project->slug]);
+    }
+
+    /**
+     * Delete project by ID.
+     *
+     * @param int $id
+     *
+     * @return Response
+     * @throws ForbiddenHttpException
+     */
+    public function actionDelete($id)
+    {
+        $project = $this->findModel(['id' => $id]);
+
+        if (!UserPermissions::canManageProject($project)) {
+            throw new ForbiddenHttpException(Yii::t('project', 'You can not delete this project.'));
+        }
+
+        $session = Yii::$app->session;
+        
+        if ($project->remove()) {
+            $session->setFlash('success', Yii::t('project', 'Project deleted.'));
+            
+            if (in_array(Yii::$app->user->id, array_column($project->users, 'id'))) {
+                return $this->redirect(['/user/view', 'id' => Yii::$app->user->id]);    
+            }
+
+            return $this->redirect('list');
+        }
+
+        $session->setFlash('error', Yii::t('project', 'Failed to delete project.'));
+        if ($project->hasErrors()) {
+            $session->addFlash('error', Html::errorSummary($project, ['showAllErrors' => true]));
+        }
+        
+        return $this->redirect(['view', 'id' => $project->id, 'slug' => $project->slug]);
     }
 
     public function actionView($id, $slug)

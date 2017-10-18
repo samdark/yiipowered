@@ -297,4 +297,19 @@ class Image extends \yii\db\ActiveRecord
 
         return unlink($path);
     }
+
+    /**
+     * @param int $projectId
+     */
+    public static function deleteBaseDirectories($projectId)
+    {
+        $dirs = [
+            Yii::getAlias("@webroot/img/project/{$projectId}"),
+            Yii::getAlias("@app/images/{$projectId}")
+        ];
+        
+        foreach ($dirs as $dir) {
+            FileHelper::removeDirectory($dir);
+        }
+    }
 }

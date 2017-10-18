@@ -33,16 +33,33 @@ $this->title = Yii::t('project', 'Add project');
             <div class="back">
                 <?= Html::a(Yii::t('project', 'Back'), ['/project/screenshots', 'id' => $model->id]) ?>
             </div>
-            <div class="draft">
-                <?= Html::a(Yii::t('project', 'Save as draft'), ['/project/draft', 'id' => $model->id], [
-                    'data-method' => 'POST',
-                ]) ?>
-            </div>
-            <div class="publish">
-                <?= Html::a(Yii::t('project', 'Publish'), ['/project/publish', 'id' => $model->id], [
-                    'data-method' => 'POST',
-                ]) ?>
-            </div>
+
+            <?php if ($model->canDraft()): ?>
+                <div class="draft">
+                    <?= Html::a(Yii::t('project', 'Save as draft'), ['/project/draft', 'id' => $model->id], [
+                        'data-method' => 'POST',
+                    ]) ?>
+                </div>
+            <?php endif ?>
+
+            <?php if ($model->canRemove()): ?>
+                <div class="delete">
+                    <?= Html::a(
+                        '<i class="fa fa-pencil"></i> ' . Yii::t('project', 'Delete'),
+                        ['/project/delete', 'id' => $model->id], [
+                        'data-method' => 'post',
+                        'data-confirm' => Yii::t('project', 'Are you sure you want to delete this project?')
+                    ]) ?>
+                </div>
+            <?php endif ?>
+
+            <?php if ($model->canPublish()): ?>
+                <div class="publish">
+                    <?= Html::a(Yii::t('project', 'Publish'), ['/project/publish', 'id' => $model->id], [
+                        'data-method' => 'POST',
+                    ]) ?>
+                </div>
+            <?php endif ?>
         </div>
     </div>
 </div>

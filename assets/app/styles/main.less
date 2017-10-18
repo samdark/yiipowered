@@ -708,9 +708,16 @@ a {
       width: 10em;
     }
 
-    &.back a,
-    &.draft a {
+    &.back a {
       .btn-info();
+    }
+
+    &.draft a {
+      .btn-warning();
+    }
+
+    &.delete a {
+      .btn-danger();
     }
 
     &.publish a,

@@ -3,6 +3,7 @@ namespace app\models;
 
 use app\components\UserPermissions;
 use creocoder\taggable\TaggableQueryBehavior;
+use Yii;
 use yii\db\ActiveQuery;
 
 /**
@@ -39,18 +40,24 @@ class ProjectQuery extends ActiveQuery
     {
         // no extra conditions for users able to manage all projects
         if (UserPermissions::canManageProjects()) {
-            return $this;
+            return $this->available();
         }
 
-        $parts = ['status = :status'];
-        $params = ['status' => Project::STATUS_PUBLISHED];
-
-        if (\Yii::$app->user->id) {
-            $this->leftJoin('project_user pu', 'pu.project_id = project.id');
-            $parts[] = 'pu.user_id = :userid';
-            $params['userid'] = \Yii::$app->user->id;
+        if (Yii::$app->user->id) {
+            $this->leftJoin(['pu' => 'project_user'], 'pu.project_id = project.id')
+                ->andWhere([
+                    'OR',
+                    ['status' => Project::STATUS_PUBLISHED],
+                    [
+                        'pu.user_id' => Yii::$app->user->id,
+                        'status' => Project::$availableStatusIds
+                    ]
+                ]);    
+        } else {
+            $this->published();
         }
-        return $this->andWhere(implode(' OR ', $parts), $params);
+   
+        return $this;
     }
 
     /**
@@ -67,6 +74,22 @@ class ProjectQuery extends ActiveQuery
     public function published()
     {
         return $this->andWhere(['status' => Project::STATUS_PUBLISHED]);
+    }
+
+    /**
+     * @return $this
+     */
+    public function deleted()
+    {
+        return $this->andWhere(['status' => Project::STATUS_DELETED]);
+    }
+    
+    /**
+     * @return $this
+     */
+    public function available()
+    {
+        return $this->andWhere(['status' => Project::$availableStatusIds]);
     }
 
     /**

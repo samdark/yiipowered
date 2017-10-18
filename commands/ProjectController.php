@@ -31,4 +31,24 @@ class ProjectController extends Controller
             $project->addShareJob();
         }
     }
+
+    /**
+     * Adds jobs that clean up deleted projects.
+     *
+     * NOTE: When a project is marked for deletion the task is created automatically.
+     */
+    public function actionAddDeleteJobs()
+    {
+        $queryProjects = Project::find()
+            ->deleted();
+
+        $current = 0;
+        /** @var Project $project */
+        foreach ($queryProjects->each(100) as $project) {
+            $current++;
+            $this->stdout("[{$current}] project: id = {$project->id}\n");
+
+            $project->addDeleteJob();
+        }
+    }
 }
