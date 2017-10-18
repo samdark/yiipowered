@@ -344,7 +344,7 @@ class Project extends ActiveRecord
      */
     public static function getAvailableStatuses()
     {
-        return array_intersect_key(self::statuses(), array_flip(self::$availableStatusIds));   
+        return array_intersect_key(self::statuses(), array_flip(static::$availableStatusIds));   
     }
 
     public function getStatusLabel()
