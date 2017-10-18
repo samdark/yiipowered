@@ -110,6 +110,7 @@ class ProjectController extends Controller
     /**
      * @param int $id
      *
+     * @throws ForbiddenHttpException
      * @throws ServerErrorHttpException
      * @throws UnauthorizedHttpException
      */
@@ -121,6 +122,10 @@ class ProjectController extends Controller
         }
         
         $project = $this->findProject($id, $user);
+        if (!UserPermissions::canManageProject($project)) {
+            throw new ForbiddenHttpException(Yii::t('project', 'You can not delete this project.'));
+        }
+        
         if (!$project->remove()) {
             throw new ServerErrorHttpException('Failed to delete project: ' . json_encode($project->getErrors()));
         }
