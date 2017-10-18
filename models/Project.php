@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\components\Language;
+use app\components\queue\ProjectDeleteJob;
 use app\components\queue\ProjectShareJob;
 use creocoder\taggable\TaggableBehavior;
 use Yii;
@@ -65,6 +66,11 @@ class Project extends ActiveRecord
     const YII_VERSION_11 = '1.1';
     const YII_VERSION_20 = '2.0';
 
+    /**
+     * @var int[]
+     */
+    public static $availableStatusIds = [self::STATUS_DRAFT, self::STATUS_PUBLISHED];
+    
     private $_description;
     /**
      * @var Image
@@ -117,7 +123,8 @@ class Project extends ActiveRecord
             ['primary_image_id', 'integer'],
             ['primary_image_id', 'exist', 'targetClass' => Image::className(), 'targetAttribute' => 'id', 'filter' => function (Query $query) {
                 $query->andWhere(['project_id' => $this->id]);
-            }]
+            }],
+            ['status', 'validateStatus']
         ];
     }
 
@@ -332,6 +339,14 @@ class Project extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array
+     */
+    public static function getAvailableStatuses()
+    {
+        return array_intersect_key(self::statuses(), array_flip(self::$availableStatusIds));   
+    }
+
     public function getStatusLabel()
     {
         $statuses = self::statuses();
@@ -352,6 +367,19 @@ class Project extends ActiveRecord
             ->indexBy('language');
     }
 
+    public function validateStatus()
+    {
+        if ($this->isAttributeChanged('status', false)) {
+            if ($this->status == self::STATUS_DELETED && $this->getOldAttribute('status') != self::STATUS_DRAFT) {
+                $this->addError('status', Yii::t('project', 'You can only delete a project from a draft.'));
+            }
+            
+            if ($this->getOldAttribute('status') == self::STATUS_DELETED) {
+                $this->addError('status', Yii::t('project', 'You can not restore a deleted project.'));
+            }
+        }
+    }
+    
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert, $changedAttributes);
@@ -359,9 +387,15 @@ class Project extends ActiveRecord
         if ($this->_description !== null) {
             $this->saveDescription($this->_description);
         }
+        
+        if (isset($changedAttributes['status']) && $changedAttributes['status'] != $this->status) {
+            if ($this->status == self::STATUS_PUBLISHED) {
+                $this->addShareJob();
+            }
 
-        if (isset($changedAttributes['status']) && $this->status == self::STATUS_PUBLISHED) {
-            $this->addShareJob();
+            if ($this->status == self::STATUS_DELETED) {
+                $this->addDeleteJob();
+            }
         }
 
         if ($insert) {
@@ -412,16 +446,67 @@ class Project extends ActiveRecord
         return 'status-unknown';
     }
 
+    /**
+     * @return bool
+     */
     public function publish()
     {
         $this->status = self::STATUS_PUBLISHED;
-        $this->save();
+        return $this->save();
     }
 
+    /**
+     * @return bool
+     */
     public function draft()
     {
         $this->status = self::STATUS_DRAFT;
-        $this->save();
+        return $this->save();
+    }
+
+    /**
+     * @return bool
+     */
+    public function remove()
+    {
+        $this->status = self::STATUS_DELETED;
+        return $this->save();
+    }
+
+    /**
+     * @return bool
+     */
+    public function canPublish()
+    {
+        if ($this->status == self::STATUS_DRAFT) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canDraft()
+    {
+        if ($this->status == self::STATUS_PUBLISHED) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canRemove()
+    {
+        if ($this->status == self::STATUS_DRAFT) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -475,5 +560,46 @@ class Project extends ActiveRecord
         ]));
 
         return true;
+    }
+
+    /**
+     * Add a task to delete project.
+     *
+     * @return bool
+     */
+    public function addDeleteJob()
+    {
+        if ($this->status != self::STATUS_DELETED) {
+            return false;
+        }
+
+        Yii::$app->queue->push(new ProjectDeleteJob([
+            'projectId' => $this->id
+        ]));
+
+        return true;
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function beforeDelete()
+    {
+        if (parent::beforeDelete()) {
+            ProjectDescription::deleteAll(['project_id' => $this->id]);
+            ProjectTag::deleteAll(['project_id' => $this->id]);
+            ProjectUser::deleteAll(['project_id' => $this->id]);
+            Vote::deleteAll(['project_id' => $this->id]);
+            Bookmark::deleteAll(['project_id' => $this->id]);
+            
+            foreach ($this->images as $image) {
+                $image->delete();
+            }
+            Image::deleteBaseDirectories($this->id);
+            
+            return true;
+        }
+        
+        return false;
     }
 }

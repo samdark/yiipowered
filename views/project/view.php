@@ -106,11 +106,43 @@ $management = isset($management) ? $management : null;
                         </p>
 
                         <div class="controls">
-                            <?= Html::a(
-                                '<i class="fa fa-pencil"></i> ' . Yii::t('project', 'Update'),
-                                ['update', 'id' => $model->id],
-                                ['class' => 'btn btn-primary']
-                            ) ?>
+                            <p>
+                                <?= Html::a(
+                                    '<i class="fa fa-pencil"></i> ' . Yii::t('project', 'Update'),
+                                    ['update', 'id' => $model->id],
+                                    ['class' => 'btn btn-primary']
+                                ) ?>
+                            </p>
+                            
+                            <?php if ($model->canDraft()): ?>
+                                <p>
+                                    <?= Html::a(Yii::t('project', 'Save as draft'), ['draft', 'id' => $model->id], [
+                                        'class' => 'btn btn-warning',
+                                        'data-method' => 'POST',
+                                    ]) ?>
+                                </p>
+                            <?php endif ?>
+                            
+                            <?php if ($model->canPublish()): ?>
+                                <p>
+                                    <?= Html::a(Yii::t('project', 'Publish'), ['publish', 'id' => $model->id], [
+                                        'class' => 'btn btn-success',
+                                        'data-method' => 'POST',
+                                    ]) ?>
+                                </p>
+                            <?php endif ?>
+
+                            <?php if ($model->canRemove()): ?>
+                                <p>
+                                    <?= Html::a(
+                                        '<i class="fa fa-pencil"></i> ' . Yii::t('project', 'Delete'),
+                                        ['delete', 'id' => $model->id], [
+                                        'class' => 'btn btn-danger',
+                                        'data-method' => 'post',
+                                        'data-confirm' => Yii::t('project', 'Are you sure you want to delete this project?')
+                                    ]) ?>
+                                </p>
+                            <?php endif ?>
                         </div>
                     </div>
                 <?php endif ?>

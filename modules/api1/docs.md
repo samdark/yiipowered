@@ -57,6 +57,14 @@ In the above `1` is the project ID.
 - `primary_image_id` - ID of the primary image.
 - `tagValues` - Tags of the project.
 
+### Delete project <a href="#projects-delete" id="projects-delete">#</a>
+
+In order to delete project, use the following request: 
+
+> DELETE /projects/1
+
+In the above `1` is the project ID.
+
 
 ### List <a href="#projects-index" id="projects-index">#</a>
 

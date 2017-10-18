@@ -77,7 +77,11 @@ class ProjectController extends Controller
             throw new UnauthorizedHttpException('User should be authorized in order to manage voting.');
         }
         
-        $project = Project::findOne($id);
+        $project = Project::find()
+            ->andWhere(['id' => $id])
+            ->published()
+            ->limit(1)
+            ->one();
         
         if (!$project) {
             throw new NotFoundHttpException("The requested project does not exist.");
@@ -102,6 +106,27 @@ class ProjectController extends Controller
             'votingResult' => $project->votingResult
         ];
     }
+
+    /**
+     * @param int $id
+     *
+     * @throws ServerErrorHttpException
+     * @throws UnauthorizedHttpException
+     */
+    public function actionDelete($id)
+    {
+        $user = $this->getCurrentUser();
+        if (!$user) {
+            throw new UnauthorizedHttpException('User should be authorized in order to manage project.');
+        }
+        
+        $project = $this->findProject($id, $user);
+        if (!$project->remove()) {
+            throw new ServerErrorHttpException('Failed to delete project: ' . json_encode($project->getErrors()));
+        }
+        
+        Yii::$app->getResponse()->setStatusCode(204);
+    }
     
     /**
      * @inheritdoc
@@ -112,7 +137,8 @@ class ProjectController extends Controller
             'index' => ['GET', 'HEAD'],
             'view' => ['GET', 'HEAD'],
             'update' => ['PUT', 'PATCH'],
-            'vote' => ['PUT', 'PATCH']
+            'vote' => ['PUT', 'PATCH'],
+            'delete' => ['DELETE'],
         ];
     }
 
@@ -129,6 +155,7 @@ class ProjectController extends Controller
         $project = Project::find()
             ->where(['id' => $projectId])
             ->hasUser($user)
+            ->available()
             ->one();
 
         if ($project) {

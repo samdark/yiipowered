@@ -27,7 +27,8 @@ class ProjectFilterForm extends Model
             [['opensource'], 'in', 'range' => array_keys($this->getOpenSourceOptions())],
             [['featured'], 'boolean'],
             [['yiiVersion'], 'in', 'range' => array_keys(Project::versions())],
-            [['tags', 'status'], 'safe'],
+            ['status', 'in', 'range' => Project::$availableStatusIds],
+            [['tags'], 'safe']
         ];
     }
 

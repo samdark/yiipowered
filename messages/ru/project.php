@@ -87,5 +87,14 @@ return [
     'Mark as primary image' => 'Сделать главным изображением',
     'Primary image' => 'Главное изображение',
     'Top {n}' => 'Топ {n}',
-    'Top {n} projects is still empty' => 'Топ {n} проектов еще пуст'
+    'Top {n} projects is still empty' => 'Топ {n} проектов еще пуст',
+    'Delete' => 'Удалить',
+    'Project deleted.' => 'Проект удален.',
+    'Are you sure you want to delete this project?' => 'Вы уверены, что хотите удалить этот проект?',
+    'You can not delete this project.' => 'Вы не можете удалить этот проект.',
+    'Failed to update project.' => 'Ошибка при изменение проекта.',
+    'Failed to delete project.' => 'Ошибка при удалении проекта.',
+    'You can not restore a deleted project.' => 'Нельзя восстановить удаленный проект.',
+    'You can only delete a project from a draft.' => 'Проект можно удалить только из черновика.',
+    'The project has been moved to draft.' => 'Проект перенесен в черновик.'
 ];

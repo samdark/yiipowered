@@ -85,7 +85,7 @@ class UserController extends Controller
         }
 
         $dataProvider = new ActiveDataProvider([
-            'query' => Project::find()->hasUser($user)->freshFirst(),
+            'query' => Project::find()->hasUser($user)->available()->freshFirst(),
             'pagination' => ['pageSize' => Yii::$app->params['project.pagesize']],
         ]);
 

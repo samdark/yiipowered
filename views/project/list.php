@@ -46,7 +46,7 @@ $this->title = Yii::t('project', 'Projects');
 
                 <?php if (\app\components\UserPermissions::canManageProjects()): ?>
                     <?= $form->field($filterForm, 'status')
-                        ->dropDownList(Project::statuses(), [
+                        ->dropDownList(Project::getAvailableStatuses(), [
                             'prompt' => Yii::t('project', 'Any Status'),
                         ])->label(false);
                     ?>
@@ -77,15 +77,6 @@ $this->title = Yii::t('project', 'Projects');
             </div>
             <?php ActiveForm::end() ?>
         </div>
-
-        <?php if (Yii::$app->session->hasFlash('project.project_successfully_added')) {
-            echo Alert::widget([
-                'options' => [
-                    'class' => 'alert-success',
-                ],
-                'body' => Yii::t('project', 'Project added!'),
-            ]);
-        } ?>
 
         <?= ListView::widget([
             'dataProvider' => $dataProvider,
