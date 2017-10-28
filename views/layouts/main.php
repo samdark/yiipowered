@@ -129,7 +129,7 @@ AppAsset::register($this);
             </div>
         </div>
 
-        <footer class="footer">
+        <footer>
             <div class="container">
                 <div class="left">
                     &copy; YiiPowered <?= date('Y') ?> |

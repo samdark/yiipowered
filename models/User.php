@@ -91,11 +91,11 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function scenarios()
     {
-        static $defaultAttributes = ['username', 'fullname', 'avatar', 'status'];
+        static $defaultAttributes = ['username', 'fullname',];
 
         return [
             self::SCENARIO_DEFAULT => $defaultAttributes,
-            self::SCENARIO_MANAGE => array_merge($defaultAttributes, []),
+            self::SCENARIO_MANAGE => array_merge($defaultAttributes, ['status']),
         ];
     }
 
