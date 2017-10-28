@@ -41,4 +41,5 @@ return [
     'Updated At' => 'Обновлён',
     'Username' => 'Ник',
     'Users' => 'Пользователи',
+    'You can not update this user.' => 'Вы не можете редактировать этого пользователя.',
 ];

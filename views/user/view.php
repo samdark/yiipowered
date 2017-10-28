@@ -2,23 +2,22 @@
 
 use yii\authclient\widgets\AuthChoice;
 use yii\helpers\Html;
+use app\widgets\Avatar;
+use app\components\UserPermissions;
+use \yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
 /* @var $authClients \yii\authclient\ClientInterface[] */
-
-$this->title = $model->username;
-
-use \yii\widgets\ListView;
-
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $this yii\web\View */
 
+$this->title = $model->username;
 ?>
 <div class="user-view">
     <div class="information">
         <div class="avatar">
-            <?= \app\widgets\Avatar::widget([
+            <?= Avatar::widget([
                 'user' => $model,
                 'size' => 165,
             ]) ?>
@@ -48,16 +47,19 @@ use \yii\widgets\ListView;
                 <h3><?= Html::a(Html::encode($model->getGithubProfileUrl()), $model->getGithubProfileUrl()) ?></h3>
             <?php endif ?>
 
-            <?php if (Yii::$app->user->can('manage_users')): ?>
+            <?php if (UserPermissions::canManageUser($model)): ?>
                 <div class="controls">
                     <?= Html::a(Yii::t('user', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                    <?= Html::a(Yii::t('user', 'Delete'), ['delete', 'id' => $model->id], [
-                        'class' => 'btn btn-danger',
-                        'data' => [
-                            'confirm' => Yii::t('user', 'Are you sure you want to delete this item?'),
-                            'method' => 'post',
-                        ],
-                    ]) ?>
+
+                    <?php if(Yii::$app->user->can(UserPermissions::MANAGE_USERS)) { ?>
+                        <?= Html::a(Yii::t('user', 'Delete'), ['delete', 'id' => $model->id], [
+                            'class' => 'btn btn-danger',
+                            'data' => [
+                                'confirm' => Yii::t('user', 'Are you sure you want to delete this item?'),
+                                'method' => 'post',
+                            ],
+                        ]) ?>
+                    <?php } ?>
                 </div>
             <?php endif ?>
         </div>

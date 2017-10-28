@@ -2,12 +2,14 @@
 
 namespace app\controllers;
 
+use app\components\UserPermissions;
 use Yii;
 use app\models\User;
 use app\models\Project;
 use yii\authclient\Collection;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -24,12 +26,12 @@ class UserController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['view'],
+                        'actions' => ['view', 'update'],
                         'roles' => ['@'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['index', 'create', 'update', 'delete'],
+                        'actions' => ['index', 'create', 'delete'],
                         'roles' => ['manage_users'],
                     ],
                 ],
@@ -102,10 +104,19 @@ class UserController extends Controller
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @throws ForbiddenHttpException
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
+        if (!UserPermissions::canManageUser($model)) {
+            throw new ForbiddenHttpException(Yii::t('user', 'You can not update this user.'));
+        }
+
+        if (Yii::$app->user->can(UserPermissions::MANAGE_USERS)) {
+            $model->setScenario(User::SCENARIO_MANAGE);
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
