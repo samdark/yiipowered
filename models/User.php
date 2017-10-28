@@ -2,12 +2,15 @@
 
 namespace app\models;
 
+use claviska\SimpleImage;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\FileHelper;
 use yii\web\IdentityInterface;
 use yii\helpers\ArrayHelper;
+use yii\web\UploadedFile;
 
 /**
  * User model
@@ -15,6 +18,7 @@ use yii\helpers\ArrayHelper;
  * @property integer $id
  * @property string $username
  * @property string $fullname
+ * @property string $avatar
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $email
@@ -41,6 +45,9 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_ACTIVE = 10;
 
     const SCENARIO_MANAGE = 'manage';
+
+    /** @var UploadedFile */
+    public $avatarFile;
 
     /**
      * @inheritdoc
@@ -69,6 +76,13 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             ['status', 'filter', 'filter' => 'intval'],
+
+            // Username
+            [['username', 'fullname'], 'string'],
+
+            // Avatar
+            ['avatar', 'string', 'max' => 60],
+            ['avatarFile', 'file', 'extensions' => 'png, jpg'],
         ];
     }
 
@@ -77,11 +91,11 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function scenarios()
     {
-        static $defaultAttributes = ['status'];
+        static $defaultAttributes = ['username', 'fullname', 'avatar', 'status'];
 
         return [
             self::SCENARIO_DEFAULT => $defaultAttributes,
-            self::SCENARIO_MANAGE => array_merge($defaultAttributes, ['is_featured']),
+            self::SCENARIO_MANAGE => array_merge($defaultAttributes, []),
         ];
     }
 
@@ -222,6 +236,8 @@ class User extends ActiveRecord implements IdentityInterface
             'id' => Yii::t('user', 'ID'),
             'username' => Yii::t('user', 'Username'),
             'fullname' => Yii::t('user', 'Fullname'),
+            'avatar' => Yii::t('user', 'Avatar'),
+            'avatarFile' => Yii::t('user', 'Avatar'),
             'auth_key' => Yii::t('user', 'Auth Key'),
             'password_hash' => Yii::t('user', 'Password Hash'),
             'password_reset_token' => Yii::t('user', 'Password Reset Token'),
@@ -282,5 +298,60 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(Project::className(), ['id' => 'project_id'])
             ->viaTable(Bookmark::tableName(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return bool
+     */
+    public function uploadAvatar()
+    {
+        if (!$this->validate()) {
+            return false;
+        }
+
+        if ($this->avatarFile !== null) {
+            $this->avatarFile->saveAs($this->getAvatarPath());
+            $this->processAvatarFile();
+
+            $this->avatar = $this->id . '.' . $this->avatarFile->extension;
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns path for saving avatar image
+     * @return string
+     */
+    public function getAvatarPath()
+    {
+        if(!$this->avatarFile instanceof UploadedFile) {
+            return null;
+        }
+
+        $path = Yii::getAlias('@webroot/img/avatar/') . $this->id . '/' . $this->id . '.' . $this->avatarFile->extension;
+        FileHelper::createDirectory(dirname($path));
+
+        return $path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatarImage()
+    {
+        return Yii::getAlias('@web/img/avatar/') . $this->id . '/' . $this->avatar;
+    }
+
+    /**
+     * Resize avatar image
+     */
+    private function processAvatarFile()
+    {
+        $size = Yii::$app->params['user.avatar.size'];
+
+        (new SimpleImage($this->getAvatarPath()))
+            ->bestFit($size[0], $size[1])
+            ->toFile($this->getAvatarPath());
     }
 }

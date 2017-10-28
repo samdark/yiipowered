@@ -17,14 +17,21 @@ $this->title = $model->username;
 <div class="user-view">
     <div class="information">
         <div class="avatar">
-            <?= Avatar::widget([
-                'user' => $model,
-                'size' => 165,
-            ]) ?>
+            <?php if($model->avatar) { ?>
+                <?= Html::img($model->getAvatarImage(), ['alt' => $model->username, 'class' => 'img-thumbnail']) ?>
+            <?php } else { ?>
+                <?= Avatar::widget([
+                    'user' => $model,
+                    'size' => 165,
+                ]) ?>
+            <?php } ?>
         </div>
 
         <div class="bio">
-            <h1><?= Html::encode($this->title) ?></h1>
+            <h1>
+                <?= Html::encode($this->title) ?>
+                <small><?= Html::encode($model->fullname) ?></small>
+            </h1>
 
             <?php if (count($authClients) > 0): ?>
                 <?php $authAuthChoice = AuthChoice::begin([

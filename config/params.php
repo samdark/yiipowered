@@ -26,6 +26,8 @@ return [
     'image.size.thumbnail' => [402, 264],
     'image.size.big_thumbnail' => [760, 500],
 
+    'user.avatar.size' => [200, 200],
+
     'debug.allowedIPs' => ['127.0.0.1'],
     
     'components.urlManager' => [

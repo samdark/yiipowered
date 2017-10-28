@@ -13,6 +13,8 @@ use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\UploadedFile;
+
 /**
  * UserController implements the CRUD actions for User model.
  */
@@ -118,8 +120,13 @@ class UserController extends Controller
             $model->setScenario(User::SCENARIO_MANAGE);
         }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->avatarFile = UploadedFile::getInstance($model, 'avatarFile');
+            if($model->uploadAvatar() && $model->save()) {
+                Yii::$app->session->setFlash('success', Yii::t('user', 'Your profile has been successfully updated.'));
+            } else {
+                Yii::$app->session->setFlash('error', Yii::t('user', 'Can not save your profile.'));
+            }
         }
 
         return $this->render('update', [
