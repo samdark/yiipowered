@@ -22,6 +22,7 @@ return [
     'controllerMap' => [
         'migrate' => [
             'class' => 'yii\console\controllers\MigrateController',
+            'templateFile' => '@app/components/migration/template.php',
             'migrationNamespaces' => [
                 'yii\queue\db\migrations',
             ],
