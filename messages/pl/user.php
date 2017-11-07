@@ -17,10 +17,16 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Connect with {servicename}' => 'Połącz z kontem {servicename}',
+    'Avatar' => '',
+    'Can not save your profile.' => '',
+    'Current avatar' => '',
+    'Update user {username}: ' => '',
+    'You can not update this user.' => '',
+    'Your profile has been successfully updated.' => '',
     'Active' => 'Aktywny',
     'Are you sure you want to delete this item?' => 'Czy na pewno chcesz usunąć ten element?',
     'Auth Key' => 'Klucz autoryzacyjny',
+    'Connect with {servicename}' => 'Połącz z kontem {servicename}',
     'Create' => 'Stwórz',
     'Created At' => 'Dodano',
     'Delete' => 'Usuń',
@@ -37,7 +43,6 @@ return [
     'Status' => 'Status',
     'Twitter' => 'Twitter',
     'Update' => 'Aktualizuj',
-    'Update {modelClass}: ' => 'Aktualizuj {modelClass}: ',
     'Updated At' => 'Aktualizowano',
     'Username' => 'Nazwa',
     'Users' => 'Użytkownicy',

@@ -17,12 +17,13 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Connect with {servicename}' => 'Привязать {servicename}',
+    'Update user {username}: ' => 'Профиль {username}:',
     'Active' => 'Активен',
     'Are you sure you want to delete this item?' => 'Удаляем?',
     'Auth Key' => 'Ключ авторизации',
     'Avatar' => 'Аватар',
     'Can not save your profile.' => ' Не удалось обновить ваш профиль.',
+    'Connect with {servicename}' => 'Привязать {servicename}',
     'Create' => 'Создать',
     'Created At' => 'Создан',
     'Current avatar' => 'Текущий аватар',
@@ -40,7 +41,6 @@ return [
     'Status' => 'Статус',
     'Twitter' => 'Twitter',
     'Update' => 'Редактировать',
-    'Update {modelClass}: ' => 'Редактировать {modelClass}: ',
     'Updated At' => 'Обновлён',
     'Username' => 'Ник',
     'Users' => 'Пользователи',

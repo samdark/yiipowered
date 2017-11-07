@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
 
-$this->title = Yii::t('user', 'Update {modelClass}: ', [
-    'modelClass' => 'пользователя',
-]) . ' ' . $model->username;
+$this->title = Yii::t('user', 'Update user {username}: ', [
+    'username' => $model->username,
+]);
 ?>
 <div class="user-update">
 
