@@ -3,6 +3,8 @@
 namespace app\models;
 
 use app\components\Language;
+use app\components\object\ClassType;
+use app\components\object\ObjectIdentityInterface;
 use app\components\queue\ProjectDeleteJob;
 use app\components\queue\ProjectShareJob;
 use creocoder\taggable\TaggableBehavior;
@@ -55,7 +57,7 @@ use yii\helpers\Url;
  * @property Image $primaryImage
  * @property int $votingResult
  */
-class Project extends ActiveRecord
+class Project extends ActiveRecord implements ObjectIdentityInterface
 {
     const SCENARIO_MANAGE = 'manage';
 
@@ -601,5 +603,21 @@ class Project extends ActiveRecord
         }
         
         return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function getObjectType()
+    {
+        return ClassType::PROJECT;
+    }
+
+    /**
+     * @return int
+     */
+    public function getObjectId()
+    {
+        return $this->id;
     }
 }
