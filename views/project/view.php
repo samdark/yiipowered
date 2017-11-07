@@ -148,4 +148,9 @@ $management = isset($management) ? $management : null;
                 <?php endif ?>
             </div>
         </div>
+    </div>
+    
+    <?= \app\widgets\comment\Comment::widget([
+        'model' => $model
+    ]) ?>
 </section>

@@ -1212,6 +1212,45 @@ label.status-deleted {
   }
 }
 
+.comment-wrapper {
+  background-color: #dfe4e6;
+  padding-bottom: 10px;
+  
+  .comments {
+    .comment {
+      background: white;
+      border: 1px dashed #1e6887;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      
+      .header {
+        margin: 0;
+        padding: 3px 22px 2px;
+        background-color: #fff;
+        font-size: 14px;
+
+        .id {
+          color: #edf0f1;
+          font-size: 28px;
+          font-weight: 600;
+          text-decoration: none;
+        }
+        
+        .details {
+          padding-top: 7px;
+        }
+        
+        .username {
+          color: @orange-color;
+        }
+      }
+      
+      .body {
+        padding: 22px;
+      }
+    }
+  }
+}
 .container-alert {
   margin-top: 20px;
 }
