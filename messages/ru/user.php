@@ -17,12 +17,16 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Connect with {servicename}' => 'Привязать {servicename}',
+    'Update user {username}: ' => 'Профиль {username}:',
     'Active' => 'Активен',
     'Are you sure you want to delete this item?' => 'Удаляем?',
     'Auth Key' => 'Ключ авторизации',
+    'Avatar' => 'Аватар',
+    'Can not save your profile.' => ' Не удалось обновить ваш профиль.',
+    'Connect with {servicename}' => 'Привязать {servicename}',
     'Create' => 'Создать',
     'Created At' => 'Создан',
+    'Current avatar' => 'Текущий аватар',
     'Delete' => 'Удалить',
     'Email' => 'Почта',
     'Facebook' => 'Facebook',
@@ -36,9 +40,10 @@ return [
     'Password Reset Token' => 'Токен восстановления пароля',
     'Status' => 'Статус',
     'Twitter' => 'Twitter',
-    'Update' => 'Редактровать',
-    'Update {modelClass}: ' => 'Редактиовать {modelClass}: ',
+    'Update' => 'Редактировать',
     'Updated At' => 'Обновлён',
     'Username' => 'Ник',
     'Users' => 'Пользователи',
+    'You can not update this user.' => 'Вы не можете редактировать этого пользователя.',
+    'Your profile has been successfully updated.' => 'Ваш профиль успешно обновлён.',
 ];

@@ -2,30 +2,36 @@
 
 use yii\authclient\widgets\AuthChoice;
 use yii\helpers\Html;
+use app\widgets\Avatar;
+use app\components\UserPermissions;
+use \yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
 /* @var $authClients \yii\authclient\ClientInterface[] */
-
-$this->title = $model->username;
-
-use \yii\widgets\ListView;
-
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $this yii\web\View */
 
+$this->title = $model->username;
 ?>
 <div class="user-view">
     <div class="information">
         <div class="avatar">
-            <?= \app\widgets\Avatar::widget([
-                'user' => $model,
-                'size' => 165,
-            ]) ?>
+            <?php if($model->avatar) { ?>
+                <?= Html::img($model->getAvatarImage(), ['alt' => $model->username, 'class' => 'img-thumbnail']) ?>
+            <?php } else { ?>
+                <?= Avatar::widget([
+                    'user' => $model,
+                    'size' => 165,
+                ]) ?>
+            <?php } ?>
         </div>
 
         <div class="bio">
-            <h1><?= Html::encode($this->title) ?></h1>
+            <h1>
+                <?= Html::encode($this->title) ?>
+                <small><?= Html::encode($model->fullname) ?></small>
+            </h1>
 
             <?php if (count($authClients) > 0): ?>
                 <?php $authAuthChoice = AuthChoice::begin([
@@ -48,16 +54,19 @@ use \yii\widgets\ListView;
                 <h3><?= Html::a(Html::encode($model->getGithubProfileUrl()), $model->getGithubProfileUrl()) ?></h3>
             <?php endif ?>
 
-            <?php if (Yii::$app->user->can('manage_users')): ?>
+            <?php if (UserPermissions::canManageUser($model)): ?>
                 <div class="controls">
                     <?= Html::a(Yii::t('user', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                    <?= Html::a(Yii::t('user', 'Delete'), ['delete', 'id' => $model->id], [
-                        'class' => 'btn btn-danger',
-                        'data' => [
-                            'confirm' => Yii::t('user', 'Are you sure you want to delete this item?'),
-                            'method' => 'post',
-                        ],
-                    ]) ?>
+
+                    <?php if(Yii::$app->user->can(UserPermissions::MANAGE_USERS)) { ?>
+                        <?= Html::a(Yii::t('user', 'Delete'), ['delete', 'id' => $model->id], [
+                            'class' => 'btn btn-danger',
+                            'data' => [
+                                'confirm' => Yii::t('user', 'Are you sure you want to delete this item?'),
+                                'method' => 'post',
+                            ],
+                        ]) ?>
+                    <?php } ?>
                 </div>
             <?php endif ?>
         </div>

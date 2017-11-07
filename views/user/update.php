@@ -5,16 +5,18 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
 
-$this->title = Yii::t('user', 'Update {modelClass}: ', [
-    'modelClass' => 'User',
-]) . ' ' . $model->username;
+$this->title = Yii::t('user', 'Update user {username}: ', [
+    'username' => $model->username,
+]);
 ?>
 <div class="user-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="form-wrap">
+        <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+        <?= $this->render('_form', [
+            'model' => $model,
+        ]) ?>
+    </div>
 
 </div>
