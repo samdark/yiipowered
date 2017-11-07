@@ -45,7 +45,7 @@ class Comment extends Widget
 
             if ($commentForm->load(Yii::$app->request->post()) && $commentForm->save()) {
                 Yii::$app->getResponse()->refresh(sprintf("#c%d", $commentForm->id))->send();
-                Yii::$app->end();
+                return;
             }   
         }
 
