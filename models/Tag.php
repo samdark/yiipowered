@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%tag}}".
@@ -20,7 +21,7 @@ use yii\behaviors\TimestampBehavior;
  * @property ProjectTag[] $projectTags
  * @property Project[] $projects
  */
-class Tag extends \yii\db\ActiveRecord
+class Tag extends ActiveRecord
 {
     const TYPE_USER = 10;
     const TYPE_TECH = 20;

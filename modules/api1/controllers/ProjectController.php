@@ -17,6 +17,10 @@ use yii\web\UnauthorizedHttpException;
 
 class ProjectController extends Controller
 {
+    /**
+     * @return \yii\data\ActiveDataProvider
+     * @throws BadRequestHttpException
+     */
     public function actionIndex()
     {
         $projectSearch = new ProjectSearch();
@@ -28,6 +32,10 @@ class ProjectController extends Controller
         return $projectSearch->getDataProvider();
     }
 
+    /**
+     * @param int $id
+     * @return Project
+     */
     public function actionView($id)
     {
         return Project::find()->where(['id' => $id])->published()->one();
@@ -37,8 +45,10 @@ class ProjectController extends Controller
      * @param int $id
      *
      * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      * @throws ServerErrorHttpException
      * @throws UnauthorizedHttpException
+     * @throws \yii\base\InvalidConfigException
      */
     public function actionUpdate($id)
     {
@@ -113,6 +123,7 @@ class ProjectController extends Controller
      * @throws ForbiddenHttpException
      * @throws ServerErrorHttpException
      * @throws UnauthorizedHttpException
+     * @throws NotFoundHttpException
      */
     public function actionDelete($id)
     {

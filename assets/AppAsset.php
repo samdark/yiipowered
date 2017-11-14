@@ -12,8 +12,7 @@ use yii\bootstrap\BootstrapAsset;
 use yii\web\YiiAsset;
 
 /**
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
+ * Mail application asset
  */
 class AppAsset extends AssetBundle
 {

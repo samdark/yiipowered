@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%project_user}}".
@@ -13,7 +14,7 @@ use Yii;
  * @property User $user
  * @property Project $project
  */
-class ProjectUser extends \yii\db\ActiveRecord
+class ProjectUser extends ActiveRecord
 {
     /**
      * @inheritdoc

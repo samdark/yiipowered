@@ -8,6 +8,7 @@ class Language
 {
     public static function current()
     {
+        /** @var array $languages */
         $languages = \Yii::$app->params['languages'];
 
         foreach ($languages as $language) {

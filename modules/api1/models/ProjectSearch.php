@@ -7,6 +7,10 @@ namespace app\modules\api1\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
+/**
+ *
+ * @property \yii\data\ActiveDataProvider $dataProvider
+ */
 class ProjectSearch extends Model
 {
     public $tags;

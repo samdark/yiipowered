@@ -239,6 +239,12 @@ class ProjectController extends Controller
         $feed->render();
     }
 
+    /**
+     * @param int $id
+     * @return string|Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     */
     public function actionUpdate($id)
     {
         $model = $this->findModel(['id' => $id]);
@@ -260,6 +266,12 @@ class ProjectController extends Controller
         ]);
     }
 
+    /**
+     * @param int $id
+     * @return string|Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     */
     public function actionScreenshots($id)
     {
         $model = $this->findModel(['id' => $id]);
@@ -290,6 +302,11 @@ class ProjectController extends Controller
         ]);
     }
 
+    /**
+     * @param int $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
     public function actionPreview($id)
     {
         $project = $this->findModel([
@@ -301,6 +318,12 @@ class ProjectController extends Controller
         ]);
     }
 
+    /**
+     * @param int $id
+     * @return Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     */
     public function actionPublish($id)
     {
         $project = $this->findModel(['id' => $id]);
@@ -328,6 +351,7 @@ class ProjectController extends Controller
      *
      * @return Response
      * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionDraft($id)
     {
@@ -358,6 +382,7 @@ class ProjectController extends Controller
      *
      * @return Response
      * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionDelete($id)
     {
@@ -387,6 +412,12 @@ class ProjectController extends Controller
         return $this->redirect(['view', 'id' => $project->id, 'slug' => $project->slug]);
     }
 
+    /**
+     * @param int $id
+     * @param string $slug
+     * @return string|Response
+     * @throws NotFoundHttpException
+     */
     public function actionView($id, $slug)
     {
         $project = $this->findModel([
@@ -421,6 +452,16 @@ class ProjectController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+    /**
+     * @return string
+     * @throws BadRequestHttpException
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     * @throws ServerErrorHttpException
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
     public function actionDeleteImage()
     {
         $id = Yii::$app->request->post('id');

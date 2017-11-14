@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%project_description}}".
@@ -12,7 +13,7 @@ use Yii;
  * @property string $language
  * @property string $content
  */
-class ProjectDescription extends \yii\db\ActiveRecord
+class ProjectDescription extends ActiveRecord
 {
     /**
      * @inheritdoc

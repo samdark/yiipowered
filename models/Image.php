@@ -28,7 +28,6 @@ use yii\helpers\Url;
  * @property string $bigThumbnailRelativeUrl
  * @property string $thumbnailFilename
  * @property string $url
- * @property string $bigThumbnailPath
  * @property string $thumbnailRelativeUrl
  * @property string $thumbnailAbsoluteUrl
  * @property string $fullPath

@@ -9,6 +9,11 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
+/**
+ *
+ * @property-read array $openSourceOptions
+ * @property \yii\data\ActiveDataProvider $dataProvider
+ */
 class ProjectFilterForm extends Model
 {
     public $tags = [];

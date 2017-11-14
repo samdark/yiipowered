@@ -12,6 +12,10 @@ use yii\web\UnauthorizedHttpException;
 
 class BookmarkController extends Controller
 {
+    /**
+     * @return ActiveDataProvider
+     * @throws UnauthorizedHttpException
+     */
     public function actionIndex()
     {
         $user = $this->getCurrentUser();
@@ -24,6 +28,12 @@ class BookmarkController extends Controller
         ]);
     }
 
+    /**
+     * @return Bookmark|array|null|\yii\db\ActiveRecord
+     * @throws NotFoundHttpException
+     * @throws ServerErrorHttpException
+     * @throws UnauthorizedHttpException
+     */
     public function actionCreate()
     {
         $user = $this->getCurrentUser();
@@ -47,6 +57,15 @@ class BookmarkController extends Controller
         return $bookmark;
     }
 
+    /**
+     * @param int $id
+     * @throws NotFoundHttpException
+     * @throws ServerErrorHttpException
+     * @throws UnauthorizedHttpException
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
     public function actionDelete($id)
     {
         $user = $this->getCurrentUser();
@@ -74,6 +93,13 @@ class BookmarkController extends Controller
         ];
     }
 
+    /**
+     * @param int $projectID
+     * @param int $userID
+     * @param bool $required
+     * @return Bookmark|array|null|\yii\db\ActiveRecord
+     * @throws NotFoundHttpException
+     */
     protected function findBookmark($projectID, $userID, $required = true)
     {
         $bookmark = Bookmark::find()->where([

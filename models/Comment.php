@@ -21,6 +21,7 @@ use yii\db\ActiveRecord;
  * @property integer $created_at
  * @property integer $updated_at
  *
+ * @property-read  \yii\db\ActiveRecord $model
  * @property User $createdBy
  */
 class Comment extends ActiveRecord
@@ -80,11 +81,11 @@ class Comment extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('comment', 'ID'),
-            'object_type' => Yii::t('comment', 'Object Type'),
-            'object_id' => Yii::t('comment', 'Object ID'),
-            'text' => Yii::t('comment', 'Text'),
-            'status' => Yii::t('comment', 'Status'),
+            'id' => 'ID',
+            'object_type' => 'Тип объекта',
+            'object_id' => 'ID объекта',
+            'text' => 'Текст',
+            'status' => 'Статус',
             'created_by' => Yii::t('comment', 'Created By'),
             'created_at' => Yii::t('comment', 'Created At'),
             'updated_at' => Yii::t('comment', 'Updated At'),

@@ -8,7 +8,7 @@ function initEditor(el) {
         mode: 'gfm',
         theme: 'default',
         extraKeys: {
-            "Enter": 'newlineAndIndentContinueMarkdownList',
+            "Enter": 'newlineAndIndentContinueMarkdownList'
         },
         lineWrapping: true,
         lineNumbers: false,

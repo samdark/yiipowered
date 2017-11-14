@@ -2,7 +2,6 @@
 
 namespace app\commands;
 
-use Yii;
 use app\models\Project;
 use yii\console\Controller;
 
@@ -24,7 +23,7 @@ class ProjectController extends Controller
         
         $current = 0;
         /** @var Project $project */
-        foreach ($queryProjects->each(100) as $project) {
+        foreach ($queryProjects->each() as $project) {
             $current++;
             $this->stdout("[{$current}] project: id = {$project->id}\n");
             
@@ -44,7 +43,7 @@ class ProjectController extends Controller
 
         $current = 0;
         /** @var Project $project */
-        foreach ($queryProjects->each(100) as $project) {
+        foreach ($queryProjects->each() as $project) {
             $current++;
             $this->stdout("[{$current}] project: id = {$project->id}\n");
 

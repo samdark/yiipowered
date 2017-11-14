@@ -59,7 +59,6 @@ jQuery(function ($) {
  */
 function initProjectImageUpload(widthMin, heightMin) {
     var uploadForm = $('#project-image-upload');
-    var uploadButton = uploadForm.find('.custom-upload-button');
     var imageCropperBlock = uploadForm.find('.cropper-block');
     var imageBlock = imageCropperBlock.find('.image-block');
 
@@ -113,7 +112,7 @@ function initProjectImageUpload(widthMin, heightMin) {
         }
 
         var files = this.files;
-        if (files && files.length > 0) {
+        if (files && files.length) {
             var file = files[0];
 
             if (/^image\/\w+$/.test(file.type)) {

@@ -17,6 +17,7 @@ class ClassType
      * @param string $type
      *
      * @return string
+     * @throws \yii\base\InvalidValueException
      */
     public static function getClass($type)
     {

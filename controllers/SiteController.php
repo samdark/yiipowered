@@ -23,6 +23,8 @@ use yii\web\ErrorAction;
 
 class SiteController extends Controller
 {
+    const REMEMBER_ME_DURATION = 3600 * 24 * 30;
+
     /**
      * @inheritdoc
      */
@@ -115,7 +117,7 @@ class SiteController extends Controller
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user, 3600 * 24 * 30)) {
+                if (Yii::$app->getUser()->login($user, self::REMEMBER_ME_DURATION)) {
                     return $this->goHome();
                 }
             }

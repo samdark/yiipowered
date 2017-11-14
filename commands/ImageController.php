@@ -29,35 +29,6 @@ class ImageController extends Controller
         }
     }
 
-    /**
-     * Not used currently since it kills server with load :)
-     * @param Image[] $images
-     */
-    private function processImagesInParallel(array $images)
-    {
-        $childPids = [];
-
-        foreach ($images as $i => $image) {
-            /** @var Image $image */
-            $newPid = pcntl_fork();
-            if ($newPid == -1) {
-                die('Can\'t fork');
-            }
-
-            if ($newPid) {
-                $childPids[] = $newPid;
-            } else {
-                \Yii::$app->db->pdo = null;
-                $this->generateThumbs($image);
-                exit(0);
-            }
-        }
-
-        foreach ($childPids as $childPid) {
-            pcntl_waitpid($childPid, $status);
-        }
-    }
-
     public function actionGenerate($id)
     {
         $this->generateThumbs(Image::findOne(['id' => $id]));
