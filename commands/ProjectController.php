@@ -19,7 +19,7 @@ class ProjectController extends Controller
             ->andWhere([
                 'published_to_twitter' => false,
             ])
-            ->orderBy(['created_by' => SORT_ASC]);
+            ->orderBy(['created_at' => SORT_ASC]);
         
         $current = 0;
         /** @var Project $project */
