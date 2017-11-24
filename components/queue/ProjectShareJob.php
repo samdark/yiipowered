@@ -55,7 +55,7 @@ class ProjectShareJob extends Job
                 Yii::error("Failed marking project $project->id as published_to_twitter.");
             }
         } else {
-            Yii::error("Tweeting failed with status $status:\n" . $twitter->getLastBody());
+            Yii::error("Tweeting failed with status $status:\n" . var_export($twitter->getLastBody(), true));
         }
     }
 }
