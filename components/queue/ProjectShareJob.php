@@ -5,11 +5,12 @@ namespace app\components\queue;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use app\models\Project;
 use Yii;
+use yii\base\BaseObject;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
-use yii\queue\closure\Job;
+use yii\queue\JobInterface;
 
-class ProjectShareJob extends Job 
+class ProjectShareJob extends BaseObject implements JobInterface
 {
     /**
      * @var int

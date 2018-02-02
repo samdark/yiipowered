@@ -1,8 +1,6 @@
 <?php
 
-
 namespace app\notifier;
-
 
 use app\models\User;
 
@@ -22,4 +20,10 @@ interface NotificationInterface
      * @return string
      */
     public function getText();
+
+    /**
+     * @return bool
+     */
+    public function isAllowSendToEmail();
+    
 }

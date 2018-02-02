@@ -14,8 +14,12 @@ class Notifier
 
     public function sendEmails()
     {
+        if (!$this->notification->isAllowSendToEmail()) {
+            return false;
+        }
+        
         $to = $this->notification->getToUser();
-
+        
         if (!$to || empty($to->email)) {
             // can't send emails
             return false;

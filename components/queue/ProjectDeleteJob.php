@@ -4,9 +4,10 @@ namespace app\components\queue;
 
 use Yii;
 use app\models\Project;
-use yii\queue\closure\Job;
+use yii\base\BaseObject;
+use yii\queue\JobInterface;
 
-class ProjectDeleteJob extends Job 
+class ProjectDeleteJob extends BaseObject implements JobInterface
 {
     /**
      * @var int

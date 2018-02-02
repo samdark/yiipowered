@@ -4,6 +4,7 @@ namespace app\models;
 
 use app\components\Language;
 use app\components\object\ClassType;
+use app\components\object\Linkable;
 use app\components\object\ObjectIdentityInterface;
 use app\components\queue\ProjectDeleteJob;
 use app\components\queue\ProjectShareJob;
@@ -57,7 +58,7 @@ use yii\helpers\Url;
  * @property Image $primaryImage
  * @property int $votingResult
  */
-class Project extends ActiveRecord implements ObjectIdentityInterface
+class Project extends ActiveRecord implements Linkable, ObjectIdentityInterface
 {
     const SCENARIO_MANAGE = 'manage';
 
@@ -620,4 +621,21 @@ class Project extends ActiveRecord implements ObjectIdentityInterface
     {
         return $this->id;
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getUrl($params = [])
+    {
+        return array_merge(['project/view', 'id' => $this->id, 'slug' => $this->slug], $params);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getLinkTitle()
+    {
+        return $this->title;
+    }
+    
 }
