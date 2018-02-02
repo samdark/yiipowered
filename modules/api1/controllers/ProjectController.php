@@ -45,10 +45,8 @@ class ProjectController extends Controller
      * @param int $id
      *
      * @throws ForbiddenHttpException
-     * @throws NotFoundHttpException
      * @throws ServerErrorHttpException
      * @throws UnauthorizedHttpException
-     * @throws \yii\base\InvalidConfigException
      */
     public function actionUpdate($id)
     {
@@ -57,7 +55,7 @@ class ProjectController extends Controller
             throw new UnauthorizedHttpException('User should be authorized in order to manage project.');
         }
 
-        $project = $this->findProject($id, $user);
+        $project = UserPermissions::canManageProjects() ? $this->findProject($id) : $this->findProject($id, $user);
         if (!UserPermissions::canManageProject($project)) {
             throw new ForbiddenHttpException(Yii::t('project', 'You can not update this project.'));
         }
@@ -123,7 +121,6 @@ class ProjectController extends Controller
      * @throws ForbiddenHttpException
      * @throws ServerErrorHttpException
      * @throws UnauthorizedHttpException
-     * @throws NotFoundHttpException
      */
     public function actionDelete($id)
     {
@@ -131,8 +128,8 @@ class ProjectController extends Controller
         if (!$user) {
             throw new UnauthorizedHttpException('User should be authorized in order to manage project.');
         }
-        
-        $project = $this->findProject($id, $user);
+
+        $project = UserPermissions::canManageProjects() ? $this->findProject($id) : $this->findProject($id, $user);
         if (!UserPermissions::canManageProject($project)) {
             throw new ForbiddenHttpException(Yii::t('project', 'You can not delete this project.'));
         }
@@ -160,19 +157,23 @@ class ProjectController extends Controller
 
     /**
      * @param int $projectId
-     * @param User $user
+     * @param User|null $user
      *
      * @return Project
      * @throws NotFoundHttpException
      */
-    protected function findProject($projectId, User $user)
+    protected function findProject($projectId, $user = null)
     {
-        /** @var Project $project */
-        $project = Project::find()
+        $projectQuery = Project::find()
             ->where(['id' => $projectId])
-            ->hasUser($user)
             ->available()
-            ->one();
+            ->limit(1);
+        
+        if ($user !== null) {
+            $projectQuery->hasUser($user);
+        }
+        
+        $project = $projectQuery->one();
 
         if ($project) {
             return $project;
