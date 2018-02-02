@@ -44,7 +44,7 @@ class NewCommentNotification implements NotificationInterface
      */
     public function getSubject()
     {
-        return 'Added new comment at YiiPowered!';
+        return 'New comment was added at YiiPowered';
     }
 
     /**
@@ -54,8 +54,8 @@ class NewCommentNotification implements NotificationInterface
     {
         $url = Url::to($this->_comment->model->getUrl(['#' => "c{$this->_comment->id}"]), true);
 
-        $message = "Added new comment: {$url}'.\n\n" .
-            "By {$this->_recipient->username} at " . Yii::$app->formatter->asDatetime($this->_comment->created_at) . "\n\n" .
+        $message = "New comment was added: {$url}'.\n\n" .
+            "Written by {$this->_recipient->username} at " . Yii::$app->formatter->asDatetime($this->_comment->created_at) . "\n\n" .
             wordwrap(strip_tags(Markdown::process($this->_comment->text, 'gfm')));
         
         return $message;
