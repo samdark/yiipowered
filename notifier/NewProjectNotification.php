@@ -51,4 +51,12 @@ $link
 TEXT;
 
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function isAllowSendToEmail()
+    {
+        return true;
+    }
 }

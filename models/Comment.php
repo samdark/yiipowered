@@ -3,6 +3,9 @@
 namespace app\models;
 
 use app\components\object\ClassType;
+use app\components\object\Linkable;
+use app\components\queue\CommentNotificationJob;
+use app\notifier\NewCommentNotification;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -21,7 +24,7 @@ use yii\db\ActiveRecord;
  * @property integer $created_at
  * @property integer $updated_at
  *
- * @property-read  \yii\db\ActiveRecord $model
+ * @property-read \yii\db\ActiveRecord|Linkable $model
  * @property User $createdBy
  */
 class Comment extends ActiveRecord
@@ -126,7 +129,7 @@ class Comment extends ActiveRecord
     }
 
     /**
-     * @return ActiveRecord
+     * @return ActiveRecord|Linkable
      */
     public function getModel()
     {
@@ -137,5 +140,42 @@ class Comment extends ActiveRecord
         /** @var ActiveRecord $modelClass */
         $modelClass = ClassType::getClass($this->object_type);
         return $modelClass::findOne($this->object_id);
+    }
+
+    /**
+     * @return bool
+     */
+    public function addNotificationJob()
+    {
+        if ($this->object_type === ClassType::PROJECT) {
+            /** @var Project $project */
+            $project = $this->model;
+            
+            foreach ($project->users as $user) {
+                if ((new NewCommentNotification($this, $user))->isAllowSendToEmail()) {
+                    Yii::$app->queue->push(new CommentNotificationJob([
+                        'commentId' => $this->id,
+                        'recipientId' => $user->id,
+                    ]));   
+                }
+            }
+            
+            return true;
+                
+        }
+        
+        return false;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        
+        if ($insert) {
+           $this->addNotificationJob();
+        }
     }
 }
