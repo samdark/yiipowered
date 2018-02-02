@@ -18,6 +18,7 @@ use app\components\UserPermissions;
             <div class="col-lg-6">
                 <?= $form->field($model, 'username')->textInput() ?>
                 <?= $form->field($model, 'fullname')->textInput() ?>
+                <?= $form->field($model, 'notify_about_comment_on_email')->checkbox() ?>
                 <?= $form->field($model, 'avatarFile')->fileInput() ?>
 
                 <div class="form-group current-avatar">

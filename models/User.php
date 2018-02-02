@@ -30,6 +30,7 @@ use yii\web\UploadedFile;
  * @property string $github
  * @property string $twitter
  * @property string $facebook
+ * @property bool $notify_about_comment_on_email
  *
  * @property Auth[] $auths
  * @property Project[] $projects
@@ -83,6 +84,9 @@ class User extends ActiveRecord implements IdentityInterface
             // Avatar
             ['avatar', 'string', 'max' => 60],
             ['avatarFile', 'file', 'extensions' => 'png, jpg'],
+            
+            ['notify_about_comment_on_email', 'required'],
+            ['notify_about_comment_on_email', 'boolean'],
         ];
     }
 
@@ -91,7 +95,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function scenarios()
     {
-        static $defaultAttributes = ['username', 'fullname',];
+        static $defaultAttributes = ['username', 'fullname', 'notify_about_comment_on_email'];
 
         return [
             self::SCENARIO_DEFAULT => $defaultAttributes,
@@ -248,6 +252,7 @@ class User extends ActiveRecord implements IdentityInterface
             'status' => Yii::t('user', 'Status'),
             'created_at' => Yii::t('user', 'Created At'),
             'updated_at' => Yii::t('user', 'Updated At'),
+            'notify_about_comment_on_email' => Yii::t('user', 'Notify about new comments by e-mail'),
         ];
     }
 

@@ -46,4 +46,5 @@ return [
     'Users' => 'Пользователи',
     'You can not update this user.' => 'Вы не можете редактировать этого пользователя.',
     'Your profile has been successfully updated.' => 'Ваш профиль успешно обновлён.',
+    'Notify about new comments by e-mail' => 'Уведомлять о новых комментариях по e-mail',
 ];
