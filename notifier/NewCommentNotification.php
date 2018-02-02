@@ -5,7 +5,8 @@ namespace app\notifier;
 use app\models\User;
 use app\models\Comment;
 use Yii;
-use yii\helpers\Markdown;use yii\helpers\Url;
+use yii\helpers\Markdown;
+use yii\helpers\Url;
 
 class NewCommentNotification implements NotificationInterface
 {
