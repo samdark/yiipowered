@@ -30,4 +30,9 @@ return [
     'Login' => 'Войти',
     'signup' => 'зарегистрироваться',
     'Text' => 'Комментарий',
+    'Delete' => 'Удалить',
+    'Are you sure you want to delete this comment?' => 'Вы уверены, что хотите удалить этот комментарий?',
+    'Comment deleted.' => 'Комментарий удален.',
+    'Failed to delete comment.' => 'Ошибка при удалении комментария.',
+    'You can not delete this comment.' => 'Вы не можете удалить этот комментарий.',
 ];

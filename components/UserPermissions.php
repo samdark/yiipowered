@@ -4,6 +4,7 @@
 namespace app\components;
 
 
+use app\models\Comment;
 use app\models\Project;
 use app\models\User;
 
@@ -73,6 +74,22 @@ class UserPermissions
         }
 
         if (self::canManagerUsers()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function canManageComments()
+    {
+        if (\Yii::$app->user->isGuest) {
+            return false;
+        }
+        
+        if (self::canManageProjects()) {
             return true;
         }
 

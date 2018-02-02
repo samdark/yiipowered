@@ -3,6 +3,7 @@
  * @var Comment[] $comments
  */
 
+use app\components\UserPermissions;
 use app\models\Comment;
 use yii\helpers\Html;
 use yii\helpers\Markdown;
@@ -35,6 +36,18 @@ use yii\helpers\HtmlPurifier;
                                                 'time' => Yii::$app->formatter->asDatetime($comment->created_at)
                                             ]) ?>
                                         </div>
+
+                                        <?php if (UserPermissions::canManageComments()): ?>
+                                            <div class="col-md-2">
+                                                <?= Html::a(
+                                                    '<i class="fa fa-remove"></i> ' . Yii::t('comment', 'Delete'),
+                                                    ['/project/delete-comment', 'id' => $comment->id], [
+                                                    'data-method' => 'post',
+                                                    'data-confirm' => Yii::t('comment', 'Are you sure you want to delete this comment?'),
+                                                    'class' => 'btn btn-danger'
+                                                ]) ?>
+                                            </div>
+                                        <?php endif ?>
                                     </div>
                                 </div>
                                 <div class="body">

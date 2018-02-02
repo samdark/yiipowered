@@ -4,7 +4,9 @@ namespace app\controllers;
 
 use app\components\feed\Feed;
 use app\components\feed\Item;
+
 use app\components\UserPermissions;
+use app\models\Comment;
 use app\models\Image;
 use app\models\ImageUploadForm;
 use app\models\Project;
@@ -39,11 +41,11 @@ class ProjectController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'update', 'delete-image', 'bookmarks', 'delete'], //only be applied to
+                'only' => ['create', 'update', 'delete-image', 'bookmarks', 'delete', 'delete-comment'], //only be applied to
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create', 'update', 'delete-image', 'bookmarks', 'publish', 'draft', 'delete'],
+                        'actions' => ['create', 'update', 'delete-image', 'bookmarks', 'publish', 'draft', 'delete', 'delete-comment'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -54,6 +56,7 @@ class ProjectController extends Controller
                     'publish' => ['post'],
                     'draft' => ['post'],
                     'delete' => ['post'],
+                    'delete-comment' => ['post'],
                 ]
             ]
         ];
@@ -524,5 +527,39 @@ class ProjectController extends Controller
         }
 
         return Yii::$app->getResponse()->sendFile($image->getOriginalPath(), $image->getOriginalFilename());
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     */
+    public function actionDeleteComment($id)
+    {
+        $comment = Comment::findOne($id);
+        if ($comment === null) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        
+        if (!UserPermissions::canManageComments()) {
+            throw new ForbiddenHttpException(Yii::t('comment', 'You can not delete this comment.'));
+        }
+
+        $project = $comment->getModel();
+        if ($project === null || !$project instanceof Project) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        
+        if ($comment->delete()) {
+            Yii::$app->session->setFlash('success', Yii::t('comment', 'Comment deleted.'));
+        } else {
+            Yii::$app->session->setFlash('error', Yii::t('comment', 'Failed to delete comment.'));
+        }
+        
+        $backUrl = Yii::$app->request->referrer ?: Url::to(['view', 'id' => $project->id, 'slug' => $project->slug]);
+        
+        return $this->redirect($backUrl);
     }
 }
