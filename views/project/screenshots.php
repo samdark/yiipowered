@@ -8,6 +8,7 @@
 
 use app\assets\ImageCropperAsset;
 use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
@@ -15,7 +16,7 @@ $this->title = Yii::t('project', 'Upload screenshots');
 
 ImageCropperAsset::register($this);
 $sizeThumb = Yii::$app->params['image.size.thumbnail'];
-$this->registerJs("initProjectImageUpload({$sizeThumb[0]}, {$sizeThumb[1]});");
+$this->registerJs("initProjectImageUpload({$sizeThumb[0]}, {$sizeThumb[1]}, " . Json::htmlEncode(Yii::t('project', 'You did not save the image. Are you sure you want to continue?')) . ");");
 ?>
 
 <div class="project-screenshots">
