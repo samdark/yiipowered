@@ -56,8 +56,9 @@ jQuery(function ($) {
  * 
  * @param {int} widthMin
  * @param {int} heightMin
+ * @param {string} controlLockMessage
  */
-function initProjectImageUpload(widthMin, heightMin) {
+function initProjectImageUpload(widthMin, heightMin, controlLockMessage) {
     var uploadForm = $('#project-image-upload');
     var imageCropperBlock = uploadForm.find('.cropper-block');
     var imageBlock = imageCropperBlock.find('.image-block');
@@ -66,6 +67,8 @@ function initProjectImageUpload(widthMin, heightMin) {
     var inputFile = uploadForm.find('[name="ImageUploadForm[file]"]');
     var inputImageId = uploadForm.find('[name="ImageUploadForm[imageId]"]');
 
+    var processIsRunning = false;
+    
     imageBlock.cropper({
         viewMode: 1,
         minCropBoxWidth: widthMin,
@@ -95,6 +98,7 @@ function initProjectImageUpload(widthMin, heightMin) {
     });
 
     function clear() {
+        processIsRunning = false;
         imageCropperBlock.hide(0);
         uploadForm.removeClass('opened');
 
@@ -120,6 +124,7 @@ function initProjectImageUpload(widthMin, heightMin) {
                 imageBlock.one('built.cropper', function () {
                     URL.revokeObjectURL(blobURL);
                 }).cropper('reset').cropper('replace', blobURL);
+                processIsRunning = true;
                 imageCropperBlock.show(0);
                 uploadForm.addClass('opened');
             }
@@ -141,6 +146,7 @@ function initProjectImageUpload(widthMin, heightMin) {
         inputImageId.val(imageId);
         imageBlock.cropper('reset').cropper('replace', imageUrl);
 
+        processIsRunning = true;
         imageCropperBlock.show(0);
         uploadForm.addClass('opened');
     });
@@ -153,5 +159,11 @@ function initProjectImageUpload(widthMin, heightMin) {
         }
 
         imageCropperBlock.cropper('reset')
+    });
+
+    $('.control-buttons a').on('click.controlLockMessage', function (e) {
+        if (processIsRunning && !confirm(controlLockMessage)) {
+            e.preventDefault();
+        }
     });
 }
