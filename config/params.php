@@ -47,5 +47,13 @@ return [
     'components.queue' => [
         'class' => \yii\queue\db\Queue::class,
         'channel' => 'default'
-    ]
+    ],
+
+    'HtmlPurifier.projectDescription' => [
+        'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,ul,ol,li,b,i,u,strong,br,sub,sup,a[href]',
+    ],
+    'HtmlPurifier.projectComment' => [
+        'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,ul,ol,li,b,i,u,strong,br,sub,sup,a[href],img[src]',
+    ],
+    
 ];

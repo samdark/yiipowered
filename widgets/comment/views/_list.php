@@ -52,7 +52,7 @@ use yii\helpers\HtmlPurifier;
                                 </div>
                                 <div class="body">
                                     <div class="text">
-                                        <?= HtmlPurifier::process(Markdown::process($comment->text, 'gfm')) ?>
+                                        <?= HtmlPurifier::process(Markdown::process($comment->text, 'gfm'), Yii::$app->params['HtmlPurifier.projectComment']) ?>
                                     </div>
                                 </div>
                             </div>
