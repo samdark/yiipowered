@@ -223,7 +223,7 @@ class ProjectController extends Controller
                 $imageTag = Html::img($project->images[0]->getThumbnailAbsoluteUrl()) . '<br>';
             }
 
-            $item->description = $imageTag . HtmlPurifier::process(Markdown::process($project->getDescription()));
+            $item->description = $imageTag . HtmlPurifier::process(Markdown::process($project->getDescription()), Yii::$app->params['HtmlPurifier.projectDescription']);
 
             if (!empty($project->link)) {
                 $item->description .= Html::a(Html::encode($project->url), $project->url);

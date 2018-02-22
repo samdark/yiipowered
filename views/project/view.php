@@ -77,7 +77,7 @@ $management = isset($management) ? $management : null;
             </div>
 
             <div class="description">
-                <?= HtmlPurifier::process(Markdown::process($model->getDescription(), 'gfm')) ?>
+                <?= HtmlPurifier::process(Markdown::process($model->getDescription(), 'gfm'), Yii::$app->params['HtmlPurifier.projectDescription']) ?>
             </div>
 
             <div class="information">
