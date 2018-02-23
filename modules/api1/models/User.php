@@ -28,7 +28,7 @@ class User extends \app\models\User implements Linkable
     public function getLinks()
     {
         return [
-            Link::REL_SELF => Url::to(['/user/view', 'id' => $this->id], 'http'),
+            Link::REL_SELF => Url::to(['/user/view', 'id' => $this->id], true),
         ];
     }
 }
