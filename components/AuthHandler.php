@@ -66,6 +66,7 @@ class AuthHandler
                     ]);
                 } else {
                     $user = new User();
+                    $user->loadDefaultValues();
 
                     $user->username = $nickname;
                     $user->fullname = $fullname;
