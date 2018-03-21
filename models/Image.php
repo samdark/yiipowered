@@ -136,7 +136,7 @@ class Image extends \yii\db\ActiveRecord
 
     public function getThumbnailAbsoluteUrl()
     {
-        return Url::to($this->getThumbnailRelativeUrl(), 'http');
+        return Url::to($this->getThumbnailRelativeUrl(), true);
     }
 
     public function getOriginalFilename()

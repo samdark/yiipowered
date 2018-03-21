@@ -203,7 +203,7 @@ class ProjectController extends Controller
 
         $feed = new Feed();
         $feed->title = 'YiiPowered';
-        $feed->link = Url::to('');
+        $feed->link = Url::to('/', true);
         $feed->selfLink = Url::to(['project/rss'], true);
         $feed->description = 'Yii powered projects';
         $feed->language = 'en';

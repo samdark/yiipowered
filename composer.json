@@ -2,7 +2,7 @@
     "name": "yiipowered/yiipowered",
     "description": "Showcase of Yii-powered projects",
     "keywords": ["yii2", "yii", "projects", "websites", "showcase"],
-    "homepage": "http://yiipowered.com/",
+    "homepage": "https://yiipowered.com/",
     "type": "project",
     "license": "BSD-3-Clause",
     "minimum-stability": "stable",

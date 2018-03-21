@@ -213,7 +213,7 @@ class Project extends ActiveRecord implements Linkable, ObjectIdentityInterface
 
     public function getPlaceholderAbsoluteUrl()
     {
-        return Url::to($this->getPlaceholderRelativeUrl(), 'http');
+        return Url::to($this->getPlaceholderRelativeUrl(), true);
     }
 
     /**
