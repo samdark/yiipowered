@@ -8,6 +8,7 @@ $languages = [
     'en' => ['en-US', 'English'],
     'ru' => ['ru-RU', 'Русский'],
     'pl' => ['pl-PL', 'Polski'],
+    'vi' => ['vi-VN', 'Tiếng Việt'],
 ];
 
 return [
