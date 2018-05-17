@@ -31,5 +31,6 @@ class AppAsset extends AssetBundle
         BootstrapAsset::class,
         MagnificPopupAsset::class,
         FontAwesomeAsset::class,
+        LazyLoadAsset::class
     ];
 }
