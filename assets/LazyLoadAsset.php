@@ -7,13 +7,13 @@ namespace app\assets;
 use yii\web\AssetBundle;
 
 /**
- * CodeMirrorAsset groups assets for code editing areas
+ * LazyLoadAsset groups assets for Image Lazy Load
  */
 class LazyLoadAsset extends AssetBundle
 {
-    public $sourcePath = null;
+    public $sourcePath = '@bower/vanilla-lazyload';
 
     public $js = [
-        'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/10.5.2/lazyload.min.js',
+        'dist/lazyload.js',
     ];
 }
