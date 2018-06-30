@@ -108,8 +108,8 @@ class ImageUploadForm extends Model
             $this->_image = $image;
         }
 
-        $this->image->generateThumbnail($this->imageCropDataAsArray ? : null);
-        $this->image->generateBigThumbnail($this->imageCropDataAsArray ? : null);
+        $this->image->generateThumbnail(/*$this->imageCropDataAsArray ? : null*/);
+        $this->image->generateBigThumbnail(/*$this->imageCropDataAsArray ? : null*/);
 
         return true;
     }
