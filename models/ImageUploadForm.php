@@ -124,7 +124,7 @@ class ImageUploadForm extends Model
             
             try {
                 $imageCropData = Json::decode($this->imageCropData);
-                if (!array_diff(['width', 'height', 'x', 'y'], array_keys($imageCropData)) && $imageCropData['x'] !== null && $imageCropData['y'] !== null && $imageCropData['width'] !== null && $imageCropData['height'] !== null) {
+                if (!array_diff(['width', 'height', 'x', 'y'], array_keys($imageCropData))) {
                     $this->_imageCropDataAsArray = $imageCropData;
                 }
             } catch (\Exception $ex) {
