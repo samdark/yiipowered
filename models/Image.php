@@ -220,7 +220,7 @@ class Image extends \yii\db\ActiveRecord
         $size = Yii::$app->params['image.size.thumbnail'];
 
         $image = new SimpleImage($this->getOriginalPath());
-        if ($crop !== null && $crop['x'] !== null && $crop['y'] !== null && $crop['width'] !== null && $crop['height'] !== null) {
+        if ($crop !== null) {
             $image->crop($crop['x'], $crop['y'], $crop['width'] + $crop['x'], $crop['height'] + $crop['y']);
         }
 
