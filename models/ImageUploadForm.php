@@ -66,7 +66,7 @@ class ImageUploadForm extends Model
             ['imageCropData', 'required'],
             ['imageCropData', function ($attribute) {
                 if (!$this->imageCropDataAsArray) {
-                    $this->addError($attribute, 'Empty crop date for thumb.');
+                    $this->addError($attribute, 'Empty crop data for thumb.');
                 }
             }],
 
