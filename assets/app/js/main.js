@@ -51,7 +51,9 @@ jQuery(function ($) {
         });
     });
 
-    var myLazyLoad = new LazyLoad();
+    new LazyLoad({
+        elements_selector: ".lazy"
+    });
 });
 
 /**
