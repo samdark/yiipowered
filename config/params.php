@@ -6,7 +6,7 @@ use yii\web\UrlNormalizer;
 
 $languages = [
     'en' => ['en-US', 'English'],
-    'fr' => ['fr-FR', 'French'],
+    'fr' => ['fr-FR', 'Français'],
     'ru' => ['ru-RU', 'Русский'],
     'pl' => ['pl-PL', 'Polski'],
     'vi' => ['vi-VN', 'Tiếng Việt'],
