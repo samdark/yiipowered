@@ -42,7 +42,7 @@ return [
     'Password Reset Token' => 'Passwort zurücksetzen Token',
     'Status' => 'Status',
     'Twitter' => 'Twitter',
-    'Update' => 'Aktualisiert',
+    'Update' => 'Anpassen',
     'Updated At' => 'Aktualisiert am',
     'Username' => 'Benutzername',
     'Users' => 'Benutzer',
