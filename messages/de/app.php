@@ -28,7 +28,7 @@ return [
     'Login' => 'Einloggen',
     'Password' => 'Passwort',
     'Please choose your new password:' => 'Bitte wähle ein neues Passwort:',
-    'Please fill out your email. A link to reset password will be sent there.' => 'Bitte gebe deine E-Mail-Adresse an um ein Link zum zurücksetzen des Passworts an diese Adresse zu senden.',
+    'Please fill out your email. A link to reset password will be sent there.' => 'Bitte gebe deine E-Mail-Adresse an, damit wir dir einen Link zum zurücksetzen des Passworts senden können.',
     'RSS feed' => 'RSS',
     'Request password reset' => 'Neues Passwort anfordern',
     'Reset password' => 'Passwort zurücksetzen',
