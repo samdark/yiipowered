@@ -55,7 +55,7 @@ return [
     'Manage projects' => 'Projekte verwalten',
     'Mark as primary image' => 'Als Anzeigebild markieren',
     'New projects' => 'Neue Projekte',
-    'Next' => 'Nächstes',
+    'Next' => 'Nächster Schritt',
     'Not open source' => 'Nicht Open Source', // <-- open source written different
     'Only Featured' => 'Nur hervorgehobene',
     'Open source' => 'Open Source', // same .. // <-- open source written different
