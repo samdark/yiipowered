@@ -95,7 +95,7 @@ return [
     'View  {n, plural, one{one more project} other{# more projects}}' => 'Zeige {n, plural, one{ein Projekt} other{# mehrere Projekte}}',
     'Yii Version' => 'Yii Version',
     'You can not update this project.' => 'Du kannst dieses Projekt nicht aktualisieren.',
-    'You can upload up to 5 images. The first image will be used as a main preview of your project, while others will be displayed on the project details page' => 'Du kannst 5 Bilder hochladen. Das erste Bild wird als Vorschau bild des Projekts verwendet. Die andere Bildern werden auf der Projekt Detail Seite angezeigt',
+    'You can upload up to 5 images. The first image will be used as a main preview of your project, while others will be displayed on the project details page' => 'Du kannst 5 Bilder hochladen. Das erste Bild wird als Vorschaubild des Projekts verwendet. Die anderen Bildern werden auf der Projekt Seite angezeigt',
     'You have no bookmarked projects yet.' => 'Du hast keine markierten Projekte.',
     '{n, plural, one{# project} other{# projects}} made with {link}' => '{n,plural,one{# Projekt} other{# Projekte}} mit {link} gemacht',
 ];
