@@ -68,6 +68,7 @@ class Project extends ActiveRecord implements Linkable, ObjectIdentityInterface
 
     const YII_VERSION_11 = '1.1';
     const YII_VERSION_20 = '2.0';
+    const YII_VERSION_30 = '3.0';
 
     /**
      * @var int[]
@@ -330,6 +331,7 @@ class Project extends ActiveRecord implements Linkable, ObjectIdentityInterface
         return [
             self::YII_VERSION_20 => self::YII_VERSION_20,
             self::YII_VERSION_11 => self::YII_VERSION_11,
+            self::YII_VERSION_30 => self::YII_VERSION_30,
         ];
     }
 
