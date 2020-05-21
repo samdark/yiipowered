@@ -88,7 +88,10 @@ class ProjectController extends Controller
                 ->limit($limit)
         ]);
 
-        $projectsCount = (clone $newProvider->query)->limit(null)->count();
+        $projectsCount = Project::find()
+            ->published()
+            ->count();
+
         $seeMoreCount = $projectsCount - $limit;
 
         return $this->render('index', [
