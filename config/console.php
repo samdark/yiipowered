@@ -1,6 +1,9 @@
 <?php
 
+use app\components\ApiFlash;
+use app\components\ScreenshotLayerApi;
 use yii\gii\Module;
+use yii\mutex\MysqlMutex;
 use yii\rbac\PhpManager;
 use yii\caching\FileCache;
 use yii\log\FileTarget;
@@ -54,8 +57,17 @@ return [
                 'hostInfo' => $params['siteAbsoluteUrl']
             ]
         ),
-        'mutex' => \yii\mutex\MysqlMutex::class,
-        'queue' => $params['components.queue']
+        'mutex' => MysqlMutex::class,
+        'queue' => $params['components.queue'],
+        'screenshotLayer' => [
+            'class' => ScreenshotLayerApi::class,
+            'secret' => $params['screenshotLayer.secret'],
+            'accessKey' => $params['screenshotLayer.accessKey'],
+        ],
+        'apiFlash' => [
+            'class' => ApiFlash::class,
+            'accessKey' => $params['apiFlash.accessKey'],
+        ],
     ],
     'params' => $params,
 ];

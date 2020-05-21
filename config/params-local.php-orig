@@ -13,5 +13,12 @@ return [
     'twitter.consumerKey' => '',
     'twitter.consumerSecret' => '',
     'twitter.accessToken' => '',
-    'twitter.accessTokenSecret' => ''
+    'twitter.accessTokenSecret' => '',
+
+    // get these at https://screenshotlayer.com/dashboard
+    'screenshotLayer.secret' => '',
+    'screenshotLayer.accessKey' => '',
+
+    // get these at https://apiflash.com/documentation#access
+    'apiFlash.accessKey' => '',
 ];
