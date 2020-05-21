@@ -20,7 +20,7 @@ $db = require __DIR__ . '/db.php';
 return [
     'id' => 'yiipowered-console',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log', 'gii', 'queue'],
+    'bootstrap' => ['log', 'queue'],
     'controllerNamespace' => 'app\commands',
     'controllerMap' => [
         'migrate' => [
@@ -30,9 +30,6 @@ return [
                 'yii\queue\db\migrations',
             ],
         ],
-    ],
-    'modules' => [
-        //'gii' => Module::class,
     ],
     'components' => [
         'authManager' => [
