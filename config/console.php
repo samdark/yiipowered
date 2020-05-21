@@ -32,7 +32,7 @@ return [
         ],
     ],
     'modules' => [
-        'gii' => Module::class,
+        //'gii' => Module::class,
     ],
     'components' => [
         'authManager' => [
