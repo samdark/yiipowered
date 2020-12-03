@@ -129,7 +129,7 @@ class ImageController extends Controller
     private function removeBrokenImagesOneByOne(array $images)
     {
         foreach ($images as $i => $image) {
-            if (!file_exists($image->getOriginalPath()) {
+            if (!file_exists($image->getOriginalPath())) {
                 echo 'Removing broken image #' . $image->id . ' for project #' . $image->project_id . "\n";
                 $image->delete();
             }
