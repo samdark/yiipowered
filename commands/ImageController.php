@@ -119,8 +119,7 @@ class ImageController extends Controller
         $batchSize = 100;
         $batch = Image::find()->batch($batchSize);
         foreach ($batch as $images) {
-
-            $this->processImagesOneByOne($images);
+            $this->removeBrokenImagesOneByOne($images);
         }
     }
 
@@ -131,6 +130,7 @@ class ImageController extends Controller
     {
         foreach ($images as $i => $image) {
             if (!file_exists($image->getOriginalPath()) {
+                echo 'Removing broken image #' . $image->id . ' for project #' . $image->project_id . "\n";
                 $image->delete();
             }
         }
