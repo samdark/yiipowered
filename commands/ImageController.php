@@ -113,4 +113,26 @@ class ImageController extends Controller
 
         echo Console::renderColoredString(" %Gdone.%n\n");
     }
+
+    public function actionRemoveBroken()
+    {
+        $batchSize = 100;
+        $batch = Image::find()->batch($batchSize);
+        foreach ($batch as $images) {
+
+            $this->processImagesOneByOne($images);
+        }
+    }
+
+    /**
+     * @param Image[] $images
+     */
+    private function removeBrokenImagesOneByOne(array $images)
+    {
+        foreach ($images as $i => $image) {
+            if (!file_exists($image->getOriginalPath()) {
+                $image->delete();
+            }
+        }
+    }
 }
