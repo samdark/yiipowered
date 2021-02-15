@@ -92,7 +92,7 @@ return [
     'Upload an image' => 'Bild hochladen',
     'Upload screenshots' => 'Screenshot hochladen',
     'User ID' => 'Benutzer ID',
-    'View  {n, plural, one{one more project} other{# more projects}}' => 'Zeige {n, plural, one{ein Projekt} other{# mehrere Projekte}}',
+    'View  {n, plural, one{one more project} other{# more projects}}' => 'Zeige {n, plural, one{ein Projekt} other{# weitere Projekte}}',
     'Yii Version' => 'Yii Version',
     'You can not update this project.' => 'Du kannst dieses Projekt nicht aktualisieren.',
     'You can upload up to 5 images. The first image will be used as a main preview of your project, while others will be displayed on the project details page' => 'Du kannst 5 Bilder hochladen. Das erste Bild wird als Vorschaubild des Projekts verwendet. Die anderen Bilder werden auf der Projekt Seite angezeigt',
