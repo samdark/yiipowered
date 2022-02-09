@@ -27,7 +27,6 @@ final class ProjectCheckJob extends BaseObject implements JobInterface
             ->one();
 
         if ($project === null) {
-            Yii::error("Skipping checking of $project->url.\n");
             return;
         }
 
