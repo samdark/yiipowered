@@ -101,4 +101,20 @@ class ProjectQuery extends ActiveQuery
         $this->leftJoin('project_user pu', 'pu.project_id = project.id');
         return $this->andWhere(['pu.user_id' => $user->id]);
     }
+
+    /**
+     * @return $this
+     */
+    public function verified(bool $value)
+    {
+        return $this->andWhere(['verified' => $value]);
+    }
+
+    /**
+     * @return $this
+     */
+    public function notChecked()
+    {
+        return $this->andWhere(['check_result' => null]);
+    }
 }

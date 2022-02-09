@@ -38,6 +38,9 @@ use yii\helpers\Url;
  * @property string $tagValues
  * @property int $primary_image_id
  * @property boolean $published_to_twitter
+ * @property boolean $verified
+ * @property string $check_result
+ * @property string $check_log
  *
  * @property Image[] $images
  * @property User $updatedBy

@@ -74,6 +74,8 @@ Will assign admin role to user with username=alex.
 
 ```
 */10 * * * * php yii queue/run > /dev/null 2>&1
+0 4 * * * php yii image/fetch > /dev/null 2>&1
+0 5 * * * php yii check/all > /dev/null 2>&1
 ```
 
 INSTALLATION (Docker)

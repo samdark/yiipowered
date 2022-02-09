@@ -69,6 +69,7 @@ return [
             'class' => CheckerService::class,
             'checkers' => require __DIR__ . '/checkers.php',
         ],
+        'i18n' => require __DIR__ . '/i18n.php',
     ],
     'params' => $params,
 ];
