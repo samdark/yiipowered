@@ -4,9 +4,9 @@ use yii\db\Connection;
 
 return [
     'class' => Connection::class,
-    'dsn' => 'mysql:host=localhost;dbname=yiipowered',
+    'dsn' => 'mysql:host=yiipowered_mysql;dbname=yiipowered',
     'username' => 'root',
-    'password' => '',
+    'password' => 'password',
     'charset' => 'utf8',
     'enableSchemaCache' => true,
 ];

@@ -24,8 +24,8 @@ REQUIREMENTS
 The minimum requirement by this project template that your Web server supports PHP 7.0.
 
 
-INSTALLATION
-------------
+INSTALLATION (Locally)
+----------------------
 
 ### 1. Framework and dependencies
 
@@ -35,7 +35,6 @@ at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
 You can then install this application template using the following command:
 
 ~~~
-composer global require "fxp/composer-asset-plugin"
 composer install
 ~~~
 
@@ -57,7 +56,7 @@ yii migrate
 
 ### 4. Permissions 
 
-Permissions tree should be already initialized at step 3 so you can 
+Permissions tree should be already initialized at step 3, so you can 
 use `user/assign` to assign roles to users:
 
 ```
@@ -76,3 +75,14 @@ Will assign admin role to user with username=alex.
 ```
 */10 * * * * php yii queue/run > /dev/null 2>&1
 ```
+
+INSTALLATION (Docker)
+---------------------
+
+1. `docker-compose up`.
+2. Add `yiipowered.test` to your hosts.
+3. There are `.php-orig` sample configs in `config` directory. Copy these to `.php` without `-orig` and adjust to your
+   needs.
+4. `docker exec -it yiipowered bash`.
+5. `composer install && php yii migrate`.
+6. Use `user/assign` to assign roles to users.

@@ -1,0 +1,56 @@
+version: '3.7'
+
+networks:
+  yiipowered_public:
+    name: yiipowered_public
+  yiipowered_private:
+    name: yiipowered_private
+
+volumes:
+  yiipowered_mysql:
+  php_socket:
+
+services:
+  yiipowered:
+    container_name: yiipowered
+    image: yiipowered:latest
+    build:
+      context: './'
+    volumes:
+      - '.:/var/www'
+      - 'php_socket:/var/run/php'
+    depends_on:
+      - mysql
+    networks:
+      - yiipowered_private
+
+  nginx:
+    container_name: yiipowered_nginx
+    build:
+      context: './nginx'
+    volumes:
+      - './nginx/router:/etc/nginx/conf.d.local:ro'
+      - '.:/var/www'
+      - 'php_socket:/var/run/php'
+    ports:
+      - '80:80'
+    depends_on:
+      - yiipowered
+    networks:
+      yiipowered_public:
+        aliases:
+          - yiipowered.test
+
+  mysql:
+    container_name: yiipowered_mysql
+    image: 'mariadb:10.1.44'
+    ports:
+      - '3306:3306'
+    volumes:
+      - yiipowered_mysql:/var/lib/postgresql/data
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: yiipowered
+    networks:
+      - yiipowered_private
