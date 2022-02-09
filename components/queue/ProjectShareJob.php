@@ -26,6 +26,10 @@ class ProjectShareJob extends BaseObject implements JobInterface
             ->limit(1)
             ->one();
 
+        if (!$project) {
+            return;
+        }
+
         if ($project->published_to_twitter) {
             return;
         }
