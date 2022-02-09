@@ -52,7 +52,7 @@ final class ProjectCheckJob extends BaseObject implements JobInterface
                 break;
             case CheckerResult::NOT_YII:
                 $project->verified = false;
-                $project->status = Project::STATUS_DELETED;
+                $project->status = Project::STATUS_DRAFT;
                 break;
             case CheckerResult::UNCERTAIN:
             case CheckerResult::CONFLICT:
