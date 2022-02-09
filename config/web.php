@@ -117,6 +117,10 @@ $config = [
                 \yii\authclient\widgets\AuthChoiceStyleAsset::class => false
             ]
         ],
+        'checker' => [
+            'class' => \app\checkers\CheckerService::class,
+            'checkers' => require __DIR__ . '/checkers.php',
+        ],
     ],
     'params' => $params,
     'modules' => [
