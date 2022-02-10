@@ -22,6 +22,7 @@ class ProjectFilterForm extends Model
     public $opensource;
     public $featured;
     public $yiiVersion;
+    public $verified;
 
     public $status;
 
@@ -30,7 +31,7 @@ class ProjectFilterForm extends Model
         return [
             [['title', 'url'], 'string', 'max' => 255],
             [['opensource'], 'in', 'range' => array_keys($this->getOpenSourceOptions())],
-            [['featured'], 'boolean'],
+            [['featured', 'verified'], 'boolean'],
             [['yiiVersion'], 'in', 'range' => array_keys(Project::versions())],
             ['status', 'in', 'range' => Project::$availableStatusIds],
             [['tags'], 'safe']
@@ -56,6 +57,7 @@ class ProjectFilterForm extends Model
             'opensource' => \Yii::t('project', 'OpenSource'),
             'featured' => \Yii::t('project', 'Only Featured'),
             'yiiVersion' => \Yii::t('project', 'Yii Version'),
+            'verified' => \Yii::t('project', 'Only Verified'),
         ];
     }
 
@@ -85,12 +87,17 @@ class ProjectFilterForm extends Model
         $query->andFilterWhere(['yii_version' => $this->yiiVersion]);
         $query->andFilterWhere(['is_opensource' => $this->opensource]);
 
+
         if ($this->status !== null && UserPermissions::canManageProjects()) {
             $query->andFilterWhere(['status' => $this->status]);
         }
 
         if ($this->featured) {
             $query->andWhere(['is_featured' => true]);
+        }
+
+        if ($this->verified) {
+            $query->andFilterWhere(['verified' => $this->verified]);
         }
 
         return new ActiveDataProvider([

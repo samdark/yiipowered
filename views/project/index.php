@@ -15,7 +15,7 @@ $this->title = Yii::t('project', 'Projects built with Yii');
     <p>
         <?= Yii::t('project', '{n, plural, one{# project} other{# projects}} made with {link}', [
             'n' => $projectsCount,
-            'link' => Html::a('Yii framework', 'http://yiiframework.com'),
+            'link' => Html::a('Yii framework', 'https://www.yiiframework.com'),
         ]) ?>
     </p>
 

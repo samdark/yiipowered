@@ -39,6 +39,7 @@ $this->title = Yii::t('project', 'Projects');
                     ->label(false)
                 ?>
                 <?= $form->field($filterForm, 'featured')->checkbox() ?>
+                <?= $form->field($filterForm, 'verified')->checkbox() ?>
                 <?= $form->field($filterForm, 'yiiVersion')
                     ->dropDownList(Project::versions(), [
                         'prompt' => Yii::t('project', 'Any Yii version'),
