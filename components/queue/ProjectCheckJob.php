@@ -37,18 +37,22 @@ final class ProjectCheckJob extends BaseObject implements JobInterface
         switch ($result->getResult()) {
             case CheckerResult::YII:
                 $project->verified = true;
+                $project->status = Project::STATUS_PUBLISHED;
                 break;
             case CheckerResult::YII_1_1:
                 $project->yii_version = Project::YII_VERSION_11;
                 $project->verified = true;
+                $project->status = Project::STATUS_PUBLISHED;
                 break;
             case CheckerResult::YII_2_0:
                 $project->yii_version = Project::YII_VERSION_20;
                 $project->verified = true;
+                $project->status = Project::STATUS_PUBLISHED;
                 break;
             case CheckerResult::YII_3_0:
                 $project->yii_version = Project::YII_VERSION_30;
                 $project->verified = true;
+                $project->status = Project::STATUS_PUBLISHED;
                 break;
             case CheckerResult::NOT_YII:
                 $project->verified = false;
