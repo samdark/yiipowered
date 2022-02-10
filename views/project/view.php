@@ -1,5 +1,6 @@
 <?php
 
+use app\checkers\CheckerResult;
 use app\components\UserPermissions;
 use app\widgets\Vote;
 use yii\helpers\Html;
@@ -35,6 +36,10 @@ $management = isset($management) ? $management : null;
 
                 <?php if ($model->verified): ?>
                     <span class="verified" aria-hidden="true"></span>
+                <?php endif ?>
+
+                <?php if ($model->check_result === CheckerResult::NOT_YII): ?>
+                    <span class="warning" aria-hidden="true"></span>
                 <?php endif ?>
 
                 <?php if ($model->status !== Project::STATUS_PUBLISHED && $canManageProject): ?>
