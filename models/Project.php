@@ -141,7 +141,7 @@ class Project extends ActiveRecord implements Linkable, ObjectIdentityInterface
 
         return [
             self::SCENARIO_DEFAULT => $defaultAttributes,
-            self::SCENARIO_MANAGE => array_merge($defaultAttributes, ['is_featured']),
+            self::SCENARIO_MANAGE => array_merge($defaultAttributes, ['is_featured', 'verified']),
         ];
     }
 
@@ -174,6 +174,7 @@ class Project extends ActiveRecord implements Linkable, ObjectIdentityInterface
             'description' => Yii::t('project', 'Description in {language}', ['language' => Language::current()]),
             'tagValues' => Yii::t('project', 'Tags'),
             'primary_image_id' => Yii::t('project', 'Primary image'),
+            'verified' => Yii::t('project', 'Verified'),
         ];
     }
 

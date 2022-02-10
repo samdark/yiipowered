@@ -81,6 +81,7 @@ $autocompleteTagUrl = Url::toRoute(['/project/autocomplete-tags']);
 
     <?php if (UserPermissions::canManageProjects()): ?>
         <?= $form->field($model, 'is_featured')->checkbox() ?>
+        <?= $form->field($model, 'verified')->checkbox() ?>
     <?php endif ?>
 </div>
 

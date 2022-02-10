@@ -33,6 +33,10 @@ $management = isset($management) ? $management : null;
                     <span class="featured" aria-hidden="true"></span>
                 <?php endif ?>
 
+                <?php if ($model->verified): ?>
+                    <span class="verified" aria-hidden="true"></span>
+                <?php endif ?>
+
                 <?php if ($model->status !== Project::STATUS_PUBLISHED && $canManageProject): ?>
                     <span class="label <?= $model->getStatusClass() ?>"><?= $model->getStatusLabel() ?></span>
                 <?php endif ?>
