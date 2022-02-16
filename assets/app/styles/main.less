@@ -328,6 +328,35 @@ a {
   }
 }
 
+// Project badges
+
+.featured {
+  .fa-icon();
+  color: @yellow-color;
+
+  &:before {
+    content: @fa-var-star;
+  }
+}
+
+.verified {
+  .fa-icon();
+  color: @primary-green-color;
+
+  &:before {
+    content: @fa-var-check-circle;
+  }
+}
+
+.warning {
+  .fa-icon();
+  color: @orange-color;
+
+  &:before {
+    content: @fa-var-warning;
+  }
+}
+
 // PROJECT VIEW
 
 .project-view,
@@ -346,33 +375,6 @@ a {
 
       .url {
         font-size: 16pt;
-      }
-
-      .featured {
-        .fa-icon();
-        color: @yellow-color;
-
-        &:before {
-          content: @fa-var-star;
-        }
-      }
-
-      .verified {
-        .fa-icon();
-        color: @primary-green-color;
-
-        &:before {
-          content: @fa-var-check-circle;
-        }
-      }
-
-      .warning {
-        .fa-icon();
-        color: @orange-color;
-
-        &:before {
-          content: @fa-var-warning;
-        }
       }
     }
 
@@ -513,6 +515,12 @@ a {
         text-align: center;
         font-size: 14pt;
         margin-bottom: 1em;
+      }
+
+      .badges {
+        position: absolute;
+        right: .5em;
+        top: .5em;
       }
 
       .tags {
