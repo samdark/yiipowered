@@ -51,6 +51,8 @@ $this->title = Yii::t('project', 'Projects');
                             'prompt' => Yii::t('project', 'Any Status'),
                         ])->label(false);
                     ?>
+
+                    <?= $form->field($filterForm, 'notVerified')->checkbox() ?>
                 <?php endif ?>
 
                 <div class="form-group text-center">
