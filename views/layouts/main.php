@@ -17,6 +17,18 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
+    <?php if (YII_ENV_PROD): ?>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z5JPXCG2CM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-Z5JPXCG2CM');
+    </script>
+    <?php endif ?>
+
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
@@ -143,9 +155,6 @@ AppAsset::register($this);
             </div>
         </footer>
     </div>
-
-    <?php GoogleAnalytics::track('UA-96041959-1') ?>
-
 <?php $this->endBody() ?>
 </body>
 </html>
