@@ -1,0 +1,7 @@
+.git
+.idea
+vendor/
+node_modules/
+runtime/*
+web/assets/*
+!web/assets/.gitignore

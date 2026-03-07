@@ -8,4 +8,12 @@ return [
         'clientSecret' => 'client_secret_key',
         'scope' => 'user:email',
     ],
+    'twitter' => [
+        'class' => \yii\authclient\clients\Twitter::class,
+        'attributeParams' => [
+            'include_email' => 'true'
+        ],
+        'consumerKey' => 'twitter_consumer_key',
+        'consumerSecret' => 'twitter_consumer_secret',
+    ],
 ];

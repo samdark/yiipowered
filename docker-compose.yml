@@ -1,39 +1,43 @@
 networks:
   yiipowered_public:
-    name: yiipowered_public_php84
+    name: yiipowered_public_php
   yiipowered_private:
-    name: yiipowered_private_php84
+    name: yiipowered_private_php
 
 volumes:
-  yiipowered_mysql_php84:
-  php_socket_php84:
+  yiipowered_mysql_php:
+  php_socket_php:
 
 services:
   yiipowered:
-    container_name: yiipowered_php84
-    image: yiipowered:php8.4
+    container_name: yiipowered_php
+    image: yiipowered:php
+    env_file:
+      - .env
     build:
-      context: './'
+      context: "./"
       dockerfile: docker/php/Dockerfile
     volumes:
-      - '.:/var/www'
-      - 'php_socket_php84:/var/run/php'
+      - ".:/var/www"
+      - "php_socket_php:/var/run/php"
     depends_on:
       - mysql
     networks:
       - yiipowered_public
       - yiipowered_private
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   nginx:
-    container_name: yiipowered_nginx_php84
+    container_name: yiipowered_nginx_php
     build:
-      context: './docker/nginx'
+      context: "./docker/nginx"
     volumes:
-      - './docker/nginx/local:/etc/nginx/conf.d:ro'
-      - '.:/var/www'
-      - 'php_socket_php84:/var/run/php'
+      - "./docker/nginx/local:/etc/nginx/conf.d:ro"
+      - ".:/var/www"
+      - "php_socket_php:/var/run/php"
     ports:
-      - '80:80'
+      - "80:80"
     depends_on:
       - yiipowered
     networks:
@@ -43,16 +47,17 @@ services:
       yiipowered_private: {}
 
   mysql:
-    container_name: yiipowered_mysql_php84
-    image: 'mariadb:10.1.44'
+    container_name: yiipowered_mysql_php
+    image: "mariadb:10.1.44"
     ports:
-      - '3306:3306'
+      - "3306:3306"
     volumes:
-      - yiipowered_mysql_php84:/var/lib/mysql/data
+      - yiipowered_mysql_php:/var/lib/mysql/data
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: yiipowered
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      DB_DSN: ${DB_DSN}
     networks:
       yiipowered_private:
         aliases:

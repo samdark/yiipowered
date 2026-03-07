@@ -38,3 +38,9 @@ tests/_support/_generated
 
 # IDEs other settings
 .data
+
+# build log
+build.log
+
+# env file
+.env
