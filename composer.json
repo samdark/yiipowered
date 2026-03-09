@@ -7,7 +7,7 @@
     "license": "BSD-3-Clause",
     "minimum-stability": "stable",
     "require": {
-        "php": ">=7.0.0",
+        "php": ">=8.4.0",
         "yiisoft/yii2": "~2.0.35",
         "yiisoft/yii2-bootstrap": "~2.0.6",
         "yiisoft/yii2-swiftmailer": "~2.0.6",
@@ -25,8 +25,7 @@
         "bower-asset/font-awesome": "~4.7.0.0",
         "claviska/simpleimage": "^3.3",
         "abraham/twitteroauth": "^2.0.2",
-        "yiisoft/yii2-queue": "~2.3.3",
-        "vlucas/phpdotenv": "^5.6"
+        "yiisoft/yii2-queue": "~2.3.3"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.13",
@@ -39,25 +38,6 @@
         },
         "audit": {
             "block-insecure": false
-        }
-    },
-    "scripts": {
-        "post-create-project-cmd": [
-            "yii\\composer\\Installer::postCreateProject"
-        ]
-    },
-    "extra": {
-        "yii\\composer\\Installer::postCreateProject": {
-            "setPermission": [
-                {
-                    "runtime": "0777",
-                    "web/assets": "0777",
-                    "yii": "0755"
-                }
-            ],
-            "generateCookieValidationKey": [
-                "config/web.php"
-            ]
         }
     },
     "repositories": [

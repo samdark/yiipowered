@@ -1,0 +1,49 @@
+services:
+  app:
+    build:
+      dockerfile: docker/Dockerfile
+      context: ..
+      target: dev
+      args:
+        USER_ID: ${UID}
+        GROUP_ID: ${GID}
+    env_file:
+      - path: ./dev/.env
+      - path: ./dev/override.env
+        required: false
+    environment:
+      DB_HOST: 'db'
+      DB_NAME: ${DEV_DB_NAME}
+      DB_PORT: 3306
+      DB_USERNAME: 'root'
+      DB_PASSWORD: ${DEV_DB_PASSWORD}
+      COOKIE_KEY: 'cookie_key'
+    ports:
+      - "${DEV_PORT:-80}:80"
+    volumes:
+      - ../:/app
+      - ../runtime:/app/runtime
+      - caddy_data:/data
+      - caddy_config:/config
+    tty: true
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mariadb:lts
+    restart: always
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    ports:
+      - "${DEV_DB_PORT}:3306"
+    environment:
+      MARIADB_DATABASE: ${DEV_DB_NAME}
+      MARIADB_ROOT_PASSWORD: ${DEV_DB_PASSWORD}
+      MARIADB_AUTO_UPGRADE: 1
+    volumes:
+      - "../runtime/db:/var/lib/mysql:Z"
