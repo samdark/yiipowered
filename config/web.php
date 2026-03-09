@@ -1,5 +1,6 @@
 <?php
 
+use baibaratsky\yii\rollbar\Rollbar;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\rbac\PhpManager;
@@ -61,8 +62,7 @@ $config = [
             'class' => PhpManager::class,
         ],
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => require __DIR__ . '/key.php',
+            'cookieValidationKey' => $_ENV['COOKIE_KEY'],
         ],
         'cache' => [
             'class' => FileCache::class,
@@ -77,7 +77,7 @@ $config = [
         'mailer' => [
             'class' => Mailer::class,
             // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
+            // 'useFileTransport' to false and configure transport
             // for the mailer to send real emails.
             'useFileTransport' => YII_DEBUG,
         ],
@@ -129,8 +129,15 @@ if (YII_ENV_DEV) {
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = Module::class;
-} else {
-    $config['components']['rollbar'] = require __DIR__  . '/rollbar.php';
+}
+
+$rollbarToken = $_ENV['ROLLBAR_TOKEN'] ?? null;
+
+if ($rollbarToken !== null) {
+    $config['components']['rollbar'] = [
+        'class' => Rollbar::class,
+        'accessToken' => $rollbarToken,
+    ];
     $config['bootstrap'][] = 'rollbar';
     $config['components']['errorHandler']['class'] = ErrorHandler::class;
 }

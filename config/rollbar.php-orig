@@ -1,7 +1,0 @@
-<?php
-use baibaratsky\yii\rollbar\Rollbar;
-
-return [
-    'class' => Rollbar::class,
-    'accessToken' => 'token_should_be_here',
-];

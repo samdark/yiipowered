@@ -2,6 +2,7 @@
 
 use codemix\localeurls\UrlManager;
 use yii\helpers\ArrayHelper;
+use yii\queue\db\Queue;
 use yii\web\UrlNormalizer;
 
 $languages = [
@@ -13,7 +14,7 @@ $languages = [
     'de' => ['de-DE', 'Deutsch'],
 ];
 
-return [
+$params = [
     'adminEmail' => 'sam+yiipowered@rmcreative.ru',
     'notificationEmail' => 'noreply@yiipowered.com',
     'supportEmail' => 'noreply@yiipowered.com',
@@ -48,7 +49,7 @@ return [
         ],
     ],
     'components.queue' => [
-        'class' => \yii\queue\db\Queue::class,
+        'class' => Queue::class,
         'channel' => 'default'
     ],
 
@@ -58,5 +59,56 @@ return [
     'HtmlPurifier.projectComment' => [
         'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,ul,ol,li,b,i,u,strong,br,sub,sup,a[href],img[src]',
     ],
-    
 ];
+
+$appAbsoluteUrl = $_ENV['APP_ABSOLUTE_URL'] ?? null;
+if ($appAbsoluteUrl) {
+    $params['siteAbsoluteUrl'] = $appAbsoluteUrl;
+}
+
+/*
+ * @see https://apps.twitter.com/app/new
+ *
+ * After creating an app you need to fill accessToken and accessTokenSecret:
+ *
+ * Open App -> Keys and Access Tokens -> You Access Token -> Create my access token
+ */
+$twitterConsumerKey = $_ENV['TWITTER_CONSUMER_KEY'] ?? null;
+if ($twitterConsumerKey !== null) {
+    $params['twitter.consumerKey'] = $twitterConsumerKey;
+}
+
+$twitterConsumerSecret = $_ENV['TWITTER_CONSUMER_SECRET'] ?? null;
+if ($twitterConsumerSecret !== null) {
+    $params['twitter.consumerSecret'] = $twitterConsumerSecret;
+}
+
+$twitterAccessToken = $_ENV['TWITTER_ACCESS_TOKEN'] ?? null;
+if ($twitterAccessToken !== null) {
+    $params['twitter.accessToken'] = $twitterAccessToken;
+}
+
+$twitterAccessTokenSecret = $_ENV['TWITTER_ACCESS_TOKEN_SECRET'] ?? null;
+if ($twitterAccessTokenSecret !== null) {
+    $params['twitter.accessTokenSecret'] = $twitterAccessTokenSecret;
+}
+
+
+// get these at https://screenshotlayer.com/dashboard
+$screenshotLayerSecret = $_ENV['SCREENSHOT_LAYER_SECRET'] ?? null;
+if ($screenshotLayerSecret !== null) {
+    $params['screenshotLayer.secret'] = $screenshotLayerSecret;
+}
+
+$screenshotLayerAccessKey = $_ENV['SCREENSHOT_LAYER_ACCESS_KEY'] ?? null;
+if ($screenshotLayerAccessKey !== null) {
+    $params['screenshotLayer.accessKey'] = $screenshotLayerAccessKey;
+}
+
+// get these at https://apiflash.com/documentation#access
+$apiFlashAccessKey = $_ENV['API_FLASH_ACCESS_KEY'] ?? null;
+if ($apiFlashAccessKey !== null) {
+    $params['apiFlash.accessKey'] = $apiFlashAccessKey;
+}
+
+return $params;
